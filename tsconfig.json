@@ -1,0 +1,9 @@
+{
+  "files": [],
+  "references": [
+    { "path": "packages/design" },
+    { "path": "packages/rules-dames" },
+    { "path": "packages/rules-ludo" },
+    { "path": "packages/fair-dice" }
+  ]
+}

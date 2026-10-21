@@ -491,14 +491,23 @@ Remarques :
 
 ---
 
-## 6. Questions avant de coder
+## 6. Décisions (réponses du 21 octobre 2026)
 
-1. **Ludo de 2 à 6 en V1** : croix pour 2 à 4 + étoile à 6 branches pour 5–6 (comme les planches), ou seulement la croix 2–4 en V1 ?
-2. **Mises en V1** : mise en salon (18 ans et plus, plafond = min(25 % du plus petit solde, limite de la table)) dès la V1, ou seulement les cauris gagnés (bienvenue, participation, victoires contre la machine) et leur journal ?
-3. **Joueur absent au Ludo** : 15 s par tour et, après 3 tours manqués, la machine joue à sa place jusqu'à la fin (sans mise récupérable) ; ou bien 30 s et sortie de la partie après 60 s ?
-4. **Machine aux Dames** : les 6 échelons (Apprenti → Fon) de la planche Moteur, ou les 5 difficultés de l'écran 15 ? Et le jeu hors connexion contre la machine dès la V1 ?
-5. **Connexion en V1** : e-mail + téléphone (SMS au Cameroun : fournisseur à choisir), Google, Apple — tout dès la V1 ou l'e-mail d'abord ?
-6. **Hébergement** : préférence de fournisseur et de région (proche de Douala/Yaoundé pour la latence), budget ?
-7. **Langues** : français et anglais dès la V1 ?
-8. **Couleur des surfaces** : `#20265A` (post-audit) partout, `#1D2B6E` réservé aux en-têtes et badges ?
-9. **Sortie** : Android et iOS ensemble pour la V1, ou Android d'abord ?
+| # | Question | Décision |
+|---|---|---|
+| 1 | Ludo de 2 à 6 | **Tout** : croix pour 2 à 4 joueurs, étoile à 6 branches pour 5 et 6 (`presetForPlayers`). |
+| 2 | Mises en V1 | **Oui, 18 ans et plus** : mise en salon (profils seulement), plafond = min(25 % du plus petit solde, limite de la table). |
+| 3 | Joueur absent au Ludo | **30 s par tour** ; à la fin du temps, la machine joue ce tour à sa place. Absent (déconnecté) **plus de 60 s** : il sort de la partie, ses pions quittent le plateau, il finit dernier et perd sa mise. |
+| 4 | Machine aux Dames | **Les deux** : 6 échelons (Apprenti → Fon) pour la progression du joueur, et 5 difficultés (Facile, Moyen, Coriace, Notable = ton niveau, Fon) à l'écran 15, réglées par rapport à son échelon. **Jouable hors connexion dès la V1.** |
+| 5 | Connexion en V1 | **E-mail seulement** (code à 6 chiffres par e-mail). Téléphone, Google et Apple plus tard. |
+| 6 | Hébergement | **Un VPS** : `docker compose` (PostgreSQL, Redis, API, moteur Ludo, proxy HTTPS). |
+| 7 | Langues | **Français et anglais dès la V1.** |
+| 8 | Couleur des surfaces | Tranché avec le skill de design : le système le plus récent du projet fait foi, ici la correction de l'audit. **Surfaces `#20265A`, bordures `#3D4590`** ; ndop `#1D2B6E` pour les en-têtes et badges. |
+| 9 | Sortie | **Android et iOS en même temps.** |
+
+Conséquences sur le plan :
+- Étape 2 : e-mail seulement ; envoi par SMTP.
+- Étape 3 : moteur de dames embarqué dans l'appli pour le hors-ligne ; gains revalidés par le serveur au retour du réseau.
+- Étape 5 : pendule de 30 s par tour, remplacement par l'agent heuristique pour le tour, sortie après 60 s d'absence.
+- Étape 6 : mises de salon et blocage des cauris sur un compte séquestre de la partie.
+- Apple n'impose « Se connecter avec Apple » que si l'on propose une autre connexion sociale : l'e-mail seul est conforme.

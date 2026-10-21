@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Système</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.card{background:#20265A;border-radius:18px;padding:20px 22px;display:flex;flex-direction:column;gap:10px}
+.h{margin:0;font-family:'Unbounded',sans-serif;font-size:16px;font-weight:700}
+.ent{background:#0F1230;border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.5}
+.ent b{font-family:'Unbounded',sans-serif;font-size:12px;color:#F2B705}
+ul{margin:0;padding-left:18px;font-size:14px;line-height:1.6}
+.k{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+</style>
+</helmet>
+<div style="width:1520px;height:1240px;box-sizing:border-box;padding:52px 56px;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;gap:28px">
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <h1 class="d" style="margin:0;font-size:34px;font-weight:800;letter-spacing:-0.02em">Sous le capot</h1>
+    <p style="margin:0;font-size:16px;color:#A9AECF;max-width:900px;line-height:1.5">Les données, l'économie des cauris et les comptes. Le serveur fait foi : chaque coup, chaque mise et chaque gain y est écrit.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;flex:1">
+
+    <div class="card">
+      <div class="k">Données principales</div>
+      <h2 class="h">Un profil, plusieurs espaces</h2>
+      <div class="ent"><b>Profil</b> · pseudo unique, contact, avatar ou photo, cadre, langue, sons</div>
+      <div class="ent"><b>NiveauJeu</b> · profil × jeu : force, niveau, échelon, séries. Une ligne par jeu (Dames, Ludo, Raisonnement)</div>
+      <div class="ent"><b>Salon</b> · code à 6 caractères, jeu, places (2 à 4), format, mise, hôte, file d'attente</div>
+      <div class="ent"><b>Partie</b> · salon ou ligue ou machine, joueurs, coups horodatés, résultat</div>
+      <div class="ent"><b>Ligue</b> · type (championnat ou coupe), accès (privé ou public), poules, rencontres aller et retour, barème</div>
+      <div class="ent"><b>Mouvement</b> · journal des cauris : qui, combien, pourquoi, partie liée</div>
+      <div class="ent"><b>Objet</b> · cartes, avatars, cadres possédés, édition et numéro d'exemplaire</div>
+      <div class="ent"><b>Médaille</b> · or, argent, bronze, ligue d'origine, date</div>
+    </div>
+
+    <div class="card">
+      <div class="k">Économie</div>
+      <h2 class="h">D'où viennent les cauris, où ils vont</h2>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+        <div style="background:#14382E;border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px">
+          <b style="color:#5FD3A2;font-size:13px">ENTRÉES</b>
+          <span style="font-size:13px;line-height:1.5">Victoires contre la machine<br>Participation (+10)<br>Quêtes, série de jours<br>Cagnottes de ligue<br>Bonus de bienvenue : 500</span>
+        </div>
+        <div style="background:#2A1820;border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px">
+          <b style="color:#FF8A75;font-size:13px">SORTIES</b>
+          <span style="font-size:13px;line-height:1.5">Avatars et pièces d'avatar<br>Paris perdus contre la machine<br>Droits d'entrée de ligue<br>Cadres, habillages de plateau</span>
+        </div>
+      </div>
+      <div class="k" style="margin-top:6px">Une mise, pas à pas</div>
+      <ul>
+        <li>Les deux joueurs acceptent : les cauris sont <b>bloqués</b> sur le serveur.</li>
+        <li>Fin de partie : le pot est versé au gagnant, deux lignes au journal.</li>
+        <li>Nul : chacun récupère sa mise.</li>
+        <li>Abandon ou absence de plus de 60 s : défaite.</li>
+        <li>Plafond : 25 % du plus petit solde. Pas de mise pour les invités.</li>
+      </ul>
+      <div style="background:#1D2B6E;border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.5"><b>Pas d'argent réel.</b> Les cauris ne s'achètent pas et ne se retirent pas. Ça garde l'app hors des règles sur les jeux d'argent des stores Apple et Google.</div>
+    </div>
+
+    <div class="card">
+      <div class="k">Comptes & sauvegarde</div>
+      <h2 class="h">Entrer, sortir, revenir</h2>
+      <ul>
+        <li>Inscription par e-mail ou téléphone, ou avec Google ou Apple.</li>
+        <li>Mot de passe oublié : code à 6 chiffres par SMS ou e-mail, valable 10 min, 5 essais.</li>
+        <li>Invité : jeton temporaire lié à l'appareil. À la création du profil, ses parties y sont rattachées.</li>
+        <li>Pseudo unique, modifiable une fois tous les 30 jours.</li>
+        <li>Suppression du compte : effacement sous 30 jours, export possible avant.</li>
+      </ul>
+      <div class="k" style="margin-top:6px">Partie coupée</div>
+      <ul>
+        <li>État enregistré à chaque coup.</li>
+        <li>Coupure réseau : 60 s pour revenir, la pendule s'arrête.</li>
+        <li>Changement de téléphone : tout revient à la connexion.</li>
+      </ul>
+      <div class="k" style="margin-top:6px">Équité</div>
+      <ul>
+        <li>Force calculée par jeu, façon Elo.</li>
+        <li>10 parties récompensées par jour contre la machine.</li>
+        <li>Deux comptes sur le même appareil ne peuvent pas miser l'un contre l'autre.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1520,"height":1240}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

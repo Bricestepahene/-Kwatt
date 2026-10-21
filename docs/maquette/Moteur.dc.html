@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Moteur de jeu</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.k{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+.card{background:#20265A;border:1px solid #3D4590;border-radius:18px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.h{margin:0;font-family:'Unbounded',sans-serif;font-size:16px;font-weight:700}
+ul,ol{margin:0;padding-left:18px;font-size:14px;line-height:1.6}
+.f{background:#0F1230;border-radius:10px;padding:10px 14px;font-family:'Unbounded',sans-serif;font-size:12px;font-weight:500;color:#F2B705;line-height:1.7}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{text-align:left;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#A9AECF;padding:6px 8px;border-bottom:1px solid #3D4590}
+td{padding:7px 8px;border-bottom:1px solid #3D4590;vertical-align:top;line-height:1.4}
+td:first-child{font-weight:700;white-space:nowrap}
+</style>
+</helmet>
+<div style="width:1520px;height:1300px;box-sizing:border-box;padding:44px 56px;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;gap:20px">
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <h1 class="d" style="margin:0;font-size:32px;font-weight:800;letter-spacing:-0.02em">Le moteur : fort comme les meilleurs, humain à chaque échelon</h1>
+    <p style="margin:0;font-size:15px;color:#A9AECF;max-width:1100px;line-height:1.5">Deux objectifs à tenir ensemble. Au sommet (échelon Fon), jouer au niveau des meilleurs programmes du monde. À chaque échelon en dessous, perdre comme un humain de ce niveau, pas comme un ordinateur qui fait exprès.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px">
+    <div class="card">
+      <div class="k">La barre mondiale</div>
+      <h2 class="h">Où en sont les meilleurs</h2>
+      <ul>
+        <li><b>8×8 anglaises : jeu résolu en 2007</b> par le programme Chinook. Avec un jeu parfait des deux côtés, c'est nul. Un moteur avec de grosses bases de finales peut donc ne jamais perdre.</li>
+        <li><b>10×10 internationales : pas résolu.</b> Scan et KingsRow sont parmi les plus forts ; Scan a gagné les dernières Olympiades informatiques, KingsRow a des bases de finales jusqu'à 8 pièces.</li>
+        <li><b>Objectif Fon :</b> faire jeu égal avec eux, mesuré en matchs réels.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="k">Architecture</div>
+      <h2 class="h">Cinq briques par variante</h2>
+      <ol>
+        <li><b>Règles exactes</b> : prise majoritaire et dame volante en 10×10, libre choix et dame courte en 8×8. Couvertes par des milliers de positions de test.</li>
+        <li><b>Recherche</b> alpha-bêta, approfondissement itératif, table de transposition, prises jamais coupées.</li>
+        <li><b>Évaluation apprise</b> par un petit réseau entraîné en jouant contre lui-même (auto-jeu).</li>
+        <li><b>Bases de finales</b> et <b>livre d'ouvertures</b> tiré de parties de maîtres et de clubs camerounais.</li>
+        <li><b>Deux tailles</b> : moteur complet sur le serveur, version légère dans l'appli pour jouer hors connexion.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <div class="k">Ludo</div>
+      <h2 class="h">Malin sans tricher</h2>
+      <ul>
+        <li>La machine ne touche <b>jamais</b> au dé : le même dé vérifiable pour tout le monde (écran 22).</li>
+        <li>Elle choisit quel pion bouger en simulant des milliers de suites de lancers : manger, se mettre à l'abri, bloquer, rentrer.</li>
+        <li>Plus l'échelon monte, plus elle anticipe les menaces des autres joueurs et joue la sécurité au bon moment.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:18px;flex:1">
+    <div class="card">
+      <div class="k">Le vrai défi · perdre comme un humain</div>
+      <h2 class="h">Un modèle par échelon, entraîné sur de vraies parties</h2>
+      <table>
+        <tr><th>Échelon</th><th>Force visée</th><th>Ce qu'il voit</th><th>Comment il se trompe</th></tr>
+        <tr><td>Apprenti</td><td>≈ 800</td><td>les prises d'un coup</td><td>laisse des pions en prise, ne voit pas les rafles</td></tr>
+        <tr><td>Débrouillard</td><td>≈ 1 100</td><td>2 à 3 coups</td><td>oublie la riposte après sa propre prise</td></tr>
+        <tr><td>Ancien du kwatt</td><td>≈ 1 350</td><td>pièges simples</td><td>structure fragile, fin de partie approximative</td></tr>
+        <tr><td>Notable</td><td>≈ 1 550</td><td>rafles et coups de dame</td><td>rate les combinaisons longues</td></tr>
+        <tr><td>Chef</td><td>≈ 1 800</td><td>plan à long terme</td><td>rares erreurs de tempo</td></tr>
+        <tr><td>Fon</td><td>force maximale</td><td>tout, bases de finales comprises</td><td>presque jamais</td></tr>
+      </table>
+      <ul>
+        <li>Les erreurs sont celles que font les humains de ce niveau, apprises sur leurs parties : jamais un coup absurde au milieu d'une bonne partie.</li>
+        <li>Chaque variante a sa propre force (un joueur fort en 10×10 peut débuter en 8×8).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="k">S'adapter · mesurer · protéger</div>
+      <div class="f">chance de gagner p = 1 ÷ (1 + 10^((force machine − ta force) ÷ 400))<br>cote du pari = 0,9 ÷ p</div>
+      <ul>
+        <li><b>Adaptation :</b> ta force bouge après chaque partie ; la machine « ton niveau » vise une chance sur deux.</li>
+        <li><b>Mesure :</b> chaque version du moteur joue des milliers de parties contre la précédente et contre des moteurs de référence, et passe une suite fixe de positions. Les joueurs doivent gagner entre 45 et 55 % à leur niveau.</li>
+        <li><b>Anti-triche :</b> en ligue et en mise, on compare les coups d'un joueur au meilleur coup du moteur et on regarde ses temps de réflexion. Les profils trop parfaits passent en revue.</li>
+        <li><b>À vérifier avant de réutiliser un moteur existant :</b> sa licence.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1520,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Signaler ou bloquer</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;position:relative;overflow:hidden">
+  <div style="padding:24px 20px;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.5">
+    <span class="d" style="width:72px;height:72px;border-radius:50%;background:#14110F;border:2px solid #3D4590;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:24px">T</span>
+    <b class="d" style="font-size:18px">Tchoumi</b>
+    <span style="font-size:13px;color:#A9AECF">Dames · Débrouillard · Deïdo</span>
+  </div>
+  <div aria-hidden="true" style="position:absolute;inset:0;background:rgba(5,7,22,.6)"></div>
+
+  <section aria-label="Signaler Tchoumi" style="position:absolute;left:0;right:0;bottom:0;top:120px;background:#20265A;border-radius:28px 28px 0 0;padding:14px 20px 26px;display:flex;flex-direction:column;gap:12px">
+    <span style="align-self:center;width:44px;height:5px;border-radius:3px;background:#3D4590"></span>
+    <h1 class="d" style="margin:0;font-size:19px;font-weight:700">Que s'est-il passé ?</h1>
+    <fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:6px">
+      <legend style="position:absolute;width:1px;height:1px;overflow:hidden">Motif du signalement</legend>
+      <sc-for list="{{reasons}}" as="r" hint-placeholder-count="6">
+        <button type="button" role="radio" aria-checked="{{r.on}}" onClick="{{r.pick}}" style="{{r.st}}">
+          <span style="{{r.dot}}"></span>
+          <span style="display:flex;flex-direction:column;gap:1px;text-align:left"><b style="font-size:14px">{{r.label}}</b><span style="font-size:12px;color:#A9AECF">{{r.desc}}</span></span>
+        </button>
+      </sc-for>
+    </fieldset>
+    <div style="font-size:12px;color:#A9AECF;background:#0F1230;border-radius:10px;padding:10px 12px">La partie du 15 nov. est jointe automatiquement : la modération revoit chaque coup.</div>
+    <label style="display:flex;align-items:center;gap:10px;font-size:14px;min-height:44px">
+      <input type="checkbox" checked style="width:20px;height:20px;accent-color:#F2B705;margin:0">
+      <span>Bloquer aussi : il ne pourra plus m'inviter ni me défier</span>
+    </label>
+    <div style="margin-top:auto;display:flex;gap:10px">
+      <a href="Profil.dc.html" style="flex:1;height:52px;border-radius:14px;border:1px solid #3D4590;color:#F4EEDF;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;text-decoration:none">Annuler</a>
+      <button type="button" class="d" style="flex:2;height:52px;border:0;border-radius:14px;background:#F2B705;color:#0F1230;font-size:13px;font-weight:700">Envoyer</button>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { r: 'aide' }; }
+  renderVals() {
+    const L = [
+      ['aide', 'Aide extérieure', 'Il joue avec un logiciel ou se fait souffler les coups'],
+      ['insulte', 'Insultes', 'Dans les réactions ou le pseudo'],
+      ['photo', 'Photo choquante', 'Photo de profil inappropriée'],
+      ['comptes', 'Deux comptes', 'Il mise contre lui-même pour gagner des cauris'],
+      ['autre', 'Autre chose', 'Tu pourras écrire un message']
+    ];
+    const reasons = L.map(([id, label, desc]) => { const on = this.state.r === id; return { label, desc, on: String(on), pick: () => this.setState({ r: id }),
+      st: 'display:flex;align-items:center;gap:12px;min-height:56px;border-radius:12px;padding:8px 12px;background:#0F1230;color:#F4EEDF;' + (on ? 'border:2px solid #F4EEDF' : 'border:1px solid #3D4590'),
+      dot: 'width:20px;height:20px;border-radius:50%;flex-shrink:0;box-sizing:border-box;' + (on ? 'border:6px solid #F2B705' : 'border:2px solid #A9AECF') }; });
+    return { reasons };
+  }
+}
+</script>
+</body>
+</html>

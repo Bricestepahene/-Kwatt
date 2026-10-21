@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Matrice complète</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.k{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+.card{background:#20265A;border:1px solid #3D4590;border-radius:18px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{text-align:left;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#A9AECF;padding:6px 8px;border-bottom:1px solid #3D4590}
+td{padding:7px 8px;border-bottom:1px solid #3D4590;vertical-align:top;line-height:1.4}
+td:first-child{font-weight:700}
+.y{color:#5FD3A2;font-weight:700}
+.n{color:#A9AECF}
+.l{color:#F2B705;font-weight:700}
+</style>
+</helmet>
+<div style="width:1520px;height:1300px;box-sizing:border-box;padding:46px 56px;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;gap:20px">
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <h1 class="d" style="margin:0;font-size:32px;font-weight:800;letter-spacing:-0.02em">La matrice complète</h1>
+    <p style="margin:0;font-size:15px;color:#A9AECF">Ce que chaque jeu propose, qui a le droit de faire quoi, et ce que chaque écran affiche quand rien ne va.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px">
+    <div class="card">
+      <div class="k">Jeux × fonctions</div>
+      <table>
+        <tr><th>Fonction</th><th>Dames</th><th>Ludo</th><th>Raisonnement</th></tr>
+        <tr><td>Variantes</td><td class="y">10×10 internationales · 8×8 anglaises</td><td class="y">classique, rapide, Parchís, Pachisi, 6 joueurs</td><td class="n">—</td></tr>
+        <tr><td>Contre la machine</td><td class="y">oui · 5 niveaux</td><td class="y">oui · 1 à 3 machines</td><td class="y">séries chronométrées</td></tr>
+        <tr><td>Pari contre la machine</td><td class="y">oui</td><td class="y">oui</td><td class="l">plus tard</td></tr>
+        <tr><td>Salon privé par code</td><td class="y">2 joueurs</td><td class="y">2 à 4 joueurs</td><td class="y">duel à 2</td></tr>
+        <tr><td>Roi de la table</td><td class="y">oui</td><td class="y">le dernier sort</td><td class="n">non</td></tr>
+        <tr><td>Aller-retour</td><td class="y">couleurs échangées</td><td class="y">places tournées</td><td class="n">non</td></tr>
+        <tr><td>Défi avec mise</td><td class="y">1 contre 1</td><td class="y">pot partagé</td><td class="l">plus tard</td></tr>
+        <tr><td>Nul possible</td><td class="y">oui</td><td class="n">non</td><td class="n">non</td></tr>
+        <tr><td>Ligue privée · publique</td><td class="y">oui · oui</td><td class="y">oui · oui</td><td class="l">hebdo</td></tr>
+        <tr><td>Spectateurs</td><td class="y">oui</td><td class="y">oui</td><td class="n">non</td></tr>
+        <tr><td>Dé vérifiable</td><td class="n">sans objet</td><td class="y">oui</td><td class="n">sans objet</td></tr>
+        <tr><td>Guerre des quartiers</td><td class="y">oui</td><td class="y">oui</td><td class="y">oui</td></tr>
+        <tr><td>Niveau et échelon propres</td><td class="y">oui</td><td class="y">oui</td><td class="y">oui</td></tr>
+        <tr><td>Habillages</td><td class="y">damier, pions</td><td class="y">plateau, dé, pions</td><td class="n">thème</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="k">Qui peut faire quoi</div>
+      <table>
+        <tr><th>Action</th><th>Invité</th><th>Profil</th><th>Condition</th></tr>
+        <tr><td>Rejoindre un salon</td><td class="y">oui</td><td class="y">oui</td><td>code valide, place libre</td></tr>
+        <tr><td>Regarder une partie</td><td class="y">oui</td><td class="y">oui</td><td>lien ou partie publique</td></tr>
+        <tr><td>Créer un salon</td><td class="n">non</td><td class="y">oui</td><td>—</td></tr>
+        <tr><td>Miser, pronostiquer</td><td class="n">non</td><td class="y">oui</td><td>18 ans et plus ; mise ≤ 25 % du plus petit solde et ≤ limite de la table</td></tr>
+        <tr><td>Ligue privée gratuite</td><td class="y">oui</td><td class="y">oui</td><td>code</td></tr>
+        <tr><td>Ligue payante</td><td class="n">non</td><td class="y">oui</td><td>solde ≥ entrée, échelon minimum</td></tr>
+        <tr><td>Créer une ligue privée</td><td class="n">non</td><td class="y">oui</td><td>—</td></tr>
+        <tr><td>Créer une ligue publique</td><td class="n">non</td><td class="y">oui</td><td>échelon Ancien du kwatt et caution</td></tr>
+        <tr><td>Acheter un avatar</td><td class="n">non</td><td class="y">oui</td><td>cauris gagnés au jeu</td></tr>
+        <tr><td>Photo de profil</td><td class="n">non</td><td class="y">oui</td><td>modérée avant affichage</td></tr>
+        <tr><td>Miser contre un autre joueur</td><td class="n">non</td><td class="y">oui</td><td>18 ans et plus ; jamais deux comptes du même appareil</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" style="flex:1">
+    <div class="k">États de chaque écran · ce qu'on affiche quand ça ne va pas</div>
+    <table>
+      <tr><th style="width:15%">Écran</th><th>Vide</th><th>Chargement</th><th>Erreur</th><th>Hors connexion</th></tr>
+      <tr><td>Rejoindre par code</td><td>clavier ouvert, collage auto du code copié</td><td>« On cherche le salon… »</td><td>code inconnu · salon plein → « regarder à la place » · partie déjà lancée</td><td>« Pas de réseau : le code est gardé, on réessaie »</td></tr>
+      <tr><td>Salon</td><td>« Partage le code pour remplir la table »</td><td>places en pointillés</td><td>hôte parti → le plus ancien devient hôte</td><td>place gardée 60 s</td></tr>
+      <tr><td>Partie</td><td>—</td><td>plateau affiché d'abord, joueurs ensuite</td><td>coup refusé → le pion revient, vibration courte</td><td>pendule arrêtée 60 s, puis défaite ; contre la machine, on continue</td></tr>
+      <tr><td>Ligues</td><td>« Aucune ligue : rejoins la ligue publique du moment »</td><td>cartes grisées</td><td>code expiré, ligue complète</td><td>dernier classement connu, avec sa date</td></tr>
+      <tr><td>Ligue publique</td><td>« Pas encore d'inscrits : sois le premier »</td><td>—</td><td>solde insuffisant → « Il te manque X » · échelon trop bas</td><td>inscription impossible, affichée</td></tr>
+      <tr><td>Boutique, avatars</td><td>« Tout est à toi »</td><td>vignettes floues</td><td>achat refusé → cauris non débités</td><td>lecture seule</td></tr>
+      <tr><td>Profil, médailles</td><td>« Joue ta première partie pour remplir ta vitrine »</td><td>—</td><td>pseudo déjà pris → 3 propositions</td><td>données locales</td></tr>
+    </table>
+    <div style="font-size:13px;color:#A9AECF;line-height:1.5"><b style="color:#F4EEDF">Écrans ajoutés :</b> Ludo · choisir un mode, notifications, amis et invitations, signaler ou bloquer, premier lancement, règles de chaque jeu, revoir une partie, mode Plein soleil, contrôle de l'âge.</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1520,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

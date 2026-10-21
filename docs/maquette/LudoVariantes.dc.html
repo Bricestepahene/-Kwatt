@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Ludo, plateau et règles</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.kaba{background-image:repeating-linear-gradient(90deg,#E0442E 0 10px,#F2B705 10px 16px,#1F9D6B 16px 26px,#F4EEDF 26px 29px,#3FA7E0 29px 38px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+.rw{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:40px;padding:0 12px;border-top:1px solid #3D4590;font-size:13px}
+.rw:first-child{border-top:0}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden">
+  <div class="kaba" style="height:8px;flex-shrink:0"></div>
+  <div style="flex:1;min-height:0;overflow-y:auto;padding:14px 20px 24px;display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="ModeLudo.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#20265A;color:#F4EEDF">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+      </a>
+      <h1 class="d" style="margin:0;font-size:19px;font-weight:700">Plateau &amp; règles</h1>
+      <span style="{{badgeSt}}">{{badge}}</span>
+    </div>
+
+    <div class="lbl">1 · Le plateau</div>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">
+      <sc-for list="{{boards}}" as="b" hint-placeholder-count="5">
+        <button type="button" aria-pressed="{{b.on}}" onClick="{{b.pick}}" style="{{b.st}}">
+          <b style="font-size:13px">{{b.name}}</b>
+          <span style="font-size:11px;color:#A9AECF;line-height:1.35">{{b.desc}}</span>
+        </button>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <span class="lbl">2 · Les mécanismes</span>
+      <label style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;min-height:44px">
+        <input type="checkbox" checked="{{custom}}" onChange="{{toggleCustom}}" style="width:20px;height:20px;accent-color:#F2B705;margin:0">Personnaliser
+      </label>
+    </div>
+    <div style="background:#20265A;border:1px solid #3D4590;border-radius:14px">
+      <sc-for list="{{rules}}" as="r" hint-placeholder-count="7">
+        <div class="rw"><span style="color:#A9AECF">{{r.k}}</span><b style="{{r.st}}">{{r.v}}</b></div>
+      </sc-for>
+    </div>
+    <div style="font-size:12px;line-height:1.5;color:#A9AECF">{{note}}</div>
+
+    <a href="{{playHref}}" class="d" style="margin-top:auto;height:54px;border-radius:14px;background:#F2B705;color:#0F1230;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;text-decoration:none;flex-shrink:0">Jouer en {{name}}</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { b: 'classique', custom: false }; }
+  renderVals() {
+    const s = this.state;
+    const B = {
+      classique: { name: 'Classique', desc: 'Croix, 4 joueurs', play: 'PartieLudo.dc.html', note: 'La référence : celle des ligues officielles et du classement principal du Ludo.',
+        r: ['Avec un 6', 'Renvoi à la maison', 'Étoiles et départs', 'Interdites', '1 dé', 'Rentrer ses 4 pions', 'Seul ou 2 contre 2'] },
+      rapide: { name: 'Rapide', desc: 'Croix, 2 pions chacun, 10 min', play: 'PartieLudo.dc.html', note: 'Pour une partie dans un taxi ou une pause. Classement séparé.',
+        r: ['Avec un 6 ou un 1', 'Renvoi + tu rejoues', 'Départs seulement', 'Interdites', '1 dé', 'Rentrer ses 2 pions', 'Seul'] },
+      parchis: { name: 'Parchís', desc: 'Croix 68 cases, version espagnole', play: 'PartieLudo.dc.html', note: 'Barrière : deux pions de même couleur sur une case, personne ne passe. Un 6 oblige à l’ouvrir.',
+        r: ['Avec un 5', 'Renvoi + avancer de 20', '12 cases sûres', 'Autorisées', '1 dé, trois 6 = pion renvoyé', 'Rentrer ses 4 pions', 'Seul ou 2 contre 2'] },
+      pachisi: { name: 'Pachisi aux cauris', desc: 'Croix traditionnelle, on lance 6 cauris', play: 'LancerCauris.dc.html', note: 'L’ancêtre du Ludo. Les cauris remplacent le dé : 0 ouverture vaut 25, 1 vaut 10. Toujours en équipes de 2, partenaires face à face.',
+        r: ['1er pion libre, puis grâce (6, 10, 25)', 'Renvoi + tu rejoues', '12 châteaux', 'Autorisées sur les châteaux', '6 cauris', 'L’équipe rentre ses 8 pions', '2 contre 2 obligatoire'] },
+      six: { name: '6 joueurs', desc: 'Étoile à 6 branches', play: 'PartieLudo6.dc.html', note: 'Plus d’adversaires, plus d’alliances d’un soir. De 2 à 6 joueurs, ou 3 équipes de 2. Classement séparé.',
+        r: ['Avec un 6', 'Renvoi à la maison', 'Étoiles et départs', 'Interdites', '1 dé', 'Rentrer ses 4 pions', 'Seul, 3 × 2 ou 2 × 3'] }
+    };
+    const K = ['Sortie de la base', 'Capture', 'Cases protégées', 'Barrières', 'Lancer', 'Victoire', 'Parties'];
+    const cur = B[s.b];
+    const locked = s.b === 'pachisi' ? [4, 6] : s.b === 'six' ? [] : [];
+    const boards = Object.keys(B).map((id) => { const on = s.b === id; return { name: B[id].name, desc: B[id].desc, on: String(on), pick: () => this.setState({ b: id }),
+      st: 'min-height:62px;border-radius:12px;background:#20265A;color:#F4EEDF;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;padding:8px 10px;text-align:left;' + (on ? 'border:2px solid #F4EEDF' : 'border:1px solid #3D4590') }; });
+    const rules = K.map((k, i) => ({ k, v: (s.custom && !locked.includes(i) && i < 4) ? cur.r[i] + ' ›' : cur.r[i],
+      st: 'text-align:right;' + (s.custom && !locked.includes(i) && i < 4 ? 'color:#F2B705' : 'color:#F4EEDF') }));
+    const ranked = !s.custom && (s.b === 'classique' || s.b === 'rapide' || s.b === 'six');
+    return { boards, rules, name: cur.name, playHref: cur.play, custom: s.custom,
+      note: s.custom ? 'Règles maison : partie amicale, sans classement ni mise. Les réglages incompatibles sont bloqués (voir la fiche des variantes).' : cur.note,
+      badge: ranked ? 'Classé' : 'Amical',
+      badgeSt: 'margin-left:auto;font-size:11px;font-weight:700;padding:5px 9px;border-radius:7px;' + (ranked ? 'background:#14382E;color:#5FD3A2' : 'background:#20265A;color:#A9AECF;border:1px solid #3D4590'),
+      toggleCustom: () => this.setState({ custom: !s.custom }) };
+  }
+}
+</script>
+</body>
+</html>

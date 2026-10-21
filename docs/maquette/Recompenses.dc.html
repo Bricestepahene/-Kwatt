@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Médailles et quêtes</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.toghu{background-color:#14110F;background-image:radial-gradient(circle,#F2B705 0 2px,transparent 3px),radial-gradient(circle,#E0442E 0 5px,transparent 6px);background-size:22px 22px,22px 22px;background-position:0 0,11px 11px}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+.q{display:flex;flex-direction:column;gap:8px;background:#20265A;border-radius:14px;padding:12px 14px}
+.bar{height:6px;border-radius:3px;background:#3D4590;overflow:hidden}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;padding:20px 20px 28px;gap:14px;overflow:hidden">
+  <div style="display:flex;align-items:center;gap:12px">
+    <a href="Profil.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#20265A;color:#F4EEDF">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </a>
+    <h1 class="d" style="margin:0;font-size:20px;font-weight:700">Récompenses</h1>
+  </div>
+
+  <div class="toghu" style="border-radius:18px;padding:16px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">
+    <div style="background:#14110F;border-radius:12px;padding:12px 6px;display:flex;flex-direction:column;align-items:center;gap:6px">
+      <svg width="40" height="48" viewBox="0 0 40 48" aria-hidden="true"><path d="M10 0h8l4 14h-8zM22 0h8l-4 14h-8z" fill="#E0442E"></path><circle cx="20" cy="30" r="16" fill="#F2B705" stroke="#8C6A00" stroke-width="2"></circle><path d="M20 21l3 6 6 .8-4.5 4.2 1.2 6-5.7-3-5.7 3 1.2-6L11 27.8l6-.8z" fill="#8C6A00"></path></svg>
+      <b class="d" style="font-size:18px">3</b><span style="font-size:12px;color:#E8D5A9">or</span>
+    </div>
+    <div style="background:#14110F;border-radius:12px;padding:12px 6px;display:flex;flex-direction:column;align-items:center;gap:6px">
+      <svg width="40" height="48" viewBox="0 0 40 48" aria-hidden="true"><path d="M10 0h8l4 14h-8zM22 0h8l-4 14h-8z" fill="#3FA7E0"></path><circle cx="20" cy="30" r="16" fill="#D9DCE6" stroke="#7D8296" stroke-width="2"></circle><path d="M20 21l3 6 6 .8-4.5 4.2 1.2 6-5.7-3-5.7 3 1.2-6L11 27.8l6-.8z" fill="#7D8296"></path></svg>
+      <b class="d" style="font-size:18px">7</b><span style="font-size:12px;color:#E8D5A9">argent</span>
+    </div>
+    <div style="background:#14110F;border-radius:12px;padding:12px 6px;display:flex;flex-direction:column;align-items:center;gap:6px">
+      <svg width="40" height="48" viewBox="0 0 40 48" aria-hidden="true"><path d="M10 0h8l4 14h-8zM22 0h8l-4 14h-8z" fill="#1F9D6B"></path><circle cx="20" cy="30" r="16" fill="#C9864A" stroke="#7A4A2A" stroke-width="2"></circle><path d="M20 21l3 6 6 .8-4.5 4.2 1.2 6-5.7-3-5.7 3 1.2-6L11 27.8l6-.8z" fill="#7A4A2A"></path></svg>
+      <b class="d" style="font-size:18px">12</b><span style="font-size:12px;color:#E8D5A9">bronze</span>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:12px;background:#1D2B6E;border-radius:14px;padding:12px 14px">
+    <span class="d" style="font-size:24px;font-weight:800;color:#F2B705">5</span>
+    <div style="display:flex;flex-direction:column;gap:2px;font-size:13px"><b>jours de suite au kwatt</b><span style="color:#A9AECF">Au 7e jour : carte rare au choix</span></div>
+  </div>
+
+  <div class="lbl">Quêtes de la semaine</div>
+  <div class="q">
+    <div style="display:flex;justify-content:space-between;font-size:14px"><b>Gagne 3 parties de Ludo</b><span style="color:#F2B705;font-weight:700">+50 cauris</span></div>
+    <div class="bar"><div style="width:66%;height:100%;background:#3FA7E0"></div></div>
+    <span style="font-size:12px;color:#A9AECF">Ludo · 2 / 3</span>
+  </div>
+  <div class="q">
+    <div style="display:flex;justify-content:space-between;font-size:14px"><b>Gagne un aller-retour</b><span style="color:#F2B705;font-weight:700">Carte rare</span></div>
+    <div class="bar"><div style="width:50%;height:100%;background:#E8D5A9"></div></div>
+    <span style="font-size:12px;color:#A9AECF">Dames · aller gagné, retour dimanche</span>
+  </div>
+  <div class="q">
+    <div style="display:flex;justify-content:space-between;font-size:14px"><b>Fais une rafle de 3 pions</b><span style="color:#5FD3A2;font-weight:700">Fait</span></div>
+    <button type="button" class="d" style="height:44px;border:0;border-radius:10px;background:#F2B705;color:#0F1230;font-size:12px;font-weight:700">Récupérer 80 cauris</button>
+  </div>
+
+  <div class="lbl">Trophées de ligue</div>
+  <div style="display:flex;gap:10px">
+    <div style="flex:1;background:#20265A;border-radius:12px;padding:10px 12px;font-size:13px;display:flex;flex-direction:column;gap:2px"><b>Coupe des Cousins</b><span style="color:#A9AECF">Champion · mai 2026</span></div>
+    <div style="flex:1;background:#20265A;border-radius:12px;padding:10px 12px;font-size:13px;display:flex;flex-direction:column;gap:2px"><b>Ludo du vendredi</b><span style="color:#A9AECF">2e · saison 1</span></div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

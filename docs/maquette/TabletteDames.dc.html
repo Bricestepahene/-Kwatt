@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Dames sur tablette</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.obom{background-color:#6E4426;background-image:repeating-linear-gradient(8deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px),repeating-linear-gradient(-3deg,rgba(255,220,170,.10) 0 1px,transparent 1px 11px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.rail{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#A9AECF}
+.rail:hover{color:#F4EEDF}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+</style>
+</helmet>
+<div style="width:1194px;height:834px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex">
+
+  <nav hidden aria-label="Navigation principale" style="display:none;width:88px;flex-shrink:0;background:#0B0E26;border-right:1px solid #3D4590;display:flex;flex-direction:column;align-items:center;gap:10px;padding:24px 0">
+    <a href="Accueil.dc.html" class="rail" aria-label="Accueil"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"></path></svg></a>
+    <a href="ModeDames.dc.html" class="rail" aria-label="Jouer" aria-current="page" style="background:#1D2B6E;color:#F2B705"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="6" r="3"></circle><path d="M8.5 20h7l-1.5-9h-4z"></path><path d="M6 20h12"></path></svg></a>
+    <a href="Ligues.dc.html" class="rail" aria-label="Ligues"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"></path><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 21h8"></path></svg></a>
+    <a href="Cartes.dc.html" class="rail" aria-label="Cartes"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="6" width="12" height="15" rx="2"></rect><path d="M8 3h10a2 2 0 0 1 2 2v13"></path></svg></a>
+    <a href="Profil.dc.html" class="rail" aria-label="Profil"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg></a>
+  </nav>
+
+  <main style="flex:1;display:flex;align-items:center;justify-content:center;padding:16px;position:relative">
+    <div class="obom" style="position:absolute;left:0;right:0;top:0;height:8px"></div>
+    <div role="img" aria-label="Damier 10 par 10" class="obom" style="padding:10px;border-radius:16px">
+      <div style="display:grid;grid-template-columns:repeat(10,70px);grid-template-rows:repeat(10,70px)">
+        <sc-for list="{{cells}}" as="c" hint-placeholder-count="100">
+          <div style="{{c.sq}}">
+            <sc-if value="{{c.has}}" hint-placeholder-val="{{false}}"><span style="{{c.pc}}"></span></sc-if>
+            <sc-if value="{{c.dot}}" hint-placeholder-val="{{false}}"><span style="width:26px;height:26px;border-radius:50%;background:#F2B705;box-shadow:0 0 0 7px rgba(242,183,5,.35)"></span></sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </main>
+
+  <aside style="width:330px;flex-shrink:0;background:#14173A;border-left:1px solid #3D4590;padding:24px 22px;box-sizing:border-box;display:flex;flex-direction:column;gap:14px">
+    <div style="flex:1"></div>
+    <div style="display:flex;align-items:center;gap:10px;background:#20265A;border-radius:14px;padding:12px">
+      <span class="d" style="width:42px;height:42px;border-radius:50%;background:#14110F;border:2px solid #F4EEDF;display:flex;align-items:center;justify-content:center;font-weight:800">M</span>
+      <div style="display:flex;flex-direction:column"><b>Mireille</b><span style="font-size:12px;color:#A9AECF">14 pions</span></div>
+      <span class="d" style="margin-left:auto;font-size:18px;font-weight:700;color:#A9AECF">03:48</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;background:#20265A;border-radius:14px;padding:12px;border:2px solid #F4EEDF">
+      <span class="d" style="width:42px;height:42px;border-radius:50%;background:#F4EEDF;color:#0F1230;display:flex;align-items:center;justify-content:center;font-weight:800">B</span>
+      <div style="display:flex;flex-direction:column"><b>Toi · à toi</b><span style="font-size:12px;color:#A9AECF">15 pions</span></div>
+      <span class="d" style="margin-left:auto;font-size:18px;font-weight:700;color:#F2B705">04:12</span>
+    </div>
+    <div style="text-align:center;font-size:14px;font-weight:700;color:#F2B705">Prise obligatoire</div>
+
+    <div style="flex:1"></div>
+    <button type="button" aria-label="Menu de la partie : nul, réactions, son, abandon" style="align-self:flex-end;width:52px;height:52px;border-radius:14px;border:1px solid #3D4590;background:#20265A;color:#F4EEDF;display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"></circle><circle cx="12" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle></svg></button>
+  </aside>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1194,"height":834}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const black = ['0,1','0,3','0,5','0,9','1,0','1,2','1,6','1,8','2,3','2,5','2,9','3,2','3,4','3,8','4,5'];
+    const white = ['5,4','6,1','6,3','6,5','6,7','7,0','7,4','7,8','8,1','8,3','8,5','8,9','9,0','9,2','9,6'];
+    const cells = [];
+    for (let r = 0; r < 10; r++) for (let c = 0; c < 10; c++) {
+      const k = r + ',' + c, dark = (r + c) % 2 === 1, isB = black.includes(k), isW = white.includes(k);
+      let pc = 'width:54px;height:54px;border-radius:50%;box-sizing:border-box;';
+      if (isW) pc += 'background:#F4EEDF;border:6px solid #C9B98F;box-shadow:0 4px 0 #8C7B55;';
+      if (isB) pc += 'background:#14110F;border:6px solid #3A322B;box-shadow:0 4px 0 #000;';
+      if (k === '5,4') pc += 'outline:4px solid #F2B705;outline-offset:2px;';
+      if (k === '4,5') pc += 'outline:3px dashed #FF8A75;outline-offset:2px;';
+      cells.push({ sq: 'display:flex;align-items:center;justify-content:center;background:' + (dark ? '#A8703F' : '#F1E2BF') + (k === '3,6' ? ';box-shadow:inset 0 0 0 4px #F2B705' : ''),
+        pc, has: isB || isW, dot: k === '3,6' });
+    }
+    return { cells };
+  }
+}
+</script>
+</body>
+</html>

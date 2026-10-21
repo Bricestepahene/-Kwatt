@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Paramètres</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;padding:0 14px;border-bottom:1px solid #3D4590;font-size:14px}
+.row:last-child{border-bottom:0}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;padding:20px 20px 28px;gap:14px;overflow-y:auto">
+
+  <div style="display:flex;align-items:center;gap:12px">
+    <a href="Profil.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#20265A;color:#F4EEDF">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </a>
+    <h1 class="d" style="margin:0;font-size:20px;font-weight:700">Paramètres</h1>
+  </div>
+
+  <div style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF">Sons du plateau</div>
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+    <button type="button" aria-pressed="true" style="height:64px;border-radius:14px;border:2px solid #F4EEDF;background:#20265A;color:#F4EEDF;font-size:13px;font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px">Balafon<span style="font-size:11px;font-weight:400;color:#A9AECF">par défaut</span></button>
+    <button type="button" aria-pressed="false" style="height:64px;border-radius:14px;border:1px solid #3D4590;background:#20265A;color:#F4EEDF;font-size:13px;font-weight:700">Tam-tam</button>
+    <button type="button" aria-pressed="false" style="height:64px;border-radius:14px;border:1px solid #3D4590;background:#20265A;color:#F4EEDF;font-size:13px;font-weight:700">Silence</button>
+  </div>
+  <div style="background:#20265A;border-radius:14px">
+    <label class="row"><span>Volume des effets</span><input type="range" value="70" style="width:140px;accent-color:#F2B705"></label>
+    <label class="row"><span>Vibration à la prise</span><input type="checkbox" checked style="width:20px;height:20px;accent-color:#F2B705"></label>
+    <a href="PleinSoleil.dc.html" class="row" style="color:#F4EEDF;text-decoration:none"><span>Affichage en partie</span><span style="color:#A9AECF">Plein soleil automatique</span></a>
+    <label class="row"><span>Dames : numéros des cases</span><input type="checkbox" style="width:20px;height:20px;accent-color:#F2B705"></label>
+    <label class="row"><span>Ludo : jouer seul le coup unique</span><input type="checkbox" checked style="width:20px;height:20px;accent-color:#F2B705"></label>
+    <label class="row"><span>Ludo : animation du dé</span><select style="height:36px;border-radius:8px;border:1px solid #3D4590;background:#0F1230;color:#F4EEDF;font-family:inherit;font-size:13px"><option>Normale</option><option selected>Rapide</option><option>Aucune</option></select></label>
+  </div>
+
+  <div style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF">Notifications</div>
+  <div style="background:#20265A;border-radius:14px">
+    <label class="row"><span>C'est ton tour</span><input type="checkbox" checked style="width:20px;height:20px;accent-color:#F2B705"></label>
+    <label class="row"><span>Invitations de salon</span><input type="checkbox" checked style="width:20px;height:20px;accent-color:#F2B705"></label>
+    <label class="row"><span>Matchs de ligue (veille et 1 h avant)</span><input type="checkbox" checked style="width:20px;height:20px;accent-color:#F2B705"></label>
+  </div>
+
+  <div style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF">Compte</div>
+  <div style="background:#20265A;border-radius:14px">
+    <div class="row"><span>Pseudo</span><span style="color:#A9AECF">brice_237</span></div>
+    <div class="row"><span>Téléphone</span><span style="color:#A9AECF">+237 6•• •• •• 41</span></div>
+    <div class="row"><span>Mot de passe</span><a href="Connexion.dc.html" style="font-weight:700">Changer</a></div>
+    <div class="row"><span>Langue</span><span style="color:#A9AECF">Français · English</span></div>
+    <div class="row"><span>Sauvegarde</span><span style="color:#5FD3A2">Synchronisé il y a 2 min</span></div>
+  </div>
+
+  <div style="margin-top:auto;display:flex;gap:10px">
+    <a href="Bienvenue.dc.html" style="flex:1;height:48px;border-radius:12px;border:1px solid #3D4590;color:#F4EEDF;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;text-decoration:none">Se déconnecter</a>
+    <button type="button" style="flex:1;height:48px;border-radius:12px;border:1px solid #E0442E;background:transparent;color:#FF8A75;font-size:14px;font-weight:700">Supprimer le compte</button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

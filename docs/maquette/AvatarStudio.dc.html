@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Studio d'avatar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.ndop{background-color:#1D2B6E;background-image:linear-gradient(135deg,rgba(244,238,223,.18) 25%,transparent 25%),linear-gradient(225deg,rgba(244,238,223,.18) 25%,transparent 25%),linear-gradient(315deg,rgba(244,238,223,.18) 25%,transparent 25%),linear-gradient(45deg,rgba(244,238,223,.18) 25%,transparent 25%);background-size:16px 16px;background-position:-8px 0,-8px 0,0 0,0 0}
+.toghu{background-color:#14110F;background-image:radial-gradient(circle,#F2B705 0 2px,transparent 3px),radial-gradient(circle,#E0442E 0 4px,transparent 5px);background-size:14px 14px,14px 14px;background-position:0 0,7px 7px}
+.kaba{background-image:repeating-linear-gradient(90deg,#E0442E 0 8px,#F2B705 8px 13px,#1F9D6B 13px 21px,#F4EEDF 21px 23px,#3FA7E0 23px 30px)}
+.obom{background-color:#6E4426;background-image:repeating-linear-gradient(8deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px),repeating-linear-gradient(-3deg,rgba(255,220,170,.10) 0 1px,transparent 1px 11px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;padding:20px 20px 28px;gap:12px;overflow:hidden">
+  <div style="display:flex;align-items:center;gap:12px">
+    <a href="Profil.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#20265A;color:#F4EEDF">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </a>
+    <h1 class="d" style="margin:0;font-size:20px;font-weight:700">Ton visage au kwatt</h1>
+  </div>
+
+  <div role="tablist" aria-label="Type d'image de profil" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;background:#20265A;padding:4px;border-radius:12px">
+    <sc-for list="{{modes}}" as="m" hint-placeholder-count="2">
+      <button type="button" role="tab" aria-selected="{{m.on}}" onClick="{{m.pick}}" style="{{m.st}}">{{m.label}}</button>
+    </sc-for>
+  </div>
+
+  <sc-if value="{{isAvatar}}" hint-placeholder-val="{{true}}">
+    <div style="display:flex;justify-content:center;padding:4px 0">
+      <div role="img" aria-label="Aperçu de ton avatar" style="width:168px;height:168px;border-radius:50%;background:#1D2B6E;position:relative;overflow:hidden;border:4px solid #F2B705;box-sizing:border-box">
+        <div class="{{outfit}}" style="position:absolute;left:24px;right:24px;bottom:-30px;height:84px;border-radius:60px 60px 0 0"></div>
+        <div style="position:absolute;left:58px;top:42px;width:44px;height:52px;border-radius:22px;background:{{skin}}"></div>
+        <div style="position:absolute;left:68px;top:62px;width:6px;height:6px;border-radius:50%;background:#0F1230"></div>
+        <div style="position:absolute;left:86px;top:62px;width:6px;height:6px;border-radius:50%;background:#0F1230"></div>
+        <div style="position:absolute;left:72px;top:78px;width:16px;height:5px;border-radius:0 0 8px 8px;background:#0F1230"></div>
+        <sc-if value="{{hasHat}}" hint-placeholder-val="{{true}}">
+          <div class="{{hat}}" style="position:absolute;left:52px;top:20px;width:56px;height:34px;border-radius:28px 28px 6px 6px"></div>
+        </sc-if>
+      </div>
+    </div>
+
+    <div class="lbl">Peau</div>
+    <div style="display:flex;gap:10px">
+      <sc-for list="{{skins}}" as="s" hint-placeholder-count="5">
+        <button type="button" aria-label="{{s.label}}" aria-pressed="{{s.on}}" onClick="{{s.pick}}" style="{{s.st}}"></button>
+      </sc-for>
+    </div>
+
+    <div class="lbl">Coiffe</div>
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px">
+      <sc-for list="{{hats}}" as="h" hint-placeholder-count="4">
+        <button type="button" aria-pressed="{{h.on}}" onClick="{{h.pick}}" style="{{h.st}}">
+          <span class="{{h.cls}}" style="width:34px;height:20px;border-radius:12px 12px 4px 4px;border:1px solid #3D4590"></span>
+          <span style="font-size:11px;font-weight:700">{{h.label}}</span>
+          <span style="font-size:10px;color:{{h.pc}}">{{h.price}}</span>
+        </button>
+      </sc-for>
+    </div>
+
+    <div class="lbl">Tenue</div>
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px">
+      <sc-for list="{{outfits}}" as="o" hint-placeholder-count="4">
+        <button type="button" aria-pressed="{{o.on}}" onClick="{{o.pick}}" style="{{o.st}}">
+          <span class="{{o.cls}}" style="width:34px;height:22px;border-radius:12px 12px 0 0"></span>
+          <span style="font-size:11px;font-weight:700">{{o.label}}</span>
+          <span style="font-size:10px;color:{{o.pc}}">{{o.price}}</span>
+        </button>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isPhoto}}" hint-placeholder-val="{{false}}">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:14px;padding:20px 0">
+      <div style="width:168px;height:168px;border-radius:50%;border:3px dashed #A9AECF;box-sizing:border-box;display:flex;align-items:center;justify-content:center;color:#A9AECF;font-size:13px;text-align:center;padding:20px">[Ta photo]</div>
+      <button type="button" class="d" style="height:50px;padding:0 20px;border:0;border-radius:12px;background:#1D2B6E;color:#F4EEDF;font-size:12px;font-weight:700">Prendre une photo</button>
+      <button type="button" class="d" style="height:50px;padding:0 20px;border-radius:12px;border:1px solid #3D4590;background:transparent;color:#F4EEDF;font-size:12px;font-weight:700">Choisir dans la galerie</button>
+      <span style="font-size:12px;color:#A9AECF;text-align:center;line-height:1.5">Ta photo est vérifiée avant d'être visible. Tu peux y ajouter un cadre de tissu gagné ou acheté.</span>
+    </div>
+  </sc-if>
+
+  <div style="margin-top:auto;display:flex;gap:10px">
+    <a href="AvatarBoutique.dc.html" style="flex:1;height:52px;border-radius:14px;border:1px solid #F4EEDF;color:#F4EEDF;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;text-decoration:none">Boutique</a>
+    <a href="Profil.dc.html" class="d" style="flex:2;height:52px;border-radius:14px;background:#F2B705;color:#0F1230;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;text-decoration:none">{{cta}}</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { mode: 'avatar', skin: 2, hat: 'ndop', outfit: 'toghu' }; }
+  renderVals() {
+    const s = this.state;
+    const tabSt = (on) => 'height:42px;border:0;border-radius:9px;font-family:Unbounded,sans-serif;font-size:12px;font-weight:700;' + (on ? 'background:#F4EEDF;color:#0F1230' : 'background:transparent;color:#A9AECF');
+    const modes = [{ id: 'avatar', label: 'Avatar' }, { id: 'photo', label: 'Ma photo' }]
+      .map((m) => ({ ...m, on: String(s.mode === m.id), st: tabSt(s.mode === m.id), pick: () => this.setState({ mode: m.id }) }));
+    const tones = ['#F1C9A0', '#C98E5E', '#9A6239', '#6B3F22', '#3F2414'];
+    const skins = tones.map((c, i) => ({ label: 'Teint ' + (i + 1), on: String(s.skin === i), pick: () => this.setState({ skin: i }),
+      st: 'width:44px;height:44px;border-radius:50%;background:' + c + ';border:' + (s.skin === i ? '3px solid #F2B705' : '2px solid #3D4590') }));
+    const owned = { none: 1, casq: 1, ndop: 1, obom: 1 };
+    const tile = (on) => 'min-height:84px;border-radius:12px;background:#20265A;color:#F4EEDF;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px 2px;' + (on ? 'border:2px solid #F4EEDF' : 'border:1px solid #3D4590');
+    const item = (key, list) => list.map(([id, label, cls, price]) => ({ label, cls, on: String(s[key] === id), pick: () => this.setState({ [key]: id }),
+      price: owned[id] ? 'à toi' : price + ' cauris', pc: owned[id] ? '#5FD3A2' : '#F2B705', st: tile(s[key] === id) }));
+    const hats = item('hat', [['none', 'Aucune', '', 0], ['ndop', 'Bonnet ndop', 'ndop', 0], ['kaba', 'Foulard kaba', 'kaba', 150], ['toghu', 'Toque toghu', 'toghu', 600]]);
+    const outfits = item('outfit', [['obom', 'Obom', 'obom', 0], ['ndop', 'Ndop', 'ndop', 120], ['kaba', 'Kaba', 'kaba', 200], ['toghu', 'Toghu', 'toghu', 900]]);
+    const cost = (owned[s.hat] || s.hat === 'none' ? 0 : { kaba: 150, toghu: 600 }[s.hat]) + (owned[s.outfit] ? 0 : { ndop: 120, kaba: 200, toghu: 900 }[s.outfit]);
+    return { modes, skins, hats, outfits, isAvatar: s.mode === 'avatar', isPhoto: s.mode === 'photo',
+      skin: tones[s.skin], hat: s.hat, hasHat: s.hat !== 'none', outfit: s.outfit,
+      cta: s.mode === 'photo' ? 'Enregistrer' : cost ? 'Acheter · ' + cost + ' cauris' : 'Enregistrer' };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Audit UX</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.k{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+.card{background:#20265A;border:1px solid #3D4590;border-radius:18px;padding:20px 22px;display:flex;flex-direction:column;gap:12px}
+.pb{display:grid;grid-template-columns:28px minmax(0,1fr) 190px;gap:12px;align-items:start;padding:12px 0;border-top:1px solid #3D4590;font-size:14px;line-height:1.5}
+.pb:first-of-type{border-top:0}
+.n{font-family:'Unbounded',sans-serif;font-weight:800;color:#F2B705}
+.sw{display:flex;align-items:center;gap:8px;font-size:12px}
+.tag{font-size:11px;font-weight:700;padding:4px 8px;border-radius:6px;justify-self:start}
+.ok{background:#14382E;color:#5FD3A2}
+.todo{background:#3A2A0A;color:#F2B705}
+.cmp{display:flex;gap:6px;align-items:center}
+.cmp span{width:44px;height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+</style>
+</helmet>
+<div style="width:1520px;height:1300px;box-sizing:border-box;padding:46px 56px;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;gap:22px">
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <h1 class="d" style="margin:0;font-size:32px;font-weight:800;letter-spacing:-0.02em">Audit : ce qui tient, ce qui casse</h1>
+    <p style="margin:0;font-size:15px;color:#A9AECF;max-width:1000px;line-height:1.5">Contrastes mesurés selon la norme WCAG : 4,5:1 minimum pour le texte, 3:1 pour une pièce de jeu. L'identité tient : or sur nuit 10:1, textes gris 7,5:1, tissus reconnaissables. Le détail ci-dessous liste le reste.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;flex:1">
+    <div class="card">
+      <div class="k">Couleurs · 5 problèmes</div>
+
+      <div class="pb"><span class="n">1</span>
+        <div style="display:flex;flex-direction:column;gap:8px"><b>Pion noir sur case foncée : 2,5:1.</b> En plein soleil, on ne voit plus les pions de l'adversaire. C'est le défaut le plus grave pour un jeu de dames.
+          <div style="display:flex;gap:18px">
+            <div class="cmp"><span style="background:#7A4A2A"><span style="width:30px;height:30px;border-radius:50%;background:#14110F;border:3px solid #3A322B;box-sizing:border-box"></span></span><span style="width:auto;font-size:12px;color:#FF8A75">avant 2,5:1</span></div>
+            <div class="cmp"><span style="background:#A8703F"><span style="width:30px;height:30px;border-radius:50%;background:#14110F;border:3px solid #3A322B;box-sizing:border-box"></span></span><span style="width:auto;font-size:12px;color:#5FD3A2">après 4,5:1</span></div>
+          </div>
+        </div>
+        <span class="tag ok">Corrigé : case #A8703F</span></div>
+
+      <div class="pb"><span class="n">2</span>
+        <div style="display:flex;flex-direction:column;gap:8px"><b>Rouge et vert du Ludo : 1,2:1 en luminosité.</b> Environ 1 homme sur 12 ne les distingue pas. Chaque couleur reçoit donc une forme en plus.
+          <div style="display:flex;gap:10px;align-items:center">
+            <span style="width:26px;height:26px;border-radius:50%;background:#E0442E;border:2px solid #F4EEDF"></span>
+            <span style="width:24px;height:24px;border-radius:5px;background:#1F9D6B;border:2px solid #F4EEDF"></span>
+            <span style="width:22px;height:22px;transform:rotate(45deg);border-radius:4px;background:#F2B705;border:2px solid #0F1230"></span>
+            <span style="width:26px;height:20px;border-radius:13px;background:#3FA7E0;border:2px solid #F4EEDF"></span>
+            <span style="font-size:12px;color:#A9AECF">rond · carré · losange · gélule</span>
+          </div>
+        </div>
+        <span class="tag ok">Corrigé sur le plateau</span></div>
+
+      <div class="pb"><span class="n">3</span>
+        <div><b>L'or veut dire 6 choses :</b> action, sélection, « ton tour », joueur jaune du Ludo, badge de rang, alerte. Quand tout est or, plus rien n'est important. On réserve l'or à « agis maintenant » et « à toi » ; les alertes passent en corail, les rangs en ivoire.</div>
+        <span class="tag ok">Appliqué partout</span></div>
+
+      <div class="pb"><span class="n">4</span>
+        <div style="display:flex;flex-direction:column;gap:8px"><b>Cartes à 1,12:1 sur le fond, lignes à 1,39:1.</b> L'interface paraît plate et disparaît dehors. Surface plus claire, bordures visibles.
+          <div style="display:flex;gap:10px">
+            <span style="width:110px;height:40px;border-radius:10px;background:#181C45;border:1px solid #2C3270;display:flex;align-items:center;justify-content:center;font-size:12px;color:#A9AECF">avant</span>
+            <span style="width:110px;height:40px;border-radius:10px;background:#20265A;border:1px solid #3D4590;display:flex;align-items:center;justify-content:center;font-size:12px">après</span>
+          </div>
+        </div>
+        <span class="tag ok">Appliqué partout</span></div>
+
+      <div class="pb"><span class="n">5</span>
+        <div><b>Tout sombre, c'est bien la nuit et pour la batterie, mais on joue aussi dehors, au soleil.</b> Il faut un mode « Plein soleil » : plateau clair, interface claire, à basculer d'un geste.</div>
+        <span class="tag ok">Écran 17</span></div>
+    </div>
+
+    <div class="card">
+      <div class="k">Logique · incohérences trouvées</div>
+
+      <div class="pb"><span class="n">1</span><div><b>La machine paie trop.</b> Une cote de ×3 contre une machine de ton niveau (une chance sur deux) fait gagner des cauris en moyenne à chaque partie : c'est une planche à billets. Nouvelle règle : <b>cote = 0,9 ÷ chance de gagner</b>, soit ×1,8 à ton niveau.</div><span class="tag ok">Corrigé · écran 15</span></div>
+
+      <div class="pb"><span class="n">2</span><div><b>Un invité dans un salon avec mise</b> (Tonton Paul, pot de 400). Or la règle dit : pas de mise pour les invités. Il joue sur une place sans mise et le pot passe à 300.</div><span class="tag ok">Corrigé · écran 25</span></div>
+
+      <div class="pb"><span class="n">3</span><div><b>Deux plafonds de mise différents</b> (25 % du solde, et la limite de la table). Règle unique : <b>mise max = le plus petit des deux.</b></div><span class="tag ok">Règle fixée</span></div>
+
+      <div class="pb"><span class="n">4</span><div><b>« Rejoindre une ligue avec un code, sans compte »</b>, alors que les ligues demandent une entrée en cauris. Un invité peut rejoindre seulement une ligue privée gratuite.</div><span class="tag ok">Règle fixée</span></div>
+
+      <div class="pb"><span class="n">5</span><div><b>L'onglet « Jouer » ouvre toujours les Dames,</b> et l'espace Ludo n'a pas d'écran de modes. « Jouer » doit rouvrir le dernier espace utilisé.</div><span class="tag ok">Corrigé · écran 20</span></div>
+
+      <div class="pb"><span class="n">6</span><div><b>La fin de partie mélange deux contextes</b> : un défi à deux et la file « roi de la table ». Il faut deux fins distinctes : revanche pour un défi, joueur suivant pour un salon.</div><span class="tag ok">Corrigé · écran 18</span></div>
+
+      <div class="pb"><span class="n">7</span><div><b>« Logique » et « Raisonnement »</b> désignent le même espace. On garde « Raisonnement » partout.</div><span class="tag ok">Corrigé</span></div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1520,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

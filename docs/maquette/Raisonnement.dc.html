@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Raisonnement</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.ndop{background-color:#1D2B6E;background-image:linear-gradient(135deg,rgba(244,238,223,.13) 25%,transparent 25%),linear-gradient(225deg,rgba(244,238,223,.13) 25%,transparent 25%),linear-gradient(315deg,rgba(244,238,223,.13) 25%,transparent 25%),linear-gradient(45deg,rgba(244,238,223,.13) 25%,transparent 25%);background-size:24px 24px;background-position:-12px 0,-12px 0,0 0,0 0}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden">
+  <div class="ndop" style="padding:16px 20px 22px;display:flex;flex-direction:column;gap:14px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="Accueil.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#0F1230;color:#F4EEDF">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+      </a>
+      <span style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Espace Raisonnement · bêta</span>
+    </div>
+    <h1 class="d" style="margin:0;font-size:26px;font-weight:800;line-height:1.1">La tête aussi,<br>ça se muscle.</h1>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;font-size:12px">
+      <span style="background:#0F1230;padding:6px 10px;border-radius:999px">Suites logiques</span>
+      <span style="background:#0F1230;padding:6px 10px;border-radius:999px">Calcul mental</span>
+      <span style="background:#0F1230;padding:6px 10px;border-radius:999px">Problèmes chronométrés</span>
+    </div>
+  </div>
+
+  <div style="padding:16px 20px 28px;display:flex;flex-direction:column;gap:12px;flex:1">
+    <div style="display:flex;justify-content:space-between;font-size:12px;color:#A9AECF"><span>Aperçu · question 1 / 15</span><span class="d" style="color:#F2B705;font-weight:700">00:42</span></div>
+    <div style="background:#20265A;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:13px;color:#A9AECF">Quel nombre complète la suite ?</span>
+      <span class="d" style="font-size:24px;font-weight:700;letter-spacing:.02em">2 · 6 · 12 · 20 · 30 · ?</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">
+      <sc-for list="{{opts}}" as="o" hint-placeholder-count="4">
+        <button type="button" onClick="{{o.pick}}" style="{{o.st}}">{{o.v}}</button>
+      </sc-for>
+    </div>
+    <sc-if value="{{answered}}" hint-placeholder-val="{{false}}">
+      <div style="background:#1D2B6E;border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.45">{{feedback}}</div>
+    </sc-if>
+    <div style="margin-top:auto;display:flex;flex-direction:column;gap:8px">
+      <button type="button" class="d" style="height:54px;border:0;border-radius:14px;background:#F2B705;color:#0F1230;font-size:13px;font-weight:700">Me prévenir à l'ouverture</button>
+      <span style="font-size:12px;color:#A9AECF;text-align:center">Même profil, nouveaux échelons. Duels en salon et ligues hebdo prévus.</span>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { pick: null }; }
+  renderVals() {
+    const p = this.state.pick;
+    const opts = ['36', '40', '42', '44'].map((v) => {
+      let border = '1px solid #3D4590', bg = '#20265A';
+      if (p !== null && v === '42') { border = '2px solid #1F9D6B'; bg = '#14382E'; }
+      else if (p === v) { border = '2px solid #E0442E'; bg = '#3A1A1A'; }
+      return { v, pick: () => this.setState({ pick: v }),
+        st: 'height:56px;border-radius:12px;font-family:Unbounded,sans-serif;font-size:18px;font-weight:700;color:#F4EEDF;background:' + bg + ';border:' + border };
+    });
+    return { opts, answered: p !== null,
+      feedback: p === '42' ? 'Juste ! 1×2, 2×3, 3×4, 4×5, 5×6… donc 6×7 = 42.' : 'Pas tout à fait : 1×2, 2×3, 3×4… donc 6×7 = 42.' };
+  }
+}
+</script>
+</body>
+</html>

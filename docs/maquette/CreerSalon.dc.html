@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Créer un salon</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.kaba{background-image:repeating-linear-gradient(90deg,#E0442E 0 10px,#F2B705 10px 16px,#1F9D6B 16px 26px,#F4EEDF 26px 29px,#3FA7E0 29px 38px)}
+.obom{background-color:#6E4426;background-image:repeating-linear-gradient(8deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px),repeating-linear-gradient(-3deg,rgba(255,220,170,.10) 0 1px,transparent 1px 11px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden">
+  <div class="{{band}}" style="height:8px;flex-shrink:0"></div>
+  <div style="flex:1;min-height:0;overflow-y:auto;padding:14px 20px 28px;display:flex;flex-direction:column;gap:14px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="ModeDames.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#20265A;color:#F4EEDF">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+      </a>
+      <h1 class="d" style="margin:0;font-size:20px;font-weight:700">Nouveau salon</h1>
+      <span style="margin-left:auto;font-size:11px;font-weight:700;background:#F4EEDF;color:#0F1230;padding:5px 8px;border-radius:7px">PROFIL REQUIS</span>
+    </div>
+
+    <div class="lbl">Jeu</div>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">
+      <sc-for list="{{games}}" as="g" hint-placeholder-count="2">
+        <button type="button" aria-pressed="{{g.on}}" onClick="{{g.pick}}" style="{{g.st}}">
+          <span class="{{g.cls}}" style="width:28px;height:28px;border-radius:8px;flex-shrink:0"></span>{{g.label}}
+        </button>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{true}}" hint-placeholder-val="{{true}}">
+      <div class="lbl">Variante</div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">
+        <sc-for list="{{variants}}" as="v" hint-placeholder-count="2">
+          <button type="button" aria-pressed="{{v.on}}" onClick="{{v.pick}}" style="{{v.st}}">{{v.label}}</button>
+        </sc-for>
+      </div>
+      <a href="{{rulesHref}}" style="font-size:13px;font-weight:700">Voir ou personnaliser les règles</a>
+    </sc-if>
+
+    <div class="lbl">Joueurs à la table</div>
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px">
+      <sc-for list="{{seats}}" as="s" hint-placeholder-count="3">
+        <button type="button" aria-pressed="{{s.on}}" onClick="{{s.pick}}" disabled="{{s.off}}" style="{{s.st}}">{{s.label}}</button>
+      </sc-for>
+    </div>
+
+    <div class="lbl">Format</div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <sc-for list="{{formats}}" as="f" hint-placeholder-count="3">
+        <button type="button" aria-pressed="{{f.on}}" onClick="{{f.pick}}" style="{{f.st}}">
+          <b style="font-size:14px">{{f.label}}</b><span style="font-size:12px;color:#A9AECF">{{f.desc}}</span>
+        </button>
+      </sc-for>
+    </div>
+
+    <div class="lbl">Cadence</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px">
+      <sc-for list="{{paces}}" as="p" hint-placeholder-count="5">
+        <button type="button" aria-pressed="{{p.on}}" onClick="{{p.pick}}" style="{{p.st}}">{{p.label}}</button>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between"><span class="lbl">Mise par joueur</span><b class="d" style="font-size:14px;color:#F2B705">100 cauris</b></div>
+    <label style="display:flex;flex-direction:column;gap:6px">
+      <span style="position:absolute;width:1px;height:1px;overflow:hidden">Mise par joueur</span>
+      <input type="range" min="0" max="500" step="50" value="100" style="accent-color:#F2B705">
+      <span style="font-size:12px;color:#A9AECF">0 = partie amicale. Le pot va au gagnant. Les invités jouent toujours sans mise.</span>
+    </label>
+
+    <a href="Salon.dc.html" class="d" style="margin-top:auto;height:56px;border-radius:14px;background:#F2B705;color:#0F1230;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;text-decoration:none">Créer et obtenir le code</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { game: 'ludo', seats: 4, format: 'roi' }; }
+  renderVals() {
+    const s = this.state;
+    const chip = (on) => 'min-height:52px;border-radius:14px;font-family:DM Sans,sans-serif;font-size:14px;font-weight:700;color:#F4EEDF;background:#20265A;' + (on ? 'border:2px solid #F4EEDF' : 'border:1px solid #3D4590');
+    const games = [
+      { id: 'dames', label: 'Dames', cls: 'obom' },
+      { id: 'ludo', label: 'Ludo', cls: 'kaba' }
+    ].map((g) => ({ ...g, on: String(s.game === g.id), st: chip(s.game === g.id) + ';display:flex;align-items:center;gap:10px;padding:0 12px',
+      pick: () => this.setState({ game: g.id, seats: g.id === 'dames' ? 2 : 4 }) }));
+    const lv = s.lvariant || 'classique';
+    const seats = [2, 3, 4, 6].map((n) => {
+      const off = s.game === 'dames' ? n > 2 : (lv === 'pachisi' ? n !== 4 : (lv === 'six' ? false : n > 4));
+      const on = s.seats === n;
+      return { label: n + ' j.', on: String(on), off, pick: () => { if (!off) this.setState({ seats: n }); }, st: chip(on) + (off ? ';opacity:.35' : '') };
+    });
+    const formats = [
+      { id: 'simple', label: 'Partie simple', desc: 'Une manche, un gagnant.' },
+      { id: 'ar', label: 'Aller-retour', desc: 'Deux manches, on échange les couleurs.' },
+      { id: 'roi', label: 'Roi de la table', desc: 'File d’attente : le perdant cède sa place, le gagnant reste.' }
+    ].map((f) => ({ ...f, on: String(s.format === f.id), pick: () => this.setState({ format: f.id }),
+      st: chip(s.format === f.id) + ';display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:10px 14px;text-align:left' }));
+    const D = [[10, '10×10 internationales'], [8, '8×8 anglaises']];
+    const L = [['classique', 'Classique'], ['rapide', 'Rapide'], ['parchis', 'Parchís'], ['pachisi', 'Pachisi'], ['six', '6 joueurs']];
+    const variants = s.game === 'dames'
+      ? D.map(([id, label]) => ({ label, on: String((s.variant || 10) === id), pick: () => this.setState({ variant: id }), st: chip((s.variant || 10) === id) }))
+      : L.map(([id, label]) => ({ label, on: String(lv === id), pick: () => this.setState({ lvariant: id, seats: id === 'pachisi' ? 4 : (id === 'six' ? 6 : Math.min(s.seats, 4)) }), st: chip(lv === id) + ';min-height:44px' }));
+    const PA = s.game === 'dames' ? ['1 min + 1 s', '3 min + 2 s', '5 min + 3 s', '15 min + 10 s', '1 jour par coup'] : ['10 s par tour', '15 s par tour', '30 s par tour'];
+    const curPace = (s.pace && PA.includes(s.pace)) ? s.pace : (s.game === 'dames' ? '5 min + 3 s' : '15 s par tour');
+    const paces = PA.map((label) => ({ label, on: String(curPace === label), pick: () => this.setState({ pace: label }), st: chip(curPace === label) + ';min-height:44px;padding:0 12px' }));
+    return { games, seats, formats, variants, paces, rulesHref: s.game === 'dames' ? 'Regles.dc.html' : 'LudoVariantes.dc.html', isDames: s.game === 'dames', band: s.game === 'dames' ? 'obom' : 'kaba' };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Créer une ligue</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+.row{display:flex;align-items:center;justify-content:space-between;min-height:46px;padding:0 14px;border-bottom:1px solid #3D4590;font-size:14px}
+.row:last-child{border-bottom:0}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;padding:20px 20px 28px;gap:13px;overflow:hidden">
+  <div style="display:flex;align-items:center;gap:12px">
+    <a href="Ligues.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#20265A;color:#F4EEDF">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </a>
+    <h1 class="d" style="margin:0;font-size:20px;font-weight:700">Nouvelle ligue</h1>
+  </div>
+
+  <div class="lbl">Format</div>
+  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">
+    <sc-for list="{{formats}}" as="f" hint-placeholder-count="2">
+      <button type="button" aria-pressed="{{f.on}}" onClick="{{f.pick}}" style="{{f.st}}">
+        <b class="d" style="font-size:13px">{{f.label}}</b>
+        <span style="font-size:12px;color:#A9AECF;line-height:1.35">{{f.desc}}</span>
+      </button>
+    </sc-for>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">
+    <div style="display:flex;flex-direction:column;gap:6px"><span class="lbl">Jeu</span><span style="height:44px;border-radius:12px;background:#20265A;display:flex;align-items:center;padding:0 12px;font-weight:700;font-size:14px;border:1px solid #3D4590">Dames</span></div>
+    <div style="display:flex;flex-direction:column;gap:6px"><span class="lbl">Accès</span><span style="display:flex;gap:4px"><span style="flex:1;height:44px;border-radius:12px;background:#20265A;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:2px solid #F4EEDF">Privée</span><a href="CreerLiguePublique.dc.html" style="flex:1;height:44px;border-radius:12px;background:#20265A;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:1px solid #3D4590;color:#F4EEDF;text-decoration:none">Publique</a></span></div>
+  </div>
+
+  <div class="lbl">Réglages</div>
+  <div style="background:#20265A;border-radius:14px">
+    <div class="row"><span>Participants</span><b>{{players}}</b></div>
+    <sc-if value="{{isCup}}" hint-placeholder-val="{{true}}">
+      <div class="row"><span>Poules</span><b>2 poules de 4</b></div>
+      <div class="row"><span>Qualifiés par poule</span><b>2 premiers</b></div>
+      <div class="row"><span>Phase finale</span><b>Demi + finale aller-retour</b></div>
+    </sc-if>
+    <sc-if value="{{isLeague}}" hint-placeholder-val="{{false}}">
+      <div class="row"><span>Rencontres</span><b>Aller-retour</b></div>
+      <div class="row"><span>Journées</span><b>18</b></div>
+      <div class="row"><span>Relégués en D2</span><b>2 derniers</b></div>
+    </sc-if>
+    <a href="ReglesCompetition.dc.html" class="row" style="color:#F4EEDF;text-decoration:none"><span>Plateaux &amp; règles</span><b style="color:#F2B705">au choix de qui reçoit ›</b></a>
+    <div class="row"><span>Points</span><b>V 3 · N 1 · D 0</b></div>
+    <div class="row"><span>Calendrier</span><b>Dimanche 18:00</b></div>
+    <div class="row"><span>Droit d'entrée</span><b style="color:#F2B705">50 cauris → cagnotte</b></div>
+  </div>
+
+  <div style="background:#1D2B6E;border-radius:14px;padding:12px 14px;font-size:13px;line-height:1.45">
+    <b>Récompenses :</b> médaille d'or + carte « Trophée Ngondo » au champion, argent et bronze aux suivants. Le champion rafle la cagnotte.
+  </div>
+
+  <a href="{{next}}" class="d" style="margin-top:auto;height:56px;border-radius:14px;background:#F2B705;color:#0F1230;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;text-decoration:none">Créer et partager le code</a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { format: 'coupe' }; }
+  renderVals() {
+    const f = this.state.format;
+    const formats = [
+      { id: 'champ', label: 'Championnat', desc: 'Tous contre tous, classement aux points.' },
+      { id: 'coupe', label: 'Coupe', desc: 'Poules, puis phase finale à élimination.' }
+    ].map((x) => ({ ...x, on: String(f === x.id), pick: () => this.setState({ format: x.id }),
+      st: 'min-height:96px;border-radius:14px;background:#20265A;color:#F4EEDF;text-align:left;display:flex;flex-direction:column;justify-content:flex-start;gap:6px;padding:12px;' + (f === x.id ? 'border:2px solid #F4EEDF' : 'border:1px solid #3D4590') }));
+    return { formats, isCup: f === 'coupe', isLeague: f === 'champ', players: f === 'coupe' ? '8 joueurs' : '10 joueurs', next: f === 'coupe' ? 'Coupe.dc.html' : 'Championnat.dc.html' };
+  }
+}
+</script>
+</body>
+</html>

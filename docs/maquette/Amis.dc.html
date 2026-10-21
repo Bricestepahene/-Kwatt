@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Amis</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+.av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Unbounded',sans-serif;font-weight:800;font-size:14px;flex-shrink:0;position:relative}
+.mini{height:38px;padding:0 12px;border-radius:10px;font-size:12px;font-weight:700;display:inline-flex;align-items:center;text-decoration:none;font-family:'DM Sans',sans-serif}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;padding:20px 20px 24px;gap:12px;overflow:hidden">
+  <div style="display:flex;align-items:center;gap:12px">
+    <a href="Profil.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#20265A;color:#F4EEDF">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </a>
+    <h1 class="d" style="margin:0;font-size:20px;font-weight:700">Mes amis</h1>
+  </div>
+
+  <form style="display:flex;gap:8px;margin:0">
+    <label for="q" style="position:absolute;width:1px;height:1px;overflow:hidden">Chercher un pseudo</label>
+    <input id="q" placeholder="Chercher un pseudo" style="flex:1;min-width:0;height:48px;box-sizing:border-box;border-radius:12px;border:1px solid #3D4590;background:#20265A;color:#F4EEDF;font-size:15px;padding:0 14px;font-family:inherit">
+    <button type="button" class="d" style="height:48px;padding:0 14px;border-radius:12px;border:0;background:#1F9D6B;color:#0F1230;font-size:11px;font-weight:700">Inviter par lien</button>
+  </form>
+
+  <div role="tablist" aria-label="Liste" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;background:#20265A;padding:4px;border-radius:12px">
+    <sc-for list="{{tabs}}" as="t" hint-placeholder-count="2">
+      <button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" style="{{t.st}}">{{t.label}}</button>
+    </sc-for>
+  </div>
+
+  <sc-if value="{{isFriends}}" hint-placeholder-val="{{true}}">
+    <div class="lbl">En ligne · 3</div>
+    <div style="display:flex;align-items:center;gap:12px;background:#20265A;border:1px solid #3D4590;border-radius:14px;padding:10px 12px">
+      <span class="av" style="background:#14110F;border:2px solid #5FD3A2">M</span>
+      <div style="display:flex;flex-direction:column;gap:1px;flex:1"><b style="font-size:14px">Mireille</b><span style="font-size:12px;color:#5FD3A2">disponible</span></div>
+      <a href="Mise.dc.html" class="mini" style="background:#F2B705;color:#0F1230">Défier</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;background:#20265A;border:1px solid #3D4590;border-radius:14px;padding:10px 12px">
+      <span class="av" style="background:#1F9D6B;color:#0F1230;border:2px solid #F2B705">C</span>
+      <div style="display:flex;flex-direction:column;gap:1px;flex:1"><b style="font-size:14px">Christelle</b><span style="font-size:12px;color:#A9AECF">joue au Ludo · coup 14</span></div>
+      <a href="KwattTV.dc.html" class="mini" style="border:1px solid #3D4590;color:#F4EEDF">Regarder</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;background:#20265A;border:1px solid #3D4590;border-radius:14px;padding:10px 12px">
+      <span class="av" style="background:#3FA7E0;color:#0F1230;border:2px solid #5FD3A2">J</span>
+      <div style="display:flex;flex-direction:column;gap:1px;flex:1"><b style="font-size:14px">Junior</b><span style="font-size:12px;color:#5FD3A2">disponible</span></div>
+      <a href="Salon.dc.html" class="mini" style="border:1px solid #3D4590;color:#F4EEDF">Inviter au salon</a>
+    </div>
+    <div class="lbl">Hors ligne</div>
+    <div style="display:flex;align-items:center;gap:12px;padding:6px 12px;opacity:.8">
+      <span class="av" style="background:#20265A;border:1px solid #3D4590">A</span>
+      <div style="display:flex;flex-direction:column;gap:1px;flex:1"><b style="font-size:14px">Armand</b><span style="font-size:12px;color:#A9AECF">vu il y a 3 h</span></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;padding:6px 12px;opacity:.8">
+      <span class="av" style="background:#20265A;border:1px solid #3D4590">O</span>
+      <div style="display:flex;flex-direction:column;gap:1px;flex:1"><b style="font-size:14px">Tata Odile</b><span style="font-size:12px;color:#A9AECF">vue hier</span></div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{isReq}}" hint-placeholder-val="{{false}}">
+    <div style="display:flex;align-items:center;gap:12px;background:#20265A;border:1px solid #3D4590;border-radius:14px;padding:10px 12px">
+      <span class="av" style="background:#20265A;border:1px solid #3D4590">Y</span>
+      <div style="display:flex;flex-direction:column;gap:1px;flex:1"><b style="font-size:14px">Yannick</b><span style="font-size:12px;color:#A9AECF">Akwa · vous avez joué 3 fois</span></div>
+      <button type="button" class="mini" style="background:#F2B705;color:#0F1230;border:0">Accepter</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;background:#20265A;border:1px solid #3D4590;border-radius:14px;padding:10px 12px">
+      <span class="av" style="background:#20265A;border:1px solid #3D4590">K</span>
+      <div style="display:flex;flex-direction:column;gap:1px;flex:1"><b style="font-size:14px">Kamga</b><span style="font-size:12px;color:#A9AECF">Ligue Littoral</span></div>
+      <button type="button" class="mini" style="background:#F2B705;color:#0F1230;border:0">Accepter</button>
+    </div>
+    <div style="font-size:12px;color:#A9AECF;line-height:1.5">Seuls tes amis peuvent t'inviter directement. Les autres passent par un code de salon.</div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { t: 'f' }; }
+  renderVals() {
+    const t = this.state.t;
+    const tabs = [['f', 'Amis · 14'], ['r', 'Demandes · 2']].map(([id, label]) => { const on = t === id; return { label, on: String(on), pick: () => this.setState({ t: id }),
+      st: 'height:42px;border:0;border-radius:9px;font-family:Unbounded,sans-serif;font-size:11px;font-weight:700;' + (on ? 'background:#F4EEDF;color:#0F1230' : 'background:transparent;color:#A9AECF') }; });
+    return { tabs, isFriends: t === 'f', isReq: t === 'r' };
+  }
+}
+</script>
+</body>
+</html>

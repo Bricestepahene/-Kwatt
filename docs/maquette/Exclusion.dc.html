@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Exclusion et recalcul</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.obom{background-color:#6E4426;background-image:repeating-linear-gradient(8deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px),repeating-linear-gradient(-3deg,rgba(255,220,170,.10) 0 1px,transparent 1px 11px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+.r{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid #3D4590;font-size:13px}
+.r:first-child{border-top:0}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden">
+  <div class="obom" style="height:8px"></div>
+  <div style="flex:1;padding:14px 20px 24px;display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="Championnat.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#20265A;color:#F4EEDF">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+      </a>
+      <span style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#E8D5A9">Ligue Littoral — Dames · après J6</span>
+    </div>
+
+    <div style="background:#2A1820;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:4px">
+      <b class="d" style="font-size:16px;color:#FF8A75">Tchoumi est exclu</b>
+      <span style="font-size:13px;line-height:1.5">2 forfaits de suite (J5 et J6). La ligue continue à 13 joueurs.</span>
+    </div>
+
+    <div role="tablist" aria-label="Conséquences" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;background:#20265A;padding:4px;border-radius:12px">
+      <sc-for list="{{tabs}}" as="t" hint-placeholder-count="3">
+        <button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" style="{{t.st}}">{{t.label}}</button>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{isPts}}" hint-placeholder-val="{{true}}">
+      <div style="font-size:13px;line-height:1.5;color:#A9AECF">Il a joué 6 matchs sur 13, moins de la moitié : tous ses résultats sont annulés.</div>
+      <div style="background:#20265A;border-radius:12px;padding:4px 12px">
+        <div class="r"><span>Toi · victoire par forfait J6</span><b style="color:#FF8A75">−3 pts</b></div>
+        <div class="r"><span>Ngono · l'avait battu J1</span><b style="color:#FF8A75">−3 pts</b></div>
+        <div class="r"><span>Ewane · avait perdu contre lui J2</span><b style="color:#5FD3A2">défaite effacée</b></div>
+        <div class="r"><span>Odile · nul J3</span><b style="color:#FF8A75">−1 pt</b></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;background:#1D2B6E;border-radius:12px;padding:10px 12px;font-size:13px"><span>Ton classement</span><b class="d" style="font-size:14px">4e → 5e</b></div>
+    </sc-if>
+
+    <sc-if value="{{isCal}}" hint-placeholder-val="{{false}}">
+      <div style="font-size:13px;line-height:1.5;color:#A9AECF">La table de rencontres ne change pas. Là où Tchoumi devait jouer, son adversaire se repose.</div>
+      <div style="background:#20265A;border-radius:12px;padding:4px 12px">
+        <div class="r"><span>J7 · Christelle</span><b>repos</b></div>
+        <div class="r"><span>J8 · Yannick</span><b>repos</b></div>
+        <div class="r"><span>J9 · Kamga</span><b>repos</b></div>
+        <div class="r"><span>J10 à J13 · un joueur par jour</span><b>repos</b></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;text-align:center">
+        <div style="background:#20265A;border-radius:12px;padding:10px 4px;display:flex;flex-direction:column"><b class="d" style="font-size:16px">42</b><span style="font-size:11px;color:#A9AECF">matchs restants</span></div>
+        <div style="background:#20265A;border-radius:12px;padding:10px 4px;display:flex;flex-direction:column"><b class="d" style="font-size:16px">6</b><span style="font-size:11px;color:#A9AECF">par journée</span></div>
+        <div style="background:#20265A;border-radius:12px;padding:10px 4px;display:flex;flex-direction:column"><b class="d" style="font-size:16px">22 nov.</b><span style="font-size:11px;color:#A9AECF">fin inchangée</span></div>
+      </div>
+      <div style="font-size:12px;color:#A9AECF">Tu as déjà joué Tchoumi : ton calendrier ne bouge pas.</div>
+    </sc-if>
+
+    <sc-if value="{{isMoney}}" hint-placeholder-val="{{false}}">
+      <div style="background:#0F1230;border:1px solid #3D4590;border-radius:12px;padding:12px;font-family:'Unbounded',sans-serif;font-size:12px;line-height:1.7;color:#F2B705">½ × 200 × 7 matchs restants ÷ 13<br>= 53 cauris rendus à Tchoumi</div>
+      <div style="background:#20265A;border-radius:12px;padding:4px 12px">
+        <div class="r"><span>Rendu à Tchoumi (le reste de son entrée, 147, reste au pot)</span><b>−53</b></div>
+        <div class="r"><span>Ses 2 amendes de forfait</span><b>+40</b></div>
+        <div class="r"><span>Pot de la ligue</span><b class="d" style="color:#F2B705">3 500 → 3 487</b></div>
+      </div>
+      <div style="font-size:12px;line-height:1.5;color:#A9AECF">Le pot est partagé entre 13 joueurs au lieu de 14 : la part de participation de chacun augmente. Le partage est recalculé automatiquement.</div>
+    </sc-if>
+
+    <a href="MatchDuJour.dc.html" class="d" style="margin-top:auto;height:52px;border-radius:14px;background:#F2B705;color:#0F1230;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;text-decoration:none">Voir mon match de demain</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { t: 'pts' }; }
+  renderVals() {
+    const t = this.state.t;
+    const tabs = [['pts', 'Points'], ['cal', 'Calendrier'], ['money', 'Cauris']].map(([id, label]) => { const on = t === id; return { label, on: String(on), pick: () => this.setState({ t: id }),
+      st: 'height:42px;border:0;border-radius:9px;font-family:Unbounded,sans-serif;font-size:11px;font-weight:700;' + (on ? 'background:#F4EEDF;color:#0F1230' : 'background:transparent;color:#A9AECF') }; });
+    return { tabs, isPts: t === 'pts', isCal: t === 'cal', isMoney: t === 'money' };
+  }
+}
+</script>
+</body>
+</html>

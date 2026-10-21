@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Autour du damier</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.obom{background-color:#6E4426;background-image:repeating-linear-gradient(8deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px),repeating-linear-gradient(-3deg,rgba(255,220,170,.10) 0 1px,transparent 1px 11px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.re{height:38px;padding:0 12px;border-radius:999px;border:1px solid #3D4590;background:#20265A;color:#F4EEDF;font-size:13px;font-weight:700;font-family:'DM Sans',sans-serif}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden">
+  <div class="obom" style="height:8px"></div>
+  <div style="padding:12px 16px;display:flex;align-items:center;gap:10px">
+    <a href="Accueil.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#20265A;color:#F4EEDF">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </a>
+    <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;background:#E0442E;color:#0F1230;padding:5px 9px;border-radius:7px"><span style="width:7px;height:7px;border-radius:50%;background:#0F1230"></span>EN DIRECT</span>
+    <span style="font-size:13px;color:#A9AECF">214 regardent</span>
+    <span style="margin-left:auto;font-size:12px;color:#A9AECF">Ligue Littoral · finale</span>
+  </div>
+
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:0 16px 10px;font-size:13px">
+    <div style="display:flex;flex-direction:column"><b style="font-size:15px">Armand</b><span style="color:#A9AECF">Makepe · Chef</span></div>
+    <span class="d" style="font-size:12px;color:#A9AECF">coup 44</span>
+    <div style="display:flex;flex-direction:column;align-items:flex-end"><b style="font-size:15px">Christelle</b><span style="color:#A9AECF">Akwa · Notable</span></div>
+  </div>
+
+  <div style="display:flex;justify-content:center">
+    <div role="img" aria-label="Damier de la partie en direct" class="obom" style="padding:5px;border-radius:10px">
+      <div style="display:grid;grid-template-columns:repeat(10,32px);grid-template-rows:repeat(10,32px)">
+        <sc-for list="{{cells}}" as="c" hint-placeholder-count="100">
+          <div style="{{c.sq}}"><sc-if value="{{c.has}}" hint-placeholder-val="{{false}}"><span style="{{c.pc}}"></span></sc-if></div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:14px 16px 0;display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:700"><span>Armand {{pa}} %</span><span style="color:#A9AECF">Pronostics du public</span><span>{{pc}} % Christelle</span></div>
+      <div style="display:flex;height:10px;border-radius:5px;overflow:hidden"><div style="width:{{pa}}%;background:#F2B705"></div><div style="flex:1;background:#3FA7E0"></div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">
+      <button type="button" onClick="{{voteA}}" style="{{stA}}">Armand · 50 cauris</button>
+      <button type="button" onClick="{{voteC}}" style="{{stC}}">Christelle · 50 cauris</button>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap" aria-label="Réactions rapides">
+      <button type="button" class="re">Ékié !</button>
+      <button type="button" class="re">Doucement !</button>
+      <button type="button" class="re">Tu dors ?</button>
+      <button type="button" class="re">Wèèè</button>
+    </div>
+    <span style="font-size:12px;color:#A9AECF;line-height:1.45">Les joueurs ne voient pas les réactions pendant la partie : elles s'affichent à la fin. Regarder ne demande pas de compte.</span>
+    <a href="Salon.dc.html" class="d" style="height:52px;border-radius:14px;background:#F2B705;color:#0F1230;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;text-decoration:none">Défier le gagnant · file d'attente</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { vote: null }; }
+  renderVals() {
+    const black = ['0,3','0,7','1,4','1,8','2,1','2,5','3,4','3,6','4,1','4,7'];
+    const white = ['5,2','5,6','6,3','6,7','6,9','7,2','7,6','8,1','8,5','9,4','4,3'];
+    const cells = [];
+    for (let r = 0; r < 10; r++) for (let c = 0; c < 10; c++) {
+      const k = r + ',' + c, dark = (r + c) % 2 === 1, isB = black.includes(k), isW = white.includes(k);
+      let pc = 'width:25px;height:25px;border-radius:50%;box-sizing:border-box;';
+      if (isW) pc += 'background:#F4EEDF;border:3px solid #C9B98F;';
+      if (isB) pc += 'background:#14110F;border:3px solid #3A322B;';
+      cells.push({ sq: 'display:flex;align-items:center;justify-content:center;background:' + (dark ? '#A8703F' : '#F1E2BF'), pc, has: (isB || isW) && dark });
+    }
+    const v = this.state.vote;
+    const pa = v === 'a' ? 63 : v === 'c' ? 61 : 62;
+    const btn = (on, col) => 'height:46px;border-radius:12px;font-family:DM Sans,sans-serif;font-size:13px;font-weight:700;color:#F4EEDF;background:#20265A;' + (on ? 'border:2px solid ' + col : 'border:1px solid #3D4590');
+    return { cells, pa, pc: 100 - pa,
+      stA: btn(v === 'a', '#F2B705'), stC: btn(v === 'c', '#3FA7E0'),
+      voteA: () => this.setState({ vote: 'a' }), voteC: () => this.setState({ vote: 'c' }) };
+  }
+}
+</script>
+</body>
+</html>

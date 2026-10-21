@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Sommaire</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.k{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+.col{display:flex;flex-direction:column;gap:2px}
+.sec{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;color:#F2B705;padding:12px 0 4px}
+.it{display:grid;grid-template-columns:34px minmax(0,1fr) 170px 92px;gap:10px;align-items:center;min-height:30px;border-bottom:1px solid #3D4590;font-size:13px}
+.it .n{font-family:'Unbounded',sans-serif;font-weight:700;color:#A9AECF}
+.it .f{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:#C9CEEA}
+.it .a{font-size:11px;font-weight:700;justify-self:start;padding:3px 7px;border-radius:6px}
+.card{background:#20265A;border:1px solid #3D4590;border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:6px;font-size:13px;line-height:1.5}
+</style>
+</helmet>
+<div style="width:1520px;height:1500px;box-sizing:border-box;padding:44px 56px;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;gap:20px">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:30px">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <h1 class="d" style="margin:0;font-size:34px;font-weight:800;letter-spacing:-0.02em">Kwatt · les 50 écrans, dans l'ordre</h1>
+      <p style="margin:0;font-size:15px;color:#A9AECF;max-width:900px;line-height:1.5">Du premier lancement à la tablette. Le numéro est celui du titre de chaque planche du canevas ; le fichier sert de nom de route.</p>
+    </div>
+    <div style="display:flex;gap:8px;font-size:12px;font-weight:700">
+      <span style="padding:5px 9px;border-radius:6px;background:#14382E;color:#5FD3A2">Tous</span>
+      <span style="padding:5px 9px;border-radius:6px;background:#1D2B6E;color:#C9CEEA">Profil</span>
+      <span style="padding:5px 9px;border-radius:6px;background:#3A2A0A;color:#F2B705">18 ans +</span>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px">
+    <sc-for list="{{cols}}" as="col" hint-placeholder-count="2">
+      <div class="col">
+        <sc-for list="{{col}}" as="r" hint-placeholder-count="22">
+          <sc-if value="{{r.isSec}}" hint-placeholder-val="{{false}}"><div class="sec">{{r.label}}</div></sc-if>
+          <sc-if value="{{r.isItem}}" hint-placeholder-val="{{true}}">
+            <div class="it"><span class="n">{{r.n}}</span><span>{{r.label}}</span><span class="f">{{r.file}}</span><span class="a" style="{{r.ast}}">{{r.acc}}</span></div>
+          </sc-if>
+        </sc-for>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:auto">
+    <div class="card"><div class="k">Pour Claude Code · structure</div>
+      <span>Une planche = un écran. Les liens entre planches donnent la navigation. Chaque espace de jeu (Dames, Ludo, Raisonnement) partage le même profil et a son propre niveau.</span>
+      <span>Barre du bas : Accueil · Jouer (dernier espace utilisé) · Ligues · Cartes · Profil. Cachée pendant une partie.</span></div>
+    <div class="card"><div class="k">Pour Claude Code · design</div>
+      <span>Fond #0F1230, surfaces #20265A, bordures #3D4590, texte #F4EEDF, texte secondaire #A9AECF. Or #F2B705 seulement pour l'action et « à toi ». Damier #F1E2BF / #A8703F.</span>
+      <span>Titres Unbounded, texte DM Sans. Tissus en motifs CSS (ndop, toghu, kaba, obom), jamais en images.</span></div>
+    <div class="card"><div class="k">Pour Claude Code · règles</div>
+      <span>Toutes les règles chiffrées sont dans les planches « Réf » en bas du canevas : données et cauris, ligues publiques (caution, forfaits, exclusion, calendrier), matrice des droits et des états, tailles d'écran, et le moteur de jeu (IA) avec ses échelons.</span>
+      <span>Le serveur fait foi pour chaque coup, chaque mise et chaque lancer de dé.</span></div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1520,"height":1500}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const S = { T: ['Tous', 'background:#14382E;color:#5FD3A2'], P: ['Profil', 'background:#1D2B6E;color:#C9CEEA'], M: ['18 ans +', 'background:#3A2A0A;color:#F2B705'], C: ['Créateur', 'background:#1D2B6E;color:#C9CEEA'], I: ['Invité', 'background:#14382E;color:#5FD3A2'] };
+    const data = [
+      ['Entrée dans l’appli', [['Bienvenue', 'Bienvenue', 'T'], ['Rejoindre avec un code', 'RejoindreCode', 'I'], ['Créer son profil', 'Inscription', 'T'], ['Contrôle de l’âge', 'Age', 'T'], ['Premier lancement', 'Tutoriel', 'P'], ['Connexion, mot de passe oublié', 'Connexion', 'T']]],
+      ['Hub & profil', [['Accueil du hub', 'Accueil', 'P'], ['Notifications', 'Notifications', 'P'], ['Profil unique', 'Profil', 'P'], ['Studio d’avatar', 'AvatarStudio', 'P'], ['Boutique d’avatars', 'AvatarBoutique', 'P'], ['Amis & invitations', 'Amis', 'P'], ['Paramètres, sons, compte', 'Parametres', 'P']]],
+      ['Jouer · Dames', [['Choisir un mode', 'ModeDames', 'P'], ['Défi et pari contre la machine', 'DefiMachine', 'P'], ['Partie de dames 10×10', 'PartieDames', 'T'], ['Partie de dames 8×8', 'PartieDames8', 'T', '16b'], ['Mode Plein soleil', 'PleinSoleil', 'T'], ['Fin de partie (défi / salon)', 'Resultat', 'T'], ['Revoir une partie', 'Revoir', 'P'], ['Problème du jour', 'ProblemeDuJour', 'P', '19b']]],
+      ['Jouer · Ludo', [['Choisir un mode', 'ModeLudo', 'P'], ['Plateau & règles', 'LudoVariantes', 'P', '20b'], ['Partie de Ludo', 'PartieLudo', 'T'], ['Ludo à 6 joueurs', 'PartieLudo6', 'T', '21b'], ['Pachisi : lancer les cauris', 'LancerCauris', 'T', '21c'], ['Dé honnête, vérifiable', 'DeHonnete', 'T'], ['Règles du jeu', 'Regles', 'T']]],
+      ['Salons & défis', [['Créer un salon', 'CreerSalon', 'P'], ['Salon & file d’attente', 'Salon', 'T'], ['Défi avec mise', 'Mise', 'M']]],
+      ['Ligues', [['Ligues', 'Ligues', 'P'], ['Créer une ligue privée', 'CreerLigue', 'P'], ['Plateaux & règles de la compétition', 'ReglesCompetition', 'P', '28b'], ['Championnat', 'Championnat', 'T'], ['Coupe : poules & finale', 'Coupe', 'T'], ['Créer une ligue publique', 'CreerLiguePublique', 'M'], ['Rejoindre une ligue publique', 'LiguePublique', 'M'], ['Valider la ligue', 'ValiderLigue', 'C'], ['Match du jour & forfait', 'MatchDuJour', 'P'], ['Choisir la planche du match', 'ChoixPlanche', 'P', '34b'], ['Exclusion & recalcul', 'Exclusion', 'P']]],
+      ['Communauté', [['Guerre des quartiers', 'Quartiers', 'P'], ['Autour du damier', 'KwattTV', 'T'], ['Signaler ou bloquer', 'Signaler', 'P']]],
+      ['Progression', [['Collection de cartes', 'Cartes', 'P'], ['Médailles & quêtes', 'Recompenses', 'P'], ['Échelons & difficulté', 'Echelons', 'P']]],
+      ['Raisonnement & tablette', [['Raisonnement (bientôt)', 'Raisonnement', 'P'], ['Tablette paysage : dames', 'TabletteDames', 'T']]]
+    ];
+    const flat = []; let n = 1;
+    data.forEach(([sec, items]) => {
+      flat.push({ isSec: true, isItem: false, label: sec });
+      items.forEach(([label, f, a, num]) => { flat.push({ isSec: false, isItem: true, n: num || String(n).padStart(2, '0'), label, file: f + '.dc.html', acc: S[a][0], ast: S[a][1] }); if (!num) n++; });
+    });
+    const cut = flat.findIndex((r) => r.isSec && r.label === 'Salons & défis');
+    return { cols: [flat.slice(0, cut), flat.slice(cut)] };
+  }
+}
+</script>
+</body>
+</html>

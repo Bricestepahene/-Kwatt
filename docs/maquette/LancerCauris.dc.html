@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Pachisi aux cauris</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.kaba{background-image:repeating-linear-gradient(90deg,#E0442E 0 10px,#F2B705 10px 16px,#1F9D6B 16px 26px,#F4EEDF 26px 29px,#3FA7E0 29px 38px)}
+.obom{background-color:#6E4426;background-image:repeating-linear-gradient(8deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px),repeating-linear-gradient(-3deg,rgba(255,220,170,.10) 0 1px,transparent 1px 11px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+.v{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px;border-radius:10px;font-size:11px;color:#A9AECF}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden">
+  <div class="kaba" style="height:8px;flex-shrink:0"></div>
+  <div style="flex:1;padding:14px 20px 26px;display:flex;flex-direction:column;gap:14px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="LudoVariantes.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#20265A;color:#F4EEDF">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+      </a>
+      <div style="display:flex;flex-direction:column;gap:1px">
+        <span style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#F2B705">Pachisi · 2 contre 2</span>
+        <span style="font-size:13px">Toi &amp; Odile contre Christelle &amp; Junior</span>
+      </div>
+    </div>
+
+    <div class="obom" style="border-radius:20px;padding:22px 16px;display:flex;flex-direction:column;align-items:center;gap:16px">
+      <div role="img" aria-label="{{alt}}" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+        <sc-for list="{{shells}}" as="s" hint-placeholder-count="6">
+          <span style="{{s.body}}"><span style="{{s.mark}}"></span></span>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px;background:#0F1230;border-radius:14px;padding:10px 18px">
+        <span style="font-size:13px;color:#A9AECF">{{up}} ouverture(s) vers le ciel</span>
+        <span class="d" style="font-size:34px;font-weight:800;color:#F2B705">{{value}} cases</span>
+        <sc-if value="{{grace}}" hint-placeholder-val="{{false}}"><span style="font-size:13px;font-weight:700;color:#5FD3A2">Grâce : tu peux sortir un pion et tu relances</span></sc-if>
+      </div>
+    </div>
+
+    <div class="lbl">Ce que valent les cauris</div>
+    <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;background:#20265A;border:1px solid #3D4590;border-radius:12px;padding:6px">
+      <sc-for list="{{table}}" as="t" hint-placeholder-count="7">
+        <div class="v" style="{{t.st}}"><span>{{t.up}} ouv.</span><b class="d" style="font-size:14px;color:#F4EEDF">{{t.val}}</b></div>
+      </sc-for>
+    </div>
+    <div style="font-size:12px;line-height:1.5;color:#A9AECF">Ton premier pion sort avec n'importe quel lancer, les suivants seulement avec une grâce (6, 10 ou 25). On gagne quand l'équipe a rentré ses 8 pions. Le lancer est tiré par le même système vérifiable que le dé.</div>
+
+    <div style="margin-top:auto;display:flex;gap:8px">
+      <button type="button" onClick="{{throw}}" class="d" style="flex:1;height:56px;border:0;border-radius:14px;background:#F2B705;color:#0F1230;font-size:14px;font-weight:700">Lancer les cauris</button>
+      <a href="Regles.dc.html" aria-label="Règles du Pachisi" style="width:56px;height:56px;border-radius:14px;border:1px solid #3D4590;background:#20265A;color:#F4EEDF;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;text-decoration:none">?</a>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { i: 0 }; }
+  renderVals() {
+    const throws = [[1, 0, 0, 0, 0, 0], [1, 1, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 1, 1], [1, 0, 1, 1, 0, 1]];
+    const VAL = { 0: 25, 1: 10, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6 };
+    const t = throws[this.state.i], up = t.reduce((a, b) => a + b, 0);
+    const shells = t.map((u) => ({
+      body: 'width:38px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 0 rgba(0,0,0,.35);' + (u ? 'background:#F4EEDF' : 'background:radial-gradient(circle at 40% 35%,#E2C9A0,#A07A4E)'),
+      mark: u ? 'width:6px;height:34px;border-radius:3px;background:#6E4426;box-shadow:-3px 0 0 -1px #C9B98F,3px 0 0 -1px #C9B98F' : 'width:18px;height:6px;border-radius:3px;background:rgba(110,68,38,.35)' }));
+    const table = [0, 1, 2, 3, 4, 5, 6].map((n) => ({ up: n, val: VAL[n],
+      st: (n === up ? 'background:#0F1230;box-shadow:inset 0 0 0 2px #F2B705;' : '') + ([0, 1, 6].includes(n) ? 'color:#5FD3A2' : '') }));
+    return { shells, up, value: VAL[up], grace: [0, 1, 6].includes(up), table, alt: '6 cauris lancés, ' + up + ' ouvertures vers le ciel',
+      throw: () => this.setState({ i: (this.state.i + 1) % throws.length }) };
+  }
+}
+</script>
+</body>
+</html>

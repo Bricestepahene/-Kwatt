@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Ligues</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.kaba{background-image:repeating-linear-gradient(90deg,#E0442E 0 10px,#F2B705 10px 16px,#1F9D6B 16px 26px,#F4EEDF 26px 29px,#3FA7E0 29px 38px)}
+.obom{background-color:#6E4426;background-image:repeating-linear-gradient(8deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px),repeating-linear-gradient(-3deg,rgba(255,220,170,.10) 0 1px,transparent 1px 11px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.tab{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;font-weight:500;color:#A9AECF;padding:6px 0;min-height:44px;text-decoration:none}
+.tab:hover{color:#F4EEDF}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden">
+  <div style="flex:1;overflow:hidden;padding:20px 20px 12px;display:flex;flex-direction:column;gap:14px">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <h1 class="d" style="margin:0;font-size:26px;font-weight:800">Ligues</h1>
+      <a href="CreerLigue.dc.html" class="d" style="height:44px;padding:0 14px;border-radius:12px;background:#F2B705;color:#0F1230;font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px;text-decoration:none">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>Créer
+      </a>
+    </div>
+
+    <form style="display:flex;gap:8px;margin:0">
+      <label for="lc" style="position:absolute;width:1px;height:1px;overflow:hidden">Code de ligue</label>
+      <input id="lc" placeholder="Code d'une ligue privée" style="flex:1;min-width:0;height:48px;box-sizing:border-box;border-radius:12px;border:1px solid #3D4590;background:#20265A;color:#F4EEDF;font-size:15px;padding:0 14px;font-family:inherit">
+      <button type="button" class="d" style="height:48px;padding:0 16px;border-radius:12px;border:0;background:#1D2B6E;color:#F4EEDF;font-size:12px;font-weight:700">Rejoindre</button>
+    </form>
+
+    <div role="tablist" aria-label="Type de ligues" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;background:#20265A;padding:4px;border-radius:12px">
+      <sc-for list="{{scopes}}" as="t" hint-placeholder-count="2">
+        <button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" style="{{t.st}}">{{t.label}}</button>
+      </sc-for>
+    </div>
+    <div style="display:flex;gap:6px" aria-label="Filtrer par jeu">
+      <sc-for list="{{filters}}" as="f" hint-placeholder-count="3">
+        <button type="button" aria-pressed="{{f.on}}" onClick="{{f.pick}}" style="{{f.st}}">{{f.label}}</button>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{leagues}}" as="l" hint-placeholder-count="3">
+        <a href="{{l.href}}" style="display:flex;border-radius:16px;overflow:hidden;background:#20265A;color:#F4EEDF;text-decoration:none">
+          <span class="{{l.cls}}" style="width:10px;flex-shrink:0"></span>
+          <span style="flex:1;padding:12px 14px;display:flex;flex-direction:column;gap:6px">
+            <span style="display:flex;align-items:center;gap:6px">
+              <span class="d" style="font-size:10px;font-weight:700;padding:4px 7px;border-radius:6px;background:#0F1230">{{l.game}}</span>
+              <span style="font-size:11px;font-weight:700;color:#A9AECF">{{l.kind}}</span>
+            </span>
+            <b style="font-size:15px">{{l.name}}</b>
+            <span style="font-size:12px;color:#A9AECF">{{l.meta}}</span>
+          </span>
+          <span style="padding:12px 14px;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:2px">
+            <span class="d" style="font-size:18px;font-weight:800;color:#F2B705">{{l.pos}}</span>
+            <span style="font-size:11px;color:#A9AECF">{{l.posLabel}}</span>
+          </span>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+
+  <nav aria-label="Navigation principale" style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid #3D4590;background:#0B0E26;padding:8px 6px 22px">
+    <a href="Accueil.dc.html" class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"></path></svg>Accueil</a>
+    <a href="ModeDames.dc.html" class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="6" r="3"></circle><path d="M8.5 20h7l-1.5-9h-4z"></path><path d="M6 20h12"></path></svg>Jouer</a>
+    <a href="Ligues.dc.html" class="tab" style="color:#F2B705" aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"></path><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 21h8"></path></svg>Ligues</a>
+    <a href="Cartes.dc.html" class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="6" width="12" height="15" rx="2"></rect><path d="M8 3h10a2 2 0 0 1 2 2v13"></path></svg>Cartes</a>
+    <a href="Profil.dc.html" class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Profil</a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { scope: 'mine', game: 'all' }; }
+  renderVals() {
+    const s = this.state;
+    const all = [
+      { scope: 'mine', g: 'dames', game: 'DAMES', cls: 'obom', kind: 'Championnat · privée', name: 'Championnat du Kwatt', meta: '10 joueurs · journée 7/18 · aller-retour', pos: '3e', posLabel: 'ta place', href: 'Championnat.dc.html' },
+      { scope: 'mine', g: 'dames', game: 'DAMES', cls: 'obom', kind: 'Coupe · privée', name: 'Coupe des Cousins', meta: '8 joueurs · 2 poules · demi-finales', pos: '1er', posLabel: 'poule A', href: 'Coupe.dc.html' },
+      { scope: 'mine', g: 'ludo', game: 'LUDO', cls: 'kaba', kind: 'Championnat · privée', name: 'Ludo du vendredi', meta: '12 joueurs · tables de 4 · semaine 3', pos: '5e', posLabel: 'ta place', href: 'Championnat.dc.html' },
+      { scope: 'pub', g: 'dames', game: 'DAMES', cls: 'obom', kind: 'Publique · inscriptions ouvertes', name: 'Ligue Littoral — Dames', meta: '14/16 inscrits · entrée 200 · ferme dans 3 j', pos: '2', posLabel: 'places', href: 'LiguePublique.dc.html' },
+      { scope: 'pub', g: 'ludo', game: 'LUDO', cls: 'kaba', kind: 'Publique · ouverte', name: 'Open Ludo du dimanche', meta: '64 joueurs · coupe à élimination', pos: '9', posLabel: 'places', href: 'Coupe.dc.html' },
+      { scope: 'pub', g: 'dames', game: 'DAMES', cls: 'obom', kind: 'Publique · élite', name: 'Ligue des Notables', meta: 'Accès : échelon Notable · 32 joueurs', pos: '3', posLabel: 'places', href: 'Championnat.dc.html' }
+    ];
+    const tabSt = (on) => 'height:42px;border:0;border-radius:9px;font-family:Unbounded,sans-serif;font-size:12px;font-weight:700;' + (on ? 'background:#F4EEDF;color:#0F1230' : 'background:transparent;color:#A9AECF');
+    const scopes = [{ id: 'mine', label: 'Mes ligues' }, { id: 'pub', label: 'Publiques' }]
+      .map((t) => ({ ...t, on: String(s.scope === t.id), st: tabSt(s.scope === t.id), pick: () => this.setState({ scope: t.id }) }));
+    const filters = [{ id: 'all', label: 'Tous les jeux' }, { id: 'dames', label: 'Dames' }, { id: 'ludo', label: 'Ludo' }]
+      .map((f) => { const on = s.game === f.id; return { ...f, on: String(on), pick: () => this.setState({ game: f.id }),
+        st: 'height:36px;padding:0 12px;border-radius:999px;font-family:DM Sans,sans-serif;font-size:13px;font-weight:700;' + (on ? 'background:#1D2B6E;color:#F4EEDF;border:1px solid #F2B705' : 'background:transparent;color:#A9AECF;border:1px solid #3D4590') }; });
+    const leagues = all.filter((l) => l.scope === s.scope && (s.game === 'all' || l.g === s.game));
+    return { scopes, filters, leagues };
+  }
+}
+</script>
+</body>
+</html>

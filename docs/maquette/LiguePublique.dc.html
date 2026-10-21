@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Rejoindre une ligue publique</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.obom{background-color:#6E4426;background-image:repeating-linear-gradient(8deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px),repeating-linear-gradient(-3deg,rgba(255,220,170,.10) 0 1px,transparent 1px 11px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+.kv{display:flex;flex-direction:column;gap:2px;background:#20265A;border-radius:12px;padding:10px 12px}
+.kv span{font-size:11px;color:#A9AECF}
+.kv b{font-size:14px}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden">
+  <div class="obom" style="padding:16px 20px 18px;display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="Ligues.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#0F1230;color:#F4EEDF">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+      </a>
+      <span style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:#1F9D6B;color:#0F1230;padding:5px 9px;border-radius:7px">Inscriptions ouvertes</span>
+    </div>
+    <h1 class="d" style="margin:0;font-size:22px;font-weight:800">Ligue Littoral — Dames</h1>
+    <div style="display:flex;align-items:center;gap:10px;background:#0F1230;border-radius:12px;padding:10px 12px">
+      <span class="d" style="width:34px;height:34px;border-radius:50%;background:#F2B705;color:#0F1230;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px">A</span>
+      <div style="display:flex;flex-direction:column;gap:1px;font-size:12px"><b style="font-size:14px">Organisée par Armand</b><span style="color:#A9AECF">Chef · 3 ligues menées au bout · caution de 800 déposée</span></div>
+    </div>
+  </div>
+
+  <div style="flex:1;padding:14px 20px 24px;display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <div style="display:flex;justify-content:space-between;font-size:13px"><b>14 / 16 places prises</b><span style="color:#F2B705;font-weight:700">ferme dans 3 j 04 h</span></div>
+      <div style="height:8px;border-radius:4px;background:#3D4590;overflow:hidden"><div style="width:87%;height:100%;background:#F2B705"></div></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">
+      <div class="kv"><span>Entrée</span><b style="color:#F2B705">200 cauris</b></div>
+      <div class="kv"><span>Échelon minimum</span><b>Débrouillard</b></div>
+      <div class="kv"><span>Début</span><b>10 nov. · 1 match/jour</b></div>
+      <div class="kv"><span>Format</span><b>Tous contre tous</b></div>
+    </div>
+
+    <div class="lbl">Ce qu'on gagne · pot actuel 3 500</div>
+    <div style="background:#20265A;border-radius:12px;padding:4px 12px;font-size:13px">
+      <div style="display:flex;justify-content:space-between;padding:7px 0"><span>Champion</span><b>1 225 + médaille d'or</b></div>
+      <div style="display:flex;justify-content:space-between;padding:7px 0;border-top:1px solid #3D4590"><span>2e · 3e</span><b>700 · 350</b></div>
+      <div style="display:flex;justify-content:space-between;padding:7px 0;border-top:1px solid #3D4590"><span>Chaque joueur qui va au bout</span><b>≈ 87 + points de quartier</b></div>
+    </div>
+
+    <div style="font-size:12px;line-height:1.5;color:#A9AECF">Un match par jour, sinon forfait et amende de 20. Deux forfaits de suite : exclusion, avec une partie de l'entrée rendue.</div>
+
+    <sc-if value="{{enough}}" hint-placeholder-val="{{true}}">
+      <a href="MatchDuJour.dc.html" class="d" style="margin-top:auto;height:54px;border-radius:14px;background:#F2B705;color:#0F1230;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;text-decoration:none">S'inscrire · bloquer 200 cauris</a>
+      <span style="font-size:12px;color:#A9AECF;text-align:center">Ton solde : 2 450. Remboursé à 100 % si la ligue n'est pas validée.</span>
+    </sc-if>
+    <sc-if value="{{short}}" hint-placeholder-val="{{false}}">
+      <div style="margin-top:auto;display:flex;flex-direction:column;gap:8px">
+        <button type="button" disabled class="d" style="height:54px;border-radius:14px;border:1px solid #3D4590;background:#20265A;color:#A9AECF;font-size:13px;font-weight:700">Il te manque 80 cauris</button>
+        <a href="DefiMachine.dc.html" style="height:48px;border-radius:12px;border:1px solid #F2B705;color:#F2B705;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;text-decoration:none">Les gagner contre la machine</a>
+      </div>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"soldeSuffisant":{"editor":"boolean","default":true},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const ok = this.props.soldeSuffisant ?? true;
+    return { enough: ok, short: !ok };
+  }
+}
+</script>
+</body>
+</html>

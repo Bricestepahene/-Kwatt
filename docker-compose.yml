@@ -1,0 +1,18 @@
+# Développement local et base du déploiement sur VPS.
+# Les services applicatifs (api, ludo-ai) seront ajoutés quand ils existeront.
+services:
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    env_file: .env
+    ports: ["127.0.0.1:5432:5432"]
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./db/migrations:/docker-entrypoint-initdb.d:ro
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports: ["127.0.0.1:6379:6379"]
+
+volumes:
+  pgdata:

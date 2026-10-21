@@ -1,0 +1,35 @@
+# Dépendances et builds
+node_modules/
+dist/
+build/
+coverage/
+.turbo/
+*.tsbuildinfo
+
+# Expo / React Native
+.expo/
+android/
+ios/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Environnement : seuls les .env.example sont versionnés
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# Python (research/)
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+research/**/runs/
+research/**/*.onnx
+
+# Système
+.DS_Store
+*.log

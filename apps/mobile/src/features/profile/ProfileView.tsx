@@ -155,7 +155,7 @@ function ProfileHeader({ profile }: { profile: Profile }) {
         ) : (
           <StatTile
             value={f.number(profile.gamesPlayed)}
-            label={t('stats.games', { count: profile.gamesPlayed })}
+            label={t('stats.games')}
             accessibilityLabel={t('stats.gamesA11y', { count: profile.gamesPlayed })}
           />
         )}
@@ -168,7 +168,7 @@ function ProfileHeader({ profile }: { profile: Profile }) {
         />
         <StatTile
           value={f.number(profile.medals.total)}
-          label={t('stats.medals', { count: profile.medals.total })}
+          label={t('stats.medals')}
           accessibilityLabel={t('stats.medalsA11y', { count: profile.medals.total })}
           {...(self ? { onPress: () => router.push('/recompenses') } : {})}
         />

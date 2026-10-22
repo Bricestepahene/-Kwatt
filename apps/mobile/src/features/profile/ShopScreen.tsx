@@ -17,11 +17,12 @@ import {
   Chip,
   ConfirmSheet,
   Fabric,
-  Header,
   Icon,
+  IconButton,
   Screen,
   Skeleton,
   Text,
+  goBack,
   showToast,
 } from '../../ui';
 import { useBuy, useCatalog, useSaveAvatar } from './api';
@@ -156,6 +157,7 @@ function ShopCard({ item, balance, offline, onPress }: { item: ShopItem; balance
 
 export function ShopScreen() {
   const { t } = useTranslation('profile');
+  const { t: tc } = useTranslation('common');
   const offline = useIsOffline();
   const catalog = useCatalog();
   const buy = useBuy();
@@ -199,8 +201,15 @@ export function ShopScreen() {
     }
   };
 
+  // En-tête de la planche : retour, titre sur une ligne, solde à droite.
   const header = (
-    <Header title={t('shop.title')} fallback="/avatar" right={catalog.data ? <CauriBadge amount={balance} size="sm" /> : undefined} />
+    <View style={styles.header}>
+      <IconButton icon="back" accessibilityLabel={tc('action.back')} onPress={() => goBack('/avatar')} />
+      <Text variant="title" accessibilityRole="header" numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.75} style={styles.headerTitle}>
+        {t('shop.title')}
+      </Text>
+      {catalog.data ? <CauriBadge amount={balance} size="sm" style={styles.balance} /> : null}
+    </View>
   );
 
   return (
@@ -290,6 +299,9 @@ export function ShopScreen() {
 }
 
 const styles = StyleSheet.create({
+  header: { flexDirection: 'row', alignItems: 'center', gap: 12, minHeight: 48 },
+  headerTitle: { flex: 1 },
+  balance: { alignSelf: 'center' },
   banner: { borderRadius: 16, padding: 14, flexDirection: 'row', alignItems: 'center', gap: 14 },
   bannerText: { flex: 1, gap: 3, paddingVertical: 8, paddingHorizontal: 10, borderRadius: 10 },
   bannerLabel: { fontFamily: fontFamilies.body[700], fontSize: 11, lineHeight: 15, letterSpacing: 1.3 },

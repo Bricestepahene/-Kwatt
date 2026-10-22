@@ -14,10 +14,8 @@
   "stats": {
     "cauris": "cowries",
     "cards": "cards",
-    "medals_one": "medal",
-    "medals_other": "medals",
-    "games_one": "game",
-    "games_other": "games",
+    "medals": "medals",
+    "games": "games",
     "caurisA11y": "{{amount}}: see my history",
     "cardsA11y": "{{owned}} cards out of {{total}}",
     "medalsA11y_one": "{{count}} medal",

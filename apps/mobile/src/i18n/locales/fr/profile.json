@@ -14,10 +14,8 @@
   "stats": {
     "cauris": "cauris",
     "cards": "cartes",
-    "medals_one": "médaille",
-    "medals_other": "médailles",
-    "games_one": "partie",
-    "games_other": "parties",
+    "medals": "médailles",
+    "games": "parties",
     "caurisA11y": "{{amount}} : voir mes mouvements",
     "cardsA11y": "{{owned}} cartes sur {{total}}",
     "medalsA11y_one": "{{count}} médaille",

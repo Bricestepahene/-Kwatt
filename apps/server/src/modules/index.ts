@@ -20,6 +20,9 @@ import notificationRoutes from './notifications/routes.js';
 import profilesRoutes from './profiles/routes.js';
 import shareRoutes from './share/routes.js';
 import shopRoutes from './shop/routes.js';
+import ratingsRoutes from './ratings/routes.js';
+import machineRoutes from './machine/routes.js';
+import puzzlesRoutes from './puzzles/routes.js';
 
 export interface KwattModule {
   name: string;
@@ -39,4 +42,7 @@ export const modules: KwattModule[] = [
   { name: 'shop', routes: shopRoutes },
   { name: 'profiles', routes: profilesRoutes },
   { name: 'accounts', routes: accountsRoutes },
+  { name: 'ratings', routes: ratingsRoutes },
+  { name: 'machine', routes: machineRoutes },
+  { name: 'puzzles', routes: puzzlesRoutes },
 ];

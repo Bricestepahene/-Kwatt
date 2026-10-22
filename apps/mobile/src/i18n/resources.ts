@@ -8,6 +8,7 @@
  */
 import enAccounts from './locales/en/accounts.json';
 import enCommon from './locales/en/common.json';
+import enDames from './locales/en/dames.json';
 import enErrors from './locales/en/errors.json';
 import enItems from './locales/en/items.json';
 import enLegal from './locales/en/legal.json';
@@ -17,6 +18,7 @@ import enScreens from './locales/en/screens.json';
 import enSettings from './locales/en/settings.json';
 import frAccounts from './locales/fr/accounts.json';
 import frCommon from './locales/fr/common.json';
+import frDames from './locales/fr/dames.json';
 import frErrors from './locales/fr/errors.json';
 import frItems from './locales/fr/items.json';
 import frLegal from './locales/fr/legal.json';
@@ -36,6 +38,7 @@ export const resources = {
     accounts: frAccounts,
     settings: frSettings,
     legal: frLegal,
+    dames: frDames,
   },
   en: {
     common: enCommon,
@@ -47,6 +50,7 @@ export const resources = {
     accounts: enAccounts,
     settings: enSettings,
     legal: enLegal,
+    dames: enDames,
   },
 } as const;
 

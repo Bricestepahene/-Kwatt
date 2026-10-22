@@ -12,6 +12,7 @@ import { z } from 'zod';
 import { ACCOUNT_ERRORS } from './errors/accounts.js';
 import { AUTH_ERRORS } from './errors/auth.js';
 import { COMMON_ERRORS } from './errors/common.js';
+import { DAMES_ERRORS } from './errors/dames.js';
 import { ECONOMY_ERRORS } from './errors/economy.js';
 import { MEDIA_ERRORS } from './errors/media.js';
 import { NOTIFICATION_ERRORS } from './errors/notifications.js';
@@ -33,6 +34,7 @@ export const ERROR_CODES = [
   ...SHOP_ERRORS,
   ...ACCOUNT_ERRORS,
   ...ROOM_ERRORS,
+  ...DAMES_ERRORS,
 ] as const;
 
 export type ErrorCode = (typeof ERROR_CODES)[number];

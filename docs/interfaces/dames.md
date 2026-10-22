@@ -1,0 +1,43 @@
+# Interfaces · équipe Dames (vague 2)
+
+Écrans 14, 15, 16, 16b, 17, 18, 19, 19b, 43 ; contrats C1, C2, C4, C5 (côté Dames). Le code fait foi en cas d'écart.
+
+## Base (migration 0030)
+- `player_ratings` : défaut 900, colonnes `wins`, `draws`, `losses` ajoutées. `rating_history` : `opponent_rating`, `context`.
+- `machine_progress (user_id, family)` : `auto_difficulty`, `auto_streak` (> 0 victoires, < 0 défaites), `win_streak`.
+- `machine_results` : une ligne par partie contre la machine réglée (hors connexion : `client_game_id` unique par joueur ; en ligne : `game_id` unique par joueur), réponse gardée (`response`) pour les renvois.
+- `puzzle_solves (user_id, day)`, `puzzle_attempts (user_id, day, variant)`, `puzzle_streaks (user_id)`.
+- `daily_rewards` (0001) sert au plafond de 10 parties récompensées par jour et par jeu.
+- Une partie hors connexion acceptée devient une ligne `games` (context `machine`, status `finished`, `rules_version 'offline-1'`) + `game_players` (siège 0 = joueur, sièges suivants = machine, `display_name 'machine.<difficulté>'`) : journal des cauris, `rating_history` et « derniers matchs » du profil s'y rattachent.
+
+## Protocole (`@kwatt/protocol`)
+- `http/ratings.ts` : `RATED_VARIANT_IDS`, `RatedVariantSchema`, `RatingItemSchema`, `MyRatingsResponseSchema`, `RatingChangeSchema` (`{before, after, delta, levelBefore, levelAfter}`).
+- `http/machine.ts` : `MACHINE_FAMILIES`, `MachineFamilySchema`, `MACHINE_DIFFICULTY_CODES`, `MachineDifficultySchema`, `MachineModeSchema`, `MACHINE_VARIANTS`, `MachineVariantSchema`, `MachineOffersQuerySchema`, `MachineDifficultyOfferSchema`, `AutoDifficultySchema`, `MachineOffersResponseSchema`, `MachineSettlementSchema`, `MachineMoveSchema`, `MachineResultRequestSchema`, `MachineOutcomeSchema`, `MachineResultResponseSchema`.
+- `http/puzzles.ts` : `PuzzleVariantSchema`, `DayKeySchema`, `DailyPuzzleQuerySchema`, `DailyPuzzleSchema`, `DailyPuzzleResponseSchema`, `DailyPuzzleSolveRequestSchema`, `DailyPuzzleSolveResponseSchema`.
+- `http/games.ts` : copie consommateur du contrat C3 (`CreateMachineGameRequestSchema`, `CreateMachineGameResponseSchema`, `GameSeatSchema`, `GameSummarySchema`), écrite exactement selon CONTRATS-V2 ; à fusionner avec celle de l'équipe Parties en ligne.
+- `errors/dames.ts` : `machine.invalid_game` (params `ply`, `reason` : illegal | machine_mismatch | after_end | format | roll_not_now | move_not_now | skipped_move | setup…), `machine.invalid_variant`, `machine.difficulty_locked`, `machine.rating_mismatch` (params `expected`), `machine.result_conflict`, `machine.invalid_bet`, `puzzle.wrong_day` (params `dayKey`), `puzzle.not_found`. Traduits dans `errors.json` fr/en.
+
+## Serveur
+- **C1** `modules/ratings/service.ts` : `recordRatedResult(dbOuTx, { gameId, variant, participants: [{ userId | null, machineRating?, place }], context? }) → Record<userId, { before, after, delta, levelBefore, levelAfter }>` ; idempotent par (partie, joueur). `gameId` doit exister dans `games` (clé étrangère de 0001). Aussi `ratingOf(db, userId, variant)`, `myRatings(db, userId)`.
+- `GET /v1/ratings/me` (profil) → `{ items: [{ variant, rating, level, rank, gamesPlayed, wins, draws, losses, pointsToNextLevel }] }`.
+- **C2** `GET /v1/machine/offers?family&variant&machines` (profil) → `MachineOffersResponse` ; `betCap` = 0 sans profil majeur vérifié.
+- **C2** `POST /v1/machine/results` (profil, 30/min) : rejoue (Dames : joueur = blancs, machine = noirs, `chooseMoveSync(state, { targetRating, seed })` à chaque coup noir ; Ludo : légalité seulement, joueur au siège 0) puis règle. Idempotent par `clientGameId` (même contenu → même réponse ; autre contenu → 409 `machine.result_conflict`). Champ facultatif en plus du contrat : `machineRating` (force visée pendant la partie, ±150 de l'offre actuelle, sinon 422 `machine.rating_mismatch`).
+- **C2** `modules/machine/service.ts` : `settleMachineOnline(dbOuTx, { userId, gameId, family, variant, difficulty, mode, bet, outcome, machines?, places?, oddsHundredths?, machineRating?, at? }) → MachineResultResponse`. La mise doit être sur le séquestre `game:<gameId>` ; victoire : mise + gain net (compte `house`) + gain de base (compte `rewards`) ; défaite : mise à `house`, +10 ; nulle : mise rendue. Idempotent par (joueur, partie). Aussi `machineOffers`, `submitMachineResult`, `targetProbability(p, machines)`, `insertOfflineGame`.
+- `modules/machine/replay.ts` : `replayDames(variant, moves, { targetRating, seed })`, `replayLudo(variant, machines, moves)`, `ludoSetup`, `InvalidGameError`, `PLAYER_SIDE = 'w'`.
+- Ludo, format des coups : `« lancer:pion »`, `« lancer:siège.pion »` (partenaire), `« lancer:- »` (aucun coup possible), `« b:pion »` (coup bonus du Parchís). Pachisi : 3 machines, équipes [[0,2],[1,3]].
+- `GET /v1/puzzles/daily?variant=dames10|dames8` → `{ dayKey, puzzle (solution comprise), solved, streak, daysToReward, reward, solvedShare, tomorrowTheme }` ; `POST /v1/puzzles/daily/solve { dayKey, variant?, moves }` → `{ correct, reward, streak, daysToReward, card, alreadySolved }`. `moves` = coups du joueur seuls ou toute la suite.
+- Grand livre : `machine_win` (`machine_win:<clé>`), `participation`, `machine_bet` (en ligne), `daily_problem` (`daily_problem:<joueur>:<jour>`). Clé hors connexion = `offline:<joueur>:<clientGameId>`, en ligne = `<gameId>`.
+- Comptes : sections d'export `ratings`, `machine`, `puzzles` ; effacement de `machine_results`, `machine_progress`, `puzzle_*`.
+
+## Appli
+- **C5** `src/features/dames/board/DamesBoard.tsx` : `<DamesBoard state selected targets lastMove threatened mustCapture dimmed hint onSquarePress flipped showNumbers size interactive accessibilityLabel />` (react-native-svg, cases ≥ 34 px, une zone tactile annoncée par case foncée). Logique pure : `board/selection.ts` (`tap`, `targetsOf`, `threatened`, `movablePieces`, `captureRequired`, `EMPTY_SELECTION`), `board/geometry.ts` (`cellOf`, `squareAt`, `cellSize`, `material`).
+- **C5** `src/features/dames/GameScreen.tsx` : `<DamesGameScreen controller onEnd? stake? clockSetting? />` pour un `GameController<DamesState, Move>` (Move et DamesState de `@kwatt/rules-dames`). **Sièges : 0 = blancs, 1 = noirs** ; on joue ses pièces en bas ; spectateur si `mySeats()` est vide. Événements lus (`GameEvent.kind`) : `move`, `capture`, `promotion` (params `{from, to, path, captures}` → dernier coup et rafle animée), `turn`, `end`, `invalid`, `thinking`, `draw_offer`, `draw_declined`, `reaction` (params `{key}`). Méthodes facultatives lues si présentes : `lastMove()`, `isThinking()`, `whenSaved()`. Fin : `/partie/<id>/resultat` sauf `onEnd`.
+- `src/features/dames/useDamesGame.ts` : `useDamesGame(controller, { reduceMotion, mySide })`, `seatSide`, `sideSeat`.
+- Partie locale : `src/features/dames/localGame.ts` (`LocalDamesController`, `readLocalDames`, `newSeed`, `replayNotation`, `outcomeOf`) ; `machineGame.ts` (`startLocalDames`, `restoreLocalDames`, `savedLocalDames`).
+- **C4** `src/features/game/history.ts` : `saveLocalGame(game)`, `updateLocalGame(id, patch)`, `getLocalGame(id)`, `listLocalGames(family?)`, `useLocalGame(id)`, type `LocalGame` (`{ id, family, variant, context?, seats, mySeats?, moves, outcome, settlement?, rating?, machine?: { difficulty, mode, bet, winStreak?, offline, pending?, rejected? }, card?, playedAt }`), 50 dernières parties (AsyncStorage `kwatt.games.history.v1`).
+- **C2 côté appli** `src/features/game/machineResults.ts` : `enqueueMachineResult(MachineResultRequest)` (file hors ligne `machine.result`, envoi au retour du réseau, règlement recopié dans l'historique local) — à réutiliser par le Ludo (`family: 'ludo'`). Enregistré par `app/_layout.tsx`.
+- Écrans 18 et 19 communs : `src/features/game/ResultScreen.tsx` (`ResultScreen`, `useResult(id)`), `ReviewScreen.tsx`, logique pure `resultView.ts` (`fromLocalGame`, `fromSummary`, `longestCapture`) et `review.ts`.
+- Données : `src/features/dames/api.ts` (`useRatings`, `useMachineOffers`, `useWallet`, `useDailyPuzzle`, `useSolvePuzzle`, `useGameSummary`, `createMachineGame`, `damesKeys`).
+- Routes remplacées : `/jouer/dames` (14), `/dames/machine?variant=` (15), `/dames/partie/[id]` (16, 16b, 43), `/parametres/affichage` (17), `/partie/[id]/resultat` (18), `/partie/[id]/revoir` (19), `/dames/probleme-du-jour?variant=` (19b).
+- Liens sortants : `/salon/nouveau?jeu=dames`, `/defi/nouveau?jeu=dames[&adversaire=&mise=&revanche=]`, `/ligues?jeu=dames`, `/regles/dames|dames8`, `/signaler/<userId>`, `/salon/<code>`, `/ligue/<leagueId>`.
+- Catalogue `dames` (fr/en). `@kwatt/design` : `Theme.lossSoft`, `lossSoftText`, `gainSoftText` ajoutés ; icône `more` ajoutée au kit.

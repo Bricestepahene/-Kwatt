@@ -101,5 +101,17 @@
   },
   "push": {
     "token_invalid": "Les notifications n'ont pas pu être activées sur cet appareil."
+  },
+  "machine": {
+    "invalid_game": "Partie refusée : le serveur ne retrouve pas les mêmes coups.",
+    "invalid_variant": "Cette variante ne se joue pas ici.",
+    "difficulty_locked": "Difficulté verrouillée : elle s'ouvre à l'échelon Chef.",
+    "rating_mismatch": "Ta force a changé depuis la partie : elle n'a pas pu être validée.",
+    "result_conflict": "Ce résultat a déjà été envoyé autrement.",
+    "invalid_bet": "Pari refusé : vérifie le montant."
+  },
+  "puzzle": {
+    "wrong_day": "Le problème a changé : un nouveau jour a commencé.",
+    "not_found": "Pas de problème disponible aujourd'hui."
   }
 }

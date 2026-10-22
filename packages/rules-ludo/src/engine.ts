@@ -302,6 +302,8 @@ function tryMove(state: LudoState, occ: Occupancy, owner: number, token: number,
   const to = from + steps;
   // Il faut le chiffre exact pour rentrer.
   if (to > t.finish) return null;
+  // Les cauris ne donnent jamais 1 : un pion arrêté à une case de l'arrivée ne rentrerait plus.
+  if (config.mechanics.throw === 'cowries' && to === t.finish - 1) return null;
   // Personne ne traverse une barrière (pas même son propriétaire).
   for (let p = from + 1; p < to; p++) {
     const sq = absoluteSquare(config, home, p);

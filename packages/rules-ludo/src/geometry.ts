@@ -97,7 +97,8 @@ function rotate(p: Point, c: Point, deg: number): Point {
   const x = c.x + (p.x - c.x) * cos - (p.y - c.y) * sin;
   const y = c.y + (p.x - c.x) * sin + (p.y - c.y) * cos;
   // Arrondi : les rotations d'un quart de tour tombent juste.
-  return { x: Math.round(x * 1e6) / 1e6, y: Math.round(y * 1e6) / 1e6 };
+  // `|| 0` : jamais de « −0 » dans les coordonnées.
+  return { x: Math.round(x * 1e6) / 1e6 || 0, y: Math.round(y * 1e6) / 1e6 || 0 };
 }
 
 const range = (from: number, to: number): number[] => {
@@ -133,7 +134,7 @@ function block17(k: number): ArmCell[] {
 const LAYOUTS: Record<BoardShape, Layout> = {
   croix: {
     size: 15,
-    angle: (k) => -90 + 90 * k,
+    angle: (k) => (270 + 90 * k) % 360,
     local: (row, col) => ({ x: 6 + col + 0.5, y: row + 0.5 }),
     block: ludoBlock(4),
     corridor: (k) => range(1, 5).map((row) => ({ arm: k, row, col: 1 })),
@@ -161,7 +162,7 @@ const LAYOUTS: Record<BoardShape, Layout> = {
   },
   parchis: {
     size: 19,
-    angle: (k) => 180 - 90 * k,
+    angle: (k) => (180 - 90 * k + 360) % 360,
     local: (row, col) => ({ x: 8 + col + 0.5, y: row + 0.5 }),
     block: block17,
     corridor: (k) => range(1, 7).map((row) => ({ arm: k, row, col: 1 })),
@@ -178,7 +179,7 @@ const LAYOUTS: Record<BoardShape, Layout> = {
   },
   pachisi: {
     size: 19,
-    angle: (k) => 180 - 90 * k,
+    angle: (k) => (180 - 90 * k + 360) % 360,
     local: (row, col) => ({ x: 8 + col + 0.5, y: row + 0.5 }),
     // Le bloc part du bout de la branche (progression 7) ; la piste du Pachisi commence là.
     block: block17,

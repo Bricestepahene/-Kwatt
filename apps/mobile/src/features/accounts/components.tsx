@@ -174,7 +174,7 @@ export function PseudoField({
   check,
   serverError,
   ...rest
-}: Omit<TextFieldProps, 'value' | 'onChangeText' | 'error' | 'hint' | 'label'> & {
+}: Omit<TextFieldProps, 'value' | 'onChange' | 'onChangeText' | 'error' | 'hint' | 'label'> & {
   value: string;
   onChange: (pseudo: string) => void;
   check: PseudoCheck;

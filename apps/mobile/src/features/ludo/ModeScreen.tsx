@@ -12,7 +12,8 @@ import { useDynamicT, useFormat } from '@/i18n';
 import { useIsOffline } from '@/offline';
 import { useSession } from '@/session';
 import { useTheme } from '@/theme';
-import { Badge, Fabric, Icon, RankBadge, Screen, SegmentedTabs, Text, type IconName, type RankId } from '@/ui';
+import { Badge, Fabric, Icon, RankBadge, Screen, Text, type IconName, type RankId } from '@/ui';
+import { WoodTabs } from '../dames/FabricHeader';
 import { useLudoRatings } from './api';
 import { savedLocalLudo } from './local/runtime';
 import type { LocalLudoOptions } from './local/controller';
@@ -84,8 +85,7 @@ export function ModeScreen() {
   return (
     <Screen edges={['top']} padded={false} gap={0}>
       <Fabric name="kaba" style={styles.band}>
-        <SegmentedTabs<SpaceTab>
-          variant="overlay"
+        <WoodTabs<SpaceTab>
           accessibilityLabel={t('mode.spaceLabel')}
           value="ludo"
           onChange={onSpace}
@@ -107,7 +107,7 @@ export function ModeScreen() {
               <>
                 <RankBadge level={level} {...(rating ? { rank: rating.rank as RankId } : {})} />
                 <Text variant="caption" tone="muted" numberOfLines={1} style={styles.force}>
-                  {rating ? t('mode.force', { rating: f.number(rating.rating) }) : t('mode.forceNew')}
+                  {t('mode.force', { rating: f.number(shownRating) })}
                 </Text>
               </>
             ) : (
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
   band: { paddingHorizontal: 20, paddingTop: 18, paddingBottom: 20, gap: 14 },
   hero: { borderRadius: 14, paddingHorizontal: 14, paddingVertical: 12, gap: 6 },
   title: { fontSize: 24, lineHeight: 30 },
-  heroRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  heroRow: { flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap', rowGap: 4 },
   force: { flexShrink: 1 },
   variantLink: { marginLeft: 'auto', minHeight: 32, justifyContent: 'center', flexShrink: 1 },
   list: { paddingHorizontal: 20, paddingTop: 16, paddingBottom: 24, gap: 10 },

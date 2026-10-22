@@ -113,7 +113,7 @@ export function VariantsScreen() {
         {custom ? t('variants.houseNote') : td(`ludo:board.${setup.preset}.note`)}
       </Text>
 
-      {custom && setup.house ? (
+      {custom && setup.house && !setup.houseSet ? (
         member ? (
           <Button variant="outline" size="sm" icon="plus" label={t('variants.saved.save')} onPress={() => setSaving(true)} disabled={offline} />
         ) : null

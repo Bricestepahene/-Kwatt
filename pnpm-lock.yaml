@@ -192,6 +192,9 @@ importers:
       '@kwatt/protocol':
         specifier: workspace:*
         version: link:../../packages/protocol
+      '@kwatt/rules-ludo':
+        specifier: workspace:*
+        version: link:../../packages/rules-ludo
       '@node-rs/argon2':
         specifier: 2.2.1
         version: 2.2.1

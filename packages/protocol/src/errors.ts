@@ -20,6 +20,7 @@ import { PROFILES_ERRORS } from './errors/profiles.js';
 import { REALTIME_ERRORS } from './errors/realtime.js';
 import { SHOP_ERRORS } from './errors/shop.js';
 import { ROOM_ERRORS } from './errors/rooms.js';
+import { LUDO_ERRORS } from './errors/ludo.js';
 
 export const ERROR_CODES = [
   ...COMMON_ERRORS,
@@ -33,6 +34,7 @@ export const ERROR_CODES = [
   ...SHOP_ERRORS,
   ...ACCOUNT_ERRORS,
   ...ROOM_ERRORS,
+  ...LUDO_ERRORS,
 ] as const;
 
 export type ErrorCode = (typeof ERROR_CODES)[number];

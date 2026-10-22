@@ -16,3 +16,5 @@ export * from './http/accounts.js';
 export * from './http/rooms.js';
 export * from './ws/envelope.js';
 export * from './ws/base.js';
+export * from './http/ludo.js';
+export * from './http/machine.js';

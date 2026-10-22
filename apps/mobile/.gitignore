@@ -1,0 +1,17 @@
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Sortie de tsc -b (déclarations seulement, pour la vérification de types)
+.tsbuild/
+
+# Captures de vérification visuelle (régénérées par scripts/screenshots.mjs)
+screenshots/
+
+# Natif (généré par expo prebuild / EAS)
+android/
+ios/
+.kotlin/
+*.orig.*

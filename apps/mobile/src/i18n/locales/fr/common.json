@@ -1,0 +1,163 @@
+{
+  "app": {
+    "name": "Kwatt",
+    "wordmark": "kwatt",
+    "tagline": "Le quartier joue ici.",
+    "logo": "Logo Kwatt : un pion de dames au centre des quatre maisons du Ludo",
+    "noAds": "Aucune publicité. On est entre nous."
+  },
+  "action": {
+    "back": "Retour",
+    "close": "Fermer",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "continue": "Continuer",
+    "save": "Enregistrer",
+    "retry": "Réessayer",
+    "share": "Partager",
+    "copy": "Copier",
+    "copied": "Copié",
+    "paste": "Coller",
+    "send": "Envoyer",
+    "validate": "Valider",
+    "join": "Rejoindre",
+    "enter": "Entrer",
+    "delete": "Supprimer",
+    "decrease": "Diminuer",
+    "increase": "Augmenter",
+    "showPassword": "Afficher le mot de passe",
+    "hidePassword": "Masquer le mot de passe",
+    "goHome": "Revenir à l'accueil",
+    "demoSession": "Explorer l'appli (démo)"
+  },
+  "tabs": {
+    "navigation": "Navigation principale",
+    "home": "Accueil",
+    "play": "Jouer",
+    "leagues": "Ligues",
+    "cards": "Cartes",
+    "profile": "Profil"
+  },
+  "space": {
+    "label": "Espace de jeu",
+    "hub": "Kwatt",
+    "dames": "Dames",
+    "ludo": "Ludo",
+    "raisonnement": "Raisonnement",
+    "soon": "bientôt"
+  },
+  "cauris": {
+    "label": "cauris",
+    "amount_one": "{{amount}} cauri",
+    "amount_other": "{{amount}} cauris"
+  },
+  "rank": {
+    "apprenti": "Apprenti",
+    "debrouillard": "Débrouillard",
+    "ancien": "Ancien du kwatt",
+    "notable": "Notable",
+    "chef": "Chef",
+    "fon": "Fon",
+    "level": "Niv {{level}}",
+    "badge": "{{rank}} · Niv {{level}}",
+    "a11y": "Échelon {{rank}}, niveau {{level}}"
+  },
+  "rarity": {
+    "commune": "Commune",
+    "rare": "Rare",
+    "epique": "Épique",
+    "legendaire": "Légendaire"
+  },
+  "fabric": {
+    "ndop": "Ndop",
+    "toghu": "Toghu",
+    "kaba": "Kaba",
+    "obom": "Obom"
+  },
+  "avatar": {
+    "of": "Avatar de {{name}}",
+    "photoOf": "Photo de {{name}}",
+    "mine": "Mon avatar"
+  },
+  "badge": {
+    "profileRequired": "Profil requis",
+    "adultsOnly": "18 ans et plus",
+    "beta": "Bêta",
+    "live": "En direct"
+  },
+  "state": {
+    "loading": "Chargement…",
+    "empty": {
+      "title": "Rien pour l'instant",
+      "body": "Dès qu'il y aura du nouveau, ça s'affichera ici."
+    },
+    "error": {
+      "title": "Ça n'a pas marché",
+      "body": "Réessaie dans un instant."
+    },
+    "offline": {
+      "title": "Pas de réseau",
+      "body": "Tes actions sont gardées : on les envoie dès que le réseau revient."
+    }
+  },
+  "offline": {
+    "banner": "Pas de réseau : on réessaie tout seul.",
+    "back": "Le réseau est revenu.",
+    "pending_one": "{{count}} action en attente d'envoi",
+    "pending_other": "{{count}} actions en attente d'envoi"
+  },
+  "time": {
+    "justNow": "à l'instant",
+    "minutesAgo_one": "il y a {{count}} min",
+    "minutesAgo_other": "il y a {{count}} min",
+    "hoursAgo_one": "il y a {{count}} h",
+    "hoursAgo_other": "il y a {{count}} h",
+    "yesterday": "hier",
+    "daysAgo_one": "il y a {{count}} jour",
+    "daysAgo_other": "il y a {{count}} jours",
+    "inMinutes_one": "dans {{count}} min",
+    "inMinutes_other": "dans {{count}} min",
+    "inHours_one": "dans {{count}} h",
+    "inHours_other": "dans {{count}} h",
+    "tomorrow": "demain",
+    "inDays_one": "dans {{count}} jour",
+    "inDays_other": "dans {{count}} jours"
+  },
+  "placeholder": {
+    "title": "En construction",
+    "body": "Cet écran arrive bientôt : il est déjà à sa place dans l'appli.",
+    "ref": "Écran {{screens}} · planche {{planches}}",
+    "links": "Aller vers"
+  },
+  "code": {
+    "roomLabel": "Code du salon",
+    "roomHint": "6 caractères, sans 0, O, 1 ni I.",
+    "digit": "Chiffre {{n}} sur {{total}}",
+    "otpLabel": "Code à 6 chiffres"
+  },
+  "field": {
+    "optional": "facultatif",
+    "required": "Champ obligatoire"
+  },
+  "a11y": {
+    "notifications_one": "Notifications, {{count}} à traiter",
+    "notifications_other": "Notifications, {{count}} à traiter",
+    "notificationsNone": "Notifications",
+    "selected": "sélectionné",
+    "progress": "{{value}} %",
+    "toggleOn": "activé",
+    "toggleOff": "désactivé"
+  },
+  "reaction": {
+    "ekie": "Ékié !",
+    "doucement": "Doucement !",
+    "tu_dors": "Tu dors ?",
+    "weee": "Wèèè",
+    "bravo": "Bravo !",
+    "revanche": "Revanche !"
+  },
+  "sync": {
+    "done": "Synchronisé {{when}}",
+    "pending": "Synchronisation en cours…"
+  }
+}

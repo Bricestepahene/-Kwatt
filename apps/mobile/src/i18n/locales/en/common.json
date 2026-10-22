@@ -1,0 +1,163 @@
+{
+  "app": {
+    "name": "Kwatt",
+    "wordmark": "kwatt",
+    "tagline": "The neighbourhood plays here.",
+    "logo": "Kwatt logo: a checkers piece at the centre of the four Ludo homes",
+    "noAds": "No ads. Just us."
+  },
+  "action": {
+    "back": "Back",
+    "close": "Close",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "continue": "Continue",
+    "save": "Save",
+    "retry": "Try again",
+    "share": "Share",
+    "copy": "Copy",
+    "copied": "Copied",
+    "paste": "Paste",
+    "send": "Send",
+    "validate": "Confirm",
+    "join": "Join",
+    "enter": "Enter",
+    "delete": "Delete",
+    "decrease": "Decrease",
+    "increase": "Increase",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "goHome": "Back to home",
+    "demoSession": "Explore the app (demo)"
+  },
+  "tabs": {
+    "navigation": "Main navigation",
+    "home": "Home",
+    "play": "Play",
+    "leagues": "Leagues",
+    "cards": "Cards",
+    "profile": "Profile"
+  },
+  "space": {
+    "label": "Game space",
+    "hub": "Kwatt",
+    "dames": "Checkers",
+    "ludo": "Ludo",
+    "raisonnement": "Reasoning",
+    "soon": "coming soon"
+  },
+  "cauris": {
+    "label": "cowries",
+    "amount_one": "{{amount}} cowry",
+    "amount_other": "{{amount}} cowries"
+  },
+  "rank": {
+    "apprenti": "Apprentice",
+    "debrouillard": "Hustler",
+    "ancien": "Kwatt Elder",
+    "notable": "Notable",
+    "chef": "Chief",
+    "fon": "Fon",
+    "level": "Lv {{level}}",
+    "badge": "{{rank}} · Lv {{level}}",
+    "a11y": "Rank {{rank}}, level {{level}}"
+  },
+  "rarity": {
+    "commune": "Common",
+    "rare": "Rare",
+    "epique": "Epic",
+    "legendaire": "Legendary"
+  },
+  "fabric": {
+    "ndop": "Ndop",
+    "toghu": "Toghu",
+    "kaba": "Kaba",
+    "obom": "Obom"
+  },
+  "avatar": {
+    "of": "{{name}}'s avatar",
+    "photoOf": "{{name}}'s photo",
+    "mine": "My avatar"
+  },
+  "badge": {
+    "profileRequired": "Profile required",
+    "adultsOnly": "18 and over",
+    "beta": "Beta",
+    "live": "Live"
+  },
+  "state": {
+    "loading": "Loading…",
+    "empty": {
+      "title": "Nothing yet",
+      "body": "As soon as there's something new, it will show up here."
+    },
+    "error": {
+      "title": "That didn't work",
+      "body": "Try again in a moment."
+    },
+    "offline": {
+      "title": "No network",
+      "body": "Your actions are kept: we send them as soon as the network is back."
+    }
+  },
+  "offline": {
+    "banner": "No network: we'll keep trying.",
+    "back": "The network is back.",
+    "pending_one": "{{count}} action waiting to be sent",
+    "pending_other": "{{count}} actions waiting to be sent"
+  },
+  "time": {
+    "justNow": "just now",
+    "minutesAgo_one": "{{count}} min ago",
+    "minutesAgo_other": "{{count}} min ago",
+    "hoursAgo_one": "{{count}} h ago",
+    "hoursAgo_other": "{{count}} h ago",
+    "yesterday": "yesterday",
+    "daysAgo_one": "{{count}} day ago",
+    "daysAgo_other": "{{count}} days ago",
+    "inMinutes_one": "in {{count}} min",
+    "inMinutes_other": "in {{count}} min",
+    "inHours_one": "in {{count}} h",
+    "inHours_other": "in {{count}} h",
+    "tomorrow": "tomorrow",
+    "inDays_one": "in {{count}} day",
+    "inDays_other": "in {{count}} days"
+  },
+  "placeholder": {
+    "title": "Under construction",
+    "body": "This screen is coming soon: it already has its place in the app.",
+    "ref": "Screen {{screens}} · board {{planches}}",
+    "links": "Go to"
+  },
+  "code": {
+    "roomLabel": "Room code",
+    "roomHint": "6 characters, no 0, O, 1 or I.",
+    "digit": "Digit {{n}} of {{total}}",
+    "otpLabel": "6-digit code"
+  },
+  "field": {
+    "optional": "optional",
+    "required": "Required field"
+  },
+  "a11y": {
+    "notifications_one": "Notifications, {{count}} to handle",
+    "notifications_other": "Notifications, {{count}} to handle",
+    "notificationsNone": "Notifications",
+    "selected": "selected",
+    "progress": "{{value}}%",
+    "toggleOn": "on",
+    "toggleOff": "off"
+  },
+  "reaction": {
+    "ekie": "Ékié !",
+    "doucement": "Easy now!",
+    "tu_dors": "Asleep?",
+    "weee": "Wèèè",
+    "bravo": "Well played!",
+    "revanche": "Rematch!"
+  },
+  "sync": {
+    "done": "Synced {{when}}",
+    "pending": "Syncing…"
+  }
+}

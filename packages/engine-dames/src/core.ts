@@ -353,6 +353,19 @@ export class Position {
     b[from] = piece;
   }
 
+  /** Toutes les prises, sans le filtre de la prise majoritaire (pour les quiz de règle). */
+  allCaptures(): EMove[] {
+    const out: EMove[] = [];
+    for (let s = 1; s <= this.g.n; s++) if (this.b[s]! * this.stm > 0) this.capturesFrom(s, out);
+    const seen = new Set<string>();
+    return out.filter((m) => {
+      const k = emoveKey(m);
+      if (seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    });
+  }
+
   /** Coups sans prise. */
   genQuiet(out: EMove[]): void {
     const { b, g, stm } = this;

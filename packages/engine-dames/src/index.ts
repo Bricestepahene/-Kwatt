@@ -45,6 +45,7 @@ export {
   checkFollowUps,
   findPuzzle,
   dailyPuzzle,
+  majorityQuiz,
   isPuzzleFile,
   puzzleState,
   materialValue,

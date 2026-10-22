@@ -313,6 +313,27 @@ export function findPuzzle(state: DamesState, options: FindOptions = {}): Omit<P
 }
 
 /**
+ * Quiz de la prise majoritaire (écran 19b : « Deux pions peuvent prendre.
+ * Lequel dois-tu jouer ? ») : en 10×10, quand plusieurs pièces peuvent
+ * prendre mais que la règle impose la prise la plus longue, renvoie le coup
+ * permis et les prises « pièges » (plus courtes, interdites). null sinon.
+ */
+export function majorityQuiz(state: DamesState): { legal: string[]; decoys: string[] } | null {
+  if (state.result || state.variant !== 'dames10') return null;
+  const pos = Position.fromState(state);
+  const all = pos.allCaptures();
+  if (all.length === 0) return null;
+  const legal = new Set(pos.legalMoves().map(emoveKey));
+  const decoys = all.filter((m) => !legal.has(emoveKey(m)));
+  if (decoys.length === 0) return null;
+  // Les pièges doivent venir d'autres pièces que la bonne (sinon la question « lequel ? » n'a pas de sens).
+  const legalFrom = new Set(pos.legalMoves().map((m) => m.from));
+  const otherPieces = decoys.filter((m) => !legalFrom.has(m.from));
+  if (otherPieces.length === 0) return null;
+  return { legal: pos.legalMoves().map(emoveNotation), decoys: otherPieces.map(emoveNotation) };
+}
+
+/**
  * Problème du jour : même problème pour tout le monde un jour donné
  * (numéro de jour du domaine, heure du Cameroun), en parcourant la liste dans
  * un ordre mélangé fixe pour alterner thèmes et difficultés.

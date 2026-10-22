@@ -31,7 +31,17 @@ export function pointsToNextLevel(rating: number): { nextLevel: number; points: 
   return { nextLevel, points: ratingForLevel(nextLevel) - rating };
 }
 
-export const RANK_IDS = ['apprenti', 'debrouillard', 'ancien', 'notable', 'chef', 'fon'] as const;
+/**
+ * Avancée dans le niveau courant, de 0 à 1 (barre de l'écran 09) : à 1 482,
+ * Niv 17 commencé à 1 480 → 2 ÷ 40 = 0,05. Sous 880 (Niv 1), on compte depuis 840.
+ */
+export function levelProgress(rating: number): number {
+  const level = levelFromRating(rating);
+  const from = level === 1 ? LEVEL_BASE_RATING + RATING_PER_LEVEL : ratingForLevel(level);
+  return Math.max(0, Math.min(1, (rating - from) / RATING_PER_LEVEL));
+}
+
+export const RANK_IDS =['apprenti', 'debrouillard', 'ancien', 'notable', 'chef', 'fon'] as const;
 export type RankId = (typeof RANK_IDS)[number];
 
 /** Ce qu'un échelon débloque (planche Échelons, SPEC §7). Codes traduits par l'appli. */

@@ -30,7 +30,9 @@ function write(variant: Variant, puzzles: Omit<Puzzle, 'id'>[], name: string): v
     puzzles: order.map((p, i) => ({ id: `${prefix}-${String(i + 1).padStart(3, '0')}`, ...p })),
   };
   mkdirSync(outDir, { recursive: true });
-  writeFileSync(new URL(name, outDir), JSON.stringify(file, null, 1) + '\n');
+  // Un problème par ligne : lisible et facile à relire dans un diff.
+  const body = file.puzzles.map((p) => '  ' + JSON.stringify(p)).join(',\n');
+  writeFileSync(new URL(name, outDir), `{\n "version": 1,\n "variant": "${variant}",\n "puzzles": [\n${body}\n ]\n}\n`);
 }
 
 function strip(p: Puzzle): Omit<Puzzle, 'id'> {

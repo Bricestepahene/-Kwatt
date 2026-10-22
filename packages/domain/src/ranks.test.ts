@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   RANKS,
   levelFromRating,
+  levelProgress,
   lowestRank,
   pointsToNextLevel,
   rankAtLeast,
@@ -26,6 +27,14 @@ describe('niveaux', () => {
     expect(pointsToNextLevel(1482)).toEqual({ nextLevel: 18, points: 38 });
     expect(pointsToNextLevel(1520)).toEqual({ nextLevel: 19, points: 40 });
     expect(pointsToNextLevel(700)).toEqual({ nextLevel: 2, points: 180 });
+  });
+
+  it('avancée dans le niveau (barre de progression)', () => {
+    expect(levelProgress(1482)).toBeCloseTo(0.05, 10);
+    expect(levelProgress(1519)).toBeCloseTo(39 / 40, 10);
+    expect(levelProgress(1520)).toBe(0);
+    expect(levelProgress(860)).toBe(0.5);
+    expect(levelProgress(500)).toBe(0);
   });
 
   it('force minimale par niveau', () => {

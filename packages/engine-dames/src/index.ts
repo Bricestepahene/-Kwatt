@@ -39,6 +39,22 @@ export {
   type AgreementOptions,
   type AgreementReport,
 } from './analysis.js';
+export {
+  verifyPuzzle,
+  checkUniqueness,
+  checkFollowUps,
+  findPuzzle,
+  dailyPuzzle,
+  isPuzzleFile,
+  puzzleState,
+  materialValue,
+  type Puzzle,
+  type PuzzleFile,
+  type PuzzleSide,
+  type PuzzleTheme,
+  type PuzzleCheck,
+} from './puzzles.js';
+export { playMatch, type MatchOptions, type MatchResult } from './match.js';
 export { evaluateTerms, defaultWeights, WEIGHTS_10, WEIGHTS_8, type EvalTerms, type EvalWeights } from './evaluate.js';
 export {
   Search,

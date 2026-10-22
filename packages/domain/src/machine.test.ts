@@ -6,7 +6,10 @@ import {
   calibrationStatus,
   difficultyOffers,
   isDifficultyUnlocked,
+  machineBetCap,
   machinePreview,
+  validateMachineBet,
+  WELCOME_BONUS,
   machineRating,
   nextWinStreak,
   oddsForRatings,
@@ -161,6 +164,20 @@ describe('difficulté automatique (écran 14)', () => {
     expect(s.difficulty).toBe('ton_niveau');
     s = applyAutoDifficulty({ difficulty: 'ton_niveau', streak: 2 }, 'win', 'chef');
     expect(s.difficulty).toBe('fon');
+  });
+});
+
+describe('pari contre la machine', () => {
+  it('écran 15 : solde 2 450 → pari de 600 au plus, par pas de 50', () => {
+    expect(machineBetCap(2450)).toBe(600);
+    expect(machineBetCap(199)).toBe(0);
+    expect(machineBetCap(-5)).toBe(0);
+    expect(validateMachineBet(600, 2450)).toBeNull();
+    expect(validateMachineBet(650, 2450)).toBe('bet.above_cap');
+    expect(validateMachineBet(75, 2450)).toBe('bet.invalid');
+    expect(validateMachineBet(0, 0)).toBeNull();
+    expect(validateMachineBet(50, 2450, true)).toBe('bet.offline');
+    expect(WELCOME_BONUS).toBe(500);
   });
 });
 

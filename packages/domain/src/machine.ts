@@ -68,8 +68,33 @@ export function oddsForRatings(playerRating: number, machineRatingValue: number)
   return betOdds(winProbability(playerRating, machineRatingValue));
 }
 
+/** Bonus de bienvenue : profil créé, une fois par personne (SPEC §7). */
+export const WELCOME_BONUS = 500;
 /** Participation à une partie classée terminée (machine ou joueurs). */
 export const PARTICIPATION_REWARD = 10;
+/** Pari contre la machine : par pas de 50 cauris (écran 15). */
+export const MACHINE_BET_STEP = 50;
+/** Part du solde qu'on peut parier contre la machine. */
+export const MACHINE_BET_BALANCE_PERCENT = 25;
+
+/**
+ * Pari maximal contre la machine (décision, écran 15 : 600 avec un solde de
+ * 2 450) : 25 % du solde, arrondi au pas de 50 inférieur. La limite de table
+ * des mises entre joueurs ne s'applique pas ici.
+ */
+export function machineBetCap(balance: number): number {
+  if (balance <= 0) return 0;
+  const raw = Math.floor((balance * MACHINE_BET_BALANCE_PERCENT) / 100);
+  return Math.floor(raw / MACHINE_BET_STEP) * MACHINE_BET_STEP;
+}
+
+/** Pari proposé contre la machine : multiple de 50, sous le plafond, jamais hors connexion. */
+export function validateMachineBet(bet: number, balance: number, offline = false): 'bet.invalid' | 'bet.above_cap' | 'bet.offline' | null {
+  if (!Number.isInteger(bet) || bet < 0 || bet % MACHINE_BET_STEP !== 0) return 'bet.invalid';
+  if (bet > 0 && offline) return 'bet.offline';
+  if (bet > machineBetCap(balance)) return 'bet.above_cap';
+  return null;
+}
 /** Parties contre la machine récompensées, par jour et par jeu. */
 export const DAILY_REWARDED_MACHINE_GAMES = 10;
 /** Série de victoires contre la machine qui multiplie le gain suivant. */

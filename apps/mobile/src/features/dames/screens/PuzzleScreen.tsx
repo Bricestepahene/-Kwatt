@@ -14,6 +14,8 @@ import { isApiError } from '../../../api/errors';
 import { playBoardFeedback } from '../../../sound';
 import { useTheme } from '../../../theme';
 import { Button, ErrorState, IconButton, LoadingState, OfflineState, Screen, Skeleton, Text, goBack } from '../../../ui';
+import { dayKey } from '@kwatt/domain';
+import { useLocalSnapshot } from '../../profile/snapshot';
 import { useDailyPuzzle, useSolvePuzzle } from '../api';
 import { DamesBoard } from '../board/DamesBoard';
 import { EMPTY_SELECTION, tap, targetsOf, threatened, type Selection } from '../board/selection';
@@ -34,7 +36,11 @@ export function PuzzleScreen() {
   const [stored] = useDamesVariant();
   const variant: PuzzleVariant = params.variant === 'dames8' || params.variant === 'dames10' ? params.variant : stored;
   const query = useDailyPuzzle(variant);
-  const data = query.data;
+  // Sans réseau : le problème du jour gardé sur l'appareil (s'il est bien d'aujourd'hui).
+  const snapshot = useLocalSnapshot(`dames.puzzle.${variant}`, query.data);
+  const cached = snapshot && snapshot.data.dayKey === dayKey(Date.now()) ? snapshot.data : undefined;
+  const data = query.data ?? cached;
+  const failed = query.isError || query.failureCount > 0;
 
   const header = (
     <View style={styles.head}>
@@ -61,8 +67,8 @@ export function PuzzleScreen() {
       {header}
       {data ? (
         <PuzzleBoard key={`${data.dayKey}-${data.puzzle.id}`} puzzle={data.puzzle} dayKey={data.dayKey} solvedToday={data.solved} reward={data.reward} />
-      ) : query.isError ? (
-        isApiError(query.error) && query.error.isTransient ? (
+      ) : failed ? (
+        !query.error || (isApiError(query.error) && query.error.isTransient) ? (
           <OfflineState onRetry={() => void query.refetch()} />
         ) : (
           <ErrorState error={query.error} onRetry={() => void query.refetch()} />

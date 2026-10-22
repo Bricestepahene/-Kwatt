@@ -44,12 +44,12 @@ export function MachineScreen() {
   const offers = useMemo(() => {
     if (offersQ.data) return offersQ.data;
     const local = snapshot?.data;
-    if (offersQ.isError || offline) {
+    if (offersQ.isError || offline || offersQ.failureCount > 0) {
       const rating = (ratings.data ?? ratingSnap?.data)?.items.find((i) => i.variant === variant)?.rating ?? local?.rating ?? null;
       return localOffers(rating, local);
     }
     return null;
-  }, [offersQ.data, offersQ.isError, offline, snapshot, ratings.data, ratingSnap, variant]);
+  }, [offersQ.data, offersQ.isError, offersQ.failureCount, offline, snapshot, ratings.data, ratingSnap, variant]);
 
   const [picked, setPicked] = useState<MachineDifficultyOffer['id'] | null>(null);
   const [bet, setBet] = useState<number | null>(null);
@@ -207,7 +207,7 @@ export function MachineScreen() {
           </View>
           <StepButton label="+" a11y={t('machine.betIncrease')} disabled={!canBet || currentBet >= cap} onPress={() => setBet(stepBet(currentBet, 1, cap))} />
         </View>
-        {offline || offersQ.isError ? (
+        {offline || offersQ.isError || (!offersQ.data && offersQ.failureCount > 0) ? (
           <Text variant="caption" tone="alert">
             {t('machine.offline')}
           </Text>

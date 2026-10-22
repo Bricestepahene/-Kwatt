@@ -8,5 +8,5 @@
     "types": ["node"]
   },
   "include": ["src", "src/**/*.json"],
-  "references": [{ "path": "../../packages/protocol" }, { "path": "../../packages/design" }]
+  "references": [{ "path": "../../packages/protocol" }, { "path": "../../packages/design" }, { "path": "../../packages/domain" }, { "path": "../../packages/rules-dames" }, { "path": "../../packages/engine-dames" }, { "path": "../../packages/rules-ludo" }]
 }

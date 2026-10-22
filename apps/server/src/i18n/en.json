@@ -64,6 +64,16 @@
         "title": "Quest completed",
         "body": "+{{amount}} cowries for you."
       }
+    },
+    "profile": {
+      "photo_approved": {
+        "title": "Photo approved",
+        "body": "Your profile photo is now visible to everyone."
+      },
+      "photo_rejected": {
+        "title": "Photo declined",
+        "body": "Your profile photo was not accepted: your avatar is still shown."
+      }
     }
   },
   "share": {

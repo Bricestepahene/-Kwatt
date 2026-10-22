@@ -24,6 +24,11 @@ export interface RestClientOptions {
   onSessionExpired(): void | Promise<void>;
   /** En-têtes communs (langue, identifiant d'installation, version). */
   getHeaders?(): Record<string, string> | Promise<Record<string, string>>;
+  /**
+   * Corps du renouvellement (POST /v1/auth/refresh) ; par défaut `{ refreshToken }`.
+   * Le serveur demande aussi l'appareil (`{ refreshToken, device }`, @kwatt/protocol).
+   */
+  refreshBody?(refreshToken: string): unknown;
   now?: () => number;
   /** Délai maximal d'une requête (15 s par défaut). */
   timeoutMs?: number;
@@ -91,7 +96,9 @@ export function createRestClient(options: RestClientOptions): RestClient {
       ...(await options.getHeaders?.()),
       ...opts.headers,
     };
-    if (opts.body !== undefined) headers['Content-Type'] = 'application/json';
+    // Un FormData (envoi de photo) part tel quel : le moteur pose lui-même l'en-tête multipart.
+    const isForm = typeof FormData !== 'undefined' && opts.body instanceof FormData;
+    if (opts.body !== undefined && !isForm) headers['Content-Type'] = 'application/json';
     if (token) headers.Authorization = `Bearer ${token}`;
 
     const controller = new AbortController();
@@ -106,7 +113,7 @@ export function createRestClient(options: RestClientOptions): RestClient {
       return await options.fetch(buildUrl(options.baseUrl, path, opts.query), {
         method,
         headers,
-        body: opts.body === undefined ? undefined : JSON.stringify(opts.body),
+        body: opts.body === undefined ? undefined : isForm ? (opts.body as FormData) : JSON.stringify(opts.body),
         signal: controller.signal,
       });
     } catch (cause) {
@@ -122,7 +129,8 @@ export function createRestClient(options: RestClientOptions): RestClient {
   async function doRefresh(): Promise<SessionTokens | null> {
     const current = options.getTokens();
     if (!current) return null;
-    const response = await send('POST', API_PATHS.refresh, { body: { refreshToken: current.refreshToken }, auth: false }, null);
+    const body = options.refreshBody ? await options.refreshBody(current.refreshToken) : { refreshToken: current.refreshToken };
+    const response = await send('POST', API_PATHS.refresh, { body, auth: false }, null);
     if (response.status === 400 || response.status === 401 || response.status === 403) {
       await options.onSessionExpired();
       return null;

@@ -1,0 +1,108 @@
+{
+  "title": "Paramètres",
+  "sound": {
+    "title": "Sons du plateau",
+    "balafon": "Balafon",
+    "default": "par défaut",
+    "tamtam": "Tam-tam",
+    "silence": "Silence",
+    "volume": "Volume des effets",
+    "vibration": "Vibration à la prise"
+  },
+  "display": {
+    "row": "Affichage en partie",
+    "night": "Nuit",
+    "sun": "Plein soleil",
+    "auto": "Plein soleil automatique"
+  },
+  "game": {
+    "boardNumbers": "Dames : numéros des cases",
+    "autoSingleMove": "Ludo : jouer seul le coup unique",
+    "dice": "Ludo : animation du dé",
+    "diceNormal": "Normale",
+    "diceFast": "Rapide",
+    "diceNone": "Aucune"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "yourTurn": "C'est ton tour",
+    "roomInvites": "Invitations de salon",
+    "leagueMatches": "Matchs de ligue (veille et 1 h avant)"
+  },
+  "account": {
+    "title": "Compte",
+    "pseudo": "Pseudo",
+    "email": "E-mail",
+    "verified": "vérifiée",
+    "toVerify": "à vérifier",
+    "verify": "Vérifier",
+    "password": "Mot de passe",
+    "change": "Changer",
+    "language": "Langue",
+    "languageValue": "Français · English",
+    "quarter": "Quartier",
+    "quarterNone": "À choisir",
+    "backup": "Sauvegarde",
+    "syncedAgo": "Synchronisé {{when}}",
+    "syncing": "Synchronisation…",
+    "syncPending": "En attente du réseau",
+    "syncFailed": "Pas synchronisé · réessayer",
+    "neverSynced": "Pas encore synchronisé"
+  },
+  "data": {
+    "title": "Mes données",
+    "export": "Exporter mes données",
+    "exportHint": "Profil, parties, journal des cauris (fichier JSON)",
+    "exportDialog": "Mes données Kwatt",
+    "exported": "Fichier prêt.",
+    "rules": "Règles du quartier",
+    "privacy": "Politique de confidentialité",
+    "logoutAll": "Se déconnecter partout",
+    "logoutAllHint": "Ferme la session sur tous tes appareils"
+  },
+  "logout": "Se déconnecter",
+  "delete": "Supprimer le compte",
+  "loadError": "Ton compte n'a pas pu être chargé. Les réglages de l'appareil restent modifiables.",
+  "pseudoSheet": {
+    "title": "Changer de pseudo",
+    "text": "Ton pseudo se change une fois tous les 30 jours.",
+    "nextChange": "Prochain changement possible le {{date}}.",
+    "save": "Enregistrer",
+    "done": "Pseudo changé : {{pseudo}}."
+  },
+  "emailSheet": {
+    "title": "Vérifier ton adresse",
+    "text": "On envoie un code à 6 chiffres à {{email}}. L'adresse vérifiée sert à miser et à récupérer ton compte.",
+    "send": "Envoyer le code"
+  },
+  "passwordSheet": {
+    "title": "Changer le mot de passe",
+    "current": "Mot de passe actuel",
+    "new": "Nouveau mot de passe",
+    "text": "Tes autres appareils seront déconnectés ; celui-ci reste connecté.",
+    "save": "Changer le mot de passe",
+    "forgot": "Mot de passe oublié ?",
+    "done": "Mot de passe changé."
+  },
+  "quarterSheet": {
+    "title": "Ton quartier",
+    "text": "Tu peux changer de quartier une fois par saison (un mois)."
+  },
+  "diceSheet": {
+    "title": "Animation du dé"
+  },
+  "logoutAllSheet": {
+    "title": "Se déconnecter partout ?",
+    "text": "Tous tes appareils, celui-ci compris, devront se reconnecter.",
+    "confirm": "Se déconnecter partout",
+    "done": "Déconnecté de tous tes appareils."
+  },
+  "deleteSheet": {
+    "title": "Supprimer ton compte ?",
+    "text": "Ton profil est masqué tout de suite, puis effacé définitivement dans 30 jours, le {{date}}. Pour annuler, reconnecte-toi avant cette date.",
+    "exportFirst": "Pense à exporter tes données avant.",
+    "password": "Ton mot de passe",
+    "confirm": "Supprimer mon compte",
+    "done": "Compte supprimé. Effacement définitif le {{date}}."
+  }
+}

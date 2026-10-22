@@ -1,6 +1,8 @@
-/** Écran provisoire : voir ROUTES.md (clé « revoir »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 19 · Revoir une partie (planche Revoir), Dames et Ludo. */
+import { useLocalSearchParams } from 'expo-router';
+import { ReviewScreen } from '@/features/game/ReviewScreen';
 
 export default function RevoirScreen() {
-  return <PlaceholderScreen routeKey="revoir" />;
+  const { id } = useLocalSearchParams<{ id: string }>();
+  return <ReviewScreen id={id ?? ''} />;
 }

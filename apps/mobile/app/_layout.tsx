@@ -6,6 +6,9 @@ import { Stack, type ErrorBoundaryProps } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 import { AppProviders } from '@/boot/AppProviders';
 import { useBootstrap } from '@/boot/useBootstrap';
+// Envoi des résultats hors connexion contre la machine (C2), enregistré au démarrage.
+import '@/features/game/machineResults';
+import '@/features/dames/puzzleSender';
 import { SessionGate } from '@/navigation/SessionGate';
 import { ThemeProvider, useTheme } from '@/theme';
 import { Logo } from '@/ui/brand';

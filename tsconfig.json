@@ -5,9 +5,15 @@
     { "path": "packages/rules-dames" },
     { "path": "packages/rules-ludo" },
     { "path": "packages/fair-dice" },
+    { "path": "packages/ludo-ai" },
+    { "path": "services/ludo-ai" },
     { "path": "packages/protocol" },
     { "path": "apps/server" },
     { "path": "apps/server/tsconfig.test.json" },
-    { "path": "apps/mobile" }
+    { "path": "apps/mobile" },
+    { "path": "packages/domain" },
+    { "path": "packages/domain/tsconfig.test.json" },
+    { "path": "packages/engine-dames" },
+    { "path": "packages/engine-dames/tsconfig.test.json" }
   ]
 }

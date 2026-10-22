@@ -1,0 +1,32 @@
+{
+  "name": {
+    "skin_1": "Teint 1",
+    "skin_2": "Teint 2",
+    "skin_3": "Teint 3",
+    "skin_4": "Teint 4",
+    "skin_5": "Teint 5",
+    "hat_ndop": "Bonnet ndop",
+    "hat_kaba": "Foulard kaba",
+    "hat_toghu": "Toque toghu",
+    "outfit_obom": "Obom",
+    "outfit_ndop": "Ndop",
+    "outfit_kaba": "Kaba",
+    "outfit_toghu": "Toghu",
+    "frame_ndop": "Cadre ndop",
+    "frame_toghu": "Cadre toghu",
+    "frame_kaba": "Cadre kaba",
+    "frame_obom": "Cadre obom",
+    "frame_trone_du_fon": "Trône du Fon",
+    "preset_debrouillard": "Le Débrouillard",
+    "preset_commercante": "La Commerçante",
+    "preset_balafoniste": "Le Balafoniste",
+    "preset_reine_ludo": "La Reine du Ludo",
+    "preset_notable": "Le Notable",
+    "preset_fon": "Le Fon",
+    "preset_prince_wouri": "Le Prince du Wouri"
+  },
+  "event": {
+    "ngondo_2026": "Ngondo 2026"
+  },
+  "unknown": "Objet du kwatt"
+}

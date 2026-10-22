@@ -31,6 +31,7 @@ const ICONS = {
   help: [{ circle: [12, 12, 9] }, { d: 'M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01' }],
   // --- même style
   close: [{ d: 'M6 6l12 12M18 6L6 18' }],
+  more: [{ circle: [5, 12, 1.2] }, { circle: [12, 12, 1.2] }, { circle: [19, 12, 1.2] }],
   check: [{ d: 'M5 12.5l4.5 4.5L19 7' }],
   plus: [{ d: 'M12 5v14M5 12h14' }],
   minus: [{ d: 'M5 12h14' }],

@@ -16,7 +16,28 @@
     "email_not_verified": "Verify your email address first.",
     "code_invalid": "Wrong code.",
     "code_expired": "This code has expired: ask for a new one.",
-    "too_many_attempts": "Too many tries: ask for a new code."
+    "too_many_attempts": "Too many tries: ask for a new code.",
+    "required": "Sign in to continue.",
+    "token_invalid": "Your session is no longer valid: sign in again.",
+    "token_expired": "Your session has expired: sign in again.",
+    "session_revoked": "You've been signed out: sign in again.",
+    "email_taken": "This address already has a profile. Sign in, or use another address.",
+    "pseudo_taken": "This username is already taken.",
+    "pseudo_invalid": "Username: 3 to 20 characters, letters, digits, “_” and “.”.",
+    "pseudo_banned": "This username isn't allowed.",
+    "password_too_short": "The password needs at least {{min}} characters.",
+    "too_young": "Under 13: no profile. You can play as a guest with a code.",
+    "birth_year_invalid": "This year of birth isn't possible.",
+    "consent_required": "Accept the neighbourhood rules and the privacy policy.",
+    "code_resend_too_soon": "Wait a minute before asking for another code.",
+    "already_verified": "Your address is already verified.",
+    "refresh_invalid": "Your session is no longer valid: sign in again.",
+    "refresh_expired": "Your session has expired: sign in again.",
+    "refresh_reused": "For your security, your sessions on this device were closed: sign in again.",
+    "reset_token_invalid": "This reset has expired: start again.",
+    "wrong_password": "Wrong password.",
+    "verification_required": "Verify your email address first.",
+    "device_required": "This device couldn't be identified. Restart the app."
   },
   "validation": {
     "invalid": "Check the fields in red."
@@ -24,8 +45,107 @@
   "room": {
     "not_found": "Unknown code: check with your friend.",
     "full": "The room is full: you can watch instead.",
-    "started": "The game has already started."
+    "started": "The game has already started.",
+    "closed": "This room is closed."
   },
   "rate_limited": "Easy now! Try again in a minute.",
-  "not_found": "Not found."
+  "not_found": "Not found.",
+  "shop": {
+    "item_not_found": "This item is no longer in the shop.",
+    "not_for_sale": "This item can't be bought: it has to be won.",
+    "already_owned": "This item is already yours.",
+    "rank_too_low": "Your rank is still too low for this item.",
+    "sold_out": "Sold out: this limited edition will never come back.",
+    "insufficient_funds": "You're {{missing}} cowries short."
+  },
+  "profiles": {
+    "not_found": "This profile isn't visible."
+  },
+  "avatar": {
+    "not_owned": "Some pieces aren't yours yet: buy them first.",
+    "invalid_item": "This piece doesn't go there."
+  },
+  "photo": {
+    "missing": "Add a photo first.",
+    "invalid_image": "Unreadable or too small image: choose another one.",
+    "not_found": "No photo to review."
+  },
+  "media": {
+    "too_large": "File too large: choose a lighter image.",
+    "unsupported_type": "Format not accepted: choose a photo.",
+    "missing_file": "No image received: try again."
+  },
+  "common": {
+    "internal": "The server has a problem. Try again in a moment.",
+    "not_found": "Not found.",
+    "validation": "Check the fields in red.",
+    "bad_request": "Malformed request. Try again.",
+    "rate_limited": "Easy! Try again in a moment.",
+    "forbidden": "You don't have access to this action.",
+    "payload_too_large": "That's too heavy to send.",
+    "unsupported_media_type": "Format not accepted.",
+    "unavailable": "The service is briefly unavailable. Try again in a moment."
+  },
+  "profile": {
+    "pseudo_change_too_soon": "You changed your username less than 30 days ago.",
+    "settings_invalid": "These settings couldn't be saved.",
+    "deletion_already_requested": "Your account deletion has already been requested."
+  },
+  "quarter": {
+    "not_found": "This neighbourhood is no longer on the list.",
+    "change_too_soon": "You've already changed neighbourhood this season."
+  },
+  "account": {
+    "display_name_invalid": "Name: 2 to 20 characters, letters, digits, spaces.",
+    "display_name_banned": "This name isn't allowed."
+  },
+  "push": {
+    "token_invalid": "Notifications couldn't be turned on for this device."
+  },
+  "ludo": {
+    "setup": {
+      "unknown_preset": "This Ludo variant does not exist.",
+      "players": "Impossible number of players for this variant.",
+      "board_incompatible": "This board does not go with this variant: their tracks are designed for 4.",
+      "throw_incompatible": "Pachisi is played with cowries, the other variants with a die: this setting is blocked.",
+      "pachisi_players": "Pachisi is played by 4, in two teams.",
+      "pachisi_teams": "Pachisi is always played in teams of 2.",
+      "teams_not_allowed": "No teams in this variant.",
+      "teams_odd": "No teams with an odd number of players.",
+      "teams_size": "Impossible team size for this variant.",
+      "teams_partition": "Each player must be in exactly one team.",
+      "teams_facing": "Partners face each other on the board.",
+      "house_option": "This setting does not exist on this board.",
+      "barrier_lock": "Barriers with “leave on a 6” without “a 6 opens the barrier”: the game could lock up for ever."
+    },
+    "roll": {
+      "not_now": "It is not the time to roll.",
+      "invalid_value": "Impossible throw."
+    },
+    "move": {
+      "not_now": "It is not the time to play.",
+      "illegal": "This token cannot make that move."
+    },
+    "seat": {
+      "invalid": "This seat does not exist."
+    },
+    "house_rules": {
+      "not_found": "These house rules no longer exist.",
+      "name_taken": "You already have rules with this name.",
+      "limit": "You already have {{max}} sets of rules: delete one first.",
+      "empty": "These are the variant's own settings: nothing to save."
+    }
+  },
+  "machine": {
+    "invalid_game": "Game refused: the server doesn't find the same moves.",
+    "invalid_variant": "This variant isn't played here.",
+    "difficulty_locked": "Difficulty locked: it opens at the Chief rank.",
+    "rating_mismatch": "Your rating changed since the game: it couldn't be validated.",
+    "result_conflict": "This result was already sent differently.",
+    "invalid_bet": "Bet refused: check the amount."
+  },
+  "puzzle": {
+    "wrong_day": "The puzzle changed: a new day has started.",
+    "not_found": "No puzzle available today."
+  }
 }

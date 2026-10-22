@@ -91,7 +91,9 @@ export function createRestClient(options: RestClientOptions): RestClient {
       ...(await options.getHeaders?.()),
       ...opts.headers,
     };
-    if (opts.body !== undefined) headers['Content-Type'] = 'application/json';
+    // Un FormData (envoi de photo) part tel quel : le moteur pose lui-même l'en-tête multipart.
+    const isForm = typeof FormData !== 'undefined' && opts.body instanceof FormData;
+    if (opts.body !== undefined && !isForm) headers['Content-Type'] = 'application/json';
     if (token) headers.Authorization = `Bearer ${token}`;
 
     const controller = new AbortController();
@@ -106,7 +108,7 @@ export function createRestClient(options: RestClientOptions): RestClient {
       return await options.fetch(buildUrl(options.baseUrl, path, opts.query), {
         method,
         headers,
-        body: opts.body === undefined ? undefined : JSON.stringify(opts.body),
+        body: opts.body === undefined ? undefined : isForm ? (opts.body as FormData) : JSON.stringify(opts.body),
         signal: controller.signal,
       });
     } catch (cause) {

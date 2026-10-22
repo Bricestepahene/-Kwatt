@@ -64,6 +64,16 @@
         "title": "Quête terminée",
         "body": "+{{amount}} cauris pour toi."
       }
+    },
+    "profile": {
+      "photo_approved": {
+        "title": "Photo validée",
+        "body": "Ta photo de profil est maintenant visible de tous."
+      },
+      "photo_rejected": {
+        "title": "Photo refusée",
+        "body": "Ta photo de profil n'a pas été acceptée : ton avatar reste affiché."
+      }
     }
   },
   "share": {

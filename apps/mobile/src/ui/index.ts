@@ -12,7 +12,7 @@ export { Chip, Pill, Badge } from './Chip';
 export { SegmentedTabs, type SegmentOption } from './SegmentedTabs';
 export { TextField, type TextFieldProps } from './TextField';
 export { CodeInput, RoomCodeInput } from './CodeInput';
-export { Avatar, type AvatarProps, type AvatarSkin, type AvatarSpec } from './Avatar';
+export { Avatar, type AvatarHatShape, type AvatarHatSpec, type AvatarProps, type AvatarSkin, type AvatarSpec } from './Avatar';
 export { CauriBadge, RankBadge, type RankId } from './badges';
 export { Logo, Wordmark, CauriIcon } from './brand';
 export { SectionLabel, ProgressBar } from './SectionLabel';

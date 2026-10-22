@@ -1,0 +1,32 @@
+{
+  "name": {
+    "skin_1": "Skin tone 1",
+    "skin_2": "Skin tone 2",
+    "skin_3": "Skin tone 3",
+    "skin_4": "Skin tone 4",
+    "skin_5": "Skin tone 5",
+    "hat_ndop": "Ndop cap",
+    "hat_kaba": "Kaba headwrap",
+    "hat_toghu": "Toghu toque",
+    "outfit_obom": "Obom",
+    "outfit_ndop": "Ndop",
+    "outfit_kaba": "Kaba",
+    "outfit_toghu": "Toghu",
+    "frame_ndop": "Ndop frame",
+    "frame_toghu": "Toghu frame",
+    "frame_kaba": "Kaba frame",
+    "frame_obom": "Obom frame",
+    "frame_trone_du_fon": "Throne of the Fon",
+    "preset_debrouillard": "The Hustler",
+    "preset_commercante": "The Market Trader",
+    "preset_balafoniste": "The Balafon Player",
+    "preset_reine_ludo": "The Ludo Queen",
+    "preset_notable": "The Notable",
+    "preset_fon": "The Fon",
+    "preset_prince_wouri": "The Prince of the Wouri"
+  },
+  "event": {
+    "ngondo_2026": "Ngondo 2026"
+  },
+  "unknown": "Kwatt item"
+}

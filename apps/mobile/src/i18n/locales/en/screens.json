@@ -17,6 +17,8 @@
   "notifications": { "title": "Notifications", "lead": "What needs you now, today and yesterday." },
   "avatarStudio": { "title": "Your face in the kwatt", "lead": "Built avatar or photo, with a fabric frame." },
   "avatarBoutique": { "title": "Kwatt avatars", "lead": "Avatars you can only buy with cowries won by playing." },
+  "profilCauris": { "title": "My cowries", "lead": "Every cowry won or spent: who, how much, why, which game." },
+  "joueur": { "title": "Player profile", "lead": "Another player's profile: levels, medals and latest games." },
   "amis": { "title": "Friends", "lead": "Your friends, their live games and your invitations." },
   "ami": { "title": "Friend invitation", "lead": "Add this player to your friends." },
   "parametres": { "title": "Settings", "lead": "Sounds, display, notifications, language and account." },

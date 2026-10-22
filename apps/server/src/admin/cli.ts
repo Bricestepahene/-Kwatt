@@ -13,6 +13,9 @@
  *   revoke-sessions <pseudo|e-mail|id>      déconnecte tous les appareils
  *   cancel-deletion <pseudo|e-mail|id>      annule une suppression demandée
  *   erase-due                               efface tout de suite les comptes arrivés à J+30
+ *   photos [pending|approved|rejected]      photos de profil à modérer (ou déjà modérées)
+ *   photo-approve <pseudo|e-mail|id>        approuve la photo de profil (visible de tous)
+ *   photo-reject <pseudo|e-mail|id>         refuse la photo de profil (fichier supprimé)
  *   gen-secret                              tire un secret (JWT_ACCESS_SECRET, ADMIN_TOKEN…)
  */
 import { randomBytes, randomUUID } from 'node:crypto';
@@ -31,6 +34,7 @@ import {
   stats,
 } from '../modules/admin/service.js';
 import { eraseDueAccounts } from '../modules/me/service.js';
+import { listPhotos, photoDeps, reviewPhoto } from '../modules/profiles/photo.js';
 
 const USAGE = `Usage : admin <commande> [arguments]
   stats
@@ -41,6 +45,9 @@ const USAGE = `Usage : admin <commande> [arguments]
   revoke-sessions <pseudo|e-mail|id>
   cancel-deletion <pseudo|e-mail|id>
   erase-due
+  photos [pending|approved|rejected]
+  photo-approve <pseudo|e-mail|id>
+  photo-reject <pseudo|e-mail|id>
   gen-secret`;
 
 function print(value: unknown): void {
@@ -111,6 +118,26 @@ async function run(args: string[]): Promise<number> {
         const app = await buildApp({ config: { ...loadConfig(), jobsEnabled: false }, pool: db, logger: false });
         try {
           console.log(`${await eraseDueAccounts(db, app.accounts, now)} compte(s) effacé(s).`);
+        } finally {
+          await app.close();
+        }
+        break;
+      }
+      case 'photos':
+      case 'photo-approve':
+      case 'photo-reject': {
+        // Serveur assemblé sans écouter : dossier des médias et notifications du joueur.
+        const app = await buildApp({ config: { ...loadConfig(), jobsEnabled: false }, pool: db, logger: false });
+        try {
+          if (command === 'photos') {
+            const status = rest[0] === 'approved' || rest[0] === 'rejected' ? rest[0] : 'pending';
+            print(await listPhotos(db, app.media, status));
+          } else {
+            need(1);
+            const decision = command === 'photo-approve' ? 'approve' : 'reject';
+            const result = await reviewPhoto(photoDeps(app), await resolveUserId(db, rest[0] ?? ''), decision);
+            console.log(result.status === 'approved' ? 'Photo approuvée.' : 'Photo refusée et supprimée.');
+          }
         } finally {
           await app.close();
         }

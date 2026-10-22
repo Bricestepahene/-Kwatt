@@ -8,11 +8,15 @@
  */
 import enCommon from './locales/en/common.json';
 import enErrors from './locales/en/errors.json';
+import enItems from './locales/en/items.json';
 import enPreferences from './locales/en/preferences.json';
+import enProfile from './locales/en/profile.json';
 import enScreens from './locales/en/screens.json';
 import frCommon from './locales/fr/common.json';
 import frErrors from './locales/fr/errors.json';
+import frItems from './locales/fr/items.json';
 import frPreferences from './locales/fr/preferences.json';
+import frProfile from './locales/fr/profile.json';
 import frScreens from './locales/fr/screens.json';
 
 export const resources = {
@@ -21,12 +25,16 @@ export const resources = {
     errors: frErrors,
     preferences: frPreferences,
     screens: frScreens,
+    profile: frProfile,
+    items: frItems,
   },
   en: {
     common: enCommon,
     errors: enErrors,
     preferences: enPreferences,
     screens: enScreens,
+    profile: enProfile,
+    items: enItems,
   },
 } as const;
 

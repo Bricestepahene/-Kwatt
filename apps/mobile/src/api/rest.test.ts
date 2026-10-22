@@ -73,6 +73,17 @@ describe('client REST', () => {
     });
   });
 
+  it('envoie un FormData tel quel, sans en-tête JSON (photo de profil)', async () => {
+    const { h, client } = setup(() => json(200, { ok: true }));
+    const form = new FormData();
+    form.append('photo', new Blob(['x'], { type: 'image/jpeg' }), 'photo.jpg');
+    await client.post('/v1/me/photo', form);
+    const call = h.calls[0];
+    expect(call?.init.body).toBe(form);
+    expect((call?.init.headers as Record<string, string>)['Content-Type']).toBeUndefined();
+    expect((call?.init.headers as Record<string, string>).Authorization).toBe('Bearer acc-1');
+  });
+
   it('renvoie undefined pour 204', async () => {
     const { client } = setup(() => new Response(null, { status: 204 }));
     await expect(client.delete('/v1/friends/u2')).resolves.toBeUndefined();

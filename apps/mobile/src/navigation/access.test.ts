@@ -27,6 +27,7 @@ describe('garde de session · matrice des droits', () => {
       to: '/rejoindre?code=M4TK9Q',
       reason: 'needs_session',
     });
+    expect(decide('salon', signedOut, '/salon/m4t-k9q', { code: 'm4t-k9q' })).toMatchObject({ to: '/rejoindre?code=M4TK9Q' });
   });
 
   it('un invité rejoint un salon, regarde, entre dans une ligue privée gratuite, joue', () => {

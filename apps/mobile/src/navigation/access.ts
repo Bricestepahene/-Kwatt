@@ -3,6 +3,7 @@
  * Règles de la planche « Réf · Matrice » (qui peut faire quoi) et du Sommaire.
  * Module pur, testé par vitest ; le composant SessionGate l'applique.
  */
+import { normalizeCodeSegment } from './deepLinks';
 import type { RouteSpec } from './routes';
 
 export type SessionStatus = 'signedOut' | 'guest' | 'member';
@@ -54,7 +55,7 @@ export function decideAccess(
     case 'guest':
       if (status !== 'signedOut') return ALLOW;
       if (route.key === 'salon') {
-        const code = typeof params.code === 'string' ? params.code : '';
+        const code = typeof params.code === 'string' ? normalizeCodeSegment(params.code) : '';
         return { kind: 'redirect', to: code ? `/rejoindre?code=${encodeURIComponent(code)}` : '/rejoindre', reason: 'needs_session' };
       }
       return { kind: 'redirect', to: withNext('/bienvenue', pathname), reason: 'needs_session' };

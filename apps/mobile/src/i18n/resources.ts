@@ -7,12 +7,14 @@
  * Le test catalogs.test.ts vérifie la parité des clés et que chaque fichier est déclaré ici.
  */
 import enCommon from './locales/en/common.json';
+import enDames from './locales/en/dames.json';
 import enErrors from './locales/en/errors.json';
 import enItems from './locales/en/items.json';
 import enPreferences from './locales/en/preferences.json';
 import enProfile from './locales/en/profile.json';
 import enScreens from './locales/en/screens.json';
 import frCommon from './locales/fr/common.json';
+import frDames from './locales/fr/dames.json';
 import frErrors from './locales/fr/errors.json';
 import frItems from './locales/fr/items.json';
 import frPreferences from './locales/fr/preferences.json';
@@ -27,6 +29,7 @@ export const resources = {
     screens: frScreens,
     profile: frProfile,
     items: frItems,
+    dames: frDames,
   },
   en: {
     common: enCommon,
@@ -35,6 +38,7 @@ export const resources = {
     screens: enScreens,
     profile: enProfile,
     items: enItems,
+    dames: enDames,
   },
 } as const;
 

@@ -101,5 +101,39 @@
   },
   "push": {
     "token_invalid": "Les notifications n'ont pas pu être activées sur cet appareil."
+  },
+  "ludo": {
+    "setup": {
+      "unknown_preset": "Cette variante du Ludo n'existe pas.",
+      "players": "Nombre de joueurs impossible pour cette variante.",
+      "board_incompatible": "Ce plateau ne va pas avec cette variante : leurs parcours sont pensés pour 4.",
+      "throw_incompatible": "Le Pachisi se joue aux cauris, les autres variantes au dé : ce réglage est bloqué.",
+      "pachisi_players": "Le Pachisi se joue à 4, en deux équipes.",
+      "pachisi_teams": "Le Pachisi se joue toujours en équipes de 2.",
+      "teams_not_allowed": "Pas d'équipes dans cette variante.",
+      "teams_odd": "Pas d'équipes avec un nombre de joueurs impair.",
+      "teams_size": "Taille d'équipe impossible pour cette variante.",
+      "teams_partition": "Chaque joueur doit être dans une seule équipe.",
+      "teams_facing": "Les partenaires se font face sur le plateau.",
+      "house_option": "Ce réglage n'existe pas sur ce plateau.",
+      "barrier_lock": "Barrières avec « sortie au 6 » sans « un 6 ouvre la barrière » : la partie pourrait se bloquer à vie."
+    },
+    "roll": {
+      "not_now": "Ce n'est pas le moment de lancer.",
+      "invalid_value": "Lancer impossible."
+    },
+    "move": {
+      "not_now": "Ce n'est pas le moment de jouer.",
+      "illegal": "Ce pion ne peut pas jouer ce coup."
+    },
+    "seat": {
+      "invalid": "Cette place n'existe pas."
+    },
+    "house_rules": {
+      "not_found": "Ces règles maison n'existent plus.",
+      "name_taken": "Tu as déjà des règles de ce nom.",
+      "limit": "Tu as déjà {{max}} jeux de règles : supprimes-en un d'abord.",
+      "empty": "Ces réglages sont ceux de la variante : rien à enregistrer."
+    }
   }
 }

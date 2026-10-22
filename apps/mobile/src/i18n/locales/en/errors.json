@@ -101,5 +101,39 @@
   },
   "push": {
     "token_invalid": "Notifications couldn't be turned on for this device."
+  },
+  "ludo": {
+    "setup": {
+      "unknown_preset": "This Ludo variant does not exist.",
+      "players": "Impossible number of players for this variant.",
+      "board_incompatible": "This board does not go with this variant: their tracks are designed for 4.",
+      "throw_incompatible": "Pachisi is played with cowries, the other variants with a die: this setting is blocked.",
+      "pachisi_players": "Pachisi is played by 4, in two teams.",
+      "pachisi_teams": "Pachisi is always played in teams of 2.",
+      "teams_not_allowed": "No teams in this variant.",
+      "teams_odd": "No teams with an odd number of players.",
+      "teams_size": "Impossible team size for this variant.",
+      "teams_partition": "Each player must be in exactly one team.",
+      "teams_facing": "Partners face each other on the board.",
+      "house_option": "This setting does not exist on this board.",
+      "barrier_lock": "Barriers with “leave on a 6” without “a 6 opens the barrier”: the game could lock up for ever."
+    },
+    "roll": {
+      "not_now": "It is not the time to roll.",
+      "invalid_value": "Impossible throw."
+    },
+    "move": {
+      "not_now": "It is not the time to play.",
+      "illegal": "This token cannot make that move."
+    },
+    "seat": {
+      "invalid": "This seat does not exist."
+    },
+    "house_rules": {
+      "not_found": "These house rules no longer exist.",
+      "name_taken": "You already have rules with this name.",
+      "limit": "You already have {{max}} sets of rules: delete one first.",
+      "empty": "These are the variant's own settings: nothing to save."
+    }
   }
 }

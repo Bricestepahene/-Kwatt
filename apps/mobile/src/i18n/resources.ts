@@ -11,6 +11,7 @@ import enCommon from './locales/en/common.json';
 import enErrors from './locales/en/errors.json';
 import enItems from './locales/en/items.json';
 import enLegal from './locales/en/legal.json';
+import enLudo from './locales/en/ludo.json';
 import enPreferences from './locales/en/preferences.json';
 import enProfile from './locales/en/profile.json';
 import enScreens from './locales/en/screens.json';
@@ -20,6 +21,7 @@ import frCommon from './locales/fr/common.json';
 import frErrors from './locales/fr/errors.json';
 import frItems from './locales/fr/items.json';
 import frLegal from './locales/fr/legal.json';
+import frLudo from './locales/fr/ludo.json';
 import frPreferences from './locales/fr/preferences.json';
 import frProfile from './locales/fr/profile.json';
 import frScreens from './locales/fr/screens.json';
@@ -36,6 +38,7 @@ export const resources = {
     accounts: frAccounts,
     settings: frSettings,
     legal: frLegal,
+    ludo: frLudo,
   },
   en: {
     common: enCommon,
@@ -47,6 +50,7 @@ export const resources = {
     accounts: enAccounts,
     settings: enSettings,
     legal: enLegal,
+    ludo: enLudo,
   },
 } as const;
 

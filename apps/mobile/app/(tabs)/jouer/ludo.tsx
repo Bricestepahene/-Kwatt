@@ -1,6 +1,6 @@
-/** Écran provisoire : voir ROUTES.md (clé « modeLudo »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 20 · Ludo : choisir un mode (src/features/ludo/ModeScreen.tsx). */
+import { ModeScreen } from '@/features/ludo/ModeScreen';
 
 export default function ModeLudoScreen() {
-  return <PlaceholderScreen routeKey="modeLudo" />;
+  return <ModeScreen />;
 }

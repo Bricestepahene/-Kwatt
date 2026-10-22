@@ -1,0 +1,439 @@
+{
+  "mode": {
+    "spaceLabel": "Game space",
+    "spaces": {
+      "dames": "Draughts",
+      "ludo": "Ludo",
+      "raisonnement": "Reasoning"
+    },
+    "space": "Ludo space · {{players}}",
+    "players": {
+      "classique": "2 to 4 players",
+      "rapide": "2 to 4 players",
+      "parchis": "2 to 4 players",
+      "pachisi": "4 players, 2 against 2",
+      "six": "2 to 6 players"
+    },
+    "title": "Shall we roll?",
+    "titleCowries": "Shall we throw the cowries?",
+    "force": "Rating {{rating}}",
+    "forceNew": "First rated game",
+    "friendly": "Friendly game",
+    "variantLink": "{{name}} · change",
+    "variantLinkLabel": "Variant: {{name}}. Change the board and rules",
+    "machine": {
+      "title": "Against 1 to 3 machines",
+      "sub": "Playable offline. Bets possible."
+    },
+    "room": {
+      "title": "Room with friends",
+      "sub": "2, 3 or 4 at the table, waiting line, shared pot."
+    },
+    "watch": {
+      "title": "Watch a table",
+      "sub": "Live Ludo games"
+    },
+    "leagues": {
+      "title": "Ludo leagues",
+      "sub": "Championships and cups, with friends or open"
+    },
+    "rules": "Rules: {{summary}}.",
+    "allRules": "Read all",
+    "resume": {
+      "title": "Game in progress",
+      "sub_one": "{{name}} against {{count}} machine. Pick up where you left off.",
+      "sub_other": "{{name}} against {{count}} machines. Pick up where you left off.",
+      "button": "Resume"
+    }
+  },
+  "summary": {
+    "exit": {
+      "six": "a 6 to get out",
+      "six_or_1": "a 6 or a 1 to get out",
+      "five": "a 5 to get out",
+      "grace": "first token free, then a grace to get out"
+    },
+    "again": {
+      "six": "a 6 rolls again",
+      "grace": "a grace throws again"
+    },
+    "protection": {
+      "etoiles_departs": "star squares are safe",
+      "departs": "start squares are safe",
+      "sures": "12 safe squares",
+      "chateaux": "12 safe castles"
+    }
+  },
+  "machineSheet": {
+    "title": "Against the machine",
+    "subtitle": "{{name}} · the machines play on your phone",
+    "machines": "Machines at the table",
+    "machinesCount_one": "{{count}} machine",
+    "machinesCount_other": "{{count}} machines",
+    "pachisiNote": "Pachisi: 2 against 2, your partner is a machine.",
+    "difficulty": "Difficulty",
+    "oddsHint": "odds = 0.9 ÷ your chance of winning",
+    "auto": "Auto · {{name}}",
+    "autoDesc": "The machine moves up a notch after 3 wins, down after 3 losses.",
+    "locked": "{{name}} · locked",
+    "levels": {
+      "facile": {
+        "name": "Easy",
+        "desc": "A beginner: moves on and captures when it sees it."
+      },
+      "moyen": {
+        "name": "Medium",
+        "desc": "A Sunday player, sees threats more or less."
+      },
+      "coriace": {
+        "name": "Tough",
+        "desc": "Works out the danger of every square."
+      },
+      "ton_niveau": {
+        "name": "Your level",
+        "desc": "One chance in two."
+      },
+      "fon": {
+        "name": "Fon",
+        "desc": "Unlocked at the Chief rank."
+      }
+    },
+    "chance": "You win {{percent}} times out of 100",
+    "odds": "×{{odds}}",
+    "bet": "Your bet",
+    "betCap": "up to {{amount}}",
+    "betMinus": "Bet 50 cowries less",
+    "betPlus": "Bet 50 cowries more",
+    "ifWin": "If you win",
+    "ifWinDetail": "win {{base}} + net bet gain",
+    "ifLose": "If you lose",
+    "ifLoseDetail": "bet lost, +10 for playing",
+    "streak": "Current streak: {{count}} win(s). At 3, your next reward is multiplied by 1.5.",
+    "rewards": "Without a bet: +{{base}} for a win, +10 for a loss. {{left}} rewarded games left today.",
+    "offline": "Offline: no bet. Base rewards are sent when you are back online, after checking.",
+    "friendly": "House rules or friendly variant: no reward, no bet, no rating.",
+    "guest": "Create your profile to win cowries against the machine.",
+    "play": "Play without a bet",
+    "playBet": "Bet {{amount}} and play",
+    "betFailed": "The bet could not be started. You can play without a bet."
+  },
+  "variants": {
+    "title": "Board & rules",
+    "ranked": "Rated",
+    "friendly": "Friendly",
+    "boardSection": "1 · The board",
+    "mechSection": "2 · The mechanics",
+    "customize": "Customise",
+    "houseNote": "House rules: friendly game, no rating and no stake. Incompatible settings are blocked (see the variants sheet).",
+    "changeRule": "Change: {{rule}}, currently {{value}}",
+    "play": "Play {{name}}",
+    "pickTitle": "{{rule}}",
+    "official": "official",
+    "blocked": "Blocked",
+    "reset": "Back to the official rules",
+    "saved": {
+      "section": "My house rules",
+      "empty": "Save your settings to find them again, here and when you create a room.",
+      "save": "Save these rules",
+      "nameLabel": "Name of your rules",
+      "namePlaceholder": "Auntie Odile's rules",
+      "confirm": "Save",
+      "cancel": "Cancel",
+      "savedToast": "Rules “{{name}}” saved",
+      "applied": "Rules “{{name}}” applied",
+      "delete": "Delete “{{name}}”",
+      "deleteTitle": "Delete “{{name}}”?",
+      "deleteMessage": "These rules will no longer be offered. Games already played do not change.",
+      "deleted": "Rules deleted",
+      "use": "Apply “{{name}}”",
+      "offline": "Offline: your saved rules come back with the network.",
+      "guest": "Create your profile to save your house rules."
+    }
+  },
+  "board": {
+    "classique": {
+      "name": "Classic",
+      "desc": "Cross, 4 players",
+      "note": "The reference: the one of official leagues and the main Ludo rating."
+    },
+    "rapide": {
+      "name": "Quick",
+      "desc": "Cross, 2 tokens each, 10 min",
+      "note": "For a game in a taxi or on a break. Separate rating."
+    },
+    "parchis": {
+      "name": "Parchís",
+      "desc": "68-square cross, Spanish version",
+      "note": "Barrier: two tokens of the same colour on a square, nobody gets through. A 6 forces you to open it."
+    },
+    "pachisi": {
+      "name": "Pachisi with cowries",
+      "desc": "Traditional cross, you throw 6 cowries",
+      "note": "The ancestor of Ludo. Cowries replace the die: 0 openings is worth 25, 1 is worth 10. Always in teams of 2, partners facing each other."
+    },
+    "six": {
+      "name": "6 players",
+      "desc": "Six-armed star",
+      "note": "More opponents, more one-night alliances. 2 to 6 players, or 3 teams of 2. Separate rating."
+    }
+  },
+  "mech": {
+    "rows": {
+      "exit": "Leaving the base",
+      "capture": "Capture",
+      "protection": "Safe squares",
+      "barriers": "Barriers",
+      "throw": "Throw",
+      "victory": "Victory",
+      "parties": "Games"
+    },
+    "exit": {
+      "six": "With a 6",
+      "six_or_1": "With a 6 or a 1",
+      "five": "With a 5",
+      "grace": "1st token free, then grace (6, 10, 25)"
+    },
+    "capture": {
+      "home": "Sent back home",
+      "home_roll_again": "Sent home + you roll again",
+      "home_bonus20": "Sent home + move 20"
+    },
+    "protection": {
+      "etoiles_departs": "Stars and starts",
+      "departs": "Starts only",
+      "sures": "12 safe squares",
+      "chateaux": "12 castles"
+    },
+    "barriers": {
+      "none": "Not allowed",
+      "any": "Allowed",
+      "six_opens": "Allowed, a 6 forces opening",
+      "castles": "Allowed on castles"
+    },
+    "throw": {
+      "dice": "1 die",
+      "dice_third_six": "1 die, three 6s = token sent back",
+      "cowries": "6 cowries"
+    },
+    "victory": {
+      "tokens": "Bring home your {{count}} tokens",
+      "team": "The team brings home its {{count}} tokens"
+    },
+    "parties": {
+      "classique": "Alone or 2 against 2",
+      "rapide": "Alone",
+      "parchis": "Alone or 2 against 2",
+      "pachisi": "2 against 2 required",
+      "six": "Alone, 3 × 2 or 2 × 3"
+    }
+  },
+  "game": {
+    "loading": "Setting up the board…",
+    "notFoundTitle": "Game not found",
+    "notFoundMessage": "This game is no longer on this phone, or it could not be loaded.",
+    "backToLudo": "Back to the Ludo space",
+    "boardLabel_one": "Ludo board with {{count}} player",
+    "boardLabel_other": "Ludo board with {{count}} players: {{colors}}",
+    "tokenLabel": "{{color}} token {{n}}, {{where}}. Tap to play it.",
+    "where": {
+      "base": "at home",
+      "track": "on the track",
+      "home": "in the home stretch"
+    },
+    "colors": {
+      "rouge": "red",
+      "vert": "green",
+      "jaune": "yellow",
+      "bleu": "blue",
+      "violet": "purple",
+      "orange": "orange"
+    },
+    "you": "You",
+    "machineName": "Machine {{n}}",
+    "tags": {
+      "yourTurn": "your turn",
+      "yourTurnTeam": "your turn · team",
+      "playing": "playing",
+      "home_one": "{{count}} home",
+      "home_other": "{{count}} home",
+      "machine": "machine",
+      "partner": "partner",
+      "opponents": "other team",
+      "out": "out",
+      "finished": "{{place}}th",
+      "finishedFirst": "1st",
+      "away": "machine · away"
+    },
+    "roll": "Roll the die",
+    "throw": "Throw the cowries",
+    "exit": "Bring out a token",
+    "advance": "Move",
+    "touch": "Tap a token",
+    "wait": "Wait for your turn",
+    "timer": "Time left to play",
+    "auto": "auto",
+    "die": "Die: {{value}}",
+    "dieWaiting": "Die, waiting for the roll",
+    "menu": "Game menu: rules, sound, display, quit",
+    "menuTitle": "Game menu",
+    "rulesOfGame": "Rules of this game",
+    "houseRules": "House rules: friendly game",
+    "readRules": "Read all the rules",
+    "quit": "Leave the game",
+    "quitTitle": "Resign the game?",
+    "quitMessage": "You finish last. Against the machine, the loss counts as a game played.",
+    "quitConfirm": "Resign",
+    "keepPlaying": "Keep playing",
+    "close": "Close",
+    "timeLeft": "Ends in {{time}}",
+    "cowriesAlt": "6 cowries thrown, {{count}} opening(s) facing up",
+    "cowriesWaiting": "6 cowries, waiting for the throw",
+    "openings": "{{count}} opening(s) facing up",
+    "openingsShort": "{{count}} op.",
+    "cases": "{{count}} squares",
+    "grace": "Grace: you can bring out a token and throw again",
+    "cowriesTable": "What the cowries are worth",
+    "cowriesHelp": "Your first token comes out with any throw, the next ones only with a grace (6, 10 or 25). You win when your team has brought home its 8 tokens. The throw is drawn by the same verifiable system as the die.",
+    "cowriesHelpButton": "Pachisi rules",
+    "pachisiTitle": "Pachisi · 2 against 2",
+    "pachisiTeams": "{{a}} & {{b}} against {{c}} & {{d}}",
+    "ended": "Game over",
+    "sound": "Sound"
+  },
+  "msg": {
+    "over": "Game over.",
+    "yourTurn": "Your turn.",
+    "rollDice": "Roll the die.",
+    "throwCowries": "Throw the cowries.",
+    "rollAgain": "Roll again.",
+    "throwAgain": "Throw again.",
+    "rolled": "A {{count}}.",
+    "bonus": "Bonus of {{count}}.",
+    "touchToken": "Tap the token to play.",
+    "singleMove": "Only one move possible: played for you.",
+    "autoPlayedTitle": "Played for you.",
+    "partner": "{{name}} is your partner: you can never capture their tokens.",
+    "theirTurn": "{{name}} is playing.",
+    "theyRolled": "A {{count}}.",
+    "theyThrew": "{{count}} squares.",
+    "away": "{{name}} is not responding.",
+    "machinePlays": "The machine plays for them.",
+    "turnOf": "{{name}}'s turn.",
+    "noMove": "No token can move.",
+    "noMoveAgain": "No token can move: roll again."
+  },
+  "rules": {
+    "title": "The rules",
+    "tabsLabel": "Game",
+    "tabs": {
+      "dames": "10×10",
+      "dames8": "8×8",
+      "ludo": "Ludo"
+    },
+    "sub": {
+      "dames": "International draughts · 10×10 · 20 pieces each · white starts",
+      "dames8": "English draughts · 8×8 · 12 pieces each · black starts",
+      "ludo": "Ludo · 2 to 4 players · 4 tokens each"
+    },
+    "dames": {
+      "p1": {
+        "t": "Move.",
+        "x": "A man moves one square diagonally, forwards."
+      },
+      "p2": {
+        "t": "Capture.",
+        "x": "Jump over an opposing piece, forwards or backwards. Capturing is compulsory."
+      },
+      "p3": {
+        "t": "Majority capture.",
+        "x": "If several captures are possible, you must take the most pieces."
+      },
+      "p4": {
+        "t": "Multiple capture.",
+        "x": "Captured pieces are removed at the end of the move, not during it."
+      },
+      "p5": {
+        "t": "King.",
+        "x": "A man that ends its move on the last row becomes a king. It moves several squares diagonally."
+      },
+      "p6": {
+        "t": "Win.",
+        "x": "Your opponent has no pieces left, or cannot move."
+      }
+    },
+    "dames8": {
+      "p1": {
+        "t": "Move.",
+        "x": "A man moves one square diagonally, forwards."
+      },
+      "p2": {
+        "t": "Capture.",
+        "x": "A man only captures forwards. Capturing is compulsory."
+      },
+      "p3": {
+        "t": "Free choice.",
+        "x": "If several captures are possible, you choose which: no majority rule. A multiple capture, once started, goes to the end."
+      },
+      "p4": {
+        "t": "King.",
+        "x": "A man that reaches the last row becomes a king, and its turn ends there."
+      },
+      "p5": {
+        "t": "Short king.",
+        "x": "The king moves one square forwards or backwards, and captures both ways."
+      },
+      "p6": {
+        "t": "Win.",
+        "x": "Your opponent has no pieces left, or cannot move."
+      }
+    },
+    "ludo": {
+      "p1": {
+        "t": "Get out.",
+        "x": "You need a 6 to bring a token out of its home."
+      },
+      "p2": {
+        "t": "Roll again.",
+        "x": "A 6 gives you another roll. Three 6s in a row: your turn passes."
+      },
+      "p3": {
+        "t": "Capture.",
+        "x": "Landing on an opposing token sends it back home."
+      },
+      "p4": {
+        "t": "Safe squares.",
+        "x": "Stars and start squares protect tokens."
+      },
+      "p5": {
+        "t": "Get home.",
+        "x": "You need the exact number to reach the centre."
+      },
+      "p6": {
+        "t": "Win.",
+        "x": "The first to bring home 4 tokens wins. The following places also count in a room."
+      }
+    },
+    "variantsTitle": "Ludo variants",
+    "variantsIntro": "One board, several mechanics: each variant is a preset of both.",
+    "ranking": "Rating",
+    "rankingValue": {
+      "classique": "main, leagues",
+      "rapide": "separate",
+      "parchis": "friendly",
+      "pachisi": "friendly",
+      "six": "separate"
+    },
+    "blockedTitle": "Blocked combinations",
+    "blocked": {
+      "b1": "Six-armed board with Parchís or Pachisi rules: their tracks are designed for 4.",
+      "b2": "Pachisi without teams, or with a number of players other than 4.",
+      "b3": "Choosing a die when Pachisi throws cowries, and the reverse.",
+      "b4": "Barriers with “leave only on a 6” without the rule “a 6 opens the barrier”: a game could lock up for ever.",
+      "b5": "Teams with an odd number of players."
+    },
+    "houseTitle": "House rules",
+    "house": "You can change leaving the base, captures, safe squares and barriers, within the limits above. A game with house rules is friendly: no rating, no stake, no public league. Every saved setting can be reused (“Auntie Odile's rules”).",
+    "train": "Practise against the machine",
+    "seeVariants": "Ludo board & rules"
+  }
+}

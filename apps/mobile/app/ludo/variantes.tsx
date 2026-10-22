@@ -1,6 +1,6 @@
-/** Écran provisoire : voir ROUTES.md (clé « ludoVariantes »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 20b · Ludo : plateau & règles (src/features/ludo/VariantsScreen.tsx). */
+import { VariantsScreen } from '@/features/ludo/VariantsScreen';
 
 export default function LudoVariantesScreen() {
-  return <PlaceholderScreen routeKey="ludoVariantes" />;
+  return <VariantsScreen />;
 }

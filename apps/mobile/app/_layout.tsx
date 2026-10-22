@@ -10,6 +10,8 @@ import { SessionGate } from '@/navigation/SessionGate';
 import { ThemeProvider, useTheme } from '@/theme';
 import { Logo } from '@/ui/brand';
 import { ErrorState } from '@/ui/states';
+// Envoi des résultats du Ludo hors connexion (file hors ligne), branché dès le démarrage.
+import '@/features/ludo/offline';
 
 function RootStack() {
   const { colors, reduceMotion } = useTheme();

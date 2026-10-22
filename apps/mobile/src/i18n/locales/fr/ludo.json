@@ -1,0 +1,439 @@
+{
+  "mode": {
+    "spaceLabel": "Espace de jeu",
+    "spaces": {
+      "dames": "Dames",
+      "ludo": "Ludo",
+      "raisonnement": "Raisonnement"
+    },
+    "space": "Espace Ludo · {{players}}",
+    "players": {
+      "classique": "2 à 4 joueurs",
+      "rapide": "2 à 4 joueurs",
+      "parchis": "2 à 4 joueurs",
+      "pachisi": "4 joueurs, 2 contre 2",
+      "six": "2 à 6 joueurs"
+    },
+    "title": "On lance le dé ?",
+    "titleCowries": "On lance les cauris ?",
+    "force": "Force {{rating}}",
+    "forceNew": "Première partie classée",
+    "friendly": "Partie amicale",
+    "variantLink": "{{name}} · changer",
+    "variantLinkLabel": "Variante : {{name}}. Changer le plateau et les règles",
+    "machine": {
+      "title": "Contre 1 à 3 machines",
+      "sub": "Jouable sans réseau. Pari possible."
+    },
+    "room": {
+      "title": "Salon entre proches",
+      "sub": "2, 3 ou 4 à table, file d'attente, pot partagé."
+    },
+    "watch": {
+      "title": "Regarder une table",
+      "sub": "Les parties de Ludo en direct"
+    },
+    "leagues": {
+      "title": "Ligues de Ludo",
+      "sub": "Championnats et coupes, entre proches ou ouverts"
+    },
+    "rules": "Règles : {{summary}}.",
+    "allRules": "Tout lire",
+    "resume": {
+      "title": "Partie en cours",
+      "sub_one": "{{name}} contre {{count}} machine. Reprends où tu en étais.",
+      "sub_other": "{{name}} contre {{count}} machines. Reprends où tu en étais.",
+      "button": "Reprendre"
+    }
+  },
+  "summary": {
+    "exit": {
+      "six": "un 6 pour sortir",
+      "six_or_1": "un 6 ou un 1 pour sortir",
+      "five": "un 5 pour sortir",
+      "grace": "premier pion libre, puis une grâce pour sortir"
+    },
+    "again": {
+      "six": "un 6 rejoue",
+      "grace": "une grâce relance"
+    },
+    "protection": {
+      "etoiles_departs": "cases étoilées protégées",
+      "departs": "cases de départ protégées",
+      "sures": "12 cases sûres",
+      "chateaux": "12 châteaux protégés"
+    }
+  },
+  "machineSheet": {
+    "title": "Contre la machine",
+    "subtitle": "{{name}} · les machines jouent sur ton téléphone",
+    "machines": "Machines à table",
+    "machinesCount_one": "{{count}} machine",
+    "machinesCount_other": "{{count}} machines",
+    "pachisiNote": "Pachisi : 2 contre 2, ton partenaire est une machine.",
+    "difficulty": "Difficulté",
+    "oddsHint": "cote = 0,9 ÷ ta chance de gagner",
+    "auto": "Auto · {{name}}",
+    "autoDesc": "La machine monte d'un cran après 3 victoires, baisse après 3 défaites.",
+    "locked": "{{name}} · verrouillé",
+    "levels": {
+      "facile": {
+        "name": "Facile",
+        "desc": "Un débutant : il avance et mange quand il le voit."
+      },
+      "moyen": {
+        "name": "Moyen",
+        "desc": "Un joueur du dimanche, il voit à peu près les menaces."
+      },
+      "coriace": {
+        "name": "Coriace",
+        "desc": "Il calcule le danger de chaque case."
+      },
+      "ton_niveau": {
+        "name": "Ton niveau",
+        "desc": "Une chance sur deux."
+      },
+      "fon": {
+        "name": "Fon",
+        "desc": "Débloqué à l'échelon Chef."
+      }
+    },
+    "chance": "Tu gagnes {{percent}} fois sur 100",
+    "odds": "×{{odds}}",
+    "bet": "Ton pari",
+    "betCap": "jusqu'à {{amount}}",
+    "betMinus": "Parier 50 cauris de moins",
+    "betPlus": "Parier 50 cauris de plus",
+    "ifWin": "Si tu gagnes",
+    "ifWinDetail": "victoire {{base}} + gain net du pari",
+    "ifLose": "Si tu perds",
+    "ifLoseDetail": "pari perdu, +10 de participation",
+    "streak": "Série en cours : {{count}} victoire(s). À 3, ton prochain gain est multiplié par 1,5.",
+    "rewards": "Sans pari : +{{base}} la victoire, +10 la défaite. {{left}} parties récompensées restantes aujourd'hui.",
+    "offline": "Hors connexion : sans pari. Les gains de base partent au retour du réseau, après vérification.",
+    "friendly": "Règles maison ou variante amicale : pas de gain, pas de pari, pas de classement.",
+    "guest": "Crée ton profil pour gagner des cauris contre la machine.",
+    "play": "Jouer sans pari",
+    "playBet": "Parier {{amount}} et jouer",
+    "betFailed": "Le pari n'a pas pu être lancé. Tu peux jouer sans pari."
+  },
+  "variants": {
+    "title": "Plateau & règles",
+    "ranked": "Classé",
+    "friendly": "Amical",
+    "boardSection": "1 · Le plateau",
+    "mechSection": "2 · Les mécanismes",
+    "customize": "Personnaliser",
+    "houseNote": "Règles maison : partie amicale, sans classement ni mise. Les réglages incompatibles sont bloqués (voir la fiche des variantes).",
+    "changeRule": "Changer : {{rule}}, actuellement {{value}}",
+    "play": "Jouer en {{name}}",
+    "pickTitle": "{{rule}}",
+    "official": "officiel",
+    "blocked": "Bloqué",
+    "reset": "Revenir aux règles officielles",
+    "saved": {
+      "section": "Mes règles maison",
+      "empty": "Enregistre tes réglages pour les retrouver, ici et à la création d'un salon.",
+      "save": "Enregistrer ces règles",
+      "nameLabel": "Nom de tes règles",
+      "namePlaceholder": "les règles de Tata Odile",
+      "confirm": "Enregistrer",
+      "cancel": "Annuler",
+      "savedToast": "Règles « {{name}} » enregistrées",
+      "applied": "Règles « {{name}} » appliquées",
+      "delete": "Supprimer « {{name}} »",
+      "deleteTitle": "Supprimer « {{name}} » ?",
+      "deleteMessage": "Ces règles ne seront plus proposées. Les parties déjà jouées ne changent pas.",
+      "deleted": "Règles supprimées",
+      "use": "Appliquer « {{name}} »",
+      "offline": "Hors connexion : tes règles enregistrées reviennent avec le réseau.",
+      "guest": "Crée ton profil pour enregistrer tes règles maison."
+    }
+  },
+  "board": {
+    "classique": {
+      "name": "Classique",
+      "desc": "Croix, 4 joueurs",
+      "note": "La référence : celle des ligues officielles et du classement principal du Ludo."
+    },
+    "rapide": {
+      "name": "Rapide",
+      "desc": "Croix, 2 pions chacun, 10 min",
+      "note": "Pour une partie dans un taxi ou une pause. Classement séparé."
+    },
+    "parchis": {
+      "name": "Parchís",
+      "desc": "Croix 68 cases, version espagnole",
+      "note": "Barrière : deux pions de même couleur sur une case, personne ne passe. Un 6 oblige à l'ouvrir."
+    },
+    "pachisi": {
+      "name": "Pachisi aux cauris",
+      "desc": "Croix traditionnelle, on lance 6 cauris",
+      "note": "L'ancêtre du Ludo. Les cauris remplacent le dé : 0 ouverture vaut 25, 1 vaut 10. Toujours en équipes de 2, partenaires face à face."
+    },
+    "six": {
+      "name": "6 joueurs",
+      "desc": "Étoile à 6 branches",
+      "note": "Plus d'adversaires, plus d'alliances d'un soir. De 2 à 6 joueurs, ou 3 équipes de 2. Classement séparé."
+    }
+  },
+  "mech": {
+    "rows": {
+      "exit": "Sortie de la base",
+      "capture": "Capture",
+      "protection": "Cases protégées",
+      "barriers": "Barrières",
+      "throw": "Lancer",
+      "victory": "Victoire",
+      "parties": "Parties"
+    },
+    "exit": {
+      "six": "Avec un 6",
+      "six_or_1": "Avec un 6 ou un 1",
+      "five": "Avec un 5",
+      "grace": "1er pion libre, puis grâce (6, 10, 25)"
+    },
+    "capture": {
+      "home": "Renvoi à la maison",
+      "home_roll_again": "Renvoi + tu rejoues",
+      "home_bonus20": "Renvoi + avancer de 20"
+    },
+    "protection": {
+      "etoiles_departs": "Étoiles et départs",
+      "departs": "Départs seulement",
+      "sures": "12 cases sûres",
+      "chateaux": "12 châteaux"
+    },
+    "barriers": {
+      "none": "Interdites",
+      "any": "Autorisées",
+      "six_opens": "Autorisées, un 6 oblige à ouvrir",
+      "castles": "Autorisées sur les châteaux"
+    },
+    "throw": {
+      "dice": "1 dé",
+      "dice_third_six": "1 dé, trois 6 = pion renvoyé",
+      "cowries": "6 cauris"
+    },
+    "victory": {
+      "tokens": "Rentrer ses {{count}} pions",
+      "team": "L'équipe rentre ses {{count}} pions"
+    },
+    "parties": {
+      "classique": "Seul ou 2 contre 2",
+      "rapide": "Seul",
+      "parchis": "Seul ou 2 contre 2",
+      "pachisi": "2 contre 2 obligatoire",
+      "six": "Seul, 3 × 2 ou 2 × 3"
+    }
+  },
+  "game": {
+    "loading": "On installe le plateau…",
+    "notFoundTitle": "Partie introuvable",
+    "notFoundMessage": "Cette partie n'est plus sur ce téléphone, ou elle n'a pas pu être chargée.",
+    "backToLudo": "Retour à l'espace Ludo",
+    "boardLabel_one": "Plateau de Ludo à {{count}} joueur",
+    "boardLabel_other": "Plateau de Ludo à {{count}} joueurs : {{colors}}",
+    "tokenLabel": "Pion {{color}} {{n}}, {{where}}. Toucher pour le jouer.",
+    "where": {
+      "base": "à la maison",
+      "track": "sur le parcours",
+      "home": "dans le couloir final"
+    },
+    "colors": {
+      "rouge": "rouge",
+      "vert": "vert",
+      "jaune": "jaune",
+      "bleu": "bleu",
+      "violet": "violet",
+      "orange": "orange"
+    },
+    "you": "Toi",
+    "machineName": "Machine {{n}}",
+    "tags": {
+      "yourTurn": "à toi",
+      "yourTurnTeam": "à toi · équipe",
+      "playing": "joue",
+      "home_one": "{{count}} rentré",
+      "home_other": "{{count}} rentrés",
+      "machine": "machine",
+      "partner": "partenaire",
+      "opponents": "équipe adverse",
+      "out": "sorti",
+      "finished": "{{place}}e",
+      "finishedFirst": "1er",
+      "away": "machine · absent"
+    },
+    "roll": "Lancer le dé",
+    "throw": "Lancer les cauris",
+    "exit": "Sortir un pion",
+    "advance": "Avancer",
+    "touch": "Touche un pion",
+    "wait": "Attends ton tour",
+    "timer": "Temps restant pour jouer",
+    "auto": "auto",
+    "die": "Dé : {{value}}",
+    "dieWaiting": "Dé, en attente du lancer",
+    "menu": "Menu de la partie : règles, son, affichage, quitter",
+    "menuTitle": "Menu de la partie",
+    "rulesOfGame": "Règles de cette partie",
+    "houseRules": "Règles maison : partie amicale",
+    "readRules": "Lire toutes les règles",
+    "quit": "Quitter la partie",
+    "quitTitle": "Abandonner la partie ?",
+    "quitMessage": "Tu finis dernier. Contre la machine, la défaite compte comme une partie jouée.",
+    "quitConfirm": "Abandonner",
+    "keepPlaying": "Continuer",
+    "close": "Fermer",
+    "timeLeft": "Fin dans {{time}}",
+    "cowriesAlt": "6 cauris lancés, {{count}} ouverture(s) vers le ciel",
+    "cowriesWaiting": "6 cauris, en attente du lancer",
+    "openings": "{{count}} ouverture(s) vers le ciel",
+    "openingsShort": "{{count}} ouv.",
+    "cases": "{{count}} cases",
+    "grace": "Grâce : tu peux sortir un pion et tu relances",
+    "cowriesTable": "Ce que valent les cauris",
+    "cowriesHelp": "Ton premier pion sort avec n'importe quel lancer, les suivants seulement avec une grâce (6, 10 ou 25). On gagne quand l'équipe a rentré ses 8 pions. Le lancer est tiré par le même système vérifiable que le dé.",
+    "cowriesHelpButton": "Règles du Pachisi",
+    "pachisiTitle": "Pachisi · 2 contre 2",
+    "pachisiTeams": "{{a}} & {{b}} contre {{c}} & {{d}}",
+    "ended": "Partie terminée",
+    "sound": "Son"
+  },
+  "msg": {
+    "over": "Partie terminée.",
+    "yourTurn": "À toi.",
+    "rollDice": "Lance le dé.",
+    "throwCowries": "Lance les cauris.",
+    "rollAgain": "Relance le dé.",
+    "throwAgain": "Relance les cauris.",
+    "rolled": "Un {{count}}.",
+    "bonus": "Bonus de {{count}}.",
+    "touchToken": "Touche le pion à jouer.",
+    "singleMove": "Un seul coup possible : joué pour toi.",
+    "autoPlayedTitle": "Joué pour toi.",
+    "partner": "{{name}} est ton partenaire : ses pions ne peuvent pas être mangés par toi.",
+    "theirTurn": "{{name}} joue.",
+    "theyRolled": "Un {{count}}.",
+    "theyThrew": "{{count}} cases.",
+    "away": "{{name}} ne répond plus.",
+    "machinePlays": "La machine joue pour lui.",
+    "turnOf": "Au tour de {{name}}.",
+    "noMove": "Aucun pion ne peut bouger.",
+    "noMoveAgain": "Aucun pion ne peut bouger : relance."
+  },
+  "rules": {
+    "title": "Les règles",
+    "tabsLabel": "Jeu",
+    "tabs": {
+      "dames": "10×10",
+      "dames8": "8×8",
+      "ludo": "Ludo"
+    },
+    "sub": {
+      "dames": "Dames internationales · 10×10 · 20 pions chacun · les blancs commencent",
+      "dames8": "Dames anglaises · 8×8 · 12 pions chacun · les noirs commencent",
+      "ludo": "Ludo · 2 à 4 joueurs · 4 pions chacun"
+    },
+    "dames": {
+      "p1": {
+        "t": "Avancer.",
+        "x": "Un pion avance d'une case en diagonale, vers l'avant."
+      },
+      "p2": {
+        "t": "Prendre.",
+        "x": "On saute un pion adverse, vers l'avant ou vers l'arrière. La prise est obligatoire."
+      },
+      "p3": {
+        "t": "Prise majoritaire.",
+        "x": "S'il y a plusieurs prises possibles, on doit prendre le plus de pions."
+      },
+      "p4": {
+        "t": "Rafle.",
+        "x": "Les pions pris sont retirés à la fin du coup, pas pendant."
+      },
+      "p5": {
+        "t": "Dame.",
+        "x": "Un pion qui finit son coup sur la dernière rangée devient dame. Elle se déplace de plusieurs cases en diagonale."
+      },
+      "p6": {
+        "t": "Gagner.",
+        "x": "L'adversaire n'a plus de pion, ou ne peut plus bouger."
+      }
+    },
+    "dames8": {
+      "p1": {
+        "t": "Avancer.",
+        "x": "Un pion avance d'une case en diagonale, vers l'avant."
+      },
+      "p2": {
+        "t": "Prendre.",
+        "x": "Un pion ne prend que vers l'avant. La prise est obligatoire."
+      },
+      "p3": {
+        "t": "Libre choix.",
+        "x": "S'il y a plusieurs prises, on choisit laquelle : pas de prise majoritaire. Une rafle commencée va jusqu'au bout."
+      },
+      "p4": {
+        "t": "Dame.",
+        "x": "Un pion qui atteint la dernière rangée devient dame, et son tour s'arrête là."
+      },
+      "p5": {
+        "t": "Dame courte.",
+        "x": "La dame avance et recule d'une seule case, et prend dans les deux sens."
+      },
+      "p6": {
+        "t": "Gagner.",
+        "x": "L'adversaire n'a plus de pion, ou ne peut plus bouger."
+      }
+    },
+    "ludo": {
+      "p1": {
+        "t": "Sortir.",
+        "x": "Il faut un 6 pour sortir un pion de la maison."
+      },
+      "p2": {
+        "t": "Rejouer.",
+        "x": "Un 6 donne un lancer de plus. Trois 6 de suite : le tour passe."
+      },
+      "p3": {
+        "t": "Manger.",
+        "x": "Tomber sur un pion adverse le renvoie à sa maison."
+      },
+      "p4": {
+        "t": "Cases sûres.",
+        "x": "Les étoiles et les cases de départ protègent les pions."
+      },
+      "p5": {
+        "t": "Rentrer.",
+        "x": "Il faut le chiffre exact pour atteindre le centre."
+      },
+      "p6": {
+        "t": "Gagner.",
+        "x": "Le premier à rentrer ses 4 pions gagne. Les places suivantes comptent aussi en salon."
+      }
+    },
+    "variantsTitle": "Les variantes du Ludo",
+    "variantsIntro": "Un plateau, des mécanismes : chaque variante est un préréglage des deux.",
+    "ranking": "Classement",
+    "rankingValue": {
+      "classique": "principal, ligues",
+      "rapide": "séparé",
+      "parchis": "amical",
+      "pachisi": "amical",
+      "six": "séparé"
+    },
+    "blockedTitle": "Combinaisons bloquées",
+    "blocked": {
+      "b1": "Plateau à 6 branches avec les règles du Parchís ou du Pachisi : leurs parcours sont pensés pour 4.",
+      "b2": "Pachisi sans équipes, ou à un nombre de joueurs autre que 4.",
+      "b3": "Choisir un dé quand le Pachisi lance des cauris, et l'inverse.",
+      "b4": "Barrières avec « sortie seulement au 6 » sans la règle « un 6 ouvre la barrière » : une partie pourrait se bloquer à vie.",
+      "b5": "Équipes avec un nombre de joueurs impair."
+    },
+    "houseTitle": "Règles maison",
+    "house": "On peut changer la sortie, la capture, la protection et les barrières, dans les limites ci-dessus. Une partie aux règles maison est amicale : pas de classement, pas de mise, pas de ligue publique. Chaque réglage enregistré peut être réutilisé (« les règles de Tata Odile »).",
+    "train": "S'entraîner contre la machine",
+    "seeVariants": "Plateau & règles du Ludo"
+  }
+}

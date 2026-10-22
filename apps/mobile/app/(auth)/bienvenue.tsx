@@ -4,13 +4,14 @@
  */
 import { router, useLocalSearchParams } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { brand } from '@kwatt/design';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { setAppLanguage, type Language } from '@/i18n';
 import { nextParam, withNext } from '@/features/accounts/nav';
 import { useSession } from '@/session';
-import { useTheme } from '@/theme';
-import { Button, Card, Fabric, Logo, OfflineBanner, SCREEN_MAX_WIDTH, SegmentedTabs, Text, Wordmark } from '@/ui';
+import { fontFamilies, textVariants, useTheme } from '@/theme';
+import { Button, Card, Fabric, Logo, OfflineBanner, SCREEN_MAX_WIDTH, Text } from '@/ui';
 
 export default function BienvenueScreen() {
   const { t, i18n } = useTranslation('accounts');
@@ -26,20 +27,37 @@ export default function BienvenueScreen() {
     <View style={[styles.root, { backgroundColor: colors.bg }]}>
       <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
         <Fabric name="ndop" style={[styles.hero, { paddingTop: insets.top + 56 }]}>
-          <View style={[styles.language, { top: insets.top + 12 }]}>
-            <SegmentedTabs<Language>
-              variant="overlay"
-              accessibilityLabel={t('welcome.language')}
-              value={language}
-              onChange={(lang) => void setAppLanguage(lang)}
-              options={[
-                { value: 'fr', label: 'FR', accessibilityLabel: tp('language.fr') },
-                { value: 'en', label: 'EN', accessibilityLabel: tp('language.en') },
-              ]}
-            />
+          <View
+            style={[styles.language, { top: insets.top + 12, backgroundColor: brand.nuit }]}
+            accessibilityRole="radiogroup"
+            accessibilityLabel={t('welcome.language')}
+          >
+            {(['fr', 'en'] as const).map((lang) => {
+              const selected = lang === language;
+              return (
+                <Pressable
+                  key={lang}
+                  accessibilityRole="radio"
+                  accessibilityState={{ selected, checked: selected }}
+                  accessibilityLabel={tp(`language.${lang}`)}
+                  onPress={() => void setAppLanguage(lang)}
+                  style={[styles.langItem, selected ? { backgroundColor: brand.raphia } : null]}
+                >
+                  <Text style={[textVariants.badge, styles.langText, { color: selected ? brand.nuit : brand.raphia }]}>{lang.toUpperCase()}</Text>
+                </Pressable>
+              );
+            })}
           </View>
           <Logo size={120} />
-          <Wordmark />
+          {/* Le tissu ndop est le même dans les deux thèmes : couleurs de marque, comme la planche. */}
+          <View style={styles.wordmark}>
+            <Text variant="hero" accessibilityRole="header" style={{ color: brand.raphia }}>
+              {tc('app.wordmark')}
+            </Text>
+            <Text variant="subheading" style={[styles.tagline, { color: brand.orToghu }]}>
+              {tc('app.tagline')}
+            </Text>
+          </View>
         </Fabric>
 
         <View style={[styles.body, { paddingBottom: Math.max(insets.bottom, 12) + 22 }]}>
@@ -105,7 +123,11 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
   },
-  language: { position: 'absolute', right: 20, width: 128 },
+  language: { position: 'absolute', right: 20, flexDirection: 'row', padding: 4, gap: 4, borderRadius: 12 },
+  langItem: { minWidth: 56, minHeight: 44, borderRadius: 9, alignItems: 'center', justifyContent: 'center' },
+  langText: { fontSize: 12, lineHeight: 16 },
+  wordmark: { alignItems: 'center', gap: 10 },
+  tagline: { fontFamily: fontFamilies.display[500], fontSize: 15 },
   body: { flexGrow: 1, paddingHorizontal: 24, paddingTop: 28, gap: 14, width: '100%', maxWidth: SCREEN_MAX_WIDTH, alignSelf: 'center' },
   games: { flexDirection: 'row', justifyContent: 'center', gap: 8 },
   joinCard: { marginTop: 6 },

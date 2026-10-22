@@ -343,10 +343,10 @@ export interface AgreementReport {
 
 /**
  * Seuils de revue (décision) : au moins 15 coups pris en compte, et soit
- * ≥ 85 % d'accord avec une perte moyenne ≤ 10, soit ≥ 70 % d'accord avec des
+ * ≥ 85 % d'accord avec une perte moyenne ≤ 15, soit ≥ 70 % d'accord avec des
  * temps de réflexion anormalement réguliers (variation < 0,25).
  */
-export const REVIEW_THRESHOLDS = { minMoves: 15, rate: 0.85, averageLoss: 10, rateWithRegularTimes: 0.7, timeVariation: 0.25 } as const;
+export const REVIEW_THRESHOLDS = { minMoves: 15, rate: 0.85, averageLoss: 15, rateWithRegularTimes: 0.7, timeVariation: 0.25 } as const;
 
 export function* agreementRateGen(variant: Variant, moves: readonly MoveInput[], side: Side, options: AgreementOptions = {}): Generator<void, AgreementReport, void> {
   const states = replay(variant, moves, options.start);

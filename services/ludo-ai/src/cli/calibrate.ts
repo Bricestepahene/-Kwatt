@@ -1,7 +1,7 @@
 /**
  * Calibration des difficultés pour les cotes des paris (SPEC §7, cote = 0,9 ÷ p) :
  *
- *   pnpm --filter @kwatt/ludo-ai-service calibrate -- [--deals 150] [--fon-deals 60] [--fon-iters 300] [--workers 3] [--seed 11]
+ *   pnpm --filter @kwatt/ludo-ai-service calibrate -- [--deals 150] [--fon-deals 60] [--fon-iters 1500] [--workers 3] [--seed 11]
  *
  * Pour chaque variante classée (classique, rapide, six) et chaque difficulté,
  * le « joueur de référence » (agent Ton niveau, par définition à 50 % contre
@@ -76,7 +76,7 @@ function markdown(cal: Calibration, rows: Row[], check: { measured: CalibrationP
     `- Le **joueur de référence** est l'agent « Ton niveau » (\`${cal.reference}\`) : par définition, un joueur de ton niveau gagne une partie sur deux contre lui. Il joue en tête-à-tête contre chaque difficulté.`,
   );
   out.push(`- Places tournées à chaque donne, même suite de lancers pour les deux rotations (nombres aléatoires communs), graine ${opts.seed}.`);
-  out.push(`- ${opts.deals} donnes (${2 * opts.deals} parties) par difficulté ; Fon : ${opts.fonDeals} donnes, plafonné à ${opts.fonIters} simulations par coup (au temps, 400 ms, il en fait davantage : sa force réelle est au moins celle mesurée ici).`);
+  out.push(`- ${opts.deals} donnes (${2 * opts.deals} parties) par difficulté ; Fon : ${opts.fonDeals} donnes, plafonné à ${opts.fonIters} simulations par coup (au temps, 400 ms, il en fait environ 5 000 sur un PC et sans doute 1 000 à 2 000 sur un téléphone : l'ordre de grandeur est le même).`);
   out.push('- p₂ = part de victoires du joueur ; intervalle de Wilson à 95 %. La cote d\'un pari vaut 0,9 ÷ p (SPEC §7).');
   out.push('- À n joueurs (1 contre n − 1 machines du même niveau), `playerWinProbability` passe par un modèle de Luce : pₙ = s ÷ (s + (n − 1)·m) avec p₂ = s ÷ (s + m).');
   out.push('');
@@ -105,6 +105,27 @@ function markdown(cal: Calibration, rows: Row[], check: { measured: CalibrationP
     out.push(inside ? 'La prévision est dans l\'intervalle de confiance : le modèle est retenu.' : 'La prévision sort de l\'intervalle de confiance : le modèle reste une approximation (à revoir avec plus de parties).');
     out.push('');
   }
+  out.push('## Constats');
+  out.push('');
+  const inversions: string[] = [];
+  for (const v of VARIANTS) {
+    for (let i = 1; i < LEVELS.length; i++) {
+      const easier = LEVELS[i - 1]!;
+      const harder = LEVELS[i]!;
+      const a = cal.table[v][easier];
+      const b = cal.table[v][harder];
+      // Inversion nette : la difficulté « plus dure » laisse gagner le joueur plus souvent, hors des marges d'erreur.
+      if (b.p2 > a.p2 && b.low > a.high) inversions.push(`${v} : ${harder} (${pct(b.p2)}) plus facile que ${easier} (${pct(a.p2)})`);
+      else if (b.p2 > a.p2) inversions.push(`${v} : ${harder} (${pct(b.p2)}) pas plus dur que ${easier} (${pct(a.p2)}), dans la marge d'erreur`);
+    }
+  }
+  if (inversions.length === 0) out.push('- Les difficultés sont bien ordonnées : p₂ décroît de Facile à Fon dans chaque variante.');
+  else {
+    out.push('- Ordre des difficultés à surveiller :');
+    for (const line of inversions) out.push(`  - ${line}`);
+    out.push('- Conséquence : la cote suit la mesure (une difficulté pas plus dure ne paie pas plus) ; c\'est l\'agent qu\'il faut renforcer (`levels.ts`), pas la table.');
+  }
+  out.push('');
   out.push('## Lecture');
   out.push('');
   out.push('- Les difficultés sont bien ordonnées si p₂ décroît de Facile à Fon. La machine ne touche jamais au dé : seule la qualité des décisions change.');
@@ -118,7 +139,7 @@ async function main(): Promise<void> {
   const args = parseArgs(process.argv.slice(2));
   const deals = Number(args.deals ?? 150);
   const fonDeals = Number(args['fon-deals'] ?? 60);
-  const fonIters = Number(args['fon-iters'] ?? 300);
+  const fonIters = Number(args['fon-iters'] ?? 1500);
   const workers = Number(args.workers ?? defaultWorkers());
   const seed = Number(args.seed ?? 11);
   const today = new Date().toISOString().slice(0, 10);

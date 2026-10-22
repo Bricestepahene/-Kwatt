@@ -32,28 +32,28 @@ export interface Calibration {
 
 export const CALIBRATION: Calibration = {
   reference: 'ton_niveau@1',
-  measuredAt: 'à mesurer',
+  measuredAt: '2026-10-22',
   table: {
     classique: {
-      facile: { p2: 0.5, low: 0, high: 1, games: 0 },
-      moyen: { p2: 0.5, low: 0, high: 1, games: 0 },
-      coriace: { p2: 0.5, low: 0, high: 1, games: 0 },
+      facile: { p2: 0.9042, low: 0.8603, high: 0.9353, games: 240 },
+      moyen: { p2: 0.7458, low: 0.6872, high: 0.7967, games: 240 },
+      coriace: { p2: 0.5417, low: 0.4785, high: 0.6036, games: 240 },
       ton_niveau: { p2: 0.5, low: 0.5, high: 0.5, games: 0 },
-      fon: { p2: 0.5, low: 0, high: 1, games: 0 },
+      fon: { p2: 0.5, low: 0.393, high: 0.607, games: 80 },
     },
     rapide: {
-      facile: { p2: 0.5, low: 0, high: 1, games: 0 },
-      moyen: { p2: 0.5, low: 0, high: 1, games: 0 },
-      coriace: { p2: 0.5, low: 0, high: 1, games: 0 },
+      facile: { p2: 0.7542, low: 0.696, high: 0.8044, games: 240 },
+      moyen: { p2: 0.6792, low: 0.6177, high: 0.735, games: 240 },
+      coriace: { p2: 0.4833, low: 0.4209, high: 0.5463, games: 240 },
       ton_niveau: { p2: 0.5, low: 0.5, high: 0.5, games: 0 },
-      fon: { p2: 0.5, low: 0, high: 1, games: 0 },
+      fon: { p2: 0.475, low: 0.3692, high: 0.583, games: 80 },
     },
     six: {
-      facile: { p2: 0.5, low: 0, high: 1, games: 0 },
-      moyen: { p2: 0.5, low: 0, high: 1, games: 0 },
-      coriace: { p2: 0.5, low: 0, high: 1, games: 0 },
+      facile: { p2: 0.975, low: 0.9465, high: 0.9885, games: 240 },
+      moyen: { p2: 0.8958, low: 0.8508, high: 0.9284, games: 240 },
+      coriace: { p2: 0.6167, low: 0.5538, high: 0.6759, games: 240 },
       ton_niveau: { p2: 0.5, low: 0.5, high: 0.5, games: 0 },
-      fon: { p2: 0.5, low: 0, high: 1, games: 0 },
+      fon: { p2: 0.65, low: 0.5408, high: 0.7455, games: 80 },
     },
   },
 };

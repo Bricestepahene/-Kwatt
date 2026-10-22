@@ -4,8 +4,9 @@
  *
  * Points : victoire 3, nulle 1, défaite 0 (V 3 · N 1 · D 0, écran 28).
  * Forfait : l'adversaire marque 3 pts, l'absent 0 pt et −1 pt de pénalité.
- * Double forfait : 0 pt pour chacun, et la même pénalité de −1 (« le forfait
- * coûte […] 1 point de pénalité », écran 34).
+ * Double forfait : « 0 pt et amende pour chacun » (planche RegleLigues, à la
+ * lettre) : pas de point de pénalité, mais chacun compte un forfait (amende,
+ * exclusion).
  * Un forfait et une victoire attribuée à la suite d'une exclusion comptent
  * 1–0 pour la différence de pions.
  *
@@ -20,6 +21,8 @@ export const POINTS_WIN = 3;
 export const POINTS_DRAW = 1;
 export const POINTS_LOSS = 0;
 export const FORFEIT_PENALTY = 1;
+/** Double forfait : 0 pt, sans pénalité (planche RegleLigues). */
+export const DOUBLE_FORFEIT_PENALTY = 0;
 /** Différence de pions comptée pour un forfait ou une victoire attribuée (1–0). */
 export const DEFAULT_WIN_MARGIN = 1;
 
@@ -96,8 +99,8 @@ export function matchPoints(m: MatchRecord): { home: Side; away: Side } {
       };
     case 'double_forfeit':
       return {
-        home: side(POINTS_LOSS, 'loss', true, 0, FORFEIT_PENALTY),
-        away: side(POINTS_LOSS, 'loss', true, 0, FORFEIT_PENALTY),
+        home: side(POINTS_LOSS, 'loss', true, 0, DOUBLE_FORFEIT_PENALTY),
+        away: side(POINTS_LOSS, 'loss', true, 0, DOUBLE_FORFEIT_PENALTY),
       };
     case 'home_awarded':
       return { home: side(POINTS_WIN, 'win', false, DEFAULT_WIN_MARGIN), away: side(POINTS_LOSS, 'loss', false, -DEFAULT_WIN_MARGIN) };
@@ -163,22 +166,27 @@ export function rankRows(source: TiebreakSource, options: RankingOptions = {}): 
     return [...groups.entries()].sort((a, b) => b[0] - a[0]).map(([, g]) => g);
   };
 
-  // Critères 3 et 4 puis tirage : sur un groupe que la confrontation directe ne sépare plus.
-  const afterHeadToHead = (ids: string[]): string[][] => {
-    const out: string[][] = [];
-    for (const g of partition(ids, (id) => byId.get(id)!.wins)) {
-      for (const h of partition(g, (id) => byId.get(id)!.tiebreakValue)) out.push(h);
+  // Critères sportifs après les points : 2 confrontation directe, 3 victoires,
+  // 4 différence de pions (Dames) ou pions rentrés (Ludo).
+  const criterion = (c: number, ids: readonly string[]): ((id: string) => number) => {
+    if (c === 0) {
+      const h2h = source.headToHead(ids);
+      return (id) => h2h.get(id) ?? 0;
     }
-    return out;
+    if (c === 1) return (id) => byId.get(id)!.wins;
+    return (id) => byId.get(id)!.tiebreakValue;
   };
 
-  // Critère 2, réappliqué au sous-groupe tant qu'il le sépare.
+  // Dès qu'un critère sépare le groupe, chaque sous-groupe encore à égalité
+  // repart du critère 2 (la confrontation directe entre eux seuls). Les
+  // sous-groupes sont strictement plus petits : la récursion se termine.
   const resolve = (ids: string[]): string[][] => {
     if (ids.length < 2) return [ids];
-    const h2h = source.headToHead(ids);
-    const parts = partition(ids, (id) => h2h.get(id) ?? 0);
-    if (parts.length === 1) return afterHeadToHead(ids);
-    return parts.flatMap((p) => resolve(p));
+    for (let c = 0; c < 3; c++) {
+      const parts = partition(ids, criterion(c, ids));
+      if (parts.length > 1) return parts.flatMap((p) => resolve(p));
+    }
+    return [ids];
   };
 
   const ordered: string[][] = [];

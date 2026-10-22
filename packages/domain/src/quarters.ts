@@ -21,14 +21,51 @@ export interface QuarterWinInput {
   loserRating: number;
   winnerQuarter: string | null;
   loserQuarter: string | null;
+  /**
+   * Partie contre la machine : décision, elle ne rapporte rien au quartier
+   * (la machine n'a pas de quartier, et la guerre se joue entre joueurs).
+   */
+  vsMachine?: boolean;
 }
 
-/** Points rapportés au quartier du gagnant (0 si partie amicale ou sans quartier). */
+/**
+ * Points rapportés au quartier du gagnant (0 si partie amicale, contre la
+ * machine ou sans quartier). « Plus fort » = force adverse strictement
+ * supérieure avant la partie (dans la variante jouée). « Quartier rival » =
+ * tout autre quartier que celui du gagnant.
+ */
 export function quarterPoints(input: QuarterWinInput): number {
-  if (!input.ranked || !input.winnerQuarter) return 0;
+  if (!input.ranked || input.vsMachine || !input.winnerQuarter) return 0;
   const base = input.loserRating > input.winnerRating ? QUARTER_UPSET_WIN_POINTS : QUARTER_WIN_POINTS;
   const rival = input.loserQuarter !== null && input.loserQuarter !== input.winnerQuarter;
   return base + (rival ? QUARTER_RIVAL_BONUS : 0);
+}
+
+/**
+ * Ludo à n joueurs : seul le 1er gagne pour son quartier. +5 s'il a battu un
+ * joueur plus fort que lui, sinon +3 ; +2 (une fois) si au moins un des
+ * battus vient d'un quartier rival. Les partenaires d'équipe ne comptent pas
+ * comme battus.
+ */
+export function quarterPointsMulti(input: {
+  ranked: boolean;
+  winnerRating: number;
+  winnerQuarter: string | null;
+  beaten: readonly { rating: number; quarter: string | null }[];
+}): number {
+  if (!input.ranked || !input.winnerQuarter || input.beaten.length === 0) return 0;
+  const upset = input.beaten.some((b) => b.rating > input.winnerRating);
+  const rival = input.beaten.some((b) => b.quarter !== null && b.quarter !== input.winnerQuarter);
+  return (upset ? QUARTER_UPSET_WIN_POINTS : QUARTER_WIN_POINTS) + (rival ? QUARTER_RIVAL_BONUS : 0);
+}
+
+/**
+ * Quartier champion de la saison (son cadre de profil va à tous ses joueurs) :
+ * le premier du classement, s'il a marqué des points.
+ */
+export function seasonChampion(entries: readonly { id: string; points: number; players: number }[]): string | null {
+  const top = rankQuarters(entries)[0];
+  return top && top.points > 0 ? top.id : null;
 }
 
 /** Saison d'un instant : « AAAA-MM ». */

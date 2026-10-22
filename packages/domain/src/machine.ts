@@ -99,6 +99,8 @@ export interface MachineSettlementInput {
   winStreakBefore: number;
   /** Parties déjà récompensées aujourd'hui pour ce jeu. */
   rewardedToday: number;
+  /** Partie jouée hors connexion : pas de pari (D-08), gains de base seulement. */
+  offline?: boolean;
 }
 
 export interface MachineSettlement {
@@ -127,6 +129,7 @@ export interface MachineSettlement {
  */
 export function settleMachineGame(input: MachineSettlementInput): MachineSettlement {
   if (!Number.isInteger(input.bet) || input.bet < 0) throw new Error('Pari invalide');
+  if (input.offline && input.bet > 0) throw new Error('Pas de pari hors connexion');
   const d = machineDifficulty(input.difficulty);
   const counted = input.rewardedToday < DAILY_REWARDED_MACHINE_GAMES;
   let base = 0;
@@ -182,6 +185,31 @@ export function applyAutoDifficulty(state: AutoDifficultyState, outcome: Machine
     return { difficulty: MACHINE_DIFFICULTIES[next]!.id, streak: 0 };
   }
   return { difficulty: state.difficulty, streak };
+}
+
+/**
+ * Gains affichés avant de jouer (écran 15) : « Si tu gagnes +220 » (gain de
+ * base + gain net du pari), « Si tu perds −190 » (pari perdu, +10 de
+ * participation). Sans série ni plafond atteint.
+ */
+export function machinePreview(difficulty: MachineDifficultyId, bet: number, oddsH: number): { ifWin: number; ifLoss: number } {
+  const common = { difficulty, bet, oddsHundredths: oddsH, winStreakBefore: 0, rewardedToday: 0 };
+  return {
+    ifWin: settleMachineGame({ ...common, outcome: 'win' }).net,
+    ifLoss: settleMachineGame({ ...common, outcome: 'loss' }).net,
+  };
+}
+
+/** Objectif de mesure : 45 à 55 % de victoires à « Ton niveau » (SPEC §7, planche Moteur). */
+export const CALIBRATION_TARGET = { min: 0.45, max: 0.55 } as const;
+
+/** Suivi par variante : la machine « Ton niveau » est-elle bien réglée ? (null : pas assez de parties). */
+export function calibrationStatus(wins: number, games: number, minGames = 50): 'too_easy' | 'ok' | 'too_hard' | null {
+  if (games < minGames) return null;
+  const rate = wins / games;
+  if (rate > CALIBRATION_TARGET.max) return 'too_easy';
+  if (rate < CALIBRATION_TARGET.min) return 'too_hard';
+  return 'ok';
 }
 
 /** Résumé d'une difficulté pour l'écran 15 : force de la machine, cote, gain de base. */

@@ -98,16 +98,35 @@ export interface TieOutcome {
   deciderNeeded: boolean;
 }
 
-/** Rencontre aller-retour : somme des deux matchs, puis manche décisive si égalité. */
-export function twoLegTie(tie: Tie, leg1: GameResult, leg2: GameResult | null, decider: GameResult | null = null): TieOutcome {
-  const [a1, b1] = gameScore(leg1);
+/**
+ * Rencontre aller-retour : somme des deux matchs, puis manche décisive de
+ * 5 minutes si égalité (sur la planche de l'aller). Décision : une manche
+ * décisive nulle se rejoue, couleurs inversées, jusqu'à ce qu'elle désigne un
+ * vainqueur ; `deciders` liste les manches décisives déjà jouées, dans l'ordre.
+ */
+export function twoLegTie(tie: Tie, leg1: GameResult | null, leg2: GameResult | null, deciders: readonly GameResult[] = []): TieOutcome {
+  const [a1, b1] = leg1 === null ? [0, 0] : gameScore(leg1);
   const [a2, b2] = leg2 === null ? [0, 0] : gameScore(leg2);
   const firstScore = a1 + a2;
   const secondScore = b1 + b2;
-  if (leg2 === null) return { firstScore, secondScore, winner: null, deciderNeeded: false };
+  if (leg1 === null || leg2 === null) return { firstScore, secondScore, winner: null, deciderNeeded: false };
   if (firstScore !== secondScore) {
     return { firstScore, secondScore, winner: firstScore > secondScore ? tie.first : tie.second, deciderNeeded: false };
   }
-  if (decider === null || decider === 'draw') return { firstScore, secondScore, winner: null, deciderNeeded: true };
-  return { firstScore, secondScore, winner: decider === 'first' ? tie.first : tie.second, deciderNeeded: true };
+  const decisive = deciders.find((d) => d !== 'draw');
+  if (decisive === undefined) return { firstScore, secondScore, winner: null, deciderNeeded: true };
+  return { firstScore, secondScore, winner: decisive === 'first' ? tie.first : tie.second, deciderNeeded: true };
+}
+
+/**
+ * Qui a les blancs dans la n-ième manche décisive (à partir de 0) : celui qui
+ * recevait à l'aller commence avec les noirs, puis on alterne.
+ */
+export function deciderWhite(tie: Tie, index: number): string {
+  return index % 2 === 0 ? tie.second : tie.first;
+}
+
+/** Qualifiés d'une poule : les `qualifiers` premiers de son classement (`groupStandings`). */
+export function groupQualifiers(ranking: Ranking, qualifiers: number): string[] {
+  return ranking.rows.slice(0, qualifiers).map((r) => r.playerId);
 }

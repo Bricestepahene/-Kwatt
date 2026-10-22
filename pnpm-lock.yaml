@@ -223,6 +223,14 @@ importers:
 
   packages/design: {}
 
+  packages/domain: {}
+
+  packages/engine-dames:
+    dependencies:
+      '@kwatt/rules-dames':
+        specifier: workspace:*
+        version: link:../rules-dames
+
   packages/fair-dice:
     dependencies:
       '@noble/hashes':
@@ -5659,7 +5667,9 @@ snapshots:
       metro-runtime: 0.87.1
     transitivePeerDependencies:
       - '@babel/core'
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   '@react-native/normalize-colors@0.74.89': {}
 

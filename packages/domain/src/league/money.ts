@@ -11,6 +11,8 @@
  *   le reste de son entrée et ses amendes restent au pot.
  */
 
+import { PUBLIC_LEAGUE_CREATOR_MIN_RANK, rankAtLeast, type RankId } from '../ranks.js';
+
 export const CAUTION_PER_PLACE = 50;
 export const KWATT_BONUS_PERCENT = 25;
 export const FORFEIT_FINE_PERCENT = 10;
@@ -151,4 +153,106 @@ export function validationOutcome(input: {
 /** Inscription : le solde doit couvrir l'entrée (la mise est bloquée tout de suite). */
 export function canAffordEntry(balance: number, entry: number): { ok: boolean; missing: number } {
   return { ok: balance >= entry, missing: Math.max(0, entry - balance) };
+}
+
+/* ------------------------------------------------------------------ */
+/* Réglages d'une ligue publique (écran 31) et accès (écrans 28 et 32). */
+
+/** Places max. : de 4 à 64, de 2 en 2 (16 par défaut). */
+export const PUBLIC_LEAGUE_PLACES = { min: 4, max: 64, step: 2, default: 16 } as const;
+/** Entrée : de 50 à 1 000 cauris, de 50 en 50 (200 par défaut). */
+export const PUBLIC_LEAGUE_ENTRY = { min: 50, max: 1000, step: 50, default: 200 } as const;
+
+/** Pot si la ligue est complète, bonus Kwatt compris (écran 31). */
+export function fullLeaguePot(maxPlaces: number, entry: number): number {
+  return leaguePot(maxPlaces, entry);
+}
+
+export type LeagueCreationRefusal =
+  | 'league.guest'
+  | 'league.underage'
+  | 'league.rank_too_low'
+  | 'league.places_invalid'
+  | 'league.entry_invalid'
+  | 'league.caution_above_balance';
+
+/**
+ * Créer une ligue publique : profil majeur, échelon Ancien du kwatt au moins
+ * dans le jeu de la ligue, places et entrée dans les bornes, caution couverte
+ * par le solde. Renvoie null si c'est possible.
+ */
+export function publicLeagueCreationRefusal(input: {
+  kind: 'guest' | 'member';
+  age: number | null;
+  rank: RankId;
+  balance: number;
+  maxPlaces: number;
+  entry: number;
+}): LeagueCreationRefusal | null {
+  if (input.kind !== 'member') return 'league.guest';
+  if (input.age === null || input.age < 18) return 'league.underage';
+  if (!rankAtLeast(input.rank, PUBLIC_LEAGUE_CREATOR_MIN_RANK)) return 'league.rank_too_low';
+  const p = PUBLIC_LEAGUE_PLACES;
+  if (!Number.isInteger(input.maxPlaces) || input.maxPlaces < p.min || input.maxPlaces > p.max || (input.maxPlaces - p.min) % p.step !== 0) {
+    return 'league.places_invalid';
+  }
+  const e = PUBLIC_LEAGUE_ENTRY;
+  if (!Number.isInteger(input.entry) || input.entry < e.min || input.entry > e.max || (input.entry - e.min) % e.step !== 0) {
+    return 'league.entry_invalid';
+  }
+  if (leagueCaution(input.maxPlaces) > input.balance) return 'league.caution_above_balance';
+  return null;
+}
+
+export type LeagueJoinRefusal =
+  | 'league.full'
+  | 'league.guest_paid'
+  | 'league.guest_public'
+  | 'league.underage_paid'
+  | 'league.rank_too_low'
+  | 'league.insufficient_balance';
+
+/**
+ * S'inscrire à une ligue (SPEC §6) : un invité n'entre que dans une ligue
+ * privée gratuite ; un compte jeune (13–17 ans) dans aucune ligue payante ;
+ * l'échelon minimum fixé par l'organisateur s'applique ; le solde doit
+ * couvrir l'entrée (bloquée tout de suite). Renvoie null si c'est possible.
+ */
+export function leagueJoinRefusal(input: {
+  access: 'public' | 'private';
+  entry: number;
+  entrants: number;
+  maxPlaces: number;
+  kind: 'guest' | 'member';
+  age: number | null;
+  rank: RankId;
+  minRank: RankId | null;
+  balance: number;
+}): LeagueJoinRefusal | null {
+  if (input.entrants >= input.maxPlaces) return 'league.full';
+  if (input.kind !== 'member') {
+    if (input.access === 'public') return 'league.guest_public';
+    if (input.entry > 0) return 'league.guest_paid';
+  } else if (input.entry > 0 && (input.age === null || input.age < 18)) {
+    return 'league.underage_paid';
+  }
+  if (input.minRank !== null && !rankAtLeast(input.rank, input.minRank)) return 'league.rank_too_low';
+  if (!canAffordEntry(input.balance, input.entry).ok) return 'league.insufficient_balance';
+  return null;
+}
+
+/* ------------------------------------------------------------------ */
+/* Ligue privée (écrans 28 et 29) : droit d'entrée → cagnotte.          */
+
+/**
+ * Cagnotte d'une ligue privée : inscrits × droit d'entrée, sans bonus Kwatt
+ * ni caution (« 50 cauris → cagnotte », Championnat du Kwatt : 10 × 50 = 500).
+ */
+export function privateLeaguePot(entrants: number, entry: number): number {
+  return entrants * entry;
+}
+
+/** « Le champion rafle la cagnotte » (écran 28). */
+export function splitPrivatePot(pot: number, championId: string): Record<string, number> {
+  return pot > 0 ? { [championId]: pot } : {};
 }

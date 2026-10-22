@@ -58,11 +58,47 @@ export function damesTeamMatch(boards: readonly BoardResult[]): TeamMatchScore {
 }
 
 /**
- * Ordre des joueurs : visible de l'adversaire seulement quand les deux
- * capitaines l'ont déposé, ou à l'heure limite.
+ * Ordre des joueurs : déposé au plus tard 1 h avant la rencontre, et figé à
+ * ce moment-là. « Personne ne voit celui de l'autre avant » : il devient
+ * visible pour l'adversaire à l'heure limite seulement (même si les deux
+ * capitaines l'ont déposé plus tôt, chacun peut encore le changer).
  */
-export function lineupVisible(input: { homeSubmitted: boolean; awaySubmitted: boolean; now: number; matchAt: number }): boolean {
-  return (input.homeSubmitted && input.awaySubmitted) || input.now >= input.matchAt - LINEUP_DEADLINE_MS;
+export function lineupDeadline(matchAt: number): number {
+  return matchAt - LINEUP_DEADLINE_MS;
+}
+
+export function lineupVisible(input: { now: number; matchAt: number }): boolean {
+  return input.now >= lineupDeadline(input.matchAt);
+}
+
+/** Un capitaine peut-il encore déposer ou changer son ordre ? */
+export function lineupEditable(input: { now: number; matchAt: number }): boolean {
+  return input.now < lineupDeadline(input.matchAt);
+}
+
+/**
+ * Ordre d'une équipe à l'heure limite : celui déposé, sinon l'ordre de
+ * l'effectif (décision : pas de forfait d'équipe pour un ordre oublié).
+ */
+export function effectiveLineup(submitted: readonly string[] | null, roster: readonly string[]): string[] {
+  const order = submitted ?? roster.slice(0, DAMES_TEAM_SIZE);
+  if (order.length !== DAMES_TEAM_SIZE) throw new Error('Une équipe aligne 3 joueurs');
+  if (new Set(order).size !== order.length) throw new Error('Joueur aligné deux fois');
+  if (!order.every((p) => roster.includes(p))) throw new Error('Joueur hors effectif');
+  return [...order];
+}
+
+/**
+ * Planches d'une rencontre : le joueur n de chaque ordre joue la planche n ;
+ * l'équipe qui reçoit a les blancs sur les planches 1 et 3.
+ */
+export function teamBoards(homeLineup: readonly string[], awayLineup: readonly string[]): { board: number; white: string; black: string }[] {
+  if (homeLineup.length !== DAMES_TEAM_SIZE || awayLineup.length !== DAMES_TEAM_SIZE) throw new Error('Une équipe aligne 3 joueurs');
+  return homeLineup.map((h, i) => {
+    const a = awayLineup[i]!;
+    const board = i + 1;
+    return homeColorOnBoard(board) === 'w' ? { board, white: h, black: a } : { board, white: a, black: h };
+  });
 }
 
 export interface LudoTeamScore {

@@ -17,7 +17,7 @@ import { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 import Svg, { Circle, G, Path, Rect, Text as SvgText } from 'react-native-svg';
-import { useTheme } from '../../../theme';
+import { fontFamilies, useTheme } from '../../../theme';
 import { Fabric } from '../../../ui';
 import { cellOf, describePiece, framePadding, geometryOf } from './geometry';
 
@@ -137,11 +137,6 @@ function DamesBoardImpl({
                 {hint === sq ? (
                   <Rect x={x + 1.5} y={y + 1.5} width={cell - 3} height={cell - 3} fill="none" stroke={colors.action} strokeWidth={3} strokeDasharray="5 4" />
                 ) : null}
-                {showNumbers ? (
-                  <SvgText x={x + 2} y={y + Math.max(9, cell * 0.26)} fontSize={Math.max(8, Math.round(cell * 0.24))} fontWeight="700" fill={brand.raphia} opacity={0.85}>
-                    {String(sq)}
-                  </SvgText>
-                ) : null}
                 {piece !== '' ? (
                   <G opacity={faded ? 0.35 : 1}>
                     <Circle cx={cx} cy={cy + shadow} r={pieceR} fill={white ? checkers.white.ring : checkers.black.ringSun} opacity={white ? 0.9 : 1} />
@@ -169,6 +164,21 @@ function DamesBoardImpl({
                       <Circle cx={cx} cy={cy} r={pieceR + 2.5} fill="none" stroke={colors.alert} strokeWidth={2} strokeDasharray="4 3" />
                     ) : null}
                   </G>
+                ) : null}
+                {showNumbers ? (
+                  <SvgText
+                    x={x + 2}
+                    y={y + Math.max(9, cell * 0.26)}
+                    fontSize={Math.max(8, Math.round(cell * 0.24))}
+                    fontFamily={fontFamilies.body[700]}
+                    fontWeight="700"
+                    fill={brand.raphia}
+                    stroke={checkers.black.fill}
+                    strokeWidth={0.6}
+                    opacity={0.9}
+                  >
+                    {String(sq)}
+                  </SvgText>
                 ) : null}
                 {targetSet.has(sq) && piece === '' ? (
                   <G>

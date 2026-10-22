@@ -49,9 +49,11 @@ export function DisplayScreen() {
     <Screen padded={false} gap={0} testID="screen-affichage">
       <View style={styles.top}>
         <IconButton icon="back" accessibilityLabel={tc('action.back')} onPress={() => goBack('/parametres')} />
-        <Text variant="smallStrong" tone="muted" accessibilityRole="header">
+        <Text variant="title" accessibilityRole="header">
           {t('display.label')}
         </Text>
+      </View>
+      <View style={styles.segRow}>
         <View
           accessibilityRole={Platform.OS === 'web' ? 'tablist' : 'radiogroup'}
           accessibilityLabel={t('display.label')}
@@ -137,8 +139,9 @@ export function DisplayScreen() {
 
 const styles = StyleSheet.create({
   top: { flexDirection: 'row', alignItems: 'center', gap: 10, paddingHorizontal: 16, paddingTop: 12 },
-  seg: { marginLeft: 'auto', flexDirection: 'row', gap: 4, padding: 4, borderRadius: 12 },
-  segItem: { minHeight: 40, paddingHorizontal: 10, borderRadius: 9, alignItems: 'center', justifyContent: 'center' },
+  segRow: { paddingHorizontal: 16, paddingTop: 12 },
+  seg: { flexDirection: 'row', gap: 4, padding: 4, borderRadius: 12 },
+  segItem: { flex: 1, minHeight: 44, paddingHorizontal: 6, borderRadius: 9, alignItems: 'center', justifyContent: 'center' },
   segLabel: { textTransform: 'none', letterSpacing: 0, fontSize: 11 },
   preview: { flex: 1, justifyContent: 'center', gap: 16, paddingVertical: 16 },
   band: { flexDirection: 'row', alignItems: 'center', gap: 10, paddingHorizontal: 16 },

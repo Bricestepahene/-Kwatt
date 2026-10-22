@@ -109,7 +109,9 @@ function ResultBody({ view: v, moves }: { view: ResultView; moves: string[] }) {
             {t(`result.badge.${badgeKey(v)}`)}
           </Text>
         </View>
-        <Icon name={headerIcon} size={56} color={win ? brand.orToghu : brand.raphia} />
+        <View style={[styles.medal, { backgroundColor: fabrics.toghu.base }]}>
+          <Icon name={headerIcon} size={44} color={win ? brand.orToghu : brand.raphia} />
+        </View>
         <View style={[styles.plate, { backgroundColor: fabrics.toghu.base }]}>
           <Text variant="display" style={[styles.title, { color: brand.raphia }]} accessibilityRole="header" numberOfLines={1} adjustsFontSizeToFit>
             {title}
@@ -150,14 +152,14 @@ function ResultBody({ view: v, moves }: { view: ResultView; moves: string[] }) {
           <Card row>
             <View style={styles.side}>
               <Text variant="caption" tone="muted" numberOfLines={1}>
-                {opponentName(v.opponent)}
+                {v.opponent?.machine ? t('result.machine') : opponentName(v.opponent)}
               </Text>
               <Text variant="number" tone={theirs.tone} numberOfLines={1} adjustsFontSizeToFit>
                 {theirs.text}
               </Text>
             </View>
-            <Text variant="smallStrong" tone="muted">
-              ·
+            <Text variant="caption" tone="muted">
+              {t('result.versus')}
             </Text>
             <View style={[styles.side, styles.right]}>
               <Text variant="caption" tone="muted">
@@ -395,6 +397,7 @@ function NextBlock({ view: v, space }: { view: ResultView; space: string }) {
 const styles = StyleSheet.create({
   header: { paddingTop: 34, paddingBottom: 26, paddingHorizontal: 20, alignItems: 'center', gap: 10, borderBottomLeftRadius: 32, borderBottomRightRadius: 32 },
   badge: { borderRadius: 8, paddingHorizontal: 10, paddingVertical: 6 },
+  medal: { width: 76, height: 76, borderRadius: 38, alignItems: 'center', justifyContent: 'center' },
   plate: { borderRadius: 8, paddingHorizontal: 10, maxWidth: '100%' },
   title: { fontSize: 34, lineHeight: 40 },
   subPlate: { borderRadius: 6, paddingHorizontal: 8, paddingVertical: 2 },

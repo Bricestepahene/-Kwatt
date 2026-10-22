@@ -20,8 +20,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useFormat } from '../../i18n';
 import { getPreferences, updatePreferences, usePreferences } from '../../preferences';
 import { useTheme } from '../../theme';
+import { brand, checkers } from '@kwatt/design';
 import { playBoardFeedback } from '../../sound';
-import { Avatar, BottomSheet, ConfirmSheet, IconButton, Text, showToast, type AvatarSpec } from '../../ui';
+import { Avatar, BottomSheet, ConfirmSheet, Icon, IconButton, Text, showToast, type AvatarSpec } from '../../ui';
 import type { GameOutcome, SeatInfo } from '../game/controller';
 import { avatarProps } from '../profile/looks';
 import { DamesBoard } from './board/DamesBoard';
@@ -373,9 +374,27 @@ interface BandInfo {
 }
 
 function PieceAvatar({ info, size }: { info: BandInfo; size: number }) {
-  const { colors } = useTheme();
+  const { colors, isSun } = useTheme();
   const a = seatAvatar(info.seat);
   const machine = Boolean(info.seat?.machine);
+  if (machine) {
+    return (
+      <View
+        style={{
+          width: size,
+          height: size,
+          borderRadius: size / 2,
+          backgroundColor: checkers.black.fill,
+          borderWidth: 2,
+          borderColor: isSun ? checkers.black.ringSun : checkers.black.ringNight,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Icon name="machine" size={Math.round(size * 0.55)} color={brand.raphia} />
+      </View>
+    );
+  }
   return (
     <Avatar
       name={machine ? 'M' : (info.seat?.name ?? '?')}

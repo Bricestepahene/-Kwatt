@@ -14,8 +14,18 @@
     }
   },
   "variant": {
-    "dames10": { "name": "Internationales", "desc": "10×10 · 20 pions", "short": "10×10", "rule": "Prise majoritaire, dames volantes." },
-    "dames8": { "name": "Anglaises", "desc": "8×8 · 12 pions", "short": "8×8", "rule": "Pions qui prennent vers l'avant, dame d'une case." },
+    "dames10": {
+      "name": "Internationales",
+      "desc": "10×10 · 20 pions",
+      "short": "10×10",
+      "rule": "Prise majoritaire, dames volantes."
+    },
+    "dames8": {
+      "name": "Anglaises",
+      "desc": "8×8 · 12 pions",
+      "short": "8×8",
+      "rule": "Pions qui prennent vers l'avant, dame d'une case."
+    },
     "pick": "Variante"
   },
   "space": {
@@ -35,9 +45,19 @@
       "desc": "Réglée sur ton niveau : {{level}}. Elle monte d'un cran après 3 victoires.",
       "resume": "Une partie t'attend : reprends-la."
     },
-    "salon": { "title": "Salon entre proches", "desc": "Partage un code. File d'attente : le perdant laisse sa place." },
-    "defi": { "title": "Défi avec mise", "desc": "Mise tes cauris contre un ami. Le gagnant prend le pot.", "adult": "Réservé aux 18 ans et plus." },
-    "ligues": { "title": "Ligues de Dames", "desc": "Championnats et coupes entre amis, ou ligue publique." },
+    "salon": {
+      "title": "Salon entre proches",
+      "desc": "Partage un code. File d'attente : le perdant laisse sa place."
+    },
+    "defi": {
+      "title": "Défi avec mise",
+      "desc": "Mise tes cauris contre un ami. Le gagnant prend le pot.",
+      "adult": "Réservé aux 18 ans et plus."
+    },
+    "ligues": {
+      "title": "Ligues de Dames",
+      "desc": "Championnats et coupes entre amis, ou ligue publique."
+    },
     "probleme": {
       "title": "Problème du jour",
       "desc": "Série de {{count}} jours · +{{reward}} cauris",
@@ -84,7 +104,8 @@
     "ifLose": "Si tu perds",
     "ifLoseDetail": "pari perdu, +10 de participation",
     "ifLoseNoBet": "+10 de participation",
-    "streak": "Série en cours : {{count}} victoires. À 3, ton prochain gain est multiplié par 1,5.",
+    "streak_one": "Série en cours : {{count}} victoire. À {{target}}, ton prochain gain est multiplié par 1,5.",
+    "streak_other": "Série en cours : {{count}} victoires. À {{target}}, ton prochain gain est multiplié par 1,5.",
     "streakNone": "Gagne 3 fois de suite : ton prochain gain est multiplié par 1,5.",
     "streakReady": "Série de {{count}} victoires : ta prochaine victoire rapporte ×1,5.",
     "ctaBet": "Parier {{amount}} et jouer",
@@ -205,7 +226,10 @@
     "force": "Force {{family}} {{delta}}",
     "forceSub": "{{before}} / {{after}} → Niv {{level}}",
     "forceSame": "{{after}} · Niv {{level}}",
-    "family": { "dames": "Dames", "ludo": "Ludo" },
+    "family": {
+      "dames": "Dames",
+      "ludo": "Ludo"
+    },
     "notRated": "Partie amicale : pas de force en jeu",
     "gains": "Gains",
     "gainBase": "Victoire",
@@ -235,12 +259,18 @@
     "league": "Retour à la ligue",
     "places": "Classement",
     "notFound": "Partie introuvable sur cet appareil.",
-    "machineOpponent": "Machine · {{level}}"
+    "machineOpponent": "Machine · {{level}}",
+    "machine": "Machine",
+    "versus": "contre"
   },
   "review": {
     "title": "Toi contre {{name}}",
     "subtitle": "{{family}} · {{verdict}} en {{count}} coups",
-    "verdict": { "win": "victoire", "loss": "défaite", "draw": "nulle" },
+    "verdict": {
+      "win": "victoire",
+      "loss": "défaite",
+      "draw": "nulle"
+    },
     "move": "Coup {{n}}",
     "start": "Position de départ",
     "notation": "Notation officielle",
@@ -255,7 +285,12 @@
     "share": "Partager cette partie",
     "shareText": "Partie de dames sur Kwatt ({{variant}}) : {{moves}}",
     "moves": "Coups",
-    "quality": { "best": "meilleur coup", "good": "bon coup", "inaccuracy": "imprécision", "mistake": "erreur" },
+    "quality": {
+      "best": "meilleur coup",
+      "good": "bon coup",
+      "inaccuracy": "imprécision",
+      "mistake": "erreur"
+    },
     "moment": {
       "piece_left_hanging": "Pion laissé en prise (case {{square}})",
       "mistake": "Erreur",
@@ -275,7 +310,10 @@
     "title": "Problème du jour · {{variant}}",
     "subtitle": "Série : {{count}} jours · +{{reward}} cauris si tu trouves",
     "subtitleSolved": "Résolu aujourd'hui · série de {{count}} jours",
-    "side": { "w": "Les blancs jouent.", "b": "Les noirs jouent." },
+    "side": {
+      "w": "Les blancs jouent.",
+      "b": "Les noirs jouent."
+    },
     "theme": {
       "shot": "Trouve le coup qui gagne du matériel.",
       "coup_de_dame": "Trouve le coup qui mène à dame.",

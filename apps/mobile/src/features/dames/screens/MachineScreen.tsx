@@ -104,7 +104,7 @@ export function MachineScreen() {
       testID="screen-machine"
       footer={
         offers ? (
-          <>
+          <View style={styles.footer}>
             <Button
               label={currentBet > 0 ? t('machine.ctaBet', { amount: f.caurisAmount(currentBet) }) : t('machine.ctaPlay')}
               onPress={() => void start()}
@@ -115,7 +115,7 @@ export function MachineScreen() {
             <Text variant="caption" tone="muted" align="center">
               {dailyDone ? t('machine.dailyDone') : t('machine.footer', { base: selected?.baseReward ?? 25 })}
             </Text>
-          </>
+          </View>
         ) : undefined
       }
     >
@@ -253,7 +253,7 @@ export function MachineScreen() {
               {preview?.streakNext
                 ? t('machine.streakReady', { count: offers.winStreak })
                 : offers.winStreak > 0
-                  ? t('machine.streak', { count: offers.winStreak % 3 })
+                  ? t('machine.streak', { count: offers.winStreak, target: Math.ceil((offers.winStreak + 1) / 3) * 3 })
                   : t('machine.streakNone')}
             </Text>
           </View>
@@ -284,6 +284,7 @@ function StepButton({ label, a11y, onPress, disabled }: { label: string; a11y: s
 
 const styles = StyleSheet.create({
   header: { paddingTop: 16, paddingBottom: 16 },
+  footer: { paddingHorizontal: 20, gap: 10 },
   headerRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   eyebrow: { fontSize: 11, letterSpacing: 1.3 },
   flex: { flex: 1 },

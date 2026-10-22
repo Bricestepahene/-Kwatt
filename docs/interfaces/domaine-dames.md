@@ -36,3 +36,31 @@ Exporté par `packages/engine-dames/src/index.ts`, sur `@kwatt/rules-dames` (rè
 - Problèmes du jour : `@kwatt/engine-dames/puzzles/dames10.json` et `dames8.json` (`PuzzleFile {version, variant, puzzles: Puzzle {id, variant, side, white {men, kings}, black {men, kings}, solution[], gain, difficulty 1–5, theme shot|coup_de_dame|rafle|capture_choice|win_material}}`) ; `isPuzzleFile`, `puzzleState`, `verifyPuzzle` (sans moteur), `checkUniqueness`, `checkFollowUps`, `dailyPuzzle(liste, numéroDeJour)` (avec `dayNumber` de `@kwatt/domain`), `findPuzzle`. La solution alterne coups du joueur et réponses forcées de l'adversaire (que l'appli joue toute seule).
 - Bas niveau : `Search`, `TranspositionTable`, `runSync`, `runAsync`, `evaluateTerms`, `Position`, `playMatch` (mini-match de contrôle).
 - Scripts : `pnpm --filter @kwatt/engine-dames puzzles -- dames10 140 [parties] [graine] [fichier]` (et `puzzles -- merge dames10 a.json b.json`), `pnpm --filter @kwatt/engine-dames match -- dames10 1800 1550 10`.
+
+## Décisions prises par l'équipe (à reporter au journal de SPEC §12)
+
+Domaine :
+- Double forfait : « 0 pt et amende pour chacun » (RegleLigues à la lettre), sans le −1 de pénalité ; il compte comme un forfait pour chacun (amende, exclusion).
+- Départage : dès qu'un critère sépare un groupe, chaque sous-groupe encore à égalité repart de la confrontation directe entre ses seuls membres. Forfait et victoire attribuée comptent 1–0 dans la différence de pions.
+- Exclusion : les matchs « joués » par l'exclu sont ceux qui ont un résultat, forfaits compris (Fotso : 3 joués + 2 forfaits = 5 sur 13).
+- Annulation après validation : caution partagée au cauris inférieur, restes aux premiers inscrits. Pronostics : restes aux premiers parieurs, Kwatt ne prélève rien, remboursement aussi en cas de nulle ou si personne n'a vu juste ; fermeture au coup 10 = à partir du demi-coup 18.
+- Équipes de dames : l'ordre devient visible à l'heure limite (1 h avant) seulement, même déposé plus tôt ; un ordre non déposé = les trois premiers de l'effectif (pas de forfait d'équipe).
+- Coupe : le moins bien classé reçoit à l'aller ; une manche décisive nulle se rejoue, couleurs inversées (le receveur de l'aller a les noirs dans la première).
+- Ludo en ligue : ⌈n ÷ taille⌉ tables réparties au plus juste ; points 4/2/1/0 (4), 4/2/0 (3), 4/2/1/1/0 (5), 4/2/1/1/1/0 (6), 4/0 (2).
+- Ligue privée : cagnotte = inscrits × droit d'entrée, sans bonus Kwatt, entièrement au champion.
+- Ligue publique : création par un profil majeur d'échelon Ancien au moins ; places 4 à 64 (pas de 2), entrée 50 à 1 000 (pas de 50), comme l'écran 31. Inscription : invité seulement en ligue privée gratuite, compte jeune dans aucune ligue payante.
+- Machine : pari maximal = 25 % du solde au pas de 50 inférieur (écran 15 : 600 pour 2 450), sans limite de table ; le ×1,5 de série porte sur le gain de base de la victoire qui suit 3, 6, 9… victoires, pas sur le pari ; au-delà de 10 parties récompensées, un pari se règle encore.
+- Quartiers : rien contre la machine ; « plus fort » = force strictement supérieure avant la partie ; « quartier rival » = tout autre quartier ; au Ludo, seul le 1er marque, +2 une seule fois.
+- Temps : jours, semaines ISO et saisons à l'heure du Cameroun (UTC+1) pour tout le monde.
+
+Moteur :
+- Évaluation écrite à la main (pas encore de réseau appris, ni bases de finales, ni livre d'ouvertures) ; niveaux humains = vision limitée (profondeur, quiétude), bruit sur les scores, poids dégradés et plafond de perte vérifié par une recherche indépendante (pas de modèle entraîné sur de vraies parties, faute de données).
+- Déterminisme garanti par les budgets de nœuds ; `timeMs` n'est qu'un garde-fou. Pour revalider une partie hors connexion, le serveur rejoue `chooseMoveSync` avec la même graine (sans `timeMs`).
+- Analyse : qualité par perte ≤ 10 / 40 / 90 centièmes ; anti-triche : revue si ≥ 15 coups et (≥ 85 % d'accord avec perte moyenne ≤ 15, ou ≥ 70 % avec des temps de réflexion réguliers) ; jamais de sanction automatique.
+- Problèmes : valeur pion 1, dame 2 ; défenseur toujours forcé ; au moins deux coups au départ ; premier coup unique (écart ≥ 1,5 pion) ; coups suivants forcés ou uniques ; problème du jour par rotation fixe sur le numéro de jour.
+
+## Fragile / à suivre
+
+- Force réelle des niveaux non mesurée sur des humains : suivre `calibrationStatus` (45–55 % à « Ton niveau ») par variante sur le serveur et ajuster les ancres de `levels.ts`.
+- Fon = 800 000 nœuds (quelques secondes sur PC, davantage sur téléphone) : passer `timeMs` dans l'appli ; loin de Scan ou KingsRow.
+- Déterminisme entre moteurs JavaScript (Hermes contre V8) : le bruit gaussien passe par Math.log et Math.cos ; un écart n'aurait d'effet que sur une égalité exacte.

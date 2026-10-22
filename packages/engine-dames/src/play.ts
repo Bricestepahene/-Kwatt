@@ -86,8 +86,11 @@ export function* chooseMoveGen(state: DamesState, options: ChooseMoveOptions = {
   }
 
   // 1. Ce que voit ce niveau : profondeur, quiétude et poids dégradés.
+  // Avec une limite de temps : trois quarts pour la vision, le reste pour la vérification.
+  const started = now();
   const vision = new Search(pos, {
-    ...common,
+    now,
+    ...(options.timeMs !== undefined ? { timeMs: Math.max(1, Math.floor(options.timeMs * 0.75)) } : {}),
     weights: levelWeights(profile, pos.g.size),
     maxDepth: profile.depth,
     qDepth: profile.qDepth,
@@ -98,7 +101,8 @@ export function* chooseMoveGen(state: DamesState, options: ChooseMoveOptions = {
   let nodes = seen.nodes;
 
   // 2. Jamais un coup absurde : vérification indépendante (pleins poids, pleine quiétude).
-  const allowed = yield* allowedMoves(pos, profile, seen.rootScores, common);
+  const left = options.timeMs !== undefined ? { timeMs: Math.max(1, options.timeMs - (now() - started)) } : {};
+  const allowed = yield* allowedMoves(pos, profile, seen.rootScores, { now, ...left });
   nodes += allowed.nodes;
 
   // 3. Choix : meilleur score vu + bruit (graine et position → même tirage).

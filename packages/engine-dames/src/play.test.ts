@@ -83,6 +83,16 @@ describe('chooseMove', () => {
     }
   });
 
+  it('limite de temps : un coup légal quand le temps est écoulé (horloge injectée)', () => {
+    const state = middlegames('dames10', 1, 71, 12)[0]!;
+    for (const targetRating of [1350, null]) {
+      let t = 0;
+      const c = chooseMoveSync(state, { targetRating, timeMs: 30, now: () => (t += 1) });
+      expect(findLegal(state, { from: c.move.from, to: c.move.to, captures: c.move.captures })).not.toBeNull();
+      expect(t).toBeLessThan(200);
+    }
+  });
+
   it('coup unique : joué tout de suite', () => {
     const state = fromPosition('dames10', boardFrom('dames10', { w: [32, 35, 37, 43], b: [1, 8, 14, 18, 28, 30] }), 'w');
     const c = chooseMoveSync(state, { targetRating: 800 });

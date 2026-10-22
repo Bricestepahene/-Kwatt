@@ -3,7 +3,7 @@
  * export, petit serveur de fichiers, table des routes, état de l'appareil injecté.
  */
 import { spawnSync } from 'node:child_process';
-import { createReadStream, existsSync, readFileSync, rmSync, statSync } from 'node:fs';
+import { createReadStream, existsSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { createServer } from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -53,10 +53,18 @@ export function exportWeb() {
     },
   });
   if (result.status !== 0) throw new Error('expo export a échoué');
+  // Marque : cet export montre le kit et parle au serveur local (sinon on réexporte).
+  writeFileSync(path.join(distDir, EXPORT_MARKER), `${ORIGIN}\n`);
 }
 
+/** Fichier posé dans dist/ par exportWeb (un export de production ne l'a pas). */
+const EXPORT_MARKER = '.kwatt-verification';
+
+/** Réutilise dist/ seulement s'il vient de exportWeb (`--no-export`), sinon exporte. */
 export function ensureExport(skipExport) {
-  if (!skipExport || !existsSync(path.join(distDir, 'index.html'))) exportWeb();
+  const marker = path.join(distDir, EXPORT_MARKER);
+  const reusable = existsSync(path.join(distDir, 'index.html')) && existsSync(marker) && readFileSync(marker, 'utf8').trim() === ORIGIN;
+  if (!skipExport || !reusable) exportWeb();
 }
 
 const MIME = {

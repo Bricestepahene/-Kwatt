@@ -11,6 +11,7 @@ import { getLocales } from 'expo-localization';
 import { useMemo } from 'react';
 import { Platform } from 'react-native';
 import { initReactI18next, useTranslation } from 'react-i18next';
+import { errorMessage } from '../api/errors';
 import { preferencesStore } from '../preferences';
 import {
   formatCauris,
@@ -22,8 +23,6 @@ import {
   type DateStyle,
 } from './format';
 import { intlLocale, pickInitialLanguage, type Language } from './languages';
-
-import { errorMessage } from '../api/errors';
 import { createI18n, dynamicTranslator, type DynamicTranslator } from './setup';
 
 export * from './languages';

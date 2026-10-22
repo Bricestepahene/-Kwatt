@@ -239,3 +239,38 @@ export function contrastRatio(a: string, b: string): number {
   const [hi, lo] = la >= lb ? [la, lb] : [lb, la];
   return (hi + 0.05) / (lo + 0.05);
 }
+
+// ---------------------------------------------------------------------------
+// Compléments de l'équipe Ludo (planches 21, 21b, 21c) : valeurs relevées sur les planches.
+// ---------------------------------------------------------------------------
+
+/**
+ * Plateau du Ludo (planches PartieLudo, PartieLudo6) : cases en raphia, filet des cases,
+ * étoiles, fond de l'étoile à 6 branches, dé (pastilles rouges, ombre) et contour des pions
+ * (raphia, ou nuit sur le jaune pour rester lisible). Identique de nuit et en Plein soleil.
+ */
+export const ludoBoard = {
+  cell: '#F4EEDF',
+  line: '#B9B09A',
+  star: '#8C7B55',
+  starBoard: '#14173A',
+  die: '#F4EEDF',
+  dieShadow: '#C9B98F',
+  pip: '#E0442E',
+  tokenRing: '#F4EEDF',
+  tokenRingOnLight: '#0F1230',
+  tokenShadow: 'rgba(0,0,0,0.35)',
+  /** Anneau des pions jouables (« Touche le pion à jouer »). */
+  playable: '#0F1230',
+} as const;
+
+/** Cauris du Pachisi (planche LancerCauris) : ouverture vers le ciel (raphia, fente) ou dos bombé. */
+export const cowrie = {
+  up: '#F4EEDF',
+  slit: '#6E4426',
+  slitEdge: '#C9B98F',
+  backLight: '#E2C9A0',
+  backDark: '#A07A4E',
+  backMark: 'rgba(110,68,38,0.35)',
+  shadow: 'rgba(0,0,0,0.35)',
+} as const;

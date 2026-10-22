@@ -21,3 +21,4 @@ export * from './errors.js';
 export * from './variants.js';
 export * from './engine.js';
 export * from './geometry.js';
+export * from './notation.js';

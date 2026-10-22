@@ -113,7 +113,7 @@ export function LudoBoard({ state, geometry, highlighted = [], onTokenPress, siz
       <Svg width={size} height={size} viewBox={`0 0 ${geometry.size} ${geometry.size}`}>
         <MemoDrawing geometry={geometry} config={state.config} />
         {geometry.baseSlots.map((slots, home) =>
-          slots.map((p, i) =>
+          slots.slice(0, state.config.mechanics.tokensPerPlayer).map((p, i) =>
             occupied.has(`${home}:${i}`) ? null : (
               <Circle
                 key={`s${home}-${i}`}

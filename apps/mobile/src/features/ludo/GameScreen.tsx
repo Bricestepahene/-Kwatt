@@ -165,6 +165,8 @@ export function LudoGameScreen({ controller }: { controller: LudoController }) {
   const teams = state.config.teams;
   const boardLabel = t('game.boardLabel', { count: state.seats.length, colors: state.seats.map((s) => colorName(s.home)).join(', ') });
 
+  // Rangée plus courte que l'autre : des places vides gardent la largeur des bandeaux.
+  const fill = (n: number, other: number) => Array.from({ length: Math.max(0, Math.max(2, other) - n) }, (_, i) => <View key={`f${i}`} style={styles.flex} />);
   const banner = (seat: number) => (
     <PlayerBanner key={seat} seat={seat} state={state} info={seats.find((s) => s.seat === seat)} name={seatName(seat)} mySeats={mySeats} />
   );
@@ -198,7 +200,10 @@ export function LudoGameScreen({ controller }: { controller: LudoController }) {
         ) : null}
       </View>
 
-      <View style={[styles.banners, topRow.length === 3 || bottomRow.length === 3 ? styles.three : null]}>{topRow.map(banner)}</View>
+      <View style={[styles.banners, topRow.length === 3 || bottomRow.length === 3 ? styles.three : null]}>
+        {topRow.map(banner)}
+        {fill(topRow.length, bottomRow.length)}
+      </View>
       <View style={styles.boardWrap}>
         <LudoBoard
           state={state}
@@ -210,7 +215,10 @@ export function LudoGameScreen({ controller }: { controller: LudoController }) {
           accessibilityLabel={boardLabel}
         />
       </View>
-      <View style={styles.banners}>{bottomRow.map(banner)}</View>
+      <View style={[styles.banners, topRow.length === 3 || bottomRow.length === 3 ? styles.three : null]}>
+        {bottomRow.map(banner)}
+        {fill(bottomRow.length, topRow.length)}
+      </View>
 
       <View style={styles.bottom}>
         {cowries ? (

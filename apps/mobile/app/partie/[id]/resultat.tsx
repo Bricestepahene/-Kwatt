@@ -1,6 +1,8 @@
-/** Écran provisoire : voir ROUTES.md (clé « resultat »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 18 · Fin de partie (planche Resultat), commun aux Dames et au Ludo. */
+import { useLocalSearchParams } from 'expo-router';
+import { ResultScreen } from '@/features/game/ResultScreen';
 
 export default function ResultatScreen() {
-  return <PlaceholderScreen routeKey="resultat" />;
+  const { id } = useLocalSearchParams<{ id: string }>();
+  return <ResultScreen id={id ?? ''} />;
 }

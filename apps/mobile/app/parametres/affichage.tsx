@@ -1,14 +1,6 @@
-/**
- * Écran provisoire « Plein soleil » (17) : le réglage Nuit / Plein soleil / Automatique
- * est déjà branché sur le thème. Équipe Dames : voir ROUTES.md (aperçu du damier à faire).
- */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
-import { ThemeSwitch } from '@/preferences/QuickSettings';
+/** Écran 17 · Mode Plein soleil (planche PleinSoleil) : réglage d'affichage avec aperçu du damier. */
+import { DisplayScreen } from '@/features/dames/screens/DisplayScreen';
 
 export default function AffichageScreen() {
-  return (
-    <PlaceholderScreen routeKey="affichage">
-      <ThemeSwitch />
-    </PlaceholderScreen>
-  );
+  return <DisplayScreen />;
 }

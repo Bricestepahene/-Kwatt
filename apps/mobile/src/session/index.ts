@@ -29,17 +29,3 @@ export function useAccessSession(): AccessSession {
   const isAdult = useSession((s) => s.data?.user.ageBand === 'adult');
   return useMemo(() => ({ status: status === 'member' || status === 'guest' ? status : 'signedOut', isAdult }), [status, isAdult]);
 }
-
-/**
- * Session de démonstration, pour parcourir l'appli sans serveur pendant le développement
- * (bouton visible seulement en __DEV__ sur l'écran provisoire de Bienvenue).
- * À retirer quand l'équipe Comptes branche la vraie connexion.
- */
-export async function startDemoSession(): Promise<void> {
-  await sessionStore.getState().signIn({
-    accessToken: 'demo',
-    refreshToken: 'demo',
-    expiresIn: 365 * 24 * 3600,
-    user: { id: 'demo', kind: 'member', pseudo: 'demo', ageBand: 'adult', emailVerified: true },
-  });
-}

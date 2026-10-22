@@ -32,28 +32,19 @@ function pick(row: Record<string, unknown>, keys: readonly string[]): string | n
 
 /** Quartier du joueur (« Bonamoussadi », Douala, Cameroun), ou null. */
 export async function quarterOf(db: Sql, userId: string): Promise<ProfileQuarter | null> {
-  if ((await tableExists(db, 'quarters')) && (await columnExists(db, 'profiles', 'quarter_id'))) {
-    const r = await db.query<{ q: Record<string, unknown> | null }>(
-      'SELECT to_jsonb(q) AS q FROM profiles p JOIN quarters q ON q.id = p.quarter_id WHERE p.user_id = $1',
-      [userId],
-    );
-    const q = r.rows[0]?.q;
-    if (q) {
-      const name = pick(q, ['name', 'quarter', 'label', 'quartier', 'city', 'ville']);
-      if (name) {
-        const city = pick(q, ['city', 'ville']);
-        return {
-          id: q.id === undefined || q.id === null ? null : String(q.id),
-          name,
-          city: city === name ? null : city,
-          country: pick(q, ['country', 'pays', 'country_code']),
-        };
-      }
-    }
-  }
-  const r = await db.query<{ quarter: string | null }>('SELECT quarter FROM profiles WHERE user_id = $1', [userId]);
-  const text = r.rows[0]?.quarter?.trim();
-  return text ? { id: null, name: text, city: null, country: null } : null;
+  // profiles.quarter référence quarters(id) (migration 0010 de l'équipe Comptes).
+  const r = await db.query<{ id: string; name: string | null; city: string; country: string }>(
+    `SELECT q.id, q.name, q.city, q.country
+       FROM profiles p JOIN quarters q ON q.id = p.quarter
+      WHERE p.user_id = $1`,
+    [userId],
+  );
+  const q = r.rows[0];
+  if (!q) return null;
+  // Ligne « ville entière » : le quartier affiché est la ville.
+  return q.name
+    ? { id: q.id, name: q.name, city: q.city, country: q.country }
+    : { id: q.id, name: q.city, city: null, country: q.country };
 }
 
 export interface MedalCounts {

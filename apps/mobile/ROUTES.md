@@ -64,6 +64,8 @@ Chaque écran du Sommaire (`docs/maquette/README.md`) a sa route, déjà branch�
 | 40 | `recompenses` | `app/recompenses.tsx` | `/recompenses` | Recompenses | Profil | Communauté et progression |  |
 | 41 | `echelons` | `app/echelons.tsx` | `/echelons` | Echelons | Profil | Communauté et progression |  |
 | 42 | `raisonnement` | `app/raisonnement.tsx` | `/raisonnement` | Raisonnement | Profil | Communauté et progression |  |
+| — | `reglesQuartier` | `app/legal/regles.tsx` | `/legal/regles` | Inscription | Tout le monde | Comptes | Règles du quartier, acceptées à l’inscription (03) et lisibles depuis les Paramètres (13). Texte : locales/<langue>/legal.json. |
+| — | `confidentialite` | `app/legal/confidentialite.tsx` | `/legal/confidentialite` | Inscription | Tout le monde | Comptes | Politique de confidentialité (données gardées, pas de publicité ni d’argent réel, export, suppression à J+30). |
 | — | `jouer` | `app/(tabs)/jouer/index.tsx` | `/jouer` | — | Profil | Fondation appli | Rouvre le dernier espace utilisé (Dames par défaut) : redirection, pas d’écran. |
 | — | `lienSalon` | `app/s/[code].tsx` | `/s/[code]` | — | Tout le monde | Fondation appli | Lien de partage https://<domaine>/s/CODE : redirige vers /salon/CODE. |
 | — | `kit` | `app/kit.tsx` | `/kit` | Main | Tout le monde | Fondation appli | Catalogue du kit de composants (développement, captures) : visible en développement ou avec EXPO_PUBLIC_SHOW_KIT=1, sinon renvoie à l’accueil. |

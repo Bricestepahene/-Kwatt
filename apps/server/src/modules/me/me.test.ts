@@ -209,8 +209,9 @@ describe('export des données', () => {
     expect(res.headers['content-disposition']).toMatch(/attachment; filename="kwatt-export-\d{4}-\d{2}-\d{2}\.json"/);
     const data = ExportResponseSchema.parse(res.json());
     expect(data.userId).toBe(m.userId);
-    expect(Object.keys(data.sections).sort()).toEqual(
-      ['account', 'avatar', 'devices', 'games', 'items', 'notifications', 'sessions', 'test_module', 'wallet'].sort(),
+    // Les autres modules ajoutent leurs sections (quartier, nom de partie…) : on vérifie les nôtres.
+    expect(Object.keys(data.sections)).toEqual(
+      expect.arrayContaining(['account', 'devices', 'games', 'notifications', 'sessions', 'test_module', 'wallet']),
     );
     expect(data.sections.account).toMatchObject({ pseudo: m.pseudo, email: m.email, birthYear: 1990 });
     expect(data.sections.wallet).toMatchObject({ balance: WELCOME_BONUS });

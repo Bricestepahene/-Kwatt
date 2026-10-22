@@ -28,7 +28,8 @@ export const securityPlugin = fp(
     await app.register(cors, {
       origin: config.corsOrigins.length > 0 ? config.corsOrigins : config.env === 'production' ? false : devOrigin,
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-      allowedHeaders: ['authorization', 'content-type'],
+      // L'appli envoie aussi sa langue, son identifiant d'installation et sa version.
+      allowedHeaders: ['authorization', 'content-type', 'accept-language', 'x-install-id', 'x-app-version'],
       maxAge: 600,
     });
 

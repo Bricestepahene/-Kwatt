@@ -12,7 +12,7 @@ pnpm --filter @kwatt/mobile start             # build de développement (expo-de
 pnpm --filter @kwatt/mobile web               # navigateur
 ```
 
-En développement, l’écran Bienvenue propose « Explorer l’appli (démo) » pour parcourir les écrans sans serveur, et `/kit` montre tout le kit de composants.
+Les écrans demandent un serveur (`pnpm --filter @kwatt/server dev`, adresse dans `.env`). En développement, `/kit` montre tout le kit de composants.
 
 ## Vérifier
 

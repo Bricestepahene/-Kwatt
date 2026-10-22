@@ -16,7 +16,28 @@
     "email_not_verified": "Vérifie d'abord ton adresse e-mail.",
     "code_invalid": "Code incorrect.",
     "code_expired": "Ce code a expiré : demande-en un nouveau.",
-    "too_many_attempts": "Trop d'essais : demande un nouveau code."
+    "too_many_attempts": "Trop d'essais : demande un nouveau code.",
+    "required": "Connecte-toi pour continuer.",
+    "token_invalid": "Ta session n'est plus valable : reconnecte-toi.",
+    "token_expired": "Ta session a expiré : reconnecte-toi.",
+    "session_revoked": "Tu as été déconnecté : reconnecte-toi.",
+    "email_taken": "Cette adresse a déjà un profil. Connecte-toi, ou utilise une autre adresse.",
+    "pseudo_taken": "Ce pseudo est déjà pris.",
+    "pseudo_invalid": "Pseudo : 3 à 20 caractères, lettres, chiffres, « _ » et « . ».",
+    "pseudo_banned": "Ce pseudo n'est pas permis.",
+    "password_too_short": "Le mot de passe doit faire {{min}} caractères au moins.",
+    "too_young": "Moins de 13 ans : pas de profil. Tu peux jouer en invité avec un code.",
+    "birth_year_invalid": "Cette année de naissance n'est pas possible.",
+    "consent_required": "Accepte les règles du quartier et la politique de confidentialité.",
+    "code_resend_too_soon": "Attends une minute avant de redemander un code.",
+    "already_verified": "Ton adresse est déjà vérifiée.",
+    "refresh_invalid": "Ta session n'est plus valable : reconnecte-toi.",
+    "refresh_expired": "Ta session a expiré : reconnecte-toi.",
+    "refresh_reused": "Par sécurité, tes sessions sur cet appareil ont été fermées : reconnecte-toi.",
+    "reset_token_invalid": "Cette réinitialisation a expiré : recommence.",
+    "wrong_password": "Mot de passe incorrect.",
+    "verification_required": "Vérifie d'abord ton adresse e-mail.",
+    "device_required": "Cet appareil n'a pas pu être identifié. Relance l'appli."
   },
   "validation": {
     "invalid": "Vérifie les champs en rouge."
@@ -24,7 +45,8 @@
   "room": {
     "not_found": "Code inconnu : vérifie avec ton ami.",
     "full": "Salon plein : tu peux regarder à la place.",
-    "started": "La partie a déjà commencé."
+    "started": "La partie a déjà commencé.",
+    "closed": "Ce salon est fermé."
   },
   "rate_limited": "Doucement ! Réessaie dans une minute.",
   "not_found": "Introuvable.",
@@ -52,5 +74,32 @@
     "too_large": "Fichier trop lourd : choisis une image plus légère.",
     "unsupported_type": "Format non accepté : choisis une photo.",
     "missing_file": "Aucune image reçue : réessaie."
+  },
+  "common": {
+    "internal": "Le serveur a un souci. Réessaie dans un instant.",
+    "not_found": "Introuvable.",
+    "validation": "Vérifie les champs en rouge.",
+    "bad_request": "Demande mal formée. Réessaie.",
+    "rate_limited": "Doucement ! Réessaie dans un instant.",
+    "forbidden": "Tu n'as pas accès à cette action.",
+    "payload_too_large": "C'est trop lourd à envoyer.",
+    "unsupported_media_type": "Format non accepté.",
+    "unavailable": "Le service est momentanément indisponible. Réessaie dans un instant."
+  },
+  "profile": {
+    "pseudo_change_too_soon": "Tu as changé de pseudo il y a moins de 30 jours.",
+    "settings_invalid": "Ces réglages n'ont pas pu être enregistrés.",
+    "deletion_already_requested": "La suppression de ton compte est déjà demandée."
+  },
+  "quarter": {
+    "not_found": "Ce quartier n'est plus dans la liste.",
+    "change_too_soon": "Tu as déjà changé de quartier cette saison."
+  },
+  "account": {
+    "display_name_invalid": "Nom : 2 à 20 caractères, lettres, chiffres, espaces.",
+    "display_name_banned": "Ce nom n'est pas permis."
+  },
+  "push": {
+    "token_invalid": "Les notifications n'ont pas pu être activées sur cet appareil."
   }
 }

@@ -1,0 +1,59 @@
+{
+  "updated": "Version of 22 October 2026",
+  "rules": {
+    "title": "Neighbourhood rules",
+    "intro": "Kwatt is the neighbourhood playing together. These rules apply to everyone, profiles and guests. By creating your profile, you accept them.",
+    "s1": {
+      "title": "Respect",
+      "body": "We play, we tease, we don't hurt.\n\n• No insults, threats, racist, hateful or sexual remarks, and no harassment.\n• Your username, your game name and the names of your rooms and leagues stay decent: banned words are refused.\n• You don't pretend to be someone else, or the Kwatt team."
+    },
+    "s2": {
+      "title": "Fair play",
+      "body": "• No outside help during a ranked game: no software, no game engine, no advice from someone else.\n• One profile per person. No arrangements to lose or to make someone win.\n• The server checks every move and every stake; the Ludo die can be verified after the game."
+    },
+    "s3": {
+      "title": "Cowries",
+      "body": "Cowries are play money, nothing else.\n\n• They can't be bought or cashed out: they are never worth real money.\n• Selling, buying or trading them for money or goods is forbidden.\n• Kwatt shows no advertising."
+    },
+    "s4": {
+      "title": "Age and stakes",
+      "body": "• Under 13: no profile, guest play only.\n• 13 to 17: young account, with no stakes, no predictions, no paid leagues, invisible to strangers.\n• Staking and predicting: 18 and over, with a verified email address.\n• A stake never exceeds 25% of the smallest balance among the players, nor the table limit.\n• Two accounts seen on the same device never stake against each other."
+    },
+    "s5": {
+      "title": "Reporting, sanctions",
+      "body": "If someone breaks these rules, report or block them. Depending on how serious it is: a warning, removal from a league, suspension or closure of the account. A false year of birth may also lead to the account being closed."
+    }
+  },
+  "privacy": {
+    "title": "Privacy policy",
+    "intro": "Kwatt keeps the minimum needed to run the game. No advertising, no selling of data, no tracking.",
+    "s1": {
+      "title": "What Kwatt keeps",
+      "body": "• Your profile: username, email address, password (never in clear text: only an argon2id hash), year of birth (never shown: it sets the age rules), language, frame, avatar, photo if you add one, neighbourhood and settings.\n• Your play: games and moves, levels, stakes, cowrie history, cards, medals, friends and notifications.\n• Your device: a random installation identifier, the type of device and the app version. It is used for security and to forbid stakes between accounts on the same device.\n• Your phone's notification token, if you accept notifications.\n• As a guest: an account tied to the device, with no email or username, and the name you give for the game."
+    },
+    "s2": {
+      "title": "Why",
+      "body": "Only to run Kwatt: playing, ranking, protecting accounts (limited tries, 6-digit codes), fighting cheating, sending you service emails (verification code, password, account deletion) and the notifications you chose."
+    },
+    "s3": {
+      "title": "Who sees what",
+      "body": "• Other players see your username, avatar, level, neighbourhood and games. Your email address and year of birth are never shown.\n• A young account is only visible to its friends.\n• Kwatt doesn't sell or rent your data. Only the services that are needed process part of it: sending emails, and delivering notifications through Expo, Apple and Google."
+    },
+    "s4": {
+      "title": "Where and for how long",
+      "body": "Your data is on the Kwatt server, with a daily backup kept for 14 days. It stays as long as your account exists."
+    },
+    "s5": {
+      "title": "Deleting your account",
+      "body": "Settings → Delete account: your profile is hidden right away, then permanently erased 30 days later. Sign in again before then to cancel.\n\nOn erasure, your username, address, devices, settings and notifications disappear; in other players' games, you become “Former player”. Backups erase themselves within 14 days."
+    },
+    "s6": {
+      "title": "Your rights",
+      "body": "• A copy of your data: Settings → Export my data (JSON file).\n• Correction: your username can be changed in Settings; for anything else, write to the Kwatt team.\n• Deletion: see above.\n\nFor any question, write to the Kwatt team at the address shown on the app's page in the app store."
+    },
+    "s7": {
+      "title": "Security",
+      "body": "Encrypted connections, passwords never kept in clear text, session tokens stored in your phone's secure storage and renewed regularly."
+    }
+  }
+}

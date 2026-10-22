@@ -6,6 +6,7 @@
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
 import { startRealtime } from '../api/client';
+import { startAccountSync } from '../features/accounts/sync';
 import { syncLanguageFromPreferences } from '../i18n';
 import { startNetworkMonitoring, startOfflineSync } from '../offline';
 import { preferencesStore } from '../preferences';
@@ -49,7 +50,7 @@ export function useBootstrap(): boolean {
   // Services de fond, démarrés une fois les données de l'appareil lues.
   useEffect(() => {
     if (!hydrated) return;
-    const stops = [startNetworkMonitoring(), startRealtime(), startOfflineSync()];
+    const stops = [startNetworkMonitoring(), startRealtime(), startOfflineSync(), startAccountSync()];
     preloadSounds();
     void applyOrientationPolicy();
     return () => {

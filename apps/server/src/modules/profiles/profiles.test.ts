@@ -278,10 +278,13 @@ describe('profil (écran 09)', () => {
     expect(p.medals).toEqual({ gold: 1, silver: 0, bronze: 2, total: 3 });
   });
 
-  it('quartier : texte libre du profil en attendant la table des quartiers', async () => {
+  it('quartier : lu dans la table des quartiers (quartier, ou ville entière)', async () => {
     const m = await createMember(t);
-    await t.db.pool.query(`UPDATE profiles SET quarter = 'Bonamoussadi' WHERE user_id = $1`, [m.userId]);
-    expect((await profileOf(m)).quarter).toEqual({ id: null, name: 'Bonamoussadi', city: null, country: null });
+    expect((await profileOf(m)).quarter).toBeNull();
+    await t.db.pool.query(`UPDATE profiles SET quarter = 'cm-douala-bonamoussadi' WHERE user_id = $1`, [m.userId]);
+    expect((await profileOf(m)).quarter).toEqual({ id: 'cm-douala-bonamoussadi', name: 'Bonamoussadi', city: 'Douala', country: 'CM' });
+    await t.db.pool.query(`UPDATE profiles SET quarter = 'fr-paris' WHERE user_id = $1`, [m.userId]);
+    expect((await profileOf(m)).quarter).toEqual({ id: 'fr-paris', name: 'Paris', city: null, country: 'FR' });
   });
 });
 

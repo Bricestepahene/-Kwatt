@@ -24,6 +24,11 @@ export interface RestClientOptions {
   onSessionExpired(): void | Promise<void>;
   /** En-têtes communs (langue, identifiant d'installation, version). */
   getHeaders?(): Record<string, string> | Promise<Record<string, string>>;
+  /**
+   * Corps du renouvellement (POST /v1/auth/refresh) ; par défaut `{ refreshToken }`.
+   * Le serveur demande aussi l'appareil (`{ refreshToken, device }`, @kwatt/protocol).
+   */
+  refreshBody?(refreshToken: string): unknown;
   now?: () => number;
   /** Délai maximal d'une requête (15 s par défaut). */
   timeoutMs?: number;
@@ -124,7 +129,8 @@ export function createRestClient(options: RestClientOptions): RestClient {
   async function doRefresh(): Promise<SessionTokens | null> {
     const current = options.getTokens();
     if (!current) return null;
-    const response = await send('POST', API_PATHS.refresh, { body: { refreshToken: current.refreshToken }, auth: false }, null);
+    const body = options.refreshBody ? await options.refreshBody(current.refreshToken) : { refreshToken: current.refreshToken };
+    const response = await send('POST', API_PATHS.refresh, { body, auth: false }, null);
     if (response.status === 400 || response.status === 401 || response.status === 403) {
       await options.onSessionExpired();
       return null;

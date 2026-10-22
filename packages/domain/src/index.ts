@@ -20,3 +20,4 @@ export * from './league/ludo.js';
 export * from './league/teams.js';
 export * from './league/cup.js';
 export * from './league/boards.js';
+export * from './league/matchday.js';

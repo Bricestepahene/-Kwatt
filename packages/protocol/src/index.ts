@@ -9,5 +9,7 @@ export * from './http/me.js';
 export * from './http/auth.js';
 export * from './http/wallet.js';
 export * from './http/notifications.js';
+export * from './http/shop.js';
+export * from './http/profiles.js';
 export * from './ws/envelope.js';
 export * from './ws/base.js';

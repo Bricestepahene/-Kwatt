@@ -16,7 +16,9 @@ import healthRoutes from './health/routes.js';
 import mediaRoutes from './media/routes.js';
 import meRoutes from './me/routes.js';
 import notificationRoutes from './notifications/routes.js';
+import profilesRoutes from './profiles/routes.js';
 import shareRoutes from './share/routes.js';
+import shopRoutes from './shop/routes.js';
 
 export interface KwattModule {
   name: string;
@@ -33,4 +35,6 @@ export const modules: KwattModule[] = [
   { name: 'media', routes: mediaRoutes },
   { name: 'share', routes: shareRoutes },
   { name: 'admin', routes: adminRoutes },
+  { name: 'shop', routes: shopRoutes },
+  { name: 'profiles', routes: profilesRoutes },
 ];

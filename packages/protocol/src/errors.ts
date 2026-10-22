@@ -15,7 +15,9 @@ import { ECONOMY_ERRORS } from './errors/economy.js';
 import { MEDIA_ERRORS } from './errors/media.js';
 import { NOTIFICATION_ERRORS } from './errors/notifications.js';
 import { PROFILE_ERRORS } from './errors/profile.js';
+import { PROFILES_ERRORS } from './errors/profiles.js';
 import { REALTIME_ERRORS } from './errors/realtime.js';
+import { SHOP_ERRORS } from './errors/shop.js';
 
 export const ERROR_CODES = [
   ...COMMON_ERRORS,
@@ -25,6 +27,8 @@ export const ERROR_CODES = [
   ...NOTIFICATION_ERRORS,
   ...REALTIME_ERRORS,
   ...MEDIA_ERRORS,
+  ...PROFILES_ERRORS,
+  ...SHOP_ERRORS,
 ] as const;
 
 export type ErrorCode = (typeof ERROR_CODES)[number];

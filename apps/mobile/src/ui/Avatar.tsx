@@ -94,8 +94,9 @@ export function Avatar({ name, avatar = { kind: 'initial' }, size = 48, frame = 
   const { colors } = useTheme();
   const { t } = useTranslation('common');
   // Proportions des planches : 36 dans 48 (accueil), 68 dans 84 (profil).
-  const inner = frame ? Math.round(size * 0.78) : size;
   const ring = ringColor ? Math.max(2, Math.round(size / 16)) : 0;
+  // Sans cadre, un contour laisse un petit jour entre lui et le visage.
+  const inner = frame ? Math.round(size * 0.78) : ringColor ? size - 2 * (ring + 2) : size;
   const label = avatar.kind === 'photo' ? t('avatar.photoOf', { name: name ?? '' }) : t('avatar.of', { name: name ?? '' });
 
   let content;
@@ -133,12 +134,17 @@ export function Avatar({ name, avatar = { kind: 'initial' }, size = 48, frame = 
       style={[
         styles.center,
         { width: size, height: size, borderRadius: size / 2 },
-        ringColor ? { borderWidth: ring, borderColor: ringColor } : null,
         style,
       ]}
     >
       {frame ? <FabricRing name={frame} size={size} /> : null}
       <View style={[styles.center, styles.clip, { width: inner, height: inner, borderRadius: inner / 2 }]}>{content}</View>
+      {ringColor ? (
+        <View
+          pointerEvents="none"
+          style={[StyleSheet.absoluteFill, { borderRadius: size / 2, borderWidth: ring, borderColor: ringColor }]}
+        />
+      ) : null}
     </View>
   );
 }

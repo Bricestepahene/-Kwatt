@@ -61,7 +61,9 @@ const ICONS = {
   flag: [{ d: 'M5 21V4M5 4h11l-2 4 2 4H5' }],
   logout: [{ d: 'M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l5-5-5-5M15 12H3' }],
   trash: [{ d: 'M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3' }],
-  hammer: [{ d: 'M14.5 4.5l5 5-2.5 2.5-5-5z' }, { d: 'M12 7L3.6 15.4a2 2 0 0 0 0 2.8l2.2 2.2a2 2 0 0 0 2.8 0L17 12' }],
+  hammer: [{ rect: [6, 3, 14, 5, 1.5] }, { d: 'M13 8v13' }],
+  /** Cône de chantier : écran « en construction ». */
+  cone: [{ d: 'M10 3h4l4.5 16h-13z' }, { d: 'M8.2 10h7.6M7 14.5h10M3 20h18' }],
   dice: [{ rect: [4, 4, 16, 16, 3] }, { d: 'M9 9h.01M15 15h.01M12 12h.01' }],
   clock: [{ circle: [12, 12, 9] }, { d: 'M12 7v5l3 2' }],
   crown: [{ d: 'M3 8l4 4 5-6 5 6 4-4-2 11H5z' }],

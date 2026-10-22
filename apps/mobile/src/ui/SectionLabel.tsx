@@ -15,7 +15,10 @@ export function SectionLabel({ children, right, style }: { children: string; rig
   );
 }
 
-/** Barre de progression (niveau, quête) : `value` de 0 à 1 ; or par défaut (« à toi »). */
+/**
+ * Barre de progression (niveau, quête) : `value` de 0 à 1 ; or par défaut (« à toi »).
+ * Pleine largeur dans une colonne ; dans une ligne, lui donner `style={{ flex: 1 }}`.
+ */
 export function ProgressBar({
   value,
   color,
@@ -45,5 +48,5 @@ export function ProgressBar({
 
 const styles = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8 },
-  track: { overflow: 'hidden', flexGrow: 1 },
+  track: { overflow: 'hidden', alignSelf: 'stretch' },
 });

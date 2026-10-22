@@ -126,7 +126,10 @@
   "placeholder": {
     "title": "Under construction",
     "body": "This screen is coming soon: it already has its place in the app.",
-    "ref": "Screen {{screens}} · board {{planches}}",
+    "ref_one": "Screen {{screens}} · board {{planches}}",
+    "ref_other": "Screens {{screens}} · boards {{planches}}",
+    "screen_one": "Screen {{screens}}",
+    "screen_other": "Screens {{screens}}",
     "links": "Go to"
   },
   "code": {

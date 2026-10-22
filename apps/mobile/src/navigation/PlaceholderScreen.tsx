@@ -75,7 +75,7 @@ export function PlaceholderScreen({ routeKey, children, leading }: PlaceholderSc
 
       <Card band={SPACE_FABRIC[route.space]} bandHeight={8} border="dashed" gap={8} testID="placeholder-construction">
         <View style={styles.row}>
-          <Icon name="hammer" size={20} color={colors.textMuted} />
+          <Icon name="cone" size={20} color={colors.textMuted} />
           <Text variant="subheading">{t('placeholder.title')}</Text>
         </View>
         <Text variant="label" tone="muted">
@@ -83,7 +83,7 @@ export function PlaceholderScreen({ routeKey, children, leading }: PlaceholderSc
         </Text>
         {route.screens.length > 0 ? (
           <Text variant="caption" tone="muted">
-            {t('placeholder.ref', { screens: route.screens.join(', '), planches: route.planches.join(', ') })}
+            {t('placeholder.ref', { count: route.screens.length, screens: route.screens.join(', '), planches: route.planches.join(', ') })}
           </Text>
         ) : null}
       </Card>
@@ -94,10 +94,18 @@ export function PlaceholderScreen({ routeKey, children, leading }: PlaceholderSc
           <ListGroup>
             {links.map((key) => {
               const target = ROUTES_BY_KEY[key as RouteKey];
+              // « Écran 14 · Dames » : deux écrans peuvent avoir le même titre (« Comment on joue ? »).
+              const hint = [
+                target.screens.length > 0 ? t('placeholder.screen', { count: target.screens.length, screens: target.screens.join(', ') }) : null,
+                target.space !== 'hub' ? t(`space.${target.space}`) : null,
+              ]
+                .filter(Boolean)
+                .join(' · ');
               return (
                 <ListItem
                   key={key}
                   label={td(`screens:${key}.title`)}
+                  hint={hint || undefined}
                   chevron
                   onPress={() => router.push(buildPath(target.pattern, { ...EXAMPLE_PARAMS, ...params }) as Href)}
                 />

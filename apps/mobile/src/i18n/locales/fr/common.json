@@ -126,7 +126,10 @@
   "placeholder": {
     "title": "En construction",
     "body": "Cet écran arrive bientôt : il est déjà à sa place dans l'appli.",
-    "ref": "Écran {{screens}} · planche {{planches}}",
+    "ref_one": "Écran {{screens}} · planche {{planches}}",
+    "ref_other": "Écrans {{screens}} · planches {{planches}}",
+    "screen_one": "Écran {{screens}}",
+    "screen_other": "Écrans {{screens}}",
     "links": "Aller vers"
   },
   "code": {

@@ -4,14 +4,16 @@
   "private": true,
   "type": "module",
   "main": "./dist/main.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -b",
     "dev": "tsx watch src/main.ts",
     "start": "node dist/main.js",
-    "bench": "tsx src/cli/bench.ts",
-    "calibrate": "tsx src/cli/calibrate.ts",
-    "golden": "tsx src/cli/golden.ts"
+    "bench": "tsc -b && node dist/cli/bench.js",
+    "calibrate": "tsc -b && node dist/cli/calibrate.js",
+    "golden": "tsc -b && node dist/cli/golden.js"
   },
   "dependencies": {
     "@kwatt/ludo-ai": "workspace:*",

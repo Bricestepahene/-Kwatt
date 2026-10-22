@@ -1,0 +1,35 @@
+{
+  "format": "kwatt-ludo-eval",
+  "version": 1,
+  "preset": "classique",
+  "features": [
+    "progress",
+    "base",
+    "home",
+    "corridor",
+    "exposed"
+  ],
+  "weights": [
+    17.650441,
+    -2.925854,
+    4.066941,
+    4.032889,
+    -1.135683
+  ],
+  "bias": 0,
+  "meta": {
+    "method": "régression de Monte-Carlo par auto-jeu",
+    "players": 2,
+    "games": 450,
+    "generations": 3,
+    "seed": 1,
+    "vsGreedy": {
+      "games": 80,
+      "wins": 48,
+      "p": 0.6,
+      "low": 0.4905,
+      "high": 0.7004
+    },
+    "trainedAt": "2026-10-22"
+  }
+}

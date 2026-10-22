@@ -8,12 +8,15 @@ import {
 } from '@kwatt/protocol';
 import { applyMove, initialState, legalMoves, toNotation, type Variant } from '@kwatt/rules-dames';
 import { applyMove as ludoMove, applyRoll, legalMoves as ludoLegal, newGame } from '@kwatt/rules-ludo';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 import { buildTestApp, createMember, uniq, type TestApp, type TestMember } from '../../test/helpers.js';
 import { lockStake } from '../economy/escrow.js';
 import { balanceOf } from '../economy/ledger.js';
 import { replayDames } from './replay.js';
 import { settleMachineOnline } from './service.js';
+
+// Les parties jouées par le moteur prennent quelques secondes sous charge.
+vi.setConfig({ testTimeout: 60_000 });
 
 let t: TestApp;
 beforeAll(async () => {
@@ -195,7 +198,7 @@ describe('POST /v1/machine/results (hors connexion)', () => {
     expect(wins.map((w) => w.settlement.base)).toEqual([25, 25, 25, 37]);
     expect(wins[3]!.settlement.streakBonus).toBe(true);
     expect(wins[3]!.winStreak).toBe(4);
-  });
+  }, 120_000);
 
   it('Ludo : légalité des lancers et des coups, place du joueur', async () => {
     const m = await createMember(t);

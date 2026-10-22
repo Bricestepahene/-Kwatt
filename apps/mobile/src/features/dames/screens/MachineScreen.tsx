@@ -234,7 +234,7 @@ export function MachineScreen() {
               <Text variant="caption" style={{ color: colors.lossSoftText }}>
                 {t('machine.ifLose')}
               </Text>
-              <Text variant="number" tone="alert">
+              <Text variant="number" tone={preview.ifLoss < 0 ? 'alert' : 'gain'}>
                 {f.signed(preview.ifLoss)}
               </Text>
               <Text variant="caption" style={{ color: colors.lossSoftText }}>

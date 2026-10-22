@@ -9,6 +9,7 @@
  * Chaque code est traduit par l'appli (`apps/mobile/src/i18n/locales/{fr,en}/errors.json`).
  */
 import { z } from 'zod';
+import { ACCOUNT_ERRORS } from './errors/accounts.js';
 import { AUTH_ERRORS } from './errors/auth.js';
 import { COMMON_ERRORS } from './errors/common.js';
 import { ECONOMY_ERRORS } from './errors/economy.js';
@@ -16,6 +17,7 @@ import { MEDIA_ERRORS } from './errors/media.js';
 import { NOTIFICATION_ERRORS } from './errors/notifications.js';
 import { PROFILE_ERRORS } from './errors/profile.js';
 import { REALTIME_ERRORS } from './errors/realtime.js';
+import { ROOM_ERRORS } from './errors/rooms.js';
 
 export const ERROR_CODES = [
   ...COMMON_ERRORS,
@@ -25,6 +27,8 @@ export const ERROR_CODES = [
   ...NOTIFICATION_ERRORS,
   ...REALTIME_ERRORS,
   ...MEDIA_ERRORS,
+  ...ACCOUNT_ERRORS,
+  ...ROOM_ERRORS,
 ] as const;
 
 export type ErrorCode = (typeof ERROR_CODES)[number];

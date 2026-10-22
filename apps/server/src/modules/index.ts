@@ -9,6 +9,7 @@
  */
 import type { FastifyPluginAsync } from 'fastify';
 import realtimeRoutes from '../realtime/routes.js';
+import accountsRoutes from './accounts/routes.js';
 import adminRoutes from './admin/routes.js';
 import authRoutes from './auth/routes.js';
 import economyRoutes from './economy/routes.js';
@@ -33,4 +34,5 @@ export const modules: KwattModule[] = [
   { name: 'media', routes: mediaRoutes },
   { name: 'share', routes: shareRoutes },
   { name: 'admin', routes: adminRoutes },
+  { name: 'accounts', routes: accountsRoutes },
 ];

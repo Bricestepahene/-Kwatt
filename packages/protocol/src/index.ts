@@ -9,5 +9,8 @@ export * from './http/me.js';
 export * from './http/auth.js';
 export * from './http/wallet.js';
 export * from './http/notifications.js';
+export * from './http/quarters.js';
+export * from './http/accounts.js';
+export * from './http/rooms.js';
 export * from './ws/envelope.js';
 export * from './ws/base.js';

@@ -177,6 +177,9 @@ importers:
       '@kwatt/design':
         specifier: workspace:*
         version: link:../../packages/design
+      '@kwatt/domain':
+        specifier: workspace:*
+        version: link:../../packages/domain
       '@kwatt/protocol':
         specifier: workspace:*
         version: link:../../packages/protocol

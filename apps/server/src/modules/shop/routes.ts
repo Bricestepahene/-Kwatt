@@ -14,6 +14,9 @@ import { listCatalog } from './catalog.js';
 import { buyItems } from './service.js';
 
 const shopRoutes: FastifyPluginAsync = async (app) => {
+  // Achats : 30 par minute en production (suit le réglage de l'authentification, relevé en test).
+  const buyLimit = { rateLimit: { max: Math.max(30, app.config.rateLimitAuthPerMin * 6), timeWindow: '1 minute' } };
+
   app.get('/v1/shop/items', { preHandler: app.requireMember }, async (req): Promise<ShopCatalogResponse> => {
     const { kinds } = parse(ShopCatalogQuerySchema, req.query);
     const userId = requireAuth(req).userId;
@@ -23,7 +26,7 @@ const shopRoutes: FastifyPluginAsync = async (app) => {
 
   app.post(
     '/v1/shop/buy',
-    { preHandler: app.requireMember, config: { rateLimit: { max: 30, timeWindow: '1 minute' } } },
+    { preHandler: app.requireMember, config: buyLimit },
     async (req) => {
       const body = parse(BuyRequestSchema, req.body);
       const codes = 'itemCode' in body ? [body.itemCode] : body.itemCodes;

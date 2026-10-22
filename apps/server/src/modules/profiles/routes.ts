@@ -32,6 +32,8 @@ function isFileTooLarge(err: unknown): boolean {
 
 const profilesRoutes: FastifyPluginAsync = async (app) => {
   const deps = photoDeps(app);
+  // Envois de photo : 10 par minute en production (suit le réglage de l'authentification, relevé en test).
+  const photoLimit = { rateLimit: { max: Math.max(10, app.config.rateLimitAuthPerMin * 2), timeWindow: '1 minute' } };
 
   app.get('/v1/me/profile', { preHandler: app.requireMember }, async (req) => {
     const { userId } = requireAuth(req);
@@ -52,7 +54,7 @@ const profilesRoutes: FastifyPluginAsync = async (app) => {
 
   app.post(
     '/v1/me/photo',
-    { preHandler: app.requireMember, config: { rateLimit: { max: 10, timeWindow: '1 minute' } } },
+    { preHandler: app.requireMember, config: photoLimit },
     async (req) => {
       const { userId } = requireAuth(req);
       if (!req.isMultipart()) throw new AppError('common.unsupported_media_type', 415);

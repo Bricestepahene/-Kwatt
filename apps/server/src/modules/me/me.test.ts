@@ -210,7 +210,7 @@ describe('export des données', () => {
     const data = ExportResponseSchema.parse(res.json());
     expect(data.userId).toBe(m.userId);
     expect(Object.keys(data.sections).sort()).toEqual(
-      ['account', 'devices', 'games', 'notifications', 'sessions', 'test_module', 'wallet'].sort(),
+      ['account', 'avatar', 'devices', 'games', 'items', 'notifications', 'sessions', 'test_module', 'wallet'].sort(),
     );
     expect(data.sections.account).toMatchObject({ pseudo: m.pseudo, email: m.email, birthYear: 1990 });
     expect(data.sections.wallet).toMatchObject({ balance: WELCOME_BONUS });

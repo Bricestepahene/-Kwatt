@@ -1,0 +1,43 @@
+{
+  "sound": {
+    "title": "Sons du plateau",
+    "balafon": "Balafon",
+    "tamtam": "Tam-tam",
+    "silence": "Silence",
+    "default": "par défaut",
+    "volume": "Volume des effets",
+    "vibration": "Vibration à la prise"
+  },
+  "display": {
+    "title": "Affichage",
+    "inGame": "Affichage en partie",
+    "night": "Nuit",
+    "sun": "Plein soleil",
+    "auto": "Automatique",
+    "autoLabel": "Plein soleil automatique",
+    "nightNote": "Mode nuit : moins de lumière, moins de batterie sur les écrans OLED.",
+    "sunNote": "Fond clair, textes presque noirs, cases plus contrastées : pour jouer dehors.",
+    "autoNoteSensor": "Passe en Plein soleil quand le capteur de lumière voit du soleil, et revient en Nuit à l'ombre.",
+    "autoNoteSystem": "Suit le mode clair ou sombre de ton téléphone."
+  },
+  "game": {
+    "boardNumbers": "Dames : numéros des cases",
+    "autoSingleMove": "Ludo : jouer seul le coup unique",
+    "diceAnimation": "Ludo : animation du dé",
+    "diceNormal": "Normale",
+    "diceFast": "Rapide",
+    "diceNone": "Aucune"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "yourTurn": "C'est ton tour",
+    "roomInvites": "Invitations de salon",
+    "leagueMatches": "Matchs de ligue (veille et 1 h avant)"
+  },
+  "language": {
+    "title": "Langue",
+    "fr": "Français",
+    "en": "English",
+    "hint": "Chacun joue dans sa langue : ton adversaire peut avoir l'appli en anglais."
+  }
+}

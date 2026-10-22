@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "noEmit": true,
+    "tsBuildInfoFile": "./dist/.tsbuildinfo-test",
+    "resolveJsonModule": true,
+    "types": ["node"]
+  },
+  "include": ["src", "src/**/*.json"],
+  "references": [{ "path": "../../packages/protocol" }, { "path": "../../packages/design" }]
+}

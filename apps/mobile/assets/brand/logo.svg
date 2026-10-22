@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="Logo Kwatt : un pion de dames au centre des quatre maisons du Ludo">
+  <!-- Repris tel quel de la planche « Réf · Identité » (docs/maquette/Main.dc.html). -->
+  <path d="M60 60 L116 60 A56 56 0 0 0 60 4 Z" fill="#1F9D6B"/>
+  <path d="M60 60 L60 4 A56 56 0 0 0 4 60 Z" fill="#E0442E"/>
+  <path d="M60 60 L4 60 A56 56 0 0 0 60 116 Z" fill="#3FA7E0"/>
+  <path d="M60 60 L60 116 A56 56 0 0 0 116 60 Z" fill="#F2B705"/>
+  <circle cx="60" cy="60" r="36" fill="#0F1230"/>
+  <circle cx="60" cy="60" r="31" fill="#F4EEDF"/>
+  <circle cx="60" cy="60" r="24" fill="none" stroke="#1D2B6E" stroke-width="3"/>
+  <path d="M60 44 L76 60 L60 76 L44 60 Z" fill="#1D2B6E"/>
+  <path d="M60 53 L67 60 L60 67 L53 60 Z" fill="#F2B705"/>
+</svg>

@@ -1,0 +1,48 @@
+{
+  "name": "@kwatt/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -b",
+    "dev": "tsx watch src/main.ts",
+    "start": "node dist/main.js",
+    "db:migrate": "tsx src/db/migrate-cli.ts",
+    "admin": "tsx src/admin/cli.ts",
+    "test": "vitest run --root ../.. --dir apps/server"
+  },
+  "dependencies": {
+    "@fastify/cors": "11.3.0",
+    "@fastify/helmet": "13.1.1",
+    "@fastify/multipart": "10.1.2",
+    "@fastify/rate-limit": "11.2.0",
+    "@fastify/static": "10.1.5",
+    "@fastify/websocket": "11.3.3",
+    "@kwatt/design": "workspace:*",
+    "@kwatt/protocol": "workspace:*",
+    "@node-rs/argon2": "2.2.1",
+    "fastify": "5.12.5",
+    "fastify-plugin": "6.0.0",
+    "jose": "6.2.12",
+    "nodemailer": "10.0.14",
+    "pg": "8.23.1",
+    "ws": "8.22.0",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/pg": "8.23.1",
+    "@types/ws": "8.18.2",
+    "pino-pretty": "13.2.0",
+    "tsx": "4.23.15"
+  }
+}

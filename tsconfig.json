@@ -5,6 +5,10 @@
     { "path": "packages/rules-dames" },
     { "path": "packages/rules-ludo" },
     { "path": "packages/fair-dice" },
+    { "path": "packages/protocol" },
+    { "path": "apps/server" },
+    { "path": "apps/server/tsconfig.test.json" },
+    { "path": "apps/mobile" },
     { "path": "packages/domain" },
     { "path": "packages/engine-dames" }
   ]

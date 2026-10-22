@@ -1,0 +1,43 @@
+{
+  "sound": {
+    "title": "Board sounds",
+    "balafon": "Balafon",
+    "tamtam": "Talking drum",
+    "silence": "Silent",
+    "default": "default",
+    "volume": "Effects volume",
+    "vibration": "Vibrate on capture"
+  },
+  "display": {
+    "title": "Display",
+    "inGame": "In-game display",
+    "night": "Night",
+    "sun": "Full sun",
+    "auto": "Automatic",
+    "autoLabel": "Automatic full sun",
+    "nightNote": "Night mode: less light, less battery on OLED screens.",
+    "sunNote": "Light background, near-black text, stronger squares: for playing outdoors.",
+    "autoNoteSensor": "Switches to Full sun when the light sensor sees sunshine, and back to Night in the shade.",
+    "autoNoteSystem": "Follows your phone's light or dark mode."
+  },
+  "game": {
+    "boardNumbers": "Checkers: square numbers",
+    "autoSingleMove": "Ludo: play a single possible move for me",
+    "diceAnimation": "Ludo: die animation",
+    "diceNormal": "Normal",
+    "diceFast": "Fast",
+    "diceNone": "None"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "yourTurn": "It's your turn",
+    "roomInvites": "Room invitations",
+    "leagueMatches": "League matches (day before and 1 h before)"
+  },
+  "language": {
+    "title": "Language",
+    "fr": "Français",
+    "en": "English",
+    "hint": "Everyone plays in their own language: your opponent may have the app in French."
+  }
+}

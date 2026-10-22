@@ -1,0 +1,31 @@
+{
+  "generic": "Something went wrong. Try again.",
+  "network": {
+    "offline": "No network: we'll try again as soon as it's back.",
+    "timeout": "The server is taking too long to answer.",
+    "server": "The server has a problem. Try again in a moment.",
+    "bad_response": "Unexpected answer from the server."
+  },
+  "auth": {
+    "invalid_credentials": "Wrong username, email or password.",
+    "session_expired": "Your session has expired: sign in again.",
+    "unauthorized": "Sign in to continue.",
+    "forbidden": "You don't have access to this action.",
+    "member_required": "Create your profile to do that.",
+    "adult_required": "For players 18 and over only.",
+    "email_not_verified": "Verify your email address first.",
+    "code_invalid": "Wrong code.",
+    "code_expired": "This code has expired: ask for a new one.",
+    "too_many_attempts": "Too many tries: ask for a new code."
+  },
+  "validation": {
+    "invalid": "Check the fields in red."
+  },
+  "room": {
+    "not_found": "Unknown code: check with your friend.",
+    "full": "The room is full: you can watch instead.",
+    "started": "The game has already started."
+  },
+  "rate_limited": "Easy now! Try again in a minute.",
+  "not_found": "Not found."
+}

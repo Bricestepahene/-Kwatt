@@ -7,7 +7,8 @@
   "scripts": {
     "typecheck": "tsc -b",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "db:migrate": "pnpm --filter @kwatt/server db:migrate"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",

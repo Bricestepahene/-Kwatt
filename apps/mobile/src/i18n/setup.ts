@@ -28,6 +28,24 @@ export function preparedResources(): Resource {
   return out;
 }
 
+/**
+ * Traducteur pour une clé calculée à l'exécution (code d'erreur du serveur, clé de
+ * route) : les clés écrites en dur passent par `t()` typé ; celles-ci ne peuvent pas
+ * être vérifiées à la compilation (le test de parité garde les catalogues alignés).
+ */
+export interface DynamicTranslator {
+  t(key: string, options?: Record<string, unknown>): string;
+  exists(key: string): boolean;
+}
+
+export function dynamicTranslator(instance: I18n): DynamicTranslator {
+  const translate = instance.t as unknown as (key: string, options?: Record<string, unknown>) => unknown;
+  return {
+    t: (key, options) => String(translate(key, options)),
+    exists: (key) => instance.exists(key),
+  };
+}
+
 export function createI18n(language: Language, plugins: readonly Module[] = [], extra: InitOptions = {}): I18n {
   const instance = i18next.createInstance();
   for (const plugin of plugins) instance.use(plugin);

@@ -44,10 +44,10 @@ export function toApiError(error: unknown): ApiError {
   return new ApiError('generic', 0, {}, { cause: error });
 }
 
-/** Fonction de traduction minimale avec `exists` (compatible i18next). */
+/** Traduction d'une clé calculée, avec `exists` (voir `dynamicTranslator` dans i18n/setup). */
 export interface ErrorTranslator {
-  t: (key: string, options?: Record<string, unknown>) => string;
-  exists: (key: string) => boolean;
+  t(key: string, options?: Record<string, unknown>): string;
+  exists(key: string): boolean;
 }
 
 /** Message traduit d'une erreur, avec repli sur `errors:generic`. */

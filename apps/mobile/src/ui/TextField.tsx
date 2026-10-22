@@ -1,6 +1,6 @@
-import { forwardRef, useId, useState, type ReactNode } from 'react';
+import { useId, useState, type ReactNode, type Ref } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, TextInput, View, type StyleProp, type TextInputProps, type ViewStyle } from 'react-native';
+import { StyleSheet, TextInput, View, type StyleProp, type TextInputInstance, type TextInputProps, type ViewStyle } from 'react-native';
 import { fontFamilies, useTheme } from '../theme';
 import { IconButton } from './Button';
 import { Text } from './Text';
@@ -16,15 +16,26 @@ export interface TextFieldProps extends Omit<TextInputProps, 'style'> {
   /** Élément sous le champ, aligné à droite (« Mot de passe oublié ? »). */
   footer?: ReactNode;
   style?: StyleProp<ViewStyle>;
+  /** Référence du champ (React 19 : `ref` est une prop ordinaire). */
+  ref?: Ref<TextInputInstance>;
 }
 
 /** Champ de formulaire des planches Connexion et Inscription : étiquette, 52 px, rayon 14. */
-export const TextField = forwardRef<TextInput, TextFieldProps>(function TextField(
-  { label, error, hint, password = false, footer, style, onFocus, onBlur, editable = true, ...rest },
+export function TextField({
+  label,
+  error,
+  hint,
+  password = false,
+  footer,
+  style,
+  onFocus,
+  onBlur,
+  editable = true,
   ref,
-) {
+  ...rest
+}: TextFieldProps) {
   const { colors } = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
   const [focused, setFocused] = useState(false);
   const [visible, setVisible] = useState(false);
   const nativeId = useId().replace(/[^a-zA-Z0-9_-]/g, '');
@@ -65,7 +76,7 @@ export const TextField = forwardRef<TextInput, TextFieldProps>(function TextFiel
             icon={visible ? 'eyeOff' : 'eye'}
             tone="plain"
             size={40}
-            accessibilityLabel={visible ? t('common:action.hidePassword') : t('common:action.showPassword')}
+            accessibilityLabel={visible ? t('action.hidePassword') : t('action.showPassword')}
             onPress={() => setVisible((v) => !v)}
           />
         ) : null}
@@ -82,7 +93,7 @@ export const TextField = forwardRef<TextInput, TextFieldProps>(function TextFiel
       {footer ? <View style={styles.footer}>{footer}</View> : null}
     </View>
   );
-});
+}
 
 const styles = StyleSheet.create({
   wrap: { gap: 6 },

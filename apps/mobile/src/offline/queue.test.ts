@@ -25,7 +25,7 @@ describe('file hors ligne', () => {
     const queue = makeQueue();
     await queue.enqueue('a', 1);
     await queue.enqueue('b', 2);
-    const send = vi.fn(async (): Promise<SendOutcome> => 'done');
+    const send = vi.fn(async (_action: QueuedAction): Promise<SendOutcome> => 'done');
     expect(await queue.flush(send)).toEqual({ sent: 2, dropped: 0, remaining: 0 });
     expect(send.mock.calls.map(([a]) => (a as QueuedAction).kind)).toEqual(['a', 'b']);
   });

@@ -25,7 +25,7 @@ export function BottomSheet({
   dismissable?: boolean;
 }) {
   const { colors, reduceMotion } = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
   const insets = useSafeAreaInsets();
   const [mounted, setMounted] = useState(visible);
   const progress = useRef(new Animated.Value(visible ? 1 : 0)).current;
@@ -54,7 +54,7 @@ export function BottomSheet({
             style={styles.fill}
             onPress={dismissable ? onClose : undefined}
             accessibilityRole="button"
-            accessibilityLabel={t('common:action.close')}
+            accessibilityLabel={t('action.close')}
             importantForAccessibility={dismissable ? 'auto' : 'no'}
           />
         </Animated.View>
@@ -97,7 +97,7 @@ export function ConfirmSheet({
   onConfirm: () => void | Promise<void>;
   onCancel: () => void;
 }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
   const [busy, setBusy] = useState(false);
   return (
     <BottomSheet visible={visible} onClose={busy ? () => undefined : onCancel} accessibilityLabel={title}>
@@ -124,7 +124,7 @@ export function ConfirmSheet({
             }
           }}
         />
-        <Button label={cancelLabel ?? t('common:action.cancel')} variant="secondary" size="lg" disabled={busy} onPress={onCancel} />
+        <Button label={cancelLabel ?? t('action.cancel')} variant="secondary" size="lg" disabled={busy} onPress={onCancel} />
       </View>
     </BottomSheet>
   );

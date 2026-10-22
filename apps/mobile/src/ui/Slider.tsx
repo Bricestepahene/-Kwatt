@@ -33,7 +33,7 @@ export function Slider({
   style?: StyleProp<ViewStyle>;
 }) {
   const { colors } = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
   const [width, setWidth] = useState(0);
   const widthRef = useRef(0);
   const latest = useRef({ onChange, onChangeEnd, min, max, step, value });
@@ -57,7 +57,7 @@ export function Slider({
   ).current;
 
   const ratio = max > min ? (Math.min(max, Math.max(min, value)) - min) / (max - min) : 0;
-  const text = formatValue ? formatValue(value) : t('common:a11y.progress', { value: Math.round(ratio * 100) });
+  const text = formatValue ? formatValue(value) : t('a11y.progress', { value: Math.round(ratio * 100) });
   const nudge = (direction: 1 | -1) => {
     const next = snap(value + direction * step, min, max, step);
     onChange(next);

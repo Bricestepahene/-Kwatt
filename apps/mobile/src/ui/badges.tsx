@@ -48,12 +48,12 @@ export type RankId = 'apprenti' | 'debrouillard' | 'ancien' | 'notable' | 'chef'
 
 /** Badge d'échelon et de niveau (« NOTABLE · NIV 17 »), en ivoire (audit : les rangs ne sont plus en or). */
 export function RankBadge({ rank, level, style }: { rank: RankId; level: number; style?: StyleProp<ViewStyle> }) {
-  const { t } = useTranslation();
-  const rankLabel = t(`common:rank.${rank}`);
+  const { t } = useTranslation('common');
+  const rankLabel = t(`rank.${rank}`);
   return (
     <Badge
-      label={t('common:rank.badge', { rank: rankLabel, level })}
-      accessibilityLabel={t('common:rank.a11y', { rank: rankLabel, level })}
+      label={t('rank.badge', { rank: rankLabel, level })}
+      accessibilityLabel={t('rank.a11y', { rank: rankLabel, level })}
       tone="inverse"
       style={style}
     />

@@ -15,7 +15,7 @@ import { getInstallId, sessionStore } from '../session';
 import { isApiError } from './errors';
 import { createRestClient } from './rest';
 import { API_PATHS, type AuthResponse } from './types';
-import { createWsClient } from './ws';
+import { createWsClient, type WebSocketLike } from './ws';
 
 export const api = createRestClient({
   baseUrl: env.apiUrl,
@@ -32,7 +32,8 @@ export const api = createRestClient({
 
 export const ws = createWsClient({
   url: env.wsUrl,
-  createSocket: (url) => new WebSocket(url),
+  // Les gestionnaires du WebSocket natif sont typés avec `this` : compatibles à l'exécution.
+  createSocket: (url) => new WebSocket(url) as unknown as WebSocketLike,
   getToken: () => api.getFreshAccessToken(),
   onAuthFailure: async () => {
     await api.refresh().catch(() => null);

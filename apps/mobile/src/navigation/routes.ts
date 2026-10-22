@@ -321,7 +321,7 @@ export type RouteKey = (typeof ROUTES)[number]['key'];
 
 export const ROUTES_BY_KEY: Readonly<Record<RouteKey, RouteSpec>> = Object.fromEntries(
   ROUTES.map((r) => [r.key, r]),
-) as Record<RouteKey, RouteSpec>;
+) as unknown as Record<RouteKey, RouteSpec>;
 
 /** Valeurs d'exemple des segments dynamiques (écrans provisoires, captures). */
 export const EXAMPLE_PARAMS: Readonly<Record<string, string>> = {

@@ -10,7 +10,7 @@ import {
   formatSigned,
 } from './format';
 import { intlLocale, isLanguage, pickInitialLanguage } from './languages';
-import { createI18n } from './setup';
+import { createI18n, dynamicTranslator } from './setup';
 
 const NNBSP = ' ';
 
@@ -66,8 +66,8 @@ describe('heures relatives', () => {
   const now = Date.UTC(2026, 9, 21, 12, 0);
   const fr = createI18n('fr');
   const en = createI18n('en');
-  const tfr = (k: string, o?: Record<string, unknown>) => fr.t(k, o);
-  const ten = (k: string, o?: Record<string, unknown>) => en.t(k, o);
+  const tfr = dynamicTranslator(fr).t;
+  const ten = dynamicTranslator(en).t;
 
   it('dit « à l’instant », « il y a 2 min », « hier »…', () => {
     expect(formatRelative(now - 10_000, now, tfr, 'fr')).toBe("à l'instant");

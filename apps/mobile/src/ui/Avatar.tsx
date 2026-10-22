@@ -92,11 +92,11 @@ function FabricRing({ name, size }: { name: FabricName; size: number }) {
 
 export function Avatar({ name, avatar = { kind: 'initial' }, size = 48, frame = null, tint, ringColor, style, decorative = false }: AvatarProps) {
   const { colors } = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
   // Proportions des planches : 36 dans 48 (accueil), 68 dans 84 (profil).
   const inner = frame ? Math.round(size * 0.78) : size;
   const ring = ringColor ? Math.max(2, Math.round(size / 16)) : 0;
-  const label = avatar.kind === 'photo' ? t('common:avatar.photoOf', { name: name ?? '' }) : t('common:avatar.of', { name: name ?? '' });
+  const label = avatar.kind === 'photo' ? t('avatar.photoOf', { name: name ?? '' }) : t('avatar.of', { name: name ?? '' });
 
   let content;
   if (avatar.kind === 'photo') {

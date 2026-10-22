@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ApiError, errorMessage, isApiError } from './errors';
 import { buildUrl, createRestClient, type SessionTokens } from './rest';
 import type { AuthTokens } from './types';
-import { createI18n } from '../i18n/setup';
+import { createI18n, dynamicTranslator } from '../i18n/setup';
 
 const NOW = 1_800_000_000_000;
 
@@ -181,8 +181,8 @@ describe('client REST', () => {
 
 describe('messages d’erreur', () => {
   it('traduit le code, avec repli sur le message générique', () => {
-    const fr = createI18n('fr');
-    const en = createI18n('en');
+    const fr = dynamicTranslator(createI18n('fr'));
+    const en = dynamicTranslator(createI18n('en'));
     expect(errorMessage(fr, new ApiError('room.full', 409))).toBe('Salon plein : tu peux regarder à la place.');
     expect(errorMessage(en, new ApiError('room.full', 409))).toBe('The room is full: you can watch instead.');
     expect(errorMessage(en, new ApiError('code.inconnu', 400))).toBe('Something went wrong. Try again.');

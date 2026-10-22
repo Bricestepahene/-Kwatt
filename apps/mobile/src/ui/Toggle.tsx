@@ -15,13 +15,13 @@ export function Toggle({
   disabled?: boolean;
 }) {
   const { colors } = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
   return (
     <Pressable
       accessibilityRole="switch"
       accessibilityLabel={accessibilityLabel}
       accessibilityState={{ checked: value, disabled: Boolean(disabled) }}
-      accessibilityValue={{ text: value ? t('common:a11y.toggleOn') : t('common:a11y.toggleOff') }}
+      accessibilityValue={{ text: value ? t('a11y.toggleOn') : t('a11y.toggleOff') }}
       onPress={() => onChange(!value)}
       disabled={disabled}
       hitSlop={10}

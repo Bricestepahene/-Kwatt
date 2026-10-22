@@ -1,7 +1,8 @@
 /**
  * Langues dans l'appli : instance i18next, changement instantané, formats.
  *
- *   const { t } = useTranslation('screens');      // react-i18next
+ *   const { t } = useTranslation('screens');      // clés typées : t('accueil.title')
+ *   const td = useDynamicT();  td(`errors:${code}`) // clé calculée (non vérifiée)
  *   const f = useFormat();  f.cauris(2450)        // « 2 450 cauris »
  *   setAppLanguage('en');                         // instantané, gardé sur l'appareil
  */
@@ -21,10 +22,12 @@ import {
   type DateStyle,
 } from './format';
 import { intlLocale, pickInitialLanguage, type Language } from './languages';
-import { createI18n } from './setup';
+
+import { errorMessage } from '../api/errors';
+import { createI18n, dynamicTranslator, type DynamicTranslator } from './setup';
 
 export * from './languages';
-export { errorMessage } from '../api/errors';
+export { errorMessage, dynamicTranslator, type DynamicTranslator };
 
 function deviceLocale(): { languageCode: string | null; regionCode: string | null } {
   try {
@@ -41,6 +44,28 @@ const device = deviceLocale();
 export const i18n = createI18n(pickInitialLanguage(null, device.languageCode), [initReactI18next], {
   react: { useSuspense: false },
 });
+
+/** Traducteur de l'appli pour les clés calculées (codes d'erreur, clés de route). */
+export const translator: DynamicTranslator = dynamicTranslator(i18n);
+
+/** Message traduit d'une erreur (ApiError ou autre), dans la langue courante. */
+export function translateError(error: unknown): string {
+  return errorMessage(translator, error);
+}
+
+/**
+ * `t` pour une clé calculée (`screens:${route.key}.title`), qui se met à jour au
+ * changement de langue. Pour une clé écrite en dur, préférer `useTranslation(ns).t` (typé).
+ */
+export function useDynamicT(): (key: string, options?: Record<string, unknown>) => string {
+  const { i18n: instance } = useTranslation();
+  const language = instance.language;
+  // `language` dans les dépendances : nouvelle fonction (et nouveau rendu) à chaque changement.
+  return useMemo(() => {
+    void language;
+    return (key: string, options?: Record<string, unknown>) => translator.t(key, options);
+  }, [language]);
+}
 
 function applyDocumentLanguage(language: Language) {
   if (Platform.OS === 'web' && typeof document !== 'undefined') document.documentElement.lang = language;
@@ -74,11 +99,11 @@ export function currentLanguage(): Language {
 
 /** Formats liés à la langue courante (se recalculent quand elle change). */
 export function useFormat() {
-  const { t, i18n: instance } = useTranslation();
+  const { i18n: instance } = useTranslation();
   const language: Language = instance.language === 'en' ? 'en' : 'fr';
   return useMemo(() => {
     const locale = intlLocale(language, device.regionCode);
-    const translate = (key: string, options?: Record<string, unknown>) => t(key as never, options as never) as string;
+    const translate = (key: string, options?: Record<string, unknown>) => translator.t(key, options);
     return {
       language,
       locale,
@@ -93,5 +118,5 @@ export function useFormat() {
       date: (date: Date | number, style: DateStyle) => formatDate(date, locale, style),
       relative: (date: Date | number, now: Date | number = Date.now()) => formatRelative(date, now, translate, locale),
     };
-  }, [language, t]);
+  }, [language]);
 }

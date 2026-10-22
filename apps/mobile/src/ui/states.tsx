@@ -5,7 +5,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, Animated, Platform, StyleSheet, View, type DimensionValue, type StyleProp, type ViewStyle } from 'react-native';
-import { errorMessage, i18n } from '../i18n';
+import { translateError } from '../i18n';
 import { useNetwork } from '../offline/network';
 import { useTheme } from '../theme';
 import { Button } from './Button';
@@ -62,12 +62,12 @@ function StateLayout({
 
 /** Rien à montrer : « Aucune ligue : rejoins la ligue publique du moment ». */
 export function EmptyState(props: { title?: string; message?: string; icon?: IconName; action?: StateAction; compact?: boolean; style?: StyleProp<ViewStyle> }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
   return (
     <StateLayout
       icon={props.icon ?? 'search'}
-      title={props.title ?? t('common:state.empty.title')}
-      message={props.message ?? t('common:state.empty.body')}
+      title={props.title ?? t('state.empty.title')}
+      message={props.message ?? t('state.empty.body')}
       action={props.action}
       compact={props.compact}
       style={props.style}
@@ -77,11 +77,11 @@ export function EmptyState(props: { title?: string; message?: string; icon?: Ico
 
 /** Chargement : indicateur et phrase (« On cherche le salon… »). */
 export function LoadingState({ message, compact, style }: { message?: string; compact?: boolean; style?: StyleProp<ViewStyle> }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
   const { colors } = useTheme();
   return (
-    <StateLayout message={message ?? t('common:state.loading')} compact={compact} style={style}>
-      <ActivityIndicator size="large" color={colors.textMuted} accessibilityLabel={message ?? t('common:state.loading')} />
+    <StateLayout message={message ?? t('state.loading')} compact={compact} style={style}>
+      <ActivityIndicator size="large" color={colors.textMuted} accessibilityLabel={message ?? t('state.loading')} />
     </StateLayout>
   );
 }
@@ -102,16 +102,16 @@ export function ErrorState({
   compact?: boolean;
   style?: StyleProp<ViewStyle>;
 }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
   const { colors } = useTheme();
-  const text = message ?? (error ? errorMessage(i18n, error) : t('common:state.error.body'));
+  const text = message ?? (error ? translateError(error) : t('state.error.body'));
   return (
     <StateLayout
       icon="alert"
       iconColor={colors.alert}
-      title={title ?? t('common:state.error.title')}
+      title={title ?? t('state.error.title')}
       message={text}
-      action={onRetry ? { label: t('common:action.retry'), onPress: onRetry } : undefined}
+      action={onRetry ? { label: t('action.retry'), onPress: onRetry } : undefined}
       compact={compact}
       style={style}
     />
@@ -120,13 +120,13 @@ export function ErrorState({
 
 /** Hors connexion : « Pas de réseau : le code est gardé, on réessaie ». */
 export function OfflineState({ message, onRetry, compact, style }: { message?: string; onRetry?: () => void; compact?: boolean; style?: StyleProp<ViewStyle> }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
   return (
     <StateLayout
       icon="wifiOff"
-      title={t('common:state.offline.title')}
-      message={message ?? t('common:state.offline.body')}
-      action={onRetry ? { label: t('common:action.retry'), onPress: onRetry } : undefined}
+      title={t('state.offline.title')}
+      message={message ?? t('state.offline.body')}
+      action={onRetry ? { label: t('action.retry'), onPress: onRetry } : undefined}
       compact={compact}
       style={style}
     />
@@ -162,7 +162,7 @@ export function Skeleton({ width = '100%', height = 16, radius = 8, style }: { w
  * puis « Le réseau est revenu » pendant 3 s.
  */
 export function OfflineBanner() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
   const { colors } = useTheme();
   const isOnline = useNetwork((s) => s.isOnline);
   const backOnlineAt = useNetwork((s) => s.backOnlineAt);
@@ -180,7 +180,7 @@ export function OfflineBanner() {
       <View accessibilityRole="alert" accessibilityLiveRegion="polite" style={[styles.banner, { backgroundColor: colors.surfaceStrong, borderColor: colors.alert }]}>
         <Icon name="wifiOff" size={18} color={colors.alert} />
         <Text variant="smallStrong" style={styles.bannerText}>
-          {t('common:offline.banner')}
+          {t('offline.banner')}
         </Text>
       </View>
     );
@@ -190,7 +190,7 @@ export function OfflineBanner() {
       <View accessibilityLiveRegion="polite" style={[styles.banner, { backgroundColor: colors.gainSoft, borderColor: colors.gainBg }]}>
         <Icon name="check" size={18} color={colors.gain} />
         <Text variant="smallStrong" style={[styles.bannerText, { color: colors.gain }]}>
-          {t('common:offline.back')}
+          {t('offline.back')}
         </Text>
       </View>
     );

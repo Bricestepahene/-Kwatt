@@ -11,12 +11,12 @@ import { fontFamilies } from '../theme';
 import { Text } from './Text';
 
 export function Logo({ size = 120, decorative = false }: { size?: number; decorative?: boolean }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
   return (
     <View
       accessible={!decorative}
       accessibilityRole={decorative ? undefined : 'image'}
-      accessibilityLabel={decorative ? undefined : t('common:app.logo')}
+      accessibilityLabel={decorative ? undefined : t('app.logo')}
       importantForAccessibility={decorative ? 'no-hide-descendants' : 'auto'}
     >
       <Svg width={size} height={size} viewBox="0 0 120 120">
@@ -36,16 +36,16 @@ export function Logo({ size = 120, decorative = false }: { size?: number; decora
 
 /** Mot-symbole « kwatt » et devise, comme sur l'écran de bienvenue. */
 export function Wordmark({ tagline = true, size = 'large' }: { tagline?: boolean; size?: 'large' | 'small' }) {
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
   const large = size === 'large';
   return (
     <View style={{ alignItems: 'center', gap: large ? 10 : 4 }}>
       <Text variant="hero" style={large ? null : { fontSize: 32, lineHeight: 34, letterSpacing: -1.2 }} accessibilityRole="header">
-        {t('common:app.wordmark')}
+        {t('app.wordmark')}
       </Text>
       {tagline ? (
         <Text variant="subheading" tone="action" style={{ fontFamily: fontFamilies.display[500], fontSize: large ? 15 : 13 }}>
-          {t('common:app.tagline')}
+          {t('app.tagline')}
         </Text>
       ) : null}
     </View>

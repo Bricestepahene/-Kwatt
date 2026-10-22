@@ -4,6 +4,7 @@
     { "path": "packages/design" },
     { "path": "packages/rules-dames" },
     { "path": "packages/rules-ludo" },
-    { "path": "packages/fair-dice" }
+    { "path": "packages/fair-dice" },
+    { "path": "apps/mobile" }
   ]
 }

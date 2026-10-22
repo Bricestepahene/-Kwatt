@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Platform, Pressable, StyleSheet, TextInput, View, type StyleProp, type ViewStyle } from 'react-native';
+import { Platform, Pressable, StyleSheet, TextInput, View, type StyleProp, type TextInputInstance, type ViewStyle } from 'react-native';
 import { fontFamilies, textVariants, useTheme } from '../theme';
 import { formatRoomCode, normalizeDigits, normalizeRoomCode, extractRoomCode, ROOM_CODE_LENGTH } from './logic';
 import { Text } from './Text';
@@ -29,8 +29,8 @@ export function CodeInput({
   style?: StyleProp<ViewStyle>;
 }) {
   const { colors } = useTheme();
-  const { t } = useTranslation();
-  const input = useRef<TextInput>(null);
+  const { t } = useTranslation('common');
+  const input = useRef<TextInputInstance>(null);
   const [focused, setFocused] = useState(false);
   const digits = normalizeDigits(value, length);
 
@@ -49,7 +49,7 @@ export function CodeInput({
           return (
             <View
               key={i}
-              accessibilityLabel={t('common:code.digit', { n: i + 1, total: length })}
+              accessibilityLabel={t('code.digit', { n: i + 1, total: length })}
               style={[
                 styles.box,
                 {
@@ -81,7 +81,7 @@ export function CodeInput({
         autoComplete={Platform.OS === 'android' ? 'sms-otp' : 'one-time-code'}
         maxLength={length}
         caretHidden
-        accessibilityLabel={t('common:code.otpLabel')}
+        accessibilityLabel={t('code.otpLabel')}
         accessibilityHint={error ?? undefined}
         style={styles.hiddenInput}
       />
@@ -117,13 +117,13 @@ export function RoomCodeInput({
   style?: StyleProp<ViewStyle>;
 }) {
   const { colors } = useTheme();
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
   const [focused, setFocused] = useState(false);
   const shown = formatRoomCode(value);
 
   return (
     <View style={[styles.wrap, style]}>
-      <Text variant="smallStrong">{label ?? t('common:code.roomLabel')}</Text>
+      <Text variant="smallStrong">{label ?? t('code.roomLabel')}</Text>
       <TextInput
         value={shown}
         onChangeText={(text) => {
@@ -139,8 +139,8 @@ export function RoomCodeInput({
         autoComplete="off"
         spellCheck={false}
         maxLength={64}
-        accessibilityLabel={label ?? t('common:code.roomLabel')}
-        accessibilityHint={error ?? t('common:code.roomHint')}
+        accessibilityLabel={label ?? t('code.roomLabel')}
+        accessibilityHint={error ?? t('code.roomHint')}
         placeholder="ABC-DEF"
         placeholderTextColor={colors.border}
         selectionColor={colors.action}
@@ -155,7 +155,7 @@ export function RoomCodeInput({
         ]}
       />
       <Text variant="caption" tone={error ? 'alert' : 'muted'} accessibilityLiveRegion="polite">
-        {error ?? t('common:code.roomHint')}
+        {error ?? t('code.roomHint')}
       </Text>
     </View>
   );

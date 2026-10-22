@@ -10,11 +10,11 @@
  * tactile d'au moins 48 px (vue posée par-dessus le dessin, annoncée au lecteur d'écran).
  */
 import { ludoBoard } from '@kwatt/design';
-import { finish, type BoardGeometry, type LudoState } from '@kwatt/rules-ludo';
+import { BASE, finish, type BoardGeometry, type LudoState } from '@kwatt/rules-ludo';
 import { memo, useMemo } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import Svg, { Circle, G, Line, Polygon, Rect } from 'react-native-svg';
-import { cellViews, centerTriangles, hitRadius, tokenViews, type CellView, type TokenView } from './layout';
+import { baseRadius, cellViews, centerTriangles, hitRadius, tokenViews, type CellView, type TokenView } from './layout';
 import { seatStyle, Shape, TokenShape } from './TokenShape';
 
 export interface LudoBoardProps {
@@ -79,20 +79,6 @@ function BoardDrawing({ geometry: g, config }: { geometry: BoardGeometry; config
           </G>
         );
       })}
-      {g.baseSlots.map((slots, home) =>
-        slots.map((p, i) => (
-          <Circle
-            key={`s${home}-${i}`}
-            cx={p.x}
-            cy={p.y}
-            r={0.55}
-            fill="none"
-            stroke={g.homeAreas[home]?.kind === 'circle' ? ludoBoard.cell : seatStyle(home).color}
-            strokeWidth={0.08}
-            strokeDasharray="0.18 0.12"
-          />
-        )),
-      )}
       {cells.map((c) => (
         <Cell key={c.key} c={c} />
       ))}
@@ -110,10 +96,38 @@ export function LudoBoard({ state, geometry, highlighted = [], onTokenPress, siz
   const playable = useMemo(() => new Set(highlighted.map((m) => `${m.seat}:${m.token}`)), [highlighted]);
   const tokens = useMemo(() => tokenViews(state, geometry, playable, finish(state.config)), [state, geometry, playable]);
   const hr = hitRadius(cellPx);
+  // Emplacements de base occupés (on ne dessine le pointillé que des places vides).
+  const occupied = useMemo(() => {
+    const set = new Set<string>();
+    const slots = geometry.baseSlots[0]?.length ?? 4;
+    state.seats.forEach((s, seat) => {
+      if (s.status === 'out') return;
+      state.tokens[seat]!.forEach((p, token) => {
+        if (p === BASE) set.add(`${s.home}:${token % slots}`);
+      });
+    });
+    return set;
+  }, [state, geometry]);
   return (
     <View style={{ width: size, height: size }} accessible={!!accessibilityLabel} accessibilityRole="image" accessibilityLabel={accessibilityLabel}>
       <Svg width={size} height={size} viewBox={`0 0 ${geometry.size} ${geometry.size}`}>
         <MemoDrawing geometry={geometry} config={state.config} />
+        {geometry.baseSlots.map((slots, home) =>
+          slots.map((p, i) =>
+            occupied.has(`${home}:${i}`) ? null : (
+              <Circle
+                key={`s${home}-${i}`}
+                cx={p.x}
+                cy={p.y}
+                r={baseRadius(geometry)}
+                fill="none"
+                stroke={geometry.homeAreas[home]?.kind === 'circle' ? ludoBoard.cell : seatStyle(home).color}
+                strokeWidth={0.08}
+                strokeDasharray="0.18 0.12"
+              />
+            ),
+          ),
+        )}
         {tokens.map((t) => (
           <TokenShape key={t.key} home={t.home} cx={t.x} cy={t.y} r={t.r} playable={t.playable} />
         ))}

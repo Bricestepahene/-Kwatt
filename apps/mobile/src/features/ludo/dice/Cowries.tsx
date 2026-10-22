@@ -38,7 +38,7 @@ export function Shell({ up, width = 38 }: { up: boolean; width?: number }) {
 
 export function CowrieRow({ shells, width = 38, accessibilityLabel }: { shells: readonly boolean[]; width?: number; accessibilityLabel: string }) {
   return (
-    <View accessible accessibilityRole="image" accessibilityLabel={accessibilityLabel} style={styles.row}>
+    <View accessible accessibilityRole="image" accessibilityLabel={accessibilityLabel} style={[styles.row, { gap: Math.round(width * 0.27) }]}>
       {shells.map((up, i) => (
         <Shell key={i} up={up} width={width} />
       ))}

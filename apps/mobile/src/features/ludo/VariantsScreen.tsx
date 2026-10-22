@@ -7,7 +7,7 @@
  */
 import type { HouseRuleSet } from '@kwatt/protocol';
 import { router, type Href } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { translateError, useDynamicT } from '@/i18n';
@@ -19,7 +19,6 @@ import { useDeleteHouseRuleSet, useHouseRuleSets, useSaveHouseRuleSet } from './
 import { mechanicLines, ruleValueKey, type MechanicLine } from './mechanics';
 import { changePreset, isRankedSetup, PRESET_ORDER, ruleChoices, sanitizeSetup, withRule, type HouseRuleKey, type LudoSetup } from './setup';
 import { setLudoSetup, useLudoSetup } from './setupStore';
-import './offline';
 
 export function VariantsScreen() {
   const { t } = useTranslation('ludo');
@@ -29,6 +28,10 @@ export function VariantsScreen() {
   const member = useSession((s) => s.status === 'member');
   const offline = useIsOffline();
   const [custom, setCustom] = useState(setup.house !== null);
+  // La variante gardée arrive après la lecture de l'appareil : « Personnaliser » suit ses règles maison.
+  useEffect(() => {
+    if (setup.house !== null) setCustom(true);
+  }, [setup.house]);
   const [editing, setEditing] = useState<HouseRuleKey | null>(null);
   const [saving, setSaving] = useState(false);
   const [toDelete, setToDelete] = useState<HouseRuleSet | null>(null);
@@ -303,8 +306,8 @@ function SaveSheet({ visible, setup, onClose, onSaved }: { visible: boolean; set
 }
 
 const styles = StyleSheet.create({
-  grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  board: { width: '48.5%', flexGrow: 1, minHeight: 62, borderRadius: 12, paddingHorizontal: 10, paddingVertical: 8, justifyContent: 'center', gap: 2 },
+  grid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: 8 },
+  board: { width: '48.6%', minHeight: 62, borderRadius: 12, paddingHorizontal: 10, paddingVertical: 8, justifyContent: 'center', gap: 2 },
   rowBetween: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 10 },
   toggle: { flexDirection: 'row', alignItems: 'center', gap: 8, minHeight: 48 },
   table: { borderWidth: 1, borderRadius: 14 },

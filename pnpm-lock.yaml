@@ -32,12 +32,21 @@ importers:
       '@kwatt/design':
         specifier: workspace:*
         version: link:../../packages/design
+      '@kwatt/domain':
+        specifier: workspace:*
+        version: link:../../packages/domain
+      '@kwatt/engine-dames':
+        specifier: workspace:*
+        version: link:../../packages/engine-dames
       '@kwatt/ludo-ai':
         specifier: workspace:*
         version: link:../../packages/ludo-ai
       '@kwatt/protocol':
         specifier: workspace:*
         version: link:../../packages/protocol
+      '@kwatt/rules-dames':
+        specifier: workspace:*
+        version: link:../../packages/rules-dames
       '@kwatt/rules-ludo':
         specifier: workspace:*
         version: link:../../packages/rules-ludo
@@ -195,9 +204,15 @@ importers:
       '@kwatt/domain':
         specifier: workspace:*
         version: link:../../packages/domain
+      '@kwatt/engine-dames':
+        specifier: workspace:*
+        version: link:../../packages/engine-dames
       '@kwatt/protocol':
         specifier: workspace:*
         version: link:../../packages/protocol
+      '@kwatt/rules-dames':
+        specifier: workspace:*
+        version: link:../../packages/rules-dames
       '@kwatt/rules-ludo':
         specifier: workspace:*
         version: link:../../packages/rules-ludo

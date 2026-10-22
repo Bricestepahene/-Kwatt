@@ -8,5 +8,5 @@
   },
   "include": ["src", "src/**/*.json"],
   "exclude": ["src/**/*.test.ts", "src/test"],
-  "references": [{ "path": "../../packages/protocol" }, { "path": "../../packages/design" }, { "path": "../../packages/domain" }, { "path": "../../packages/rules-ludo" }]
+  "references": [{ "path": "../../packages/protocol" }, { "path": "../../packages/design" }, { "path": "../../packages/domain" }, { "path": "../../packages/rules-dames" }, { "path": "../../packages/engine-dames" }, { "path": "../../packages/rules-ludo" }]
 }

@@ -110,7 +110,7 @@ export function MachineSheet({ visible, onClose, setup }: { visible: boolean; on
 
   return (
     <BottomSheet visible={visible} onClose={onClose} accessibilityLabel={t('machineSheet.title')}>
-      <ScrollView style={{ maxHeight: height * 0.78 }} contentContainerStyle={styles.content}>
+      <ScrollView style={{ maxHeight: height * 0.7 }} contentContainerStyle={styles.content}>
         <View style={styles.head}>
           <Text variant="title" accessibilityRole="header">
             {t('machineSheet.title')}
@@ -126,6 +126,7 @@ export function MachineSheet({ visible, onClose, setup }: { visible: boolean; on
         {counts.length > 1 ? (
           <SegmentedTabs<string>
             accessibilityLabel={t('machineSheet.machines')}
+            style={{ backgroundColor: colors.bg }}
             value={String(machines)}
             onChange={(v) => setMachines(Number(v))}
             options={counts.map((n) => ({ value: String(n), label: t('machineSheet.machinesCount', { count: n }) }))}
@@ -216,17 +217,20 @@ export function MachineSheet({ visible, onClose, setup }: { visible: boolean; on
             ? t('machineSheet.friendly')
             : !member
               ? t('machineSheet.guest')
-              : offline || !data
+              : offline
                 ? t('machineSheet.offline')
+                : !data
+                  ? t('machineSheet.unavailable')
                 : t('machineSheet.rewards', { base: offer?.baseReward ?? 25, left: left ?? 0 })}
         </Text>
 
-        <Button
-          label={shownBet > 0 ? t('machineSheet.playBet', { amount: f.number(shownBet) }) : t('machineSheet.play')}
-          onPress={() => void start()}
-          loading={busy}
-        />
       </ScrollView>
+      <Button
+        label={shownBet > 0 ? t('machineSheet.playBet', { amount: f.number(shownBet) }) : t('machineSheet.play')}
+        onPress={() => void start()}
+        loading={busy}
+        style={styles.cta}
+      />
     </BottomSheet>
   );
 }
@@ -262,7 +266,8 @@ function LevelRow({ title, desc, right, selected, disabled, onPress }: { title: 
 }
 
 const styles = StyleSheet.create({
-  content: { gap: 12, paddingTop: 8 },
+  content: { gap: 12, paddingTop: 8, paddingBottom: 4 },
+  cta: { marginTop: 10 },
   head: { gap: 2 },
   rowBetween: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 10 },
   levels: { gap: 8 },

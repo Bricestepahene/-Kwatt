@@ -115,7 +115,8 @@
     "guest": "Crée ton profil pour gagner des cauris contre la machine.",
     "play": "Jouer sans pari",
     "playBet": "Parier {{amount}} et jouer",
-    "betFailed": "Le pari n'a pas pu être lancé. Tu peux jouer sans pari."
+    "betFailed": "Le pari n'a pas pu être lancé. Tu peux jouer sans pari.",
+    "unavailable": "Gains et paris indisponibles pour l'instant : la partie se joue sur ton téléphone, le résultat part dès que possible."
   },
   "variants": {
     "title": "Plateau & règles",
@@ -435,5 +436,12 @@
     "house": "On peut changer la sortie, la capture, la protection et les barrières, dans les limites ci-dessus. Une partie aux règles maison est amicale : pas de classement, pas de mise, pas de ligue publique. Chaque réglage enregistré peut être réutilisé (« les règles de Tata Odile »).",
     "train": "S'entraîner contre la machine",
     "seeVariants": "Plateau & règles du Ludo"
+  },
+  "review": {
+    "position": "Position après {{ply}} lancers ou coups sur {{total}}",
+    "first": "Début de la partie",
+    "previous": "Lancer ou coup précédent",
+    "next": "Lancer ou coup suivant",
+    "last": "Fin de la partie"
   }
 }

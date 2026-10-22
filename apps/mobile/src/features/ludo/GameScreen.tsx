@@ -216,12 +216,12 @@ export function LudoGameScreen({ controller }: { controller: LudoController }) {
         {cowries ? (
           <Fabric name="obom" style={styles.cowrieCard}>
             {shells ? (
-              <CowrieRow shells={shells} width={22} accessibilityLabel={t('game.cowriesAlt', { count: shells.filter(Boolean).length })} />
+              <CowrieRow shells={shells} width={20} accessibilityLabel={t('game.cowriesAlt', { count: shells.filter(Boolean).length })} />
             ) : (
-              <CowrieRow shells={[false, false, false, false, false, false]} width={22} accessibilityLabel={t('game.cowriesWaiting')} />
+              <CowrieRow shells={[false, false, false, false, false, false]} width={20} accessibilityLabel={t('game.cowriesWaiting')} />
             )}
             <View style={[styles.cowrieValue, { backgroundColor: colors.bg }]}>
-              <Text variant="number" tone="action">
+              <Text variant="subheading" tone="action" numberOfLines={1}>
                 {shownRoll !== null ? t('game.cases', { count: shownRoll }) : '—'}
               </Text>
             </View>
@@ -258,11 +258,11 @@ export function LudoGameScreen({ controller }: { controller: LudoController }) {
             </View>
             <View style={styles.buttons}>
               {mySeats.length > 0 ? (
-                <Button label={primary.label} size="sm" onPress={primary.onPress} disabled={primary.disabled} style={styles.flex} />
+                <Button label={primary.label} size="sm" variant={primary.disabled ? 'secondary' : 'primary'} onPress={primary.onPress} disabled={primary.disabled} style={styles.flex} />
               ) : (
                 <View style={styles.flex} />
               )}
-              <IconButton icon="settings" accessibilityLabel={t('game.menu')} onPress={() => setMenu(true)} size={48} />
+              <IconButton icon="more" accessibilityLabel={t('game.menu')} onPress={() => setMenu(true)} size={48} />
             </View>
           </View>
         </View>
@@ -429,8 +429,8 @@ const styles = StyleSheet.create({
   banners: { flexDirection: 'row', gap: 8, paddingHorizontal: 15, paddingVertical: 8 },
   three: { gap: 6 },
   banner: { flex: 1, minWidth: 0, flexDirection: 'row', alignItems: 'center', gap: 8, borderRadius: 12, paddingHorizontal: 10, paddingVertical: 8, minHeight: 40 },
-  bannerName: { flexShrink: 1 },
-  bannerTag: { marginLeft: 'auto', flexShrink: 0 },
+  bannerName: { flexShrink: 0, maxWidth: '64%' },
+  bannerTag: { marginLeft: 'auto', flexShrink: 1, textAlign: 'right' },
   boardWrap: { alignItems: 'center' },
   bottom: { marginTop: 'auto', paddingHorizontal: 16, paddingTop: 10, gap: 10 },
   cowrieCard: { borderRadius: 16, paddingHorizontal: 10, paddingVertical: 8, flexDirection: 'row', alignItems: 'center', gap: 10 },

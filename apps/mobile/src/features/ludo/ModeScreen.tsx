@@ -20,7 +20,6 @@ import { MachineSheet } from './MachineSheet';
 import { summaryKeys } from './mechanics';
 import { isRankedSetup, levelFromRating, variantId } from './setup';
 import { useLudoSetup } from './setupStore';
-import './offline';
 
 type SpaceTab = 'dames' | 'ludo' | 'raisonnement';
 
@@ -185,7 +184,7 @@ const styles = StyleSheet.create({
   band: { paddingHorizontal: 20, paddingTop: 18, paddingBottom: 20, gap: 14 },
   hero: { borderRadius: 14, paddingHorizontal: 14, paddingVertical: 12, gap: 6 },
   title: { fontSize: 24, lineHeight: 30 },
-  heroRow: { flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap' },
+  heroRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   force: { flexShrink: 1 },
   variantLink: { marginLeft: 'auto', minHeight: 32, justifyContent: 'center', flexShrink: 1 },
   list: { paddingHorizontal: 20, paddingTop: 16, paddingBottom: 24, gap: 10 },

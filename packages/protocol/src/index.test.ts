@@ -17,9 +17,10 @@ import {
 } from './index.js';
 
 describe('codes d\'erreur', () => {
+  // module.nom, ou module.groupe.nom pour les codes repris tels quels de @kwatt/rules-ludo (ludo.setup.barrier_lock).
   it('sont uniques et de la forme module.nom', () => {
     expect(new Set(ERROR_CODES).size).toBe(ERROR_CODES.length);
-    for (const code of ERROR_CODES) expect(code).toMatch(/^[a-z]+\.[a-z_]+$/);
+    for (const code of ERROR_CODES) expect(code).toMatch(/^[a-z]+(\.[a-z_]+){1,2}$/);
   });
 
   it('se reconnaissent', () => {

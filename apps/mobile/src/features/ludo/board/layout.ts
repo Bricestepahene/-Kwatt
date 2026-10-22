@@ -113,12 +113,17 @@ export function tokenViews(state: Pick<LudoState, 'seats' | 'tokens'>, g: BoardG
       const base = placed[i]!;
       const p = points[i]!;
       const o = offsets[j] ?? { x: 0, y: 0 };
-      const r = base.atBase ? 0.55 : list.length > 1 ? 0.3 : 0.38;
+      const r = base.atBase ? baseRadius(g) : list.length > 1 ? 0.3 : 0.38;
       out[i] = { ...base, x: p.x + o.x, y: p.y + o.y, r };
     });
   }
   // Les pions jouables au-dessus des autres.
   return out.sort((a, b) => Number(a.playable) - Number(b.playable));
+}
+
+/** Rayon d'un pion (et d'un emplacement) à la base : plus petit dans les maisons rondes de l'étoile. */
+export function baseRadius(g: Pick<BoardGeometry, 'board'>): number {
+  return g.board === 'etoile' ? 0.42 : 0.55;
 }
 
 /** Rayon de la zone tactile d'un pion jouable (en cases) : au moins 48 px de diamètre. */

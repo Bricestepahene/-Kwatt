@@ -40,6 +40,12 @@ export interface Theme {
   /** Gains, aplats. */
   gainBg: string;
   gainSoft: string;
+  /** Pertes, aplats (carte « Si tu perds » de l'écran 15). */
+  lossSoft: string;
+  /** Pertes, texte posé sur `lossSoft`. */
+  lossSoftText: string;
+  /** Gains, texte posé sur `gainSoft`. */
+  gainSoftText: string;
   board: { light: string; dark: string; frame: string };
   /** Barre de navigation du bas (planches Accueil, Profil, Cartes…). */
   tabBar: string;
@@ -68,6 +74,10 @@ export const night: Theme = {
   gain: '#5FD3A2',
   gainBg: '#1F9D6B',
   gainSoft: '#14382E',
+  // Écran 15 (planche DefiMachine) : « Si tu perds » sur #2A1820, textes clairs teintés.
+  lossSoft: '#2A1820',
+  lossSoftText: '#FFC2B6',
+  gainSoftText: '#A9F0CF',
   board: { light: '#F1E2BF', dark: '#A8703F', frame: '#6E4426' },
   tabBar: '#0B0E26',
   scrim: 'rgba(5,7,22,0.72)',
@@ -96,6 +106,10 @@ export const pleinSoleil: Theme = {
   gain: '#0E6B47',
   gainBg: '#1F9D6B',
   gainSoft: '#D6EFE3',
+  // Absents des planches (Plein soleil) : aplat corail très clair, textes de l'encre du thème.
+  lossSoft: '#F6DCD5',
+  lossSoftText: '#4A4F73',
+  gainSoftText: '#4A4F73',
   board: { light: '#FFF8E6', dark: '#9A6233', frame: '#6E4426' },
   // Compléments (fondation appli) : uniquement des valeurs déjà présentes dans la palette.
   tabBar: '#E9E1CC',

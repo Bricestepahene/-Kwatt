@@ -115,7 +115,8 @@
     "guest": "Create your profile to win cowries against the machine.",
     "play": "Play without a bet",
     "playBet": "Bet {{amount}} and play",
-    "betFailed": "The bet could not be started. You can play without a bet."
+    "betFailed": "The bet could not be started. You can play without a bet.",
+    "unavailable": "Rewards and bets unavailable right now: the game is played on your phone, the result is sent as soon as possible."
   },
   "variants": {
     "title": "Board & rules",
@@ -435,5 +436,12 @@
     "house": "You can change leaving the base, captures, safe squares and barriers, within the limits above. A game with house rules is friendly: no rating, no stake, no public league. Every saved setting can be reused (“Auntie Odile's rules”).",
     "train": "Practise against the machine",
     "seeVariants": "Ludo board & rules"
+  },
+  "review": {
+    "position": "Position after {{ply}} of {{total}} throws or moves",
+    "first": "Start of the game",
+    "previous": "Previous throw or move",
+    "next": "Next throw or move",
+    "last": "End of the game"
   }
 }

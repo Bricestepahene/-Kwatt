@@ -6,12 +6,13 @@ import { Stack, type ErrorBoundaryProps } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 import { AppProviders } from '@/boot/AppProviders';
 import { useBootstrap } from '@/boot/useBootstrap';
+// Envoi des résultats hors connexion contre la machine (C2), enregistré au démarrage.
+import '@/features/game/machineResults';
+import '@/features/dames/puzzleSender';
 import { SessionGate } from '@/navigation/SessionGate';
 import { ThemeProvider, useTheme } from '@/theme';
 import { Logo } from '@/ui/brand';
 import { ErrorState } from '@/ui/states';
-// Envoi des résultats du Ludo hors connexion (file hors ligne), branché dès le démarrage.
-import '@/features/ludo/offline';
 
 function RootStack() {
   const { colors, reduceMotion } = useTheme();

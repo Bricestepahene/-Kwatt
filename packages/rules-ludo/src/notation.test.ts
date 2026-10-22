@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { applyLegalMove, applyRoll, legalMoves, newGame, type LudoState } from './engine.js';
-import { emptyLog, LUDO_NOTATION, recordMove, recordRoll, replayNotation, tokenNotation, type NotationLog } from './notation.js';
+import { emptyLog, LUDO_NOTATION, recordMove, recordRoll, replayNotation, replayStates, tokenNotation, type NotationLog } from './notation.js';
 import { COWRIE_VALUES, type NewGameOptions } from './variants.js';
 
 /** Générateur pseudo-aléatoire reproductible (tests seulement). */
@@ -49,6 +49,9 @@ describe('notation des parties de Ludo', () => {
     expect(log.pendingRoll).toBeNull();
     for (const m of log.moves) expect(m).toMatch(LUDO_NOTATION);
     expect(replayNotation(setup, log.moves)).toEqual(state);
+    const states = replayStates(setup, log.moves);
+    expect(states).toHaveLength(log.moves.length + 1);
+    expect(states[states.length - 1]).toEqual(state);
   });
 
   it('les coups bonus du Parchís et les pions du partenaire ont leur notation', () => {

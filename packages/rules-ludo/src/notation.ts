@@ -50,7 +50,18 @@ export function recordMove(log: NotationLog, before: LudoState, move: Pick<LudoM
  * illisible ou illégale lève une LudoError avec le numéro de l'entrée (`ply`).
  */
 export function replayNotation(options: NewGameOptions, moves: readonly string[], pendingRoll: number | null = null): LudoState {
+  const states = replayStates(options, moves);
+  const last = states[states.length - 1]!;
+  return pendingRoll !== null ? applyRoll(last, pendingRoll) : last;
+}
+
+/**
+ * Positions successives d'une partie (écran 19, revoir) : `[départ, après l'entrée 1, …]`.
+ * Lève une LudoError sur une entrée illisible ou illégale.
+ */
+export function replayStates(options: NewGameOptions, moves: readonly string[]): LudoState[] {
   let state = newGame(options);
+  const out = [state];
   moves.forEach((text, ply) => {
     const m = LUDO_NOTATION.exec(text);
     if (!m) throw new LudoError('ludo.move.illegal', { ply, reason: 'format' });
@@ -63,12 +74,13 @@ export function replayNotation(options: NewGameOptions, moves: readonly string[]
     }
     if (token === '-') {
       if (state.phase === 'move' && legalMoves(state).length > 0) throw new LudoError('ludo.move.illegal', { ply, reason: 'skipped' });
+      out.push(state);
       return;
     }
     if (state.phase !== 'move') throw new LudoError('ludo.move.not_now', { ply });
     const candidate = ofSeat !== undefined ? { seat: Number(token), token: Number(ofSeat) } : { seat: state.current, token: Number(token) };
     state = applyMove(state, candidate);
+    out.push(state);
   });
-  if (pendingRoll !== null) state = applyRoll(state, pendingRoll);
-  return state;
+  return out;
 }

@@ -135,5 +135,17 @@
       "limit": "You already have {{max}} sets of rules: delete one first.",
       "empty": "These are the variant's own settings: nothing to save."
     }
+  },
+  "machine": {
+    "invalid_game": "Game refused: the server doesn't find the same moves.",
+    "invalid_variant": "This variant isn't played here.",
+    "difficulty_locked": "Difficulty locked: it opens at the Chief rank.",
+    "rating_mismatch": "Your rating changed since the game: it couldn't be validated.",
+    "result_conflict": "This result was already sent differently.",
+    "invalid_bet": "Bet refused: check the amount."
+  },
+  "puzzle": {
+    "wrong_day": "The puzzle changed: a new day has started.",
+    "not_found": "No puzzle available today."
   }
 }

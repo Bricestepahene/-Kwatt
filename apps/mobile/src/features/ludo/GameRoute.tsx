@@ -42,20 +42,23 @@ export function LudoGameRoute() {
   return (
     <View style={[styles.root, { backgroundColor: colors.bg }]}>
       <GameBand space="ludo" />
-      {controller === undefined ? (
-        <LoadingState message={t('game.loading')} />
-      ) : (
-        <EmptyState
-          icon="dice"
-          title={t('game.notFoundTitle')}
-          message={t('game.notFoundMessage')}
-          action={{ label: t('game.backToLudo'), onPress: () => router.replace('/jouer/ludo' as Href) }}
-        />
-      )}
+      <View style={styles.center}>
+        {controller === undefined ? (
+          <LoadingState message={t('game.loading')} />
+        ) : (
+          <EmptyState
+            icon="dice"
+            title={t('game.notFoundTitle')}
+            message={t('game.notFoundMessage')}
+            action={{ label: t('game.backToLudo'), onPress: () => router.replace('/jouer/ludo' as Href) }}
+          />
+        )}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1, justifyContent: 'center' },
+  root: { flex: 1 },
+  center: { flex: 1, justifyContent: 'center' },
 });

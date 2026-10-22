@@ -100,6 +100,16 @@ export const ROUTES = defineRoutes([
     pattern: '/mot-de-passe-oublie', access: 'public', owner: 'comptes', space: 'hub', links: ['connexion'],
     note: 'Feuille « mot de passe oublié » (contact → code → nouveau mot de passe), présentée en feuille.',
   },
+  {
+    key: 'reglesQuartier', screens: [], planches: ['Inscription'], file: 'app/legal/regles.tsx',
+    pattern: '/legal/regles', access: 'public', owner: 'comptes', space: 'hub', links: ['inscription', 'confidentialite'],
+    note: 'Règles du quartier, acceptées à l’inscription (03) et lisibles depuis les Paramètres (13). Texte : locales/<langue>/legal.json.',
+  },
+  {
+    key: 'confidentialite', screens: [], planches: ['Inscription'], file: 'app/legal/confidentialite.tsx',
+    pattern: '/legal/confidentialite', access: 'public', owner: 'comptes', space: 'hub', links: ['inscription', 'reglesQuartier'],
+    note: 'Politique de confidentialité (données gardées, pas de publicité ni d’argent réel, export, suppression à J+30).',
+  },
 
   // --- Onglets · groupe (tabs) -------------------------------------------------
   {

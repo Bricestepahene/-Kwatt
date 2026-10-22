@@ -6,6 +6,7 @@
  *   const rooms = await api.get<Page<Room>>('/v1/rooms', { query: { limit: 20 } });
  *   const off = ws.on('game.state', (m) => …);
  */
+import type { Device, GuestResponse } from '@kwatt/protocol';
 import { QueryClient } from '@tanstack/react-query';
 import { AppState, Platform } from 'react-native';
 import { env } from '../config/env';
@@ -14,11 +15,18 @@ import { networkStore } from '../offline/network';
 import { getInstallId, sessionStore } from '../session';
 import { isApiError } from './errors';
 import { createRestClient } from './rest';
-import { API_PATHS, type AuthResponse } from './types';
+import { API_PATHS } from './types';
 import { createWsClient, type WebSocketLike } from './ws';
+
+/** Cet appareil, tel que le serveur l'attend (connexion, inscription, invité, renouvellement). */
+export async function getDevice(): Promise<Device> {
+  const platform: Device['platform'] = Platform.OS === 'ios' || Platform.OS === 'android' ? Platform.OS : 'web';
+  return { installId: await getInstallId(), platform, appVersion: env.appVersion.slice(0, 32) };
+}
 
 export const api = createRestClient({
   baseUrl: env.apiUrl,
+  refreshBody: async (refreshToken) => ({ refreshToken, device: await getDevice() }),
   fetch: (input, init) => fetch(input, init),
   getTokens: () => sessionStore.getState().data?.tokens ?? null,
   onTokens: (tokens) => sessionStore.getState().setTokens(tokens),
@@ -94,22 +102,20 @@ export function startRealtime(): () => void {
   };
 }
 
-/** Session invitée (écran 02, « Regarder » sans profil) : POST /v1/auth/guest avec l'identifiant d'installation. */
-export async function startGuestSession(displayName?: string): Promise<void> {
-  const installId = await getInstallId();
-  const response = await api.post<AuthResponse>(
-    API_PATHS.guest,
-    { installId, ...(displayName ? { displayName } : {}), locale: currentLanguage() },
-    { auth: false },
-  );
+/**
+ * Session invitée (écran 02, « Regarder » sans profil) : POST /v1/auth/guest avec l'appareil.
+ * Le serveur reprend l'invité de cet appareil s'il existe (ses parties sont gardées).
+ */
+export async function startGuestSession(): Promise<GuestResponse> {
+  const response = await api.post<GuestResponse>(API_PATHS.guest, { device: await getDevice(), locale: currentLanguage() }, { auth: false });
   await sessionStore.getState().signIn(response);
+  return response;
 }
 
 /** Déconnexion : prévient le serveur (au mieux), puis efface la session de l'appareil. */
 export async function signOut(): Promise<void> {
-  const refreshToken = sessionStore.getState().data?.tokens.refreshToken;
-  if (refreshToken) {
-    await api.post(API_PATHS.logout, { refreshToken }).catch(() => undefined);
+  if (sessionStore.getState().data) {
+    await api.post(API_PATHS.logout, {}).catch(() => undefined);
   }
   await sessionStore.getState().signOut();
 }

@@ -16,7 +16,28 @@
     "email_not_verified": "Verify your email address first.",
     "code_invalid": "Wrong code.",
     "code_expired": "This code has expired: ask for a new one.",
-    "too_many_attempts": "Too many tries: ask for a new code."
+    "too_many_attempts": "Too many tries: wait a little, then try again.",
+    "required": "Sign in to continue.",
+    "token_invalid": "Your session is no longer valid: sign in again.",
+    "token_expired": "Your session has expired: sign in again.",
+    "session_revoked": "You've been signed out: sign in again.",
+    "email_taken": "This address already has a profile. Sign in, or use another address.",
+    "pseudo_taken": "This username is already taken.",
+    "pseudo_invalid": "Username: 3 to 20 characters, letters, digits, “_” and “.”.",
+    "pseudo_banned": "This username isn't allowed.",
+    "password_too_short": "The password needs at least {{min}} characters.",
+    "too_young": "Under 13: no profile. You can play as a guest with a code.",
+    "birth_year_invalid": "This year of birth isn't possible.",
+    "consent_required": "Accept the neighbourhood rules and the privacy policy.",
+    "code_resend_too_soon": "Wait a minute before asking for another code.",
+    "already_verified": "Your address is already verified.",
+    "refresh_invalid": "Your session is no longer valid: sign in again.",
+    "refresh_expired": "Your session has expired: sign in again.",
+    "refresh_reused": "For your security, your sessions on this device were closed: sign in again.",
+    "reset_token_invalid": "This reset has expired: start again.",
+    "wrong_password": "Wrong password.",
+    "verification_required": "Verify your email address first.",
+    "device_required": "This device couldn't be identified. Restart the app."
   },
   "validation": {
     "invalid": "Check the fields in red."
@@ -24,8 +45,36 @@
   "room": {
     "not_found": "Unknown code: check with your friend.",
     "full": "The room is full: you can watch instead.",
-    "started": "The game has already started."
+    "started": "The game has already started.",
+    "closed": "This room is closed."
   },
   "rate_limited": "Easy now! Try again in a minute.",
-  "not_found": "Not found."
+  "not_found": "Not found.",
+  "common": {
+    "internal": "The server has a problem. Try again in a moment.",
+    "not_found": "Not found.",
+    "validation": "Check the fields in red.",
+    "bad_request": "Malformed request. Try again.",
+    "rate_limited": "Easy! Try again in a moment.",
+    "forbidden": "You don't have access to this action.",
+    "payload_too_large": "That's too heavy to send.",
+    "unsupported_media_type": "Format not accepted.",
+    "unavailable": "The service is briefly unavailable. Try again in a moment."
+  },
+  "profile": {
+    "pseudo_change_too_soon": "You changed your username less than 30 days ago.",
+    "settings_invalid": "These settings couldn't be saved.",
+    "deletion_already_requested": "Your account deletion has already been requested."
+  },
+  "quarter": {
+    "not_found": "This neighbourhood is no longer on the list.",
+    "change_too_soon": "You've already changed neighbourhood this season."
+  },
+  "account": {
+    "display_name_invalid": "Name: 2 to 20 characters, letters, digits, spaces.",
+    "display_name_banned": "This name isn't allowed."
+  },
+  "push": {
+    "token_invalid": "Notifications couldn't be turned on for this device."
+  }
 }

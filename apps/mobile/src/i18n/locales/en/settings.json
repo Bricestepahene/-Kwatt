@@ -1,0 +1,108 @@
+{
+  "title": "Settings",
+  "sound": {
+    "title": "Board sounds",
+    "balafon": "Balafon",
+    "default": "default",
+    "tamtam": "Tam-tam",
+    "silence": "Silence",
+    "volume": "Effects volume",
+    "vibration": "Vibrate on capture"
+  },
+  "display": {
+    "row": "In-game display",
+    "night": "Night",
+    "sun": "Full sun",
+    "auto": "Automatic full sun"
+  },
+  "game": {
+    "boardNumbers": "Checkers: square numbers",
+    "autoSingleMove": "Ludo: play the only move by itself",
+    "dice": "Ludo: dice animation",
+    "diceNormal": "Normal",
+    "diceFast": "Fast",
+    "diceNone": "None"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "yourTurn": "It's your turn",
+    "roomInvites": "Room invitations",
+    "leagueMatches": "League matches (the day before and 1 h before)"
+  },
+  "account": {
+    "title": "Account",
+    "pseudo": "Username",
+    "email": "Email",
+    "verified": "verified",
+    "toVerify": "to verify",
+    "verify": "Verify",
+    "password": "Password",
+    "change": "Change",
+    "language": "Language",
+    "languageValue": "Français · English",
+    "quarter": "Neighbourhood",
+    "quarterNone": "To choose",
+    "backup": "Backup",
+    "syncedAgo": "Synced {{when}}",
+    "syncing": "Syncing…",
+    "syncPending": "Waiting for the network",
+    "syncFailed": "Not synced · try again",
+    "neverSynced": "Not synced yet"
+  },
+  "data": {
+    "title": "My data",
+    "export": "Export my data",
+    "exportHint": "Profile, games, cowrie history (JSON file)",
+    "exportDialog": "My Kwatt data",
+    "exported": "File ready.",
+    "rules": "Neighbourhood rules",
+    "privacy": "Privacy policy",
+    "logoutAll": "Sign out everywhere",
+    "logoutAllHint": "Closes the session on all your devices"
+  },
+  "logout": "Sign out",
+  "delete": "Delete account",
+  "loadError": "Your account couldn't be loaded. Device settings can still be changed.",
+  "pseudoSheet": {
+    "title": "Change username",
+    "text": "Your username can change once every 30 days.",
+    "nextChange": "You can change it again on {{date}}.",
+    "save": "Save",
+    "done": "Username changed: {{pseudo}}."
+  },
+  "emailSheet": {
+    "title": "Verify your address",
+    "text": "We'll send a 6-digit code to {{email}}. A verified address lets you stake and recover your account.",
+    "send": "Send the code"
+  },
+  "passwordSheet": {
+    "title": "Change password",
+    "current": "Current password",
+    "new": "New password",
+    "text": "Your other devices will be signed out; this one stays signed in.",
+    "save": "Change the password",
+    "forgot": "Forgot your password?",
+    "done": "Password changed."
+  },
+  "quarterSheet": {
+    "title": "Your neighbourhood",
+    "text": "You can change neighbourhood once per season (one month)."
+  },
+  "diceSheet": {
+    "title": "Dice animation"
+  },
+  "logoutAllSheet": {
+    "title": "Sign out everywhere?",
+    "text": "All your devices, this one included, will need to sign in again.",
+    "confirm": "Sign out everywhere",
+    "done": "Signed out of all your devices."
+  },
+  "deleteSheet": {
+    "title": "Delete your account?",
+    "text": "Your profile is hidden right away, then permanently erased in 30 days, on {{date}}. To cancel, sign in again before that date.",
+    "exportFirst": "Remember to export your data first.",
+    "password": "Your password",
+    "confirm": "Delete my account",
+    "done": "Account deleted. Permanent erasure on {{date}}."
+  }
+}

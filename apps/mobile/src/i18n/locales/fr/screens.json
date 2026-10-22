@@ -7,6 +7,8 @@
   "premierLancement": { "title": "Premier lancement", "lead": "Choisis ton quartier et fais ta première partie." },
   "connexion": { "title": "On se connaît déjà", "lead": "Connecte-toi avec ton pseudo ou ton e-mail." },
   "motDePasseOublie": { "title": "Mot de passe oublié", "lead": "On t'envoie un code à 6 chiffres pour choisir un nouveau mot de passe." },
+  "reglesQuartier": { "title": "Règles du quartier", "lead": "Respect, jeu honnête, cauris sans argent réel, âge et mises." },
+  "confidentialite": { "title": "Politique de confidentialité", "lead": "Ce que Kwatt garde, pourquoi, et comment tout effacer." },
   "accueil": { "title": "Accueil", "lead": "Tes espaces de jeu, tes salons et ton prochain match." },
   "jouer": { "title": "Jouer", "lead": "On rouvre ton dernier espace de jeu." },
   "modeDames": { "title": "Comment on joue ?", "lead": "Machine, salon entre proches, défi avec mise, ligues et problème du jour." },

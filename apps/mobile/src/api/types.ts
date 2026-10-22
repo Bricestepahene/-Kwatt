@@ -1,8 +1,9 @@
 /**
- * Types minimaux du contrat REST et temps réel (SPEC §9), en attendant @kwatt/protocol
- * (écrit en parallèle par la fondation serveur) : l'intégration remplacera ces types
- * par les siens. Ne rien ajouter ici qui ne soit pas dans la SPEC.
+ * Types du contrat REST et temps réel côté appli (SPEC §9). Les réponses du serveur
+ * viennent de @kwatt/protocol (AuthSessionResponse, Me…) ; restent ici la forme de la
+ * session gardée sur l'appareil et quelques types de la fondation.
  */
+import type { AuthSessionResponse, Me } from '@kwatt/protocol';
 import type { Language } from '../i18n/languages';
 
 /**
@@ -58,17 +59,24 @@ export interface SessionUser {
   locale?: Language;
 }
 
-/** Réponse des routes d'authentification (connexion, inscription, invité, renouvellement). */
+/**
+ * Jetons reçus des routes d'authentification (connexion, inscription, invité, renouvellement) :
+ * `AuthSessionResponse` de @kwatt/protocol, lu avec tolérance (le renouvellement n'exige que
+ * les deux jetons).
+ */
 export interface AuthTokens {
   accessToken: string;
   refreshToken: string;
-  /** Durée de vie du jeton d'accès, en secondes (15 min). */
+  /** Fin de validité du jeton d'accès (ISO 8601), donnée par le serveur. */
+  accessTokenExpiresAt?: string;
+  /** Durée de vie du jeton d'accès, en secondes (ancien format, gardé pour compatibilité). */
   expiresIn?: number;
+  /** Profil à jour, joint par le serveur. */
+  me?: Me;
 }
 
-export interface AuthResponse extends AuthTokens {
-  user: SessionUser;
-}
+/** Réponse complète d'une connexion, d'une inscription ou d'une session invitée. */
+export type AuthResponse = AuthSessionResponse;
 
 /** Message de l'appli vers le serveur : `{ t, id?, ...données }`. */
 export interface WsClientMessage {

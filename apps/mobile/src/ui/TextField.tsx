@@ -15,6 +15,8 @@ export interface TextFieldProps extends Omit<TextInputProps, 'style'> {
   password?: boolean;
   /** Élément sous le champ, aligné à droite (« Mot de passe oublié ? »). */
   footer?: ReactNode;
+  /** Bordure de 2 px de cette couleur (pseudo disponible : vert de la planche Inscription). */
+  accent?: string | null;
   style?: StyleProp<ViewStyle>;
   /** Référence du champ (React 19 : `ref` est une prop ordinaire). */
   ref?: Ref<TextInputInstance>;
@@ -27,6 +29,7 @@ export function TextField({
   hint,
   password = false,
   footer,
+  accent = null,
   style,
   onFocus,
   onBlur,
@@ -39,14 +42,14 @@ export function TextField({
   const [focused, setFocused] = useState(false);
   const [visible, setVisible] = useState(false);
   const nativeId = useId().replace(/[^a-zA-Z0-9_-]/g, '');
-  const borderColor = error ? colors.alert : focused ? colors.text : colors.border;
+  const borderColor = error ? colors.alert : (accent ?? (focused ? colors.text : colors.border));
 
   return (
     <View style={[styles.wrap, style]}>
       <Text variant="smallStrong" nativeID={`${nativeId}-label`}>
         {label}
       </Text>
-      <View style={[styles.field, { backgroundColor: colors.surface, borderColor, borderWidth: focused || error ? 2 : 1 }]}>
+      <View style={[styles.field, { backgroundColor: colors.surface, borderColor, borderWidth: focused || error || accent ? 2 : 1 }]}>
         <TextInput
           ref={ref}
           accessibilityLabel={label}

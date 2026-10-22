@@ -27,8 +27,7 @@
     "increase": "Augmenter",
     "showPassword": "Afficher le mot de passe",
     "hidePassword": "Masquer le mot de passe",
-    "goHome": "Revenir à l'accueil",
-    "demoSession": "Explorer l'appli (démo)"
+    "goHome": "Revenir à l'accueil"
   },
   "tabs": {
     "navigation": "Navigation principale",

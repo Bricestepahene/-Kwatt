@@ -297,7 +297,7 @@ Après un changement de `.env` : `./deploy/compose.sh up -d api` (recrée le con
 ```sh
 ./deploy/compose.sh logs -f api              # API (JSON, une ligne par évènement)
 ./deploy/compose.sh logs --since 1h api      # la dernière heure
-./deploy/compose.sh logs caddy               # certificats, requêtes
+./deploy/compose.sh logs caddy               # certificats HTTPS (pas de journal d'accès : voir l'API)
 ./deploy/compose.sh logs postgres backup
 ```
 

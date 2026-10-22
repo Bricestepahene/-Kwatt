@@ -25,8 +25,6 @@
 		lb_try_interval 500ms
 	}
 
-	log {
-		output stdout
-		format console
-	}
+	# Pas de journal d'accès ici : l'URL de la WebSocket porte le jeton d'accès (?token=).
+	# L'API journalise elle-même chaque requête, jeton masqué (./deploy/compose.sh logs api).
 }

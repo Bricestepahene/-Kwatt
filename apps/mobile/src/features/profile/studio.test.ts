@@ -1,6 +1,7 @@
 import type { MyAvatar, ShopItem } from '@kwatt/protocol';
 import { describe, expect, it } from 'vitest';
 import { avatarProps, toAvatarSpec } from './looks';
+import { squareCrop } from './photoMath';
 import {
   featuredEdition,
   initialDraft,
@@ -153,5 +154,13 @@ describe('apparence du serveur → Avatar du kit', () => {
       frameRarity: 'legendaire',
     });
     expect(avatarProps(null)).toEqual({ avatar: { kind: 'initial' }, frame: null, frameRarity: null });
+  });
+});
+
+describe('photo de profil', () => {
+  it('recadre au centre le plus grand carré', () => {
+    expect(squareCrop(900, 600)).toEqual({ originX: 150, originY: 0, width: 600, height: 600 });
+    expect(squareCrop(600, 901)).toEqual({ originX: 0, originY: 150, width: 600, height: 600 });
+    expect(squareCrop(512, 512)).toEqual({ originX: 0, originY: 0, width: 512, height: 512 });
   });
 });

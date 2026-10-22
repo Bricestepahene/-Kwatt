@@ -111,6 +111,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   });
   app.addHook('onClose', async () => {
     await jobs.stop();
+    await app.notifications.idle();
     await app.mailer.idle();
     if (ownsPool) await pool.end();
   });

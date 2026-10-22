@@ -53,7 +53,18 @@ export async function createTestDatabase(suite: string): Promise<TestDatabase> {
       const c = new pg.Client({ connectionString: adminUrl() });
       await c.connect();
       try {
-        await c.query(`DROP DATABASE IF EXISTS ${c.escapeIdentifier(name)} WITH (FORCE)`);
+        // Un processus de fond de PostgreSQL (analyse automatique…) peut occuper la base un
+        // court instant ; un rôle non superutilisateur ne peut pas l'interrompre : on réessaie.
+        for (let attempt = 1; ; attempt++) {
+          try {
+            await c.query(`DROP DATABASE IF EXISTS ${c.escapeIdentifier(name)} WITH (FORCE)`);
+            break;
+          } catch (err) {
+            const code = (err as { code?: unknown }).code;
+            if ((code !== '42501' && code !== '55006') || attempt >= 20) throw err;
+            await new Promise((r) => setTimeout(r, 250));
+          }
+        }
       } finally {
         await c.end();
       }

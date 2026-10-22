@@ -97,7 +97,27 @@ export class NotificationService {
     return notification;
   }
 
-  private async deliver(userId: string, n: Notification, mode: PushMode): Promise<void> {
+  /** Livraisons en cours, par joueur : elles partent dans l'ordre de création. */
+  private readonly chains = new Map<string, Promise<void>>();
+
+  private deliver(userId: string, n: Notification, mode: PushMode): Promise<void> {
+    const previous = this.chains.get(userId) ?? Promise.resolve();
+    const next = previous
+      .then(() => this.deliverNow(userId, n, mode))
+      .catch((err: unknown) => this.deps.log.error({ err, userId }, 'livraison de notification en échec'))
+      .finally(() => {
+        if (this.chains.get(userId) === next) this.chains.delete(userId);
+      });
+    this.chains.set(userId, next);
+    return next;
+  }
+
+  /** Attend la fin des livraisons en cours (tests, arrêt du serveur). */
+  async idle(): Promise<void> {
+    while (this.chains.size > 0) await Promise.all([...this.chains.values()]);
+  }
+
+  private async deliverNow(userId: string, n: Notification, mode: PushMode): Promise<void> {
     const unreadCount = await this.unreadCount(userId);
     this.deps.hub.sendToUser(userId, { t: 'notify', notification: n, unreadCount });
     if (mode === 'never' || (mode === 'auto' && this.deps.hub.isOnline(userId))) return;

@@ -18,7 +18,7 @@ import {
   type ResetVerifyResponse,
 } from '@kwatt/protocol';
 import type { FastifyInstance } from 'fastify';
-import { PG_UNIQUE_VIOLATION, pgConstraint, pgErrorCode, transaction } from '../../db/pool.js';
+import { PG_UNIQUE_VIOLATION, pgConstraint, pgErrorCode, transaction, type Sql } from '../../db/pool.js';
 import { MINUTE, addMs } from '../../lib/clock.js';
 import { hmacHex, randomToken } from '../../lib/crypto.js';
 import { AppError } from '../../lib/errors.js';
@@ -56,6 +56,21 @@ function assertPseudo(pseudo: string): void {
   if (problem === 'banned') throw new AppError('auth.pseudo_banned', 400);
 }
 
+/**
+ * Compte invité actif d'un appareil (le plus récemment vu sur cette installation), ou null.
+ * Un invité converti, en cours de suppression ou effacé n'est jamais repris.
+ */
+async function activeDeviceGuest(db: Sql, deviceId: string): Promise<{ id: string; locale: Locale } | null> {
+  const r = await db.query<{ id: string; locale: Locale }>(
+    `SELECT u.id, u.locale FROM user_devices ud JOIN users u ON u.id = ud.user_id
+      WHERE ud.device_id = $1 AND u.kind = 'guest' AND u.erased_at IS NULL
+        AND u.delete_requested_at IS NULL AND u.merged_into IS NULL
+      ORDER BY ud.last_seen_at DESC LIMIT 1`,
+    [deviceId],
+  );
+  return r.rows[0] ?? null;
+}
+
 export class AuthService {
   /** 5 essais de connexion par minute et par compte (la limite par IP est posée sur la route). */
   private readonly loginLimiter;
@@ -90,8 +105,10 @@ export class AuthService {
   // --- Inscription -------------------------------------------------------------------
 
   /**
-   * Crée un profil. Avec le jeton d'un invité, le compte invité est CONVERTI (même users.id,
-   * ses parties sont gardées) et ses sessions d'invité sont fermées.
+   * Crée un profil. Le compte invité de l'appareil est CONVERTI (même users.id, ses parties
+   * sont gardées) et ses sessions d'invité sont fermées : celui du jeton d'invité envoyé, ou,
+   * sans jeton, l'invité actif lié à l'identifiant d'installation. Avec le jeton d'un profil,
+   * un nouveau compte est créé.
    */
   async register(input: RegisterRequest, current: AuthContext | null): Promise<RegisterResponse> {
     const now = this.now();
@@ -102,8 +119,7 @@ export class AuthService {
     if (ageBand(input.birthYear, now) === 'child') throw new AppError('auth.too_young', 403);
 
     const passwordHash = await this.app.passwords.hash(input.password);
-    const guest = current?.kind === 'guest' ? current : null;
-    const locale: Locale = input.locale ?? guest?.locale ?? DEFAULT_LOCALE;
+    const tokenGuest = current?.kind === 'guest' ? current : null;
 
     let created: { userId: string; tokens: IssuedTokens; bonus: number; converted: boolean };
     try {
@@ -114,18 +130,23 @@ export class AuthService {
           if (emailUsed.rows.length > 0) throw new AppError('auth.email_taken', 409);
           if (await isPseudoTaken(tx, input.pseudo)) throw new PseudoTaken();
 
+          // Invité à convertir : celui du jeton, sinon (aucun jeton) celui de l'appareil.
+          let guest: { id: string; locale: Locale } | null = tokenGuest ? { id: tokenGuest.userId, locale: tokenGuest.locale } : null;
+          if (current === null) guest = await activeDeviceGuest(tx, await upsertDevice(tx, input.device, now));
+          const locale: Locale = input.locale ?? guest?.locale ?? DEFAULT_LOCALE;
+
           let userId: string | null = null;
           if (guest) {
             const u = await tx.query<{ kind: string }>('SELECT kind FROM users WHERE id = $1 AND erased_at IS NULL FOR UPDATE', [
-              guest.userId,
+              guest.id,
             ]);
             if (u.rows[0]?.kind === 'guest') {
               await tx.query(
                 `UPDATE users SET kind = 'member', birth_year = $2, locale = $3, terms_accepted_at = $4, delete_requested_at = NULL
                   WHERE id = $1`,
-                [guest.userId, input.birthYear, locale, now],
+                [guest.id, input.birthYear, locale, now],
               );
-              userId = guest.userId;
+              userId = guest.id;
             }
           }
           const converted = userId !== null;
@@ -224,14 +245,7 @@ export class AuthService {
       // L'upsert verrouille la ligne de l'appareil jusqu'à la fin de la transaction : deux
       // demandes simultanées du même appareil ne créent pas deux invités.
       const deviceId = await upsertDevice(tx, device, now);
-      const existing = await tx.query<{ id: string }>(
-        `SELECT u.id FROM user_devices ud JOIN users u ON u.id = ud.user_id
-          WHERE ud.device_id = $1 AND u.kind = 'guest' AND u.erased_at IS NULL
-            AND u.delete_requested_at IS NULL AND u.merged_into IS NULL
-          ORDER BY ud.last_seen_at DESC LIMIT 1`,
-        [deviceId],
-      );
-      let userId = existing.rows[0]?.id ?? null;
+      let userId = (await activeDeviceGuest(tx, deviceId))?.id ?? null;
       const created = userId === null;
       if (userId === null) {
         const u = await tx.query<{ id: string }>(

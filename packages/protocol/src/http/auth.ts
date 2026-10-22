@@ -4,7 +4,9 @@
  *
  * Routes (préfixe /v1/auth) :
  *   POST register               RegisterRequest → 201 RegisterResponse
- *                               (avec le jeton d'accès d'un invité : conversion, même users.id)
+ *                               (le compte invité de l'appareil est converti, même users.id :
+ *                               celui du jeton d'accès d'invité envoyé, sinon, sans jeton,
+ *                               l'invité actif de cet identifiant d'installation)
  *   POST login                  LoginRequest → LoginResponse
  *   POST guest                  GuestRequest → 201 GuestResponse (nouvel invité) ou 200 (invité de l'appareil repris)
  *   POST refresh                RefreshRequest → AuthSessionResponse

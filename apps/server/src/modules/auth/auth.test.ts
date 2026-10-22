@@ -284,6 +284,19 @@ describe('invité', () => {
     expect(other.userId).not.toBe(first.json().me.id);
   });
 
+  it('sans jeton, l\'inscription depuis l\'appareil convertit son invité actif (avec sa langue)', async () => {
+    const device = testDevice();
+    const g = await t.app.inject({ method: 'POST', url: '/v1/auth/guest', payload: { device, locale: 'en' } });
+    const guestId = g.json().me.id as string;
+    const res = await register({ device });
+    expect(res.statusCode).toBe(201);
+    expect(res.json()).toMatchObject({ converted: true, welcomeBonus: 500, me: { id: guestId, kind: 'member', locale: 'en' } });
+    // Un second profil sur le même appareil est un nouveau compte (plus d'invité à convertir).
+    const second = await register({ device });
+    expect(second.json()).toMatchObject({ converted: false });
+    expect(second.json().me.id).not.toBe(guestId);
+  });
+
   it('un invité converti ou en cours de suppression n\'est pas repris', async () => {
     const g = await createGuest(t);
     await createMember(t, { fromGuest: g });

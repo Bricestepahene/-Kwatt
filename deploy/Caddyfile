@@ -1,0 +1,32 @@
+# Caddy devant l'API Kwatt : HTTPS automatique (Let's Encrypt) pour {$DOMAIN}.
+# DOMAIN et ACME_EMAIL viennent de .env (voir deploy/docker-compose.prod.yml).
+#
+# Tout part vers l'API : /v1/* (REST et WebSocket /v1/ws), /media/* (photos),
+# /s/CODE et /l/CODE (liens de partage des salons et des ligues).
+#
+# Après une modification de ce fichier :
+#   ./deploy/compose.sh exec caddy caddy reload --config /etc/caddy/Caddyfile
+
+{
+	# Adresse prévenue par Let's Encrypt (expiration, incident).
+	email {$ACME_EMAIL}
+}
+
+{$DOMAIN} {
+	encode zstd gzip
+
+	# Les en-têtes de sécurité (CSP, HSTS…) sont posés par l'API elle-même.
+	header -Server
+
+	# Les WebSocket (/v1/ws) passent telles quelles et restent ouvertes pendant une partie.
+	reverse_proxy api:8080 {
+		# Pendant un redémarrage de l'API, on réessaie quelques secondes au lieu de rendre une 502.
+		lb_try_duration 10s
+		lb_try_interval 500ms
+	}
+
+	log {
+		output stdout
+		format console
+	}
+}

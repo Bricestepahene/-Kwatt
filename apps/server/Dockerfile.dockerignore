@@ -1,0 +1,18 @@
+# Contexte de construction de apps/server/Dockerfile (racine du dépôt).
+# BuildKit lit ce fichier à la place d'un .dockerignore racine : il ne gêne pas les autres images.
+**/node_modules
+**/dist
+**/*.tsbuildinfo
+**/.turbo
+**/coverage
+.git
+.github
+.claude
+.env
+.env.*
+!.env.example
+docs
+research
+deploy/backups
+**/.expo
+**/*.log

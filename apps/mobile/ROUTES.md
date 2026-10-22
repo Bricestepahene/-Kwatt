@@ -24,6 +24,8 @@ Chaque écran du Sommaire (`docs/maquette/README.md`) a sa route, déjà branch�
 | 07 | `accueil` | `app/(tabs)/index.tsx` | `/` | Accueil | Profil | Communauté et progression |  |
 | 08 | `notifications` | `app/notifications.tsx` | `/notifications` | Notifications | Profil | Communauté et progression |  |
 | 09 | `profil` | `app/(tabs)/profil.tsx` | `/profil` | Profil | Profil | Profil |  |
+| 09 | `profilCauris` | `app/profil/cauris.tsx` | `/profil/cauris` | Profil, Systeme | Profil | Profil | Journal des cauris (« Mouvement » de la planche Système : qui, combien, pourquoi, partie liée), sur GET /v1/wallet/journal. |
+| 09 | `joueur` | `app/joueur/[id].tsx` | `/joueur/[id]` | Profil | Session (invité ou profil) | Profil | Profil public d’un autre joueur (écran 09 en lecture, GET /v1/profiles/:userId) ; un compte jeune est invisible des inconnus. |
 | 10 | `avatarStudio` | `app/avatar/index.tsx` | `/avatar` | AvatarStudio | Profil | Profil |  |
 | 11 | `avatarBoutique` | `app/avatar/boutique.tsx` | `/avatar/boutique` | AvatarBoutique | Profil | Profil |  |
 | 12 | `amis` | `app/amis.tsx` | `/amis` | Amis | Profil | Communauté et progression |  |

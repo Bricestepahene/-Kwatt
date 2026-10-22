@@ -27,5 +27,30 @@
     "started": "The game has already started."
   },
   "rate_limited": "Easy now! Try again in a minute.",
-  "not_found": "Not found."
+  "not_found": "Not found.",
+  "shop": {
+    "item_not_found": "This item is no longer in the shop.",
+    "not_for_sale": "This item can't be bought: it has to be won.",
+    "already_owned": "This item is already yours.",
+    "rank_too_low": "Your rank is still too low for this item.",
+    "sold_out": "Sold out: this limited edition will never come back.",
+    "insufficient_funds": "You're {{missing}} cowries short."
+  },
+  "profiles": {
+    "not_found": "This profile isn't visible."
+  },
+  "avatar": {
+    "not_owned": "Some pieces aren't yours yet: buy them first.",
+    "invalid_item": "This piece doesn't go there."
+  },
+  "photo": {
+    "missing": "Add a photo first.",
+    "invalid_image": "Unreadable or too small image: choose another one.",
+    "not_found": "No photo to review."
+  },
+  "media": {
+    "too_large": "File too large: choose a lighter image.",
+    "unsupported_type": "Format not accepted: choose a photo.",
+    "missing_file": "No image received: try again."
+  }
 }

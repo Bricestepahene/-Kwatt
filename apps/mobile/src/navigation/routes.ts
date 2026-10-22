@@ -134,7 +134,7 @@ export const ROUTES = defineRoutes([
   {
     key: 'profil', screens: ['09'], planches: ['Profil'], file: 'app/(tabs)/profil.tsx',
     pattern: '/profil', access: 'member', owner: 'profil', space: 'hub', tab: 'profile',
-    links: ['amis', 'parametres', 'avatarStudio', 'quartiers', 'recompenses', 'echelons'],
+    links: ['amis', 'parametres', 'avatarStudio', 'quartiers', 'recompenses', 'echelons', 'cartes', 'profilCauris'],
   },
 
   // --- Hub et profil -------------------------------------------------------------
@@ -149,7 +149,17 @@ export const ROUTES = defineRoutes([
   },
   {
     key: 'avatarBoutique', screens: ['11'], planches: ['AvatarBoutique'], file: 'app/avatar/boutique.tsx',
-    pattern: '/avatar/boutique', access: 'member', owner: 'profil', space: 'hub',
+    pattern: '/avatar/boutique', access: 'member', owner: 'profil', space: 'hub', links: ['avatarStudio'],
+  },
+  {
+    key: 'profilCauris', screens: ['09'], planches: ['Profil', 'Systeme'], file: 'app/profil/cauris.tsx',
+    pattern: '/profil/cauris', access: 'member', owner: 'profil', space: 'hub', links: ['revoir'],
+    note: 'Journal des cauris (« Mouvement » de la planche Système : qui, combien, pourquoi, partie liée), sur GET /v1/wallet/journal.',
+  },
+  {
+    key: 'joueur', screens: ['09'], planches: ['Profil'], file: 'app/joueur/[id].tsx',
+    pattern: '/joueur/[id]', access: 'guest', owner: 'profil', space: 'hub', links: ['signaler', 'echelons'],
+    note: 'Profil public d’un autre joueur (écran 09 en lecture, GET /v1/profiles/:userId) ; un compte jeune est invisible des inconnus.',
   },
   {
     key: 'amis', screens: ['12'], planches: ['Amis'], file: 'app/amis.tsx',

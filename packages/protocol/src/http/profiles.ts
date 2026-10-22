@@ -267,3 +267,28 @@ export const ProfileSchema = z.object({
 export type Profile = z.infer<typeof ProfileSchema>;
 
 export const ProfileParamsSchema = z.object({ userId: UuidSchema });
+
+// --- Journal des cauris (écran « Mes cauris ») ---------------------------------------------
+
+/**
+ * Convention des détails (`meta`) d'un mouvement du grand livre, lus par l'écran
+ * « Mes cauris » du profil (qui, pourquoi, partie liée). Tous facultatifs ; un module
+ * n'écrit que ce qui a du sens pour lui, jamais une phrase :
+ * - `opponent` : l'autre joueur (mise, défi, pronostic) ; `opponents` : plusieurs (Ludo) ;
+ * - `variant` : variante de la partie liée ; `difficulty` : niveau de la machine ;
+ * - `itemCode`, `serial` : achat ou récompense d'objet (voir PurchaseMeta) ;
+ * - `leagueName` : nom de la ligue (saisi par un joueur, jamais traduit) ; `quest` : code de quête.
+ */
+export const JournalMetaSchema = z
+  .object({
+    opponent: z.object({ userId: UuidSchema.nullable().optional(), pseudo: z.string() }),
+    opponents: z.array(z.string()),
+    variant: z.string(),
+    difficulty: z.string(),
+    itemCode: ItemCodeSchema,
+    serial: z.number().int().positive().nullable(),
+    leagueName: z.string(),
+    quest: z.string(),
+  })
+  .partial();
+export type JournalMeta = z.infer<typeof JournalMetaSchema>;

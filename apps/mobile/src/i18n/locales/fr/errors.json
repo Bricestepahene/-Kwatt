@@ -27,5 +27,30 @@
     "started": "La partie a déjà commencé."
   },
   "rate_limited": "Doucement ! Réessaie dans une minute.",
-  "not_found": "Introuvable."
+  "not_found": "Introuvable.",
+  "shop": {
+    "item_not_found": "Cet objet n'existe plus dans la boutique.",
+    "not_for_sale": "Cet objet ne s'achète pas : il se gagne.",
+    "already_owned": "Cet objet est déjà à toi.",
+    "rank_too_low": "Ton échelon est encore trop bas pour cet objet.",
+    "sold_out": "Épuisé : cette édition limitée ne reviendra pas.",
+    "insufficient_funds": "Il te manque {{missing}} cauris."
+  },
+  "profiles": {
+    "not_found": "Ce profil n'est pas visible."
+  },
+  "avatar": {
+    "not_owned": "Certaines pièces ne sont pas encore à toi : achète-les d'abord.",
+    "invalid_item": "Cette pièce ne va pas à cette place."
+  },
+  "photo": {
+    "missing": "Ajoute d'abord une photo.",
+    "invalid_image": "Image illisible ou trop petite : choisis-en une autre.",
+    "not_found": "Aucune photo à vérifier."
+  },
+  "media": {
+    "too_large": "Fichier trop lourd : choisis une image plus légère.",
+    "unsupported_type": "Format non accepté : choisis une photo.",
+    "missing_file": "Aucune image reçue : réessaie."
+  }
 }

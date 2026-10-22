@@ -1,0 +1,94 @@
+{
+  "email": {
+    "signature": "The Kwatt team",
+    "footer": "You are receiving this e-mail because a Kwatt account uses this address. Cowries are never worth real money.",
+    "ignore": "If you did not make this request, ignore this message: your account is still safe.",
+    "verify": {
+      "subject": "{{code}} is your Kwatt code",
+      "title": "Verify your address",
+      "intro": "Welcome {{pseudo}}! Here is your code to verify your e-mail address:",
+      "expires": "It expires in 10 minutes."
+    },
+    "reset": {
+      "subject": "{{code}} to choose a new Kwatt password",
+      "title": "Forgotten password",
+      "intro": "Here is your code to choose a new password:",
+      "expires": "It expires in 10 minutes. After 5 tries, ask for a new code."
+    },
+    "password_changed": {
+      "subject": "Your Kwatt password has changed",
+      "title": "Password changed",
+      "intro": "The password of the account {{pseudo}} has just been changed. Your other devices have been signed out.",
+      "help": "If this was not you, use “Forgot your password?” in the app right away."
+    },
+    "deletion": {
+      "subject": "Deletion of your Kwatt account",
+      "title": "Deletion requested",
+      "intro": "The deletion of the account {{pseudo}} is recorded. Your data will be permanently erased on {{date}}.",
+      "cancel": "Changed your mind? Sign in again before that date: the deletion will be cancelled."
+    }
+  },
+  "push": {
+    "default": {
+      "title": "Kwatt",
+      "body": "You have a new notification."
+    },
+    "turn": {
+      "your_turn": {
+        "title": "Your turn",
+        "body": "Your game is waiting: your move."
+      }
+    },
+    "invites": {
+      "room": {
+        "title": "Invitation",
+        "body": "{{from}} invites you to their room."
+      },
+      "challenge": {
+        "title": "Challenge",
+        "body": "{{from}} challenges you."
+      }
+    },
+    "league": {
+      "match_tomorrow": {
+        "title": "League match tomorrow",
+        "body": "Your match against {{opponent}} is tomorrow."
+      },
+      "match_soon": {
+        "title": "League match in 1 hour",
+        "body": "Get ready: {{opponent}} is waiting for you in 1 hour."
+      }
+    },
+    "quest": {
+      "completed": {
+        "title": "Quest completed",
+        "body": "+{{amount}} cowries for you."
+      }
+    }
+  },
+  "share": {
+    "tagline": "The neighbourhood plays here.",
+    "open": "Open in Kwatt",
+    "install_title": "Don't have the app yet?",
+    "install_step1": "Install Kwatt on your phone.",
+    "install_link": "Install Kwatt",
+    "install_ask": "Ask the person who invited you for the install link.",
+    "other_language": "Français",
+    "room": {
+      "title": "Kwatt room invitation",
+      "heading": "You're invited to a room",
+      "code_label": "Room code",
+      "install_step2": "Open the app, tap “Join with a code” and enter the code {{code}}."
+    },
+    "league": {
+      "title": "Kwatt league invitation",
+      "heading": "You're invited to a league",
+      "code_label": "League code",
+      "install_step2": "Open the app, go to “Leagues” and enter the code {{code}}."
+    },
+    "invalid": {
+      "title": "Invalid link",
+      "body": "This share link does not exist or was copied wrongly. Ask your friend for a new link."
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "email": {
+    "signature": "L'équipe Kwatt",
+    "footer": "Tu reçois cet e-mail parce qu'un compte Kwatt utilise cette adresse. Les cauris ne valent jamais d'argent réel.",
+    "ignore": "Si tu n'es pas à l'origine de cette demande, ignore ce message : ton compte reste protégé.",
+    "verify": {
+      "subject": "{{code}} est ton code Kwatt",
+      "title": "Vérifie ton adresse",
+      "intro": "Bienvenue {{pseudo}} ! Voici ton code pour vérifier ton adresse e-mail :",
+      "expires": "Il expire dans 10 minutes."
+    },
+    "reset": {
+      "subject": "{{code}} pour choisir un nouveau mot de passe Kwatt",
+      "title": "Mot de passe oublié",
+      "intro": "Voici ton code pour choisir un nouveau mot de passe :",
+      "expires": "Il expire dans 10 minutes. Après 5 essais, demande un nouveau code."
+    },
+    "password_changed": {
+      "subject": "Ton mot de passe Kwatt a changé",
+      "title": "Mot de passe changé",
+      "intro": "Le mot de passe du compte {{pseudo}} vient d'être changé. Tes autres appareils ont été déconnectés.",
+      "help": "Si ce n'est pas toi, utilise tout de suite « Mot de passe oublié ? » dans l'appli."
+    },
+    "deletion": {
+      "subject": "Suppression de ton compte Kwatt",
+      "title": "Suppression demandée",
+      "intro": "La suppression du compte {{pseudo}} est enregistrée. Tes données seront effacées définitivement le {{date}}.",
+      "cancel": "Tu as changé d'avis ? Reconnecte-toi avant cette date : la suppression sera annulée."
+    }
+  },
+  "push": {
+    "default": {
+      "title": "Kwatt",
+      "body": "Tu as une nouvelle notification."
+    },
+    "turn": {
+      "your_turn": {
+        "title": "C'est ton tour",
+        "body": "Ta partie t'attend : à toi de jouer."
+      }
+    },
+    "invites": {
+      "room": {
+        "title": "Invitation",
+        "body": "{{from}} t'invite dans son salon."
+      },
+      "challenge": {
+        "title": "Défi",
+        "body": "{{from}} te lance un défi."
+      }
+    },
+    "league": {
+      "match_tomorrow": {
+        "title": "Match de ligue demain",
+        "body": "Ton match contre {{opponent}} a lieu demain."
+      },
+      "match_soon": {
+        "title": "Match de ligue dans 1 h",
+        "body": "Prépare-toi : {{opponent}} t'attend dans 1 heure."
+      }
+    },
+    "quest": {
+      "completed": {
+        "title": "Quête terminée",
+        "body": "+{{amount}} cauris pour toi."
+      }
+    }
+  },
+  "share": {
+    "tagline": "Le quartier joue ici.",
+    "open": "Ouvrir dans Kwatt",
+    "install_title": "Pas encore l'appli ?",
+    "install_step1": "Installe Kwatt sur ton téléphone.",
+    "install_link": "Installer Kwatt",
+    "install_ask": "Demande le lien d'installation à la personne qui t'a invité.",
+    "other_language": "English",
+    "room": {
+      "title": "Invitation à un salon Kwatt",
+      "heading": "Tu es invité dans un salon",
+      "code_label": "Code du salon",
+      "install_step2": "Ouvre l'appli, touche « Rejoindre avec un code » et entre le code {{code}}."
+    },
+    "league": {
+      "title": "Invitation à une ligue Kwatt",
+      "heading": "Tu es invité dans une ligue",
+      "code_label": "Code de la ligue",
+      "install_step2": "Ouvre l'appli, va dans « Ligues » et entre le code {{code}}."
+    },
+    "invalid": {
+      "title": "Lien invalide",
+      "body": "Ce lien de partage n'existe pas ou a été mal copié. Demande un nouveau lien à ton ami."
+    }
+  }
+}

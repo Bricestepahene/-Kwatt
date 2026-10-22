@@ -28,8 +28,12 @@ cp .env.example .env          # puis remplir les secrets
 pnpm install
 pnpm typecheck
 pnpm test
-docker compose up -d          # PostgreSQL + Redis ; le schéma est appliqué au premier démarrage
+docker compose up -d          # PostgreSQL 16 (pas de Redis en V1, D-02)
+pnpm db:migrate               # applique les migrations (db/migrations, table schema_migrations)
+pnpm --filter @kwatt/server dev
 ```
+
+Mise en production sur un VPS : [`docs/DEPLOIEMENT.md`](docs/DEPLOIEMENT.md).
 
 ## Principes
 

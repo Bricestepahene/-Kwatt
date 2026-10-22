@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "resolveJsonModule": true,
+    "types": ["node"]
+  },
+  "include": ["src", "src/**/*.json"],
+  "exclude": ["src/**/*.test.ts", "src/test"],
+  "references": [{ "path": "../../packages/protocol" }, { "path": "../../packages/design" }]
+}

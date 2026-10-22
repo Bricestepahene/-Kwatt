@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Boutique d'avatars</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.ndop{background-color:#1D2B6E;background-image:linear-gradient(135deg,rgba(244,238,223,.18) 25%,transparent 25%),linear-gradient(225deg,rgba(244,238,223,.18) 25%,transparent 25%),linear-gradient(315deg,rgba(244,238,223,.18) 25%,transparent 25%),linear-gradient(45deg,rgba(244,238,223,.18) 25%,transparent 25%);background-size:16px 16px;background-position:-8px 0,-8px 0,0 0,0 0}
+.toghu{background-color:#14110F;background-image:radial-gradient(circle,#F2B705 0 2px,transparent 3px),radial-gradient(circle,#E0442E 0 4px,transparent 5px);background-size:14px 14px,14px 14px;background-position:0 0,7px 7px}
+.kaba{background-image:repeating-linear-gradient(90deg,#E0442E 0 8px,#F2B705 8px 13px,#1F9D6B 13px 21px,#F4EEDF 21px 23px,#3FA7E0 23px 30px)}
+.obom{background-color:#6E4426;background-image:repeating-linear-gradient(8deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px),repeating-linear-gradient(-3deg,rgba(255,220,170,.10) 0 1px,transparent 1px 11px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;padding:20px 20px 24px;gap:12px;overflow:hidden">
+  <div style="display:flex;align-items:center;gap:12px">
+    <a href="AvatarStudio.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#20265A;color:#F4EEDF">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </a>
+    <h1 class="d" style="margin:0;font-size:20px;font-weight:700">Avatars du kwatt</h1>
+    <span style="margin-left:auto;display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 10px;border-radius:999px;background:#F4EEDF;color:#0F1230;font-size:13px;font-weight:700">
+      <svg width="12" height="14" viewBox="0 0 14 16" aria-hidden="true"><ellipse cx="7" cy="8" rx="6" ry="7.5" fill="#E8D5A9" stroke="#6E4426" stroke-width="1"></ellipse><path d="M7 2.5 V13.5" stroke="#6E4426" stroke-width="1.6"></path></svg>2 450
+    </span>
+  </div>
+
+  <div class="toghu" style="border-radius:16px;padding:14px;display:flex;align-items:center;gap:14px">
+    <div class="kaba" style="width:72px;height:72px;border-radius:50%;border:3px solid #F2B705;flex-shrink:0"></div>
+    <div style="display:flex;flex-direction:column;gap:3px;background:#14110F;padding:8px 10px;border-radius:10px">
+      <span style="font-size:11px;font-weight:700;letter-spacing:.12em;color:#F2B705">ÉDITION LIMITÉE · NGONDO 2026</span>
+      <b style="font-size:15px">Le Prince du Wouri</b>
+      <span style="font-size:12px;color:#E8D5A9">312 / 500 exemplaires partis · 2 400 cauris</span>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:6px">
+    <sc-for list="{{filters}}" as="f" hint-placeholder-count="4">
+      <button type="button" aria-pressed="{{f.on}}" onClick="{{f.pick}}" style="{{f.st}}">{{f.label}}</button>
+    </sc-for>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">
+    <sc-for list="{{items}}" as="a" hint-placeholder-count="6">
+      <div style="background:#20265A;border-radius:14px;padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center">
+        <div style="{{a.ring}}">
+          <div class="{{a.cls}}" style="width:100%;height:100%;border-radius:50%"></div>
+        </div>
+        <b style="font-size:12px;line-height:1.2">{{a.name}}</b>
+        <span class="d" style="font-size:9px;font-weight:700;color:{{a.rc}}">{{a.rarity}}</span>
+        <button type="button" style="{{a.btn}}">{{a.price}}</button>
+      </div>
+    </sc-for>
+  </div>
+  <div style="margin-top:auto;font-size:12px;color:#A9AECF;line-height:1.5;text-align:center">Les avatars s'achètent seulement en cauris gagnés au jeu. Plus un avatar est rare, plus il coûte cher. Les éditions limitées ne reviennent jamais.</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { r: 'all' }; }
+  renderVals() {
+    const RC = { COMMUN: '#F4EEDF', RARE: '#3FA7E0', 'ÉPIQUE': '#F2B705', 'LÉGENDAIRE': '#FF8A75' };
+    const all = [
+      ['Le Débrouillard', 'obom', 'COMMUN', 80, true], ['La Commerçante', 'kaba', 'COMMUN', 120],
+      ['Le Balafoniste', 'ndop', 'RARE', 450], ['La Reine du Ludo', 'kaba', 'RARE', 600],
+      ['Le Notable', 'toghu', 'ÉPIQUE', 1500], ['Le Fon', 'toghu', 'LÉGENDAIRE', 5000]
+    ];
+    const items = all.filter((a) => this.state.r === 'all' || a[2] === this.state.r).map(([name, cls, rarity, price, own]) => ({
+      name, cls, rarity, rc: RC[rarity], price: own ? 'À toi' : price.toLocaleString('fr-FR'),
+      ring: 'width:64px;height:64px;border-radius:50%;padding:3px;box-sizing:border-box;background:' + RC[rarity],
+      btn: 'height:34px;width:100%;border-radius:8px;font-family:DM Sans,sans-serif;font-size:12px;font-weight:700;' + (own ? 'background:transparent;color:#5FD3A2;border:1px solid #1F9D6B' : price > 2450 ? 'background:transparent;color:#A9AECF;border:1px solid #3D4590' : 'background:#F2B705;color:#0F1230;border:0')
+    }));
+    const filters = [['all', 'Tous'], ['RARE', 'Rares'], ['ÉPIQUE', 'Épiques'], ['LÉGENDAIRE', 'Légendaires']].map(([id, label]) => {
+      const on = this.state.r === id;
+      return { label, on: String(on), pick: () => this.setState({ r: id }),
+        st: 'height:36px;padding:0 10px;border-radius:999px;font-family:DM Sans,sans-serif;font-size:12px;font-weight:700;' + (on ? 'background:#F4EEDF;color:#0F1230;border:0' : 'background:transparent;color:#A9AECF;border:1px solid #3D4590') };
+    });
+    return { items, filters };
+  }
+}
+</script>
+</body>
+</html>

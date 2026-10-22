@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Mode Plein soleil</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+</style>
+</helmet>
+<div style="{{root}}">
+  <div style="display:flex;align-items:center;gap:10px;padding:0 16px">
+    <span style="font-size:13px;font-weight:700;color:{{muted}}">Affichage</span>
+    <div role="radiogroup" aria-label="Affichage" style="margin-left:auto;display:flex;gap:4px;padding:4px;border-radius:12px;background:{{seg}}">
+      <sc-for list="{{modes}}" as="m" hint-placeholder-count="2">
+        <button type="button" role="radio" aria-checked="{{m.on}}" onClick="{{m.pick}}" style="{{m.st}}">{{m.label}}</button>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:10px;padding:0 16px">
+    <span class="d" style="width:34px;height:34px;border-radius:50%;background:#14110F;color:#F4EEDF;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px">M</span>
+    <b style="font-size:15px">Mireille</b><span style="font-size:13px;color:{{muted}}">14</span>
+    <span class="d" style="margin-left:auto;font-size:22px;font-weight:700;color:{{muted}}">3:48</span>
+  </div>
+
+  <div style="display:flex;justify-content:center">
+    <div role="img" aria-label="Damier en mode {{label}}" style="padding:5px;border-radius:10px;background:{{frame}}">
+      <div style="display:grid;grid-template-columns:repeat(10,37px);grid-template-rows:repeat(10,37px)">
+        <sc-for list="{{cells}}" as="c" hint-placeholder-count="100">
+          <div style="{{c.sq}}">
+            <sc-if value="{{c.has}}" hint-placeholder-val="{{false}}"><span style="{{c.pc}}"></span></sc-if>
+            <sc-if value="{{c.dot}}" hint-placeholder-val="{{false}}"><span style="width:14px;height:14px;border-radius:50%;background:{{accent}}"></span></sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;font-size:14px;font-weight:700;color:{{accentText}}">Prise obligatoire</div>
+
+  <div style="display:flex;align-items:center;gap:10px;padding:0 16px">
+    <span class="d" style="width:40px;height:40px;border-radius:50%;background:#F4EEDF;color:#0F1230;border:3px solid {{accent}};display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;box-sizing:border-box">B</span>
+    <div style="display:flex;flex-direction:column;gap:1px"><b style="font-size:15px">À toi</b><span style="font-size:13px;color:{{muted}}">15 pions</span></div>
+    <span class="d" style="margin-left:auto;font-size:28px;font-weight:800;color:{{accentText}}">4:12</span>
+  </div>
+  <div style="margin:0 16px;font-size:12px;line-height:1.5;color:{{muted}}">{{note}}</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { sun: true }; }
+  renderVals() {
+    const sun = this.state.sun;
+    const T = sun
+      ? { bg: '#FBF6EA', fg: '#0F1230', muted: '#4A4F73', seg: '#E9E1CC', frame: '#6E4426', light: '#FFF8E6', dark: '#9A6233', accent: '#C77700', accentText: '#8A4F00', label: 'plein soleil',
+          note: 'Fond clair, textes presque noirs, cases plus contrastées, luminosité poussée au maximum pendant la partie. S’active tout seul quand le capteur de lumière voit du soleil.' }
+      : { bg: '#0F1230', fg: '#F4EEDF', muted: '#A9AECF', seg: '#20265A', frame: '#6E4426', light: '#F1E2BF', dark: '#A8703F', accent: '#F2B705', accentText: '#F2B705', label: 'nuit',
+          note: 'Mode nuit : moins de lumière, moins de batterie sur les écrans OLED.' };
+    const black = ['0,1','0,3','0,5','0,9','1,0','1,2','1,6','1,8','2,3','2,5','3,2','3,4','3,8','4,5','2,9'];
+    const white = ['5,4','6,1','6,3','6,5','6,7','7,0','7,4','7,8','8,1','8,3','8,5','8,9','9,0','9,2','9,6'];
+    const cells = [];
+    for (let r = 0; r < 10; r++) for (let c = 0; c < 10; c++) {
+      const k = r + ',' + c, dark = (r + c) % 2 === 1, isB = black.includes(k), isW = white.includes(k);
+      let pc = 'width:30px;height:30px;border-radius:50%;box-sizing:border-box;';
+      if (isW) pc += 'background:#FFFFFF;border:3px solid #B9A27A;';
+      if (isB) pc += 'background:#14110F;border:3px solid ' + (sun ? '#000' : '#3A322B') + ';';
+      if (k === '5,4') pc += 'outline:3px solid ' + T.accent + ';outline-offset:1px;';
+      cells.push({ sq: 'display:flex;align-items:center;justify-content:center;background:' + (dark ? T.dark : T.light) + (k === '3,6' ? ';box-shadow:inset 0 0 0 3px ' + T.accent : ''), pc, has: isB || isW, dot: k === '3,6' });
+    }
+    const modes = [[true, 'Plein soleil'], [false, 'Nuit']].map(([v, label]) => { const on = sun === v; return { label, on: String(on), pick: () => this.setState({ sun: v }),
+      st: 'height:40px;padding:0 12px;border:0;border-radius:9px;font-family:Unbounded,sans-serif;font-size:11px;font-weight:700;' + (on ? 'background:' + T.fg + ';color:' + T.bg : 'background:transparent;color:' + T.muted) }; });
+    return { ...T, cells, modes,
+      root: 'width:390px;height:844px;box-sizing:border-box;background:' + T.bg + ';color:' + T.fg + ';font-family:DM Sans,system-ui,sans-serif;display:flex;flex-direction:column;justify-content:center;gap:16px;padding:24px 0 30px;overflow:hidden' };
+  }
+}
+</script>
+</body>
+</html>

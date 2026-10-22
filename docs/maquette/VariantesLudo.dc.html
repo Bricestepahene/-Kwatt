@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Variantes du Ludo</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.k{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+.card{background:#20265A;border:1px solid #3D4590;border-radius:18px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#A9AECF;padding:7px 8px;border-bottom:1px solid #3D4590}
+td{padding:8px;border-bottom:1px solid #3D4590;vertical-align:top;line-height:1.4}
+td:first-child{font-weight:700;color:#A9AECF;white-space:nowrap}
+ul{margin:0;padding-left:18px;font-size:14px;line-height:1.6}
+.no{color:#FF8A75;font-weight:700}
+.ok{color:#5FD3A2;font-weight:700}
+</style>
+</helmet>
+<div style="width:1520px;height:1240px;box-sizing:border-box;padding:44px 56px;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;gap:20px">
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <h1 class="d" style="margin:0;font-size:32px;font-weight:800;letter-spacing:-0.02em">Ludo : un plateau, des mécanismes</h1>
+    <p style="margin:0;font-size:15px;color:#A9AECF;max-width:1100px;line-height:1.5">Deux couches distinctes dans le code : la <b style="color:#F4EEDF">forme du plateau</b> (parcours, nombre de joueurs, cases spéciales) et les <b style="color:#F4EEDF">mécanismes</b> (sortie, capture, protection, barrières, lancer, victoire, équipes). Chaque variante est un préréglage des deux.</p>
+  </div>
+
+  <div class="card">
+    <div class="k">Les 5 variantes proposées</div>
+    <table>
+      <tr><th style="width:150px">Mécanisme</th><th>Classique</th><th>Rapide</th><th>Parchís</th><th>Pachisi aux cauris</th><th>6 joueurs</th></tr>
+      <tr><td>Plateau</td><td>croix, 4 maisons</td><td>croix, 4 maisons</td><td>croix, 68 cases, 12 sûres</td><td>croix traditionnelle, 12 châteaux</td><td>étoile à 6 branches</td></tr>
+      <tr><td>Joueurs</td><td>2 à 4</td><td>2 à 4</td><td>2 à 4</td><td>4, en 2 équipes</td><td>2 à 6</td></tr>
+      <tr><td>Pions</td><td>4</td><td>2</td><td>4</td><td>4 (8 par équipe)</td><td>4</td></tr>
+      <tr><td>Sortie</td><td>avec un 6</td><td>avec un 6 ou un 1</td><td>avec un 5</td><td>1er pion libre, puis grâce</td><td>avec un 6</td></tr>
+      <tr><td>Lancer</td><td>1 dé</td><td>1 dé</td><td>1 dé, trois 6 = pion renvoyé</td><td>6 cauris : 0 → 25, 1 → 10, 2 à 6 → 2 à 6</td><td>1 dé</td></tr>
+      <tr><td>Capture</td><td>renvoi à la maison</td><td>renvoi + rejouer</td><td>renvoi + avancer de 20</td><td>renvoi + rejouer</td><td>renvoi à la maison</td></tr>
+      <tr><td>Protection</td><td>étoiles et départs</td><td>départs seulement</td><td>12 cases sûres</td><td>châteaux</td><td>étoiles et départs</td></tr>
+      <tr><td>Barrières</td><td class="no">non</td><td class="no">non</td><td class="ok">oui, un 6 oblige à ouvrir</td><td class="ok">oui, sur les châteaux</td><td class="no">non</td></tr>
+      <tr><td>Victoire</td><td>4 pions rentrés</td><td>2 pions rentrés</td><td>4 pions rentrés</td><td>l'équipe rentre ses 8 pions</td><td>4 pions rentrés</td></tr>
+      <tr><td>Équipes</td><td>option 2 contre 2</td><td class="no">non</td><td>option 2 contre 2</td><td class="ok">obligatoire</td><td>option 3 × 2 ou 2 × 3</td></tr>
+      <tr><td>Classement</td><td class="ok">principal, ligues</td><td class="ok">séparé</td><td>amical</td><td>amical</td><td class="ok">séparé</td></tr>
+    </table>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;flex:1">
+    <div class="card">
+      <div class="k">Combinaisons bloquées</div>
+      <ul>
+        <li>Plateau à 6 branches avec les règles du Parchís ou du Pachisi : leurs parcours sont pensés pour 4.</li>
+        <li>Pachisi sans équipes, ou à un nombre de joueurs autre que 4.</li>
+        <li>Choisir un dé quand le Pachisi lance des cauris, et l'inverse.</li>
+        <li>Barrières avec « sortie seulement au 6 » sans la règle « un 6 ouvre la barrière » : une partie pourrait se bloquer à vie.</li>
+        <li>Équipes avec un nombre de joueurs impair.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="k">Règles maison</div>
+      <ul>
+        <li>On peut changer la sortie, la capture, la protection et les barrières, dans les limites ci-contre.</li>
+        <li>Une partie aux règles maison est <b>amicale</b> : pas de classement, pas de mise, pas de ligue publique.</li>
+        <li>Les règles du salon s'affichent avant d'entrer et restent visibles dans le menu de la partie.</li>
+        <li>Chaque réglage maison enregistré peut être réutilisé (« les règles de Tata Odile »).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="k">Pour le moteur</div>
+      <ul>
+        <li>Une force par variante classée, comme pour les Dames.</li>
+        <li>La machine apprend chaque variante à part : barrières et bonus de 20 changent toute la stratégie.</li>
+        <li>En équipe, elle joue aussi pour son partenaire : protéger, débloquer, ne pas le manger.</li>
+        <li>Le lancer de cauris passe par le même tirage vérifiable que le dé (écran 22).</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1520,"height":1240}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

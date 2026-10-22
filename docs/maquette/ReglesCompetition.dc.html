@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Règles de la compétition</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.obom{background-color:#6E4426;background-image:repeating-linear-gradient(8deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px),repeating-linear-gradient(-3deg,rgba(255,220,170,.10) 0 1px,transparent 1px 11px)}
+.kaba{background-image:repeating-linear-gradient(90deg,#E0442E 0 10px,#F2B705 10px 16px,#1F9D6B 16px 26px,#F4EEDF 26px 29px,#3FA7E0 29px 38px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden">
+  <div class="{{band}}" style="height:8px;flex-shrink:0"></div>
+  <div style="flex:1;min-height:0;overflow-y:auto;padding:14px 20px 24px;display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="CreerLigue.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#20265A;color:#F4EEDF">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+      </a>
+      <h1 class="d" style="margin:0;font-size:18px;font-weight:700">Plateaux &amp; règles</h1>
+    </div>
+
+    <div role="tablist" aria-label="Jeu de la compétition" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;background:#20265A;padding:4px;border-radius:12px">
+      <sc-for list="{{games}}" as="t" hint-placeholder-count="2">
+        <button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" style="{{t.st}}">{{t.label}}</button>
+      </sc-for>
+    </div>
+
+    <div class="lbl">Qui choisit la planche ?</div>
+    <div role="radiogroup" aria-label="Qui choisit la planche" style="display:flex;flex-direction:column;gap:6px">
+      <sc-for list="{{policies}}" as="p" hint-placeholder-count="4">
+        <button type="button" role="radio" aria-checked="{{p.on}}" onClick="{{p.pick}}" style="{{p.st}}">
+          <span style="{{p.dot}}"></span>
+          <span style="display:flex;flex-direction:column;gap:1px;text-align:left"><b style="font-size:14px">{{p.label}}</b><span style="font-size:12px;color:#A9AECF">{{p.desc}}</span></span>
+        </button>
+      </sc-for>
+    </div>
+
+    <div class="lbl">{{poolTitle}}</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px">
+      <sc-for list="{{pool}}" as="v" hint-placeholder-count="5">
+        <button type="button" aria-pressed="{{v.on}}" onClick="{{v.pick}}" style="{{v.st}}">{{v.label}}</button>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{isLudo}}" hint-placeholder-val="{{false}}">
+      <div class="lbl">Points par table</div>
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;text-align:center">
+        <div style="background:#20265A;border:1px solid #3D4590;border-radius:10px;padding:8px 2px"><b class="d" style="font-size:16px">4</b><div style="font-size:11px;color:#A9AECF">1er</div></div>
+        <div style="background:#20265A;border:1px solid #3D4590;border-radius:10px;padding:8px 2px"><b class="d" style="font-size:16px">2</b><div style="font-size:11px;color:#A9AECF">2e</div></div>
+        <div style="background:#20265A;border:1px solid #3D4590;border-radius:10px;padding:8px 2px"><b class="d" style="font-size:16px">1</b><div style="font-size:11px;color:#A9AECF">3e</div></div>
+        <div style="background:#20265A;border:1px solid #3D4590;border-radius:10px;padding:8px 2px"><b class="d" style="font-size:16px">0</b><div style="font-size:11px;color:#A9AECF">4e</div></div>
+      </div>
+      <div style="font-size:12px;color:#A9AECF;line-height:1.5">Les tables sont recomposées à chaque journée pour que chacun croise tout le monde le plus souvent possible.</div>
+    </sc-if>
+
+    <div class="lbl">Format des rencontres</div>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px">
+      <sc-for list="{{formats}}" as="f" hint-placeholder-count="2">
+        <button type="button" aria-pressed="{{f.on}}" onClick="{{f.pick}}" style="{{f.st}}"><b style="font-size:13px">{{f.label}}</b><span style="font-size:11px;color:#A9AECF">{{f.desc}}</span></button>
+      </sc-for>
+    </div>
+
+    <div style="background:#1D2B6E;border-radius:12px;padding:10px 12px;font-size:12px;line-height:1.5">{{summary}}</div>
+    <a href="CreerLigue.dc.html" class="d" style="height:52px;border-radius:14px;background:#F2B705;color:#0F1230;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;text-decoration:none;flex-shrink:0">Valider ces règles</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { g: 'dames', pol: 'impose', pool: { dames: ['10'], ludo: ['classique'] }, fmt: 'solo' }; }
+  renderVals() {
+    const s = this.state;
+    const tab = (on) => 'height:42px;border:0;border-radius:9px;font-family:Unbounded,sans-serif;font-size:12px;font-weight:700;' + (on ? 'background:#F4EEDF;color:#0F1230' : 'background:transparent;color:#A9AECF');
+    const box = (on) => 'border-radius:12px;background:#20265A;color:#F4EEDF;' + (on ? 'border:2px solid #F4EEDF' : 'border:1px solid #3D4590');
+    const games = [['dames', 'Dames'], ['ludo', 'Ludo']].map(([id, label]) => ({ label, on: String(s.g === id), st: tab(s.g === id), pick: () => this.setState({ g: id }) }));
+    const P = [
+      ['impose', 'Imposée par l’organisateur', 'Toute la compétition sur une seule planche.'],
+      ['receveur', 'Au choix de qui reçoit', 'À l’aller l’un choisit, au retour l’autre, dans la liste permise.'],
+      ['rotation', 'Une planche par journée', 'Le calendrier fait tourner les planches permises.'],
+      ['accord', 'D’un commun accord', 'Les deux proposent ; sans accord, la planche par défaut.']
+    ];
+    const policies = P.map(([id, label, desc]) => { const on = s.pol === id; return { label, desc, on: String(on), pick: () => this.setState({ pol: id }),
+      st: box(on) + ';display:flex;align-items:center;gap:12px;min-height:56px;padding:8px 12px',
+      dot: 'width:20px;height:20px;border-radius:50%;flex-shrink:0;box-sizing:border-box;' + (on ? 'border:6px solid #F2B705' : 'border:2px solid #A9AECF') }; });
+    const V = s.g === 'dames' ? [['10', '10×10 internationales'], ['8', '8×8 anglaises']] : [['classique', 'Classique'], ['rapide', 'Rapide'], ['six', '6 joueurs'], ['parchis', 'Parchís · amical'], ['pachisi', 'Pachisi · amical']];
+    const sel = s.pool[s.g], single = s.pol === 'impose';
+    const pool = V.map(([id, label]) => { const on = sel.includes(id); return { label, on: String(on),
+      pick: () => { const next = single ? [id] : (on ? sel.filter((x) => x !== id) : sel.concat(id)); if (next.length) this.setState({ pool: { ...s.pool, [s.g]: next } }); },
+      st: box(on) + ';min-height:40px;padding:0 12px;font-family:DM Sans,sans-serif;font-size:13px;font-weight:700' }; });
+    const F = s.g === 'dames'
+      ? [['solo', 'Joueur contre joueur', '1 planche par match'], ['equipe', 'Équipes de 3', '3 planches, score sur 3']]
+      : [['solo', 'Chacun pour soi', 'tables de 4, points par place'], ['equipe', 'Équipes de 2', 'partenaires face à face']];
+    const formats = F.map(([id, label, desc]) => ({ label, desc, on: String(s.fmt === id), pick: () => this.setState({ fmt: id }),
+      st: box(s.fmt === id) + ';min-height:60px;padding:8px 10px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;text-align:left' }));
+    const names = V.filter(([id]) => sel.includes(id)).map(([, l]) => l).join(', ');
+    const pol = P.find((x) => x[0] === s.pol)[1].toLowerCase();
+    return { games, policies, pool, formats, isLudo: s.g === 'ludo', band: s.g === 'dames' ? 'obom' : 'kaba',
+      poolTitle: single ? 'La planche de la compétition' : 'Planches permises (au moins une)',
+      summary: 'Résumé affiché aux inscrits : ' + (single ? 'tout se joue en ' + names : 'planche ' + pol + ' parmi : ' + names) + '. Les règles sont figées dès la validation de la compétition.' };
+  }
+}
+</script>
+</body>
+</html>

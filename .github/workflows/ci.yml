@@ -27,11 +27,23 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
-      - run: pnpm test
-      - name: Migrations sur une base vide
-        run: for f in db/migrations/*.sql; do psql -v ON_ERROR_STOP=1 -f "$f"; done
+      - name: Migrations sur une base vide (runner SQL, table schema_migrations)
+        run: pnpm db:migrate
         env:
-          PGHOST: localhost
-          PGUSER: kwatt
-          PGPASSWORD: kwatt
-          PGDATABASE: kwatt
+          DATABASE_URL: postgres://kwatt:kwatt@localhost:5432/kwatt
+      - name: Migrations déjà appliquées (second passage sans effet)
+        run: pnpm db:migrate
+        env:
+          DATABASE_URL: postgres://kwatt:kwatt@localhost:5432/kwatt
+      - run: pnpm test
+        env:
+          # Chaque suite crée puis supprime sa propre base.
+          TEST_DATABASE_URL: postgres://kwatt:kwatt@localhost:5432/kwatt
+
+  # L'image de production de l'API se construit (apps/server/Dockerfile, depuis la racine).
+  image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Construction de l'image de l'API
+        run: docker build -f apps/server/Dockerfile --build-arg KWATT_VERSION=${GITHUB_SHA::7} -t kwatt-api:ci .

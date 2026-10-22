@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Règles du jeu</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.kaba{background-image:repeating-linear-gradient(90deg,#E0442E 0 10px,#F2B705 10px 16px,#1F9D6B 16px 26px,#F4EEDF 26px 29px,#3FA7E0 29px 38px)}
+.obom{background-color:#6E4426;background-image:repeating-linear-gradient(8deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px),repeating-linear-gradient(-3deg,rgba(255,220,170,.10) 0 1px,transparent 1px 11px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.rule{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-top:1px solid #3D4590;font-size:14px;line-height:1.5}
+.rule:first-child{border-top:0}
+.rule .n{font-family:'Unbounded',sans-serif;font-weight:800;font-size:13px;color:#0F1230;background:#F4EEDF;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden">
+  <div class="{{band}}" style="height:8px"></div>
+  <div style="flex:1;padding:14px 20px 24px;display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="ModeLudo.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#20265A;color:#F4EEDF">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+      </a>
+      <h1 class="d" style="margin:0;font-size:20px;font-weight:700">Les règles</h1>
+    </div>
+    <div role="tablist" aria-label="Jeu" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;background:#20265A;padding:4px;border-radius:12px">
+      <sc-for list="{{tabs}}" as="t" hint-placeholder-count="2">
+        <button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" style="{{t.st}}">{{t.label}}</button>
+      </sc-for>
+    </div>
+    <div style="font-size:13px;color:#A9AECF">{{sub}}</div>
+    <div style="background:#20265A;border:1px solid #3D4590;border-radius:16px;padding:4px 14px">
+      <sc-for list="{{rules}}" as="r" hint-placeholder-count="6">
+        <div class="rule"><span class="n">{{r.n}}</span><span><b>{{r.t}}</b> {{r.x}}</span></div>
+      </sc-for>
+    </div>
+    <a href="DefiMachine.dc.html" class="d" style="margin-top:auto;height:52px;border-radius:14px;background:#F2B705;color:#0F1230;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;text-decoration:none">S'entraîner contre la machine</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { g: 'ludo' }; }
+  renderVals() {
+    const g = this.state.g;
+    const R = {
+      dames: { sub: 'Dames internationales · 10×10 · 20 pions chacun · les blancs commencent', band: 'obom', rules: [
+        ['Avancer.', 'Un pion avance d’une case en diagonale, vers l’avant.'],
+        ['Prendre.', 'On saute un pion adverse, vers l’avant ou vers l’arrière. La prise est obligatoire.'],
+        ['Prise majoritaire.', 'S’il y a plusieurs prises possibles, on doit prendre le plus de pions.'],
+        ['Rafle.', 'Les pions pris sont retirés à la fin du coup, pas pendant.'],
+        ['Dame.', 'Un pion qui finit son coup sur la dernière rangée devient dame. Elle se déplace de plusieurs cases en diagonale.'],
+        ['Gagner.', 'L’adversaire n’a plus de pion, ou ne peut plus bouger.']] },
+      dames8: { sub: 'Dames anglaises · 8×8 · 12 pions chacun · les noirs commencent', band: 'obom', rules: [
+        ['Avancer.', 'Un pion avance d\u2019une case en diagonale, vers l\u2019avant.'],
+        ['Prendre.', 'Un pion ne prend que vers l\u2019avant. La prise est obligatoire.'],
+        ['Libre choix.', 'S\u2019il y a plusieurs prises, on choisit laquelle : pas de prise majoritaire. Une rafle commencée va jusqu\u2019au bout.'],
+        ['Dame.', 'Un pion qui atteint la dernière rangée devient dame, et son tour s\u2019arrête là.'],
+        ['Dame courte.', 'La dame avance et recule d\u2019une seule case, et prend dans les deux sens.'],
+        ['Gagner.', 'L\u2019adversaire n\u2019a plus de pion, ou ne peut plus bouger.']] },
+      ludo: { sub: 'Ludo · 2 à 4 joueurs · 4 pions chacun', band: 'kaba', rules: [
+        ['Sortir.', 'Il faut un 6 pour sortir un pion de la maison.'],
+        ['Rejouer.', 'Un 6 donne un lancer de plus. Trois 6 de suite : le tour passe.'],
+        ['Manger.', 'Tomber sur un pion adverse le renvoie à sa maison.'],
+        ['Cases sûres.', 'Les étoiles et les cases de départ protègent les pions.'],
+        ['Rentrer.', 'Il faut le chiffre exact pour atteindre le centre.'],
+        ['Gagner.', 'Le premier à rentrer ses 4 pions gagne. Les places suivantes comptent aussi en salon.']] }
+    }[g];
+    const tabs = [['dames', '10×10'], ['dames8', '8×8'], ['ludo', 'Ludo']].map(([id, label]) => { const on = g === id; return { label, on: String(on), pick: () => this.setState({ g: id }),
+      st: 'height:42px;border:0;border-radius:9px;font-family:Unbounded,sans-serif;font-size:12px;font-weight:700;' + (on ? 'background:#F4EEDF;color:#0F1230' : 'background:transparent;color:#A9AECF') }; });
+    return { tabs, sub: R.sub, band: R.band, rules: R.rules.map(([t, x], i) => ({ n: i + 1, t, x })) };
+  }
+}
+</script>
+</body>
+</html>

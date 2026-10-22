@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Guerre des quartiers</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.toghu{background-color:#14110F;background-image:radial-gradient(circle,#F2B705 0 2px,transparent 3px),radial-gradient(circle,#E0442E 0 5px,transparent 6px);background-size:22px 22px,22px 22px;background-position:0 0,11px 11px}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden">
+  <div class="toghu" style="padding:16px 20px 18px;display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="Accueil.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#14110F;color:#F4EEDF">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+      </a>
+      <div style="display:flex;flex-direction:column;gap:2px;background:#14110F;padding:6px 10px;border-radius:10px">
+        <span style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#F2B705">Saison 3 · encore 9 jours</span>
+        <h1 class="d" style="margin:0;font-size:18px;font-weight:800">Guerre des quartiers</h1>
+      </div>
+    </div>
+    <div style="background:#14110F;border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:12px">
+      <span class="d" style="font-size:30px;font-weight:800;color:#F2B705">4e</span>
+      <div style="display:flex;flex-direction:column;gap:2px;font-size:13px">
+        <b style="font-size:15px">Bonamoussadi</b>
+        <span style="color:#E8D5A9">à Douala · 212 joueurs · toi : +86 pts cette saison</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="flex:1;padding:14px 20px 24px;display:flex;flex-direction:column;gap:12px">
+    <div role="tablist" aria-label="Échelle du classement" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;background:#20265A;padding:4px;border-radius:12px">
+      <sc-for list="{{tabs}}" as="t" hint-placeholder-count="3">
+        <button type="button" role="tab" aria-selected="{{t.on}}" onClick="{{t.pick}}" style="{{t.st}}">{{t.label}}</button>
+      </sc-for>
+    </div>
+    <div class="lbl">{{title}}</div>
+    <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px">
+      <sc-for list="{{rows}}" as="r" hint-placeholder-count="6">
+        <li style="{{r.st}}">
+          <span class="d" style="width:26px;font-size:13px;font-weight:700;color:{{r.pc}}">{{r.n}}</span>
+          <div style="display:flex;flex-direction:column;gap:1px;flex:1"><b style="font-size:14px">{{r.name}}</b><span style="font-size:12px;color:#A9AECF">{{r.meta}}</span></div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:1px"><b class="d" style="font-size:13px">{{r.pts}}</b><span style="font-size:11px;color:{{r.tc}}">{{r.trend}}</span></div>
+        </li>
+      </sc-for>
+    </ol>
+    <div style="background:#1D2B6E;border-radius:12px;padding:10px 12px;font-size:12px;line-height:1.5">Victoire classée : +3 pts au quartier. Victoire contre plus fort : +5. Battre un joueur d'un quartier rival : +2 en bonus. Le quartier champion de la saison gagne un cadre de profil pour tous ses joueurs.</div>
+    <a href="DefiMachine.dc.html" class="d" style="margin-top:auto;height:54px;border-radius:14px;background:#F2B705;color:#0F1230;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;text-decoration:none">Jouer pour Bonamoussadi</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { s: 'q' }; }
+  renderVals() {
+    const s = this.state.s;
+    const D = {
+      q: { title: 'Quartiers de Douala', mine: 'Bonamoussadi', rows: [
+        ['Akwa', '304 joueurs', '9 840', '▲ 1'], ['Bonapriso', '188 joueurs', '9 120', '▼ 1'], ['Makepe', '260 joueurs', '8 760', '='],
+        ['Bonamoussadi', '212 joueurs', '8 590', '▲ 2'], ['Deïdo', '175 joueurs', '7 900', '▼ 2'], ['New Bell', '233 joueurs', '7 410', '▲ 1']] },
+      v: { title: 'Villes du Cameroun', mine: 'Douala', rows: [
+        ['Yaoundé', '4 120 joueurs', '61 200', '='], ['Douala', '3 980 joueurs', '59 870', '▲ 1'], ['Bafoussam', '1 060 joueurs', '17 430', '▼ 1'],
+        ['Garoua', '820 joueurs', '12 910', '='], ['Bamenda', '760 joueurs', '12 040', '▲ 1'], ['Ngaoundéré', '540 joueurs', '8 320', '▼ 1']] },
+      p: { title: 'Pays · diaspora comprise', mine: 'Cameroun', rows: [
+        ['Cameroun', '14 300 joueurs', '210 400', '='], ['Sénégal', '6 900 joueurs', '98 120', '▲ 1'], ['Côte d’Ivoire', '7 200 joueurs', '97 300', '▼ 1'],
+        ['France (diaspora)', '2 100 joueurs', '31 800', '▲ 2'], ['Gabon', '1 900 joueurs', '27 600', '='], ['Belgique (diaspora)', '640 joueurs', '9 450', '▼ 1']] }
+    }[s];
+    const rows = D.rows.map(([name, meta, pts, trend], i) => ({ n: i + 1, name, meta, pts, trend,
+      tc: trend[0] === '▲' ? '#5FD3A2' : trend[0] === '▼' ? '#FF8A75' : '#A9AECF',
+      pc: i === 0 ? '#F2B705' : '#A9AECF',
+      st: 'display:flex;align-items:center;gap:10px;border-radius:12px;padding:9px 12px;background:#20265A;' + (name === D.mine ? 'border:2px solid #F4EEDF' : 'border:1px solid #3D4590') }));
+    const tabs = [['q', 'Quartier'], ['v', 'Ville'], ['p', 'Pays']].map(([id, label]) => { const on = s === id; return { label, on: String(on), pick: () => this.setState({ s: id }),
+      st: 'height:42px;border:0;border-radius:9px;font-family:Unbounded,sans-serif;font-size:12px;font-weight:700;' + (on ? 'background:#F4EEDF;color:#0F1230' : 'background:transparent;color:#A9AECF') }; });
+    return { tabs, rows, title: D.title };
+  }
+}
+</script>
+</body>
+</html>

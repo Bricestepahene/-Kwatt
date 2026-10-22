@@ -1,0 +1,7 @@
+{
+  "ios": {
+    "CFBundleDisplayName": "Kwatt",
+    "NSCameraUsageDescription": "Kwatt utilise l’appareil photo pour ta photo de profil.",
+    "NSPhotoLibraryUsageDescription": "Kwatt utilise tes photos pour ta photo de profil."
+  }
+}

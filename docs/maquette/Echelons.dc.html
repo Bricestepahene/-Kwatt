@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Échelons</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.obom{background-color:#6E4426;background-image:repeating-linear-gradient(8deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px),repeating-linear-gradient(-3deg,rgba(255,220,170,.10) 0 1px,transparent 1px 11px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden">
+  <div class="obom" style="padding:16px 20px;display:flex;align-items:center;gap:12px">
+    <a href="Profil.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#0F1230;color:#F4EEDF">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </a>
+    <div style="display:flex;flex-direction:column;gap:2px">
+      <span style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Espace Dames</span>
+      <h1 class="d" style="margin:0;font-size:18px;font-weight:800">Les échelons</h1>
+    </div>
+  </div>
+
+  <div style="padding:14px 20px 24px;display:flex;flex-direction:column;gap:12px">
+    <p style="margin:0;font-size:13px;line-height:1.5;color:#A9AECF">Chaque jeu a ses propres échelons. Plus tu montes, plus la machine est coriace et plus les tables sont riches.</p>
+    <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px">
+      <sc-for list="{{steps}}" as="s" hint-placeholder-count="6">
+        <li style="{{s.st}}">
+          <span style="{{s.dot}}">{{s.idx}}</span>
+          <div style="display:flex;flex-direction:column;gap:2px;flex:1">
+            <div style="display:flex;justify-content:space-between;gap:8px"><b class="d" style="font-size:13px">{{s.name}}</b><span style="font-size:11px;color:#A9AECF">Niv {{s.lv}}</span></div>
+            <span style="font-size:12px;color:#A9AECF;line-height:1.35">{{s.ai}}</span>
+            <span style="font-size:12px;color:#F2B705;font-weight:700">{{s.unlock}}</span>
+          </div>
+        </li>
+      </sc-for>
+    </ol>
+    <div style="background:#1D2B6E;border-radius:12px;padding:10px 12px;font-size:12px;line-height:1.5">Une défaite contre plus fort coûte peu ; une victoire contre plus fort rapporte gros. Après 3 défaites de suite, la machine baisse d'un cran pour te laisser respirer.</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const cur = 3;
+    const data = [
+      ['Apprenti', '1–4', 'La machine joue vite et laisse des pions en prise.', 'Damier de base'],
+      ['Débrouillard', '5–9', 'Elle voit 2 coups d’avance.', 'Défis jusqu’à 100 cauris'],
+      ['Ancien du kwatt', '10–14', 'Elle tend des pièges simples.', 'Création de ligues publiques'],
+      ['Notable', '15–19', 'Elle calcule les rafles et prépare la dame.', 'Table du Wouri · 500 cauris'],
+      ['Chef', '20–24', 'Elle joue la fin de partie sans erreur.', 'Table du Mont Cameroun'],
+      ['Fon', '25+', 'Aucune pitié : 8 coups d’avance.', 'Trône du Fon · cadre légendaire']
+    ];
+    const steps = data.map(([name, lv, ai, unlock], i) => {
+      const done = i < cur, now = i === cur;
+      return { idx: i + 1, name: now ? name + ' · toi' : name, lv, ai, unlock,
+        st: 'display:flex;gap:12px;align-items:flex-start;border-radius:14px;padding:10px 12px;' + (now ? 'background:#20265A;border:2px solid #F4EEDF' : 'background:#20265A;border:1px solid #3D4590;' + (i > cur ? 'opacity:.7' : '')),
+        dot: 'width:30px;height:30px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:Unbounded,sans-serif;font-size:12px;font-weight:700;' + (done ? 'background:#1F9D6B;color:#0F1230' : now ? 'background:#F2B705;color:#0F1230' : 'background:#0F1230;color:#A9AECF;border:1px solid #3D4590;box-sizing:border-box') };
+    });
+    return { steps };
+  }
+}
+</script>
+</body>
+</html>

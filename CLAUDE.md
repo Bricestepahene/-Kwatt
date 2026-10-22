@@ -1,11 +1,11 @@
 # Kwatt · consignes pour Claude Code
 
-Hub de jeux mobile (Dames, Ludo, plus tard Raisonnement), en français et en anglais. La référence fonctionnelle est la maquette « Kwatt — hub de jeux » ; l'architecture et le plan sont dans `docs/proposition-v1.md`. En cas de doute sur une règle, la maquette (planches « Réf ») fait foi, puis les décisions consignées dans ce document. Une règle absente des deux se demande, elle ne s'invente pas.
+Hub de jeux mobile (Dames, Ludo, plus tard Raisonnement), en français et en anglais. La référence fonctionnelle est la maquette « Kwatt — hub de jeux » (copie dans `docs/maquette/`). **Le contrat de réalisation est `docs/SPEC.md`** (décisions tranchées, organisation, API, plages de migrations) ; l'architecture d'origine est dans `docs/proposition-v1.md`. En cas de doute sur une règle, la maquette (planches « Réf ») fait foi, puis les décisions consignées dans ce document. Une règle absente des deux se demande, elle ne s'invente pas.
 
 ## Pile
 - TypeScript partout (Node 22, pnpm workspaces), modules ES, `strict` et `noUncheckedIndexedAccess`.
-- Appli : Expo / React Native, plateaux en `react-native-skia`.
-- Serveur : Fastify + WebSocket ; PostgreSQL 16 ; Redis pour la présence et le pub/sub.
+- Appli : Expo SDK 58 / React Native, `expo-router`, plateaux et tissus en `react-native-svg` (D-01), compatible Expo Go.
+- Serveur : Fastify 5 + WebSocket ; PostgreSQL 16 en SQL écrit à la main ; pas de Redis en V1 (D-02).
 - Moteur Ludo : service séparé (`services/ludo-ai`) ; Python seulement dans `research/` (entraînement, évaluation).
 - Hébergement : un VPS, avec `docker compose`.
 
@@ -30,7 +30,10 @@ Hub de jeux mobile (Dames, Ludo, plus tard Raisonnement), en français et en ang
 - Zones tactiles ≥ 48 px, cases de damier ≥ 34 px, toucher le pion puis la case, contraste 4,5:1, pions du Ludo doublés d'une forme.
 
 ## Décisions déjà prises (V1)
-Voir la section « Décisions » de `docs/proposition-v1.md`.
+Voir la section « Décisions » de `docs/proposition-v1.md` et le journal des décisions de `docs/SPEC.md` (§12).
+
+## Langues
+- Le serveur n'envoie jamais de texte affichable : des codes + paramètres, traduits par l'appli dans la langue de **son** joueur (`fr`, `en`). Les catalogues `fr` et `en` ont exactement les mêmes clés (test).
 
 ## Conventions
 - Code et identifiants en anglais ; textes visibles, commentaires et messages de commit en français.

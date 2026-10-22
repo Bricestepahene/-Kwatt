@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Règles des compétitions</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.k{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+.card{background:#20265A;border:1px solid #3D4590;border-radius:18px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+th{text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#A9AECF;padding:6px 6px;border-bottom:1px solid #3D4590}
+td{padding:6px;border-bottom:1px solid #3D4590;vertical-align:top;line-height:1.4}
+td:first-child{font-weight:700}
+.y{color:#5FD3A2;font-weight:700}
+.n{color:#A9AECF}
+ul{margin:0;padding-left:18px;font-size:13px;line-height:1.55}
+.ck{display:grid;grid-template-columns:minmax(0,1fr) 92px;gap:8px;padding:6px 0;border-bottom:1px solid #3D4590;font-size:13px;line-height:1.4}
+.ok{font-size:11px;font-weight:700;color:#5FD3A2;justify-self:start}
+.todo{font-size:11px;font-weight:700;color:#F2B705;justify-self:start}
+</style>
+</helmet>
+<div style="width:1520px;height:1300px;box-sizing:border-box;padding:40px 52px;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;gap:16px">
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <h1 class="d" style="margin:0;font-size:30px;font-weight:800;letter-spacing:-0.02em">Compétitions : qui choisit quoi, et comment tout s'emboîte</h1>
+    <p style="margin:0;font-size:14px;color:#A9AECF;max-width:1150px;line-height:1.5">L'organisateur fixe les règles avant les inscriptions ; elles sont figées à la validation. Chaque inscrit les voit avant de payer son entrée. Écrans 28b et 34b.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px">
+    <div class="card">
+      <div class="k">Les 4 façons de choisir la planche</div>
+      <table>
+        <tr><th>Règle</th><th>Qui choisit, quand</th><th>Sans choix</th><th>Idéal pour</th></tr>
+        <tr><td>Imposée</td><td>l'organisateur, une fois pour toute la compétition</td><td>—</td><td>ligues publiques, classements</td></tr>
+        <tr><td>Qui reçoit</td><td>aller : l'un, retour : l'autre, jusqu'à 24 h avant</td><td>planche par défaut</td><td>coupes aller-retour</td></tr>
+        <tr><td>Une par journée</td><td>le calendrier, en faisant tourner la liste permise</td><td>—</td><td>championnats « tous terrains »</td></tr>
+        <tr><td>Commun accord</td><td>les deux proposent, jusqu'à 24 h avant</td><td>planche par défaut</td><td>ligues entre amis</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <div class="k">Ce qui est permis où</div>
+      <table>
+        <tr><th>Planche</th><th>Ligue publique</th><th>Ligue privée, coupe</th><th>Défi avec mise</th><th>Classement</th></tr>
+        <tr><td>Dames 10×10</td><td class="y">oui</td><td class="y">oui</td><td class="y">oui</td><td class="y">force 10×10</td></tr>
+        <tr><td>Dames 8×8</td><td class="y">oui</td><td class="y">oui</td><td class="y">oui</td><td class="y">force 8×8</td></tr>
+        <tr><td>Ludo classique, rapide, 6 joueurs</td><td class="y">oui</td><td class="y">oui</td><td class="y">oui</td><td class="y">une force chacun</td></tr>
+        <tr><td>Parchís, Pachisi</td><td class="n">non</td><td class="y">oui</td><td class="n">non</td><td class="n">non</td></tr>
+        <tr><td>Règles maison</td><td class="n">non</td><td class="y">oui, sans entrée</td><td class="n">non</td><td class="n">non</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px">
+    <div class="card">
+      <div class="k">Ludo en ligue : composer les tables</div>
+      <ul>
+        <li>Tables de 4 (ou de 6 en variante 6 joueurs). Points : 4 au 1er, 2 au 2e, 1 au 3e, 0 au 4e.</li>
+        <li>À chaque journée, le système recompose les tables pour que deux joueurs se croisent le moins souvent possible : il compte les rencontres passées de chaque paire et choisit la répartition au total le plus bas.</li>
+        <li>Si le nombre de joueurs ne tombe pas juste, on ajoute des tables de 3 (points 4, 2, 0). 14 joueurs = 2 tables de 4 et 2 tables de 3.</li>
+        <li>Un joueur exclu laisse sa place libre ; la table joue à 3 ce jour-là.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="k">Matchs par équipes</div>
+      <ul>
+        <li><b>Dames, équipes de 3 :</b> une rencontre = 3 parties en même temps. Le capitaine dépose l'ordre de ses joueurs 1 h avant ; personne ne voit celui de l'autre avant.</li>
+        <li>Couleurs alternées : l'équipe qui reçoit a les blancs sur les planches 1 et 3.</li>
+        <li>Partie gagnée 2 pts, nulle 1. Rencontre gagnée 3 pts de ligue, nulle 1.</li>
+        <li><b>Ludo, équipes de 2 :</b> partenaires face à face ; l'équipe marque la somme des places de ses deux joueurs.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="k">Départager les égalités</div>
+      <ul>
+        <li>1 · Points.</li>
+        <li>2 · Confrontation directe.</li>
+        <li>3 · Nombre de victoires.</li>
+        <li>4 · Différence de pions (Dames) ou pions rentrés (Ludo).</li>
+        <li>5 · Tirage au sort vérifiable, comme le dé.</li>
+        <li>Pour une place qualificative, une manche décisive de 5 minutes remplace le tirage au sort.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;flex:1">
+    <div class="card">
+      <div class="k">Ce que les joueurs de dames attendent</div>
+      <div style="font-size:12px;color:#A9AECF;line-height:1.5">Nulles en 10×10 : même position 3 fois, ou 25 coups de dames de suite sans prise ni pion joué. Seuils exacts de fin de partie et règle du 8×8 : à valider avec la fédération.</div>
+      <div class="ck"><span>Les deux variantes, chacune avec sa propre force</span><span class="ok">dans la maquette</span></div>
+      <div class="ck"><span>Revoir une partie coup par coup, moments clés</span><span class="ok">dans la maquette</span></div>
+      <div class="ck"><span>Proposer la nulle, abandonner sans quitter la page</span><span class="ok">dans la maquette</span></div>
+      <div class="ck"><span>Notation officielle des cases (1 à 50, 1 à 32) dans l'historique</span><span class="ok">écrans 16, 19</span></div>
+      <div class="ck"><span>Pendule avec secondes ajoutées à chaque coup (ex. 5 min + 3 s)</span><span class="ok">écrans 16, 24</span></div>
+      <div class="ck"><span>Nulles automatiques selon les règles officielles (répétition, fins de partie longues)</span><span class="ok">écrans 16, 18</span></div>
+      <div class="ck"><span>En tournoi 8×8 : ouverture tirée au sort pour varier les parties</span><span class="ok">écran 16b</span></div>
+      <div class="ck"><span>Problème du jour, entraînement aux combinaisons</span><span class="ok">écran 19b</span></div>
+    </div>
+    <div class="card">
+      <div class="k">Ce que les joueurs de Ludo attendent</div>
+      <div class="ck"><span>Un dé honnête, vérifiable par tous</span><span class="ok">dans la maquette</span></div>
+      <div class="ck"><span>Les règles de la table affichées avant d'entrer</span><span class="ok">dans la maquette</span></div>
+      <div class="ck"><span>Variantes et règles maison, sans casser le classement</span><span class="ok">dans la maquette</span></div>
+      <div class="ck"><span>Un seul coup possible : il est joué tout seul</span><span class="ok">écrans 21, 13</span></div>
+      <div class="ck"><span>15 s par tour ; après 3 tours manqués, la machine joue à ta place (en ligue, tu gardes ta place mais tu prends une pénalité)</span><span class="ok">écran 21</span></div>
+      <div class="ck"><span>Reprendre la partie après une coupure, sans perdre sa place</span><span class="ok">règle posée</span></div>
+      <div class="ck"><span>Voir clairement son partenaire en équipe et ne jamais le manger par erreur</span><span class="ok">écran 21</span></div>
+      <div class="ck"><span>Animation du dé rapide, à couper pour les parties pressées</span><span class="ok">écran 13</span></div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1520,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — carte de navigation</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.ndop{background-color:#1D2B6E;background-image:linear-gradient(135deg,rgba(244,238,223,.13) 25%,transparent 25%),linear-gradient(225deg,rgba(244,238,223,.13) 25%,transparent 25%),linear-gradient(315deg,rgba(244,238,223,.13) 25%,transparent 25%),linear-gradient(45deg,rgba(244,238,223,.13) 25%,transparent 25%);background-size:24px 24px;background-position:-12px 0,-12px 0,0 0,0 0}
+.kaba{background-image:repeating-linear-gradient(90deg,#E0442E 0 10px,#F2B705 10px 16px,#1F9D6B 16px 26px,#F4EEDF 26px 29px,#3FA7E0 29px 38px)}
+.obom{background-color:#6E4426;background-image:repeating-linear-gradient(8deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px),repeating-linear-gradient(-3deg,rgba(255,220,170,.10) 0 1px,transparent 1px 11px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+</style>
+</helmet>
+<div style="width:1520px;height:900px;box-sizing:border-box;padding:48px 56px;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;gap:32px">
+
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <h1 class="d" style="margin:0;font-size:36px;font-weight:800;letter-spacing:-0.02em">Un compte. Un profil. Tout le hub.</h1>
+      <p style="margin:0;font-size:16px;color:#A9AECF;max-width:760px;line-height:1.5">Le profil est unique et partagé ; chaque jeu a son espace à lui, avec sa couleur, son niveau, ses salons et ses ligues. Le joueur sait toujours dans quel jeu il se trouve.</p>
+    </div>
+    <div style="display:flex;gap:10px;font-size:13px">
+      <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px dashed #A9AECF">Sans compte</span>
+      <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:#F2B705;color:#0F1230;font-weight:700">Compte requis</span>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:28px;flex:1;min-height:0">
+
+    <div style="width:330px;flex-shrink:0;display:flex;flex-direction:column;gap:14px">
+      <div style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF">Entrée</div>
+      <div style="background:#20265A;border-radius:14px;padding:14px 16px;font-weight:700">Ouvrir l'app <span style="font-weight:400;color:#A9AECF">· 01 Bienvenue</span></div>
+      <div style="display:flex;gap:12px">
+        <div style="flex:1;display:flex;flex-direction:column;gap:10px;border:1px dashed #A9AECF;border-radius:14px;padding:12px">
+          <div style="font-size:12px;font-weight:700;color:#A9AECF">INVITÉ</div>
+          <div style="background:#20265A;border-radius:10px;padding:10px;font-size:13px">02 · Taper le code</div>
+          <div style="background:#20265A;border-radius:10px;padding:10px;font-size:13px">25 · Salon</div>
+          <div style="background:#20265A;border-radius:10px;padding:10px;font-size:13px">16/21 · Partie</div>
+          <div style="background:#20265A;border-radius:10px;padding:10px;font-size:13px">18 · Fin de partie</div>
+          <div style="font-size:12px;line-height:1.4;color:#A9AECF">« Garde tes gains : crée ton profil » → 03</div>
+        </div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:10px;border:2px solid #F4EEDF;border-radius:14px;padding:12px">
+          <div style="font-size:12px;font-weight:700;color:#F2B705">PROFIL</div>
+          <div style="background:#20265A;border-radius:10px;padding:10px;font-size:13px">03 · Créer · 04 · Âge</div>
+          <div style="background:#20265A;border-radius:10px;padding:10px;font-size:13px">06 · Se connecter</div>
+          <div style="background:#20265A;border-radius:10px;padding:10px;font-size:13px">05 · Premier lancement</div>
+          <div style="background:#F2B705;color:#0F1230;border-radius:10px;padding:10px;font-size:13px;font-weight:700">07 · Accueil du hub</div>
+        </div>
+      </div>
+    </div>
+
+    <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true" style="align-self:center;flex-shrink:0"><path d="M4 20 H34 M24 10 L34 20 L24 30" fill="none" stroke="#F2B705" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+
+    <div style="flex:1;display:flex;flex-direction:column;gap:14px;min-width:0">
+      <div style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF">Le hub</div>
+
+      <div class="ndop" style="border-radius:18px;padding:18px 22px;display:flex;align-items:center;gap:20px">
+        <div style="width:56px;height:56px;border-radius:50%;background:#F4EEDF;color:#0F1230;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;flex-shrink:0" class="d">B</div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <div class="d" style="font-size:18px;font-weight:700">Profil unique · @brice_237</div>
+          <div style="font-size:14px">Partagé par tous les jeux : <b>cauris</b>, <b>cartes</b>, <b>médailles</b>, <b>amis</b>, paramètres et sons.</div>
+        </div>
+        <div style="margin-left:auto;display:flex;gap:8px;font-size:13px">
+          <span style="background:#0F1230;padding:8px 12px;border-radius:999px">09 Profil</span>
+          <span style="background:#0F1230;padding:8px 12px;border-radius:999px">13 Paramètres</span>
+          <span style="background:#0F1230;padding:8px 12px;border-radius:999px">39 Cartes</span>
+          <span style="background:#0F1230;padding:8px 12px;border-radius:999px">40 Médailles</span>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;flex:1">
+        <div style="background:#20265A;border-radius:18px;overflow:hidden;display:flex;flex-direction:column">
+          <div class="obom" style="padding:16px 18px;display:flex;flex-direction:column;gap:2px">
+            <div style="font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Espace</div>
+            <div class="d" style="font-size:24px;font-weight:800">Dames</div>
+          </div>
+          <div style="padding:16px 18px;display:flex;flex-direction:column;gap:10px;font-size:14px">
+            <div style="color:#A9AECF;font-size:13px">Son propre niveau · son échelon · son classement</div>
+            <div style="border-bottom:1px solid #3D4590;padding-bottom:8px">14 · Choisir un mode</div>
+            <div style="border-bottom:1px solid #3D4590;padding-bottom:8px">Contre la machine (difficulté auto)</div>
+            <div style="border-bottom:1px solid #3D4590;padding-bottom:8px">24 · Salon 1 contre 1 + file d'attente</div>
+            <div style="border-bottom:1px solid #3D4590;padding-bottom:8px">26 · Défi avec mise</div>
+            <div style="border-bottom:1px solid #3D4590;padding-bottom:8px">27–35 · Ligues de Dames</div>
+            <div>16 · Partie → 18 · Revanche / aller-retour</div>
+          </div>
+        </div>
+        <div style="background:#20265A;border-radius:18px;overflow:hidden;display:flex;flex-direction:column">
+          <div class="kaba" style="padding:16px 18px;display:flex;flex-direction:column;gap:2px">
+            <div style="display:inline-flex;flex-direction:column;align-self:flex-start;background:#0F1230;padding:6px 10px;border-radius:10px">
+              <div style="font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Espace</div>
+              <div class="d" style="font-size:24px;font-weight:800">Ludo</div>
+            </div>
+          </div>
+          <div style="padding:16px 18px;display:flex;flex-direction:column;gap:10px;font-size:14px">
+            <div style="color:#A9AECF;font-size:13px">Son propre niveau · son échelon · son classement</div>
+            <div style="border-bottom:1px solid #3D4590;padding-bottom:8px">20 · Choisir un mode</div>
+            <div style="border-bottom:1px solid #3D4590;padding-bottom:8px">Contre 1 à 3 machines</div>
+            <div style="border-bottom:1px solid #3D4590;padding-bottom:8px">24 · Salon de 2, 3 ou 4 joueurs</div>
+            <div style="border-bottom:1px solid #3D4590;padding-bottom:8px">Mise partagée : le gagnant rafle le pot</div>
+            <div style="border-bottom:1px solid #3D4590;padding-bottom:8px">27–35 · Ligues de Ludo</div>
+            <div>21 · Partie → 18 · Fin de partie</div>
+          </div>
+        </div>
+        <div style="background:#20265A;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;border:1px dashed #A9AECF">
+          <div class="ndop" style="padding:16px 18px;display:flex;flex-direction:column;gap:2px">
+            <div style="font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Espace · bientôt</div>
+            <div class="d" style="font-size:24px;font-weight:800">Raisonnement</div>
+          </div>
+          <div style="padding:16px 18px;display:flex;flex-direction:column;gap:10px;font-size:14px">
+            <div style="color:#A9AECF;font-size:13px">Même profil, nouveau niveau à construire</div>
+            <div style="border-bottom:1px solid #3D4590;padding-bottom:8px">Logique (suites, matrices)</div>
+            <div style="border-bottom:1px solid #3D4590;padding-bottom:8px">Calcul mental</div>
+            <div style="border-bottom:1px solid #3D4590;padding-bottom:8px">Problèmes chronométrés</div>
+            <div style="border-bottom:1px solid #3D4590;padding-bottom:8px">Duels en salon, ligues hebdo</div>
+            <div>42 · Liste d'attente bêta</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;font-size:13px;line-height:1.45">
+    <div style="border-top:2px solid #F4EEDF;padding-top:10px"><b>Rejoindre</b> un salon ou une ligue : un code suffit, même sans compte.</div>
+    <div style="border-top:2px solid #F4EEDF;padding-top:10px"><b>Créer</b> un salon, une ligue ou miser des cauris : profil obligatoire.</div>
+    <div style="border-top:2px solid #F4EEDF;padding-top:10px"><b>Repère permanent</b> : la bande de tissu en haut de chaque écran indique l'espace de jeu.</div>
+    <div style="border-top:2px solid #F4EEDF;padding-top:10px"><b>Barre du bas</b> : Accueil · Jouer · Ligues · Cartes · Profil, la même partout.</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1520,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Règles des ligues publiques</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.card{background:#20265A;border-radius:18px;padding:20px 22px;display:flex;flex-direction:column;gap:10px}
+.k{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+.h{margin:0;font-family:'Unbounded',sans-serif;font-size:17px;font-weight:700}
+ul{margin:0;padding-left:18px;font-size:14px;line-height:1.6}
+.f{background:#0F1230;border-radius:10px;padding:10px 14px;font-family:'Unbounded',sans-serif;font-size:13px;font-weight:500;color:#F2B705;line-height:1.6}
+.ex{background:#1D2B6E;border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.6}
+.step{flex:1;display:flex;flex-direction:column;gap:6px;background:#20265A;border-radius:14px;padding:14px;position:relative}
+.step .n{font-family:'Unbounded',sans-serif;font-weight:800;font-size:13px;color:#0F1230;background:#F2B705;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.step b{font-size:14px}
+.step span{font-size:12px;color:#A9AECF;line-height:1.45}
+table{border-collapse:collapse;width:100%;font-size:13px}
+td{padding:6px 4px;border-top:1px solid #3D4590}
+td:last-child{text-align:right;font-weight:700}
+</style>
+</helmet>
+<div style="width:1520px;height:1240px;box-sizing:border-box;padding:46px 56px;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;gap:22px">
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <h1 class="d" style="margin:0;font-size:32px;font-weight:800;letter-spacing:-0.02em">Ligue publique : du dépôt de caution au partage du pot</h1>
+    <p style="margin:0;font-size:15px;color:#A9AECF">Exemple suivi sur toute la planche : « Ligue Littoral — Dames », créée par Armand, entrée 200 cauris, 8 à 16 places, 14 inscrits.</p>
+  </div>
+
+  <div style="display:flex;gap:10px">
+    <div class="step"><span class="n">1</span><b>Création</b><span>Le créateur fixe les règles et dépose sa caution : 50 cauris par place ouverte.</span></div>
+    <div class="step"><span class="n">2</span><b>Annonce</b><span>La ligue apparaît dans l'accueil et l'onglet Publiques de tous les joueurs du jeu concerné.</span></div>
+    <div class="step"><span class="n">3</span><b>Inscriptions</b><span>Du 1er au 7 nov. Solde ≥ entrée obligatoire. La mise est bloquée tout de suite.</span></div>
+    <div class="step"><span class="n">4</span><b>Validation</b><span>Le créateur valide sous 48 h. Moins de 8 inscrits ou pas de validation : annulation et remboursement total.</span></div>
+    <div class="step"><span class="n">5</span><b>Un match par jour</b><span>Calendrier tiré au sort, aller simple. 14 joueurs = 13 journées, 7 matchs par jour.</span></div>
+    <div class="step"><span class="n">6</span><b>Clôture</b><span>Pot partagé, médailles, caution rendue au créateur.</span></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;flex:1">
+
+    <div class="card">
+      <div class="k">L'argent</div>
+      <h2 class="h">Caution, pot et partage</h2>
+      <div class="f">caution = 50 × places max = 50 × 16 = 800<br>pot = inscrits × entrée + bonus Kwatt 25 %<br>= 14 × 200 + 700 = 3 500 cauris</div>
+      <table>
+        <tr><td>1er · 35 %</td><td>1 225</td></tr>
+        <tr><td>2e · 20 %</td><td>700</td></tr>
+        <tr><td>3e · 10 %</td><td>350</td></tr>
+        <tr><td>Participation · 30 %, partagé entre ceux qui jouent tous leurs matchs (12 ici)</td><td>87 chacun</td></tr>
+        <tr><td>Créateur · 5 %</td><td>175</td></tr>
+      </table>
+      <ul>
+        <li>Le créateur perd sa caution s'il annule après validation : elle est partagée entre les inscrits, qui récupèrent aussi leur mise.</li>
+        <li>Arrondis au cauris inférieur, les restes vont au 1er.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="k">Absences</div>
+      <h2 class="h">Forfait, amende, exclusion</h2>
+      <ul>
+        <li>Chaque journée dure 24 h. Les deux joueurs fixent un rendez-vous ; à défaut, le match est à 20:00.</li>
+        <li><b>Absent après 10 min :</b> défaite par forfait. L'adversaire marque 3 pts, l'absent 0 pt et −1 pt de pénalité, plus une amende de 10 % de l'entrée (20 cauris) versée au pot.</li>
+        <li><b>Les deux absents :</b> double forfait, 0 pt et amende pour chacun.</li>
+        <li><b>Exclusion :</b> 2 forfaits de suite, ou 3 au total.</li>
+      </ul>
+      <div class="f">remboursement = ½ × entrée × matchs restants ÷ matchs totaux</div>
+      <div class="ex"><b>Fotso</b> est exclu après la journée 5 (3 joués, 2 forfaits). Il reste 8 matchs sur 13.<br>½ × 200 × 8 ÷ 13 = <b>61 cauris rendus</b>. Les 139 autres restent dans le pot, avec ses 40 d'amendes.</div>
+    </div>
+
+    <div class="card">
+      <div class="k">Le classement</div>
+      <h2 class="h">Que deviennent ses résultats ?</h2>
+      <ul>
+        <li><b>Il a joué moins de la moitié de ses matchs :</b> tous ses résultats sont annulés. Ceux qui l'ont battu perdent ces points, ceux qui ont perdu contre lui les récupèrent. Personne n'est avantagé d'avoir croisé un absent tôt.</li>
+        <li><b>Il a joué la moitié ou plus :</b> ses résultats joués restent, ses matchs restants deviennent des victoires 1–0 pour ses adversaires.</li>
+        <li>Le classement est recalculé dans la minute, chacun reçoit une notification de ses points.</li>
+      </ul>
+      <div class="ex">Fotso a joué 5 matchs sur 13, moins de la moitié : ses 5 résultats sont annulés. Mireille, qui l'avait battu à J2, perd 3 pts ; Yannick, battu par lui, n'a plus cette défaite.</div>
+    </div>
+
+    <div class="card">
+      <div class="k">Le calendrier</div>
+      <h2 class="h">Recomposer les matchs</h2>
+      <ul>
+        <li><b>Un exclu :</b> on garde la table de rencontres tirée au départ (méthode du cercle). Sa place devient « exempt » : son adversaire du jour se repose. Aucun autre match ne bouge.</li>
+        <li><b>Deux exclus ou plus :</b> on garde seulement les rencontres non jouées entre joueurs encore là, puis on les range jour par jour, chacun jouant au plus une fois par jour. La ligue peut finir plus tôt.</li>
+      </ul>
+      <div class="f">matchs restants = C(n, 2) − matchs déjà joués entre présents<br>journées min. = max(matchs restants ÷ ⌊n ÷ 2⌋ , matchs restants du joueur le plus en retard)</div>
+      <div class="ex"><b>1 exclu à J5 :</b> 13 joueurs, C(13,2) = 78 − 30 joués = 48 matchs, 6 par jour → 8 journées. Fin inchangée (J13).<br><b>2 exclus à J5 :</b> 12 joueurs, 66 − 25 = 41 matchs, 6 par jour, et un joueur a encore 7 matchs → 7 journées. La ligue finit un jour plus tôt.</div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1520,"height":1240}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

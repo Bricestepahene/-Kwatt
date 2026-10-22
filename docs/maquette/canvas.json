@@ -1,0 +1,649 @@
+{
+ "v": 3,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-10-21T10:00:00Z"
+ },
+ "title": "Kwatt — hub de jeux",
+ "launch": {
+  "view": "canvas"
+ },
+ "pages": [],
+ "boards": {
+  "Sommaire.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1520,
+   "h": 1500,
+   "title": "00 · Sommaire : tous les écrans dans l’ordre"
+  },
+  "Main.dc.html": {
+   "x": 1600,
+   "y": 0,
+   "w": 1280,
+   "h": 900,
+   "title": "Réf · Identité & design system"
+  },
+  "Pourquoi.dc.html": {
+   "x": 2960,
+   "y": 0,
+   "w": 1520,
+   "h": 1000,
+   "title": "Réf · Pourquoi Kwatt"
+  },
+  "Bienvenue.dc.html": {
+   "x": 0,
+   "y": 1840,
+   "w": 390,
+   "h": 844,
+   "title": "01 · Bienvenue",
+   "is_interactive": true
+  },
+  "RejoindreCode.dc.html": {
+   "x": 470,
+   "y": 1840,
+   "w": 390,
+   "h": 844,
+   "title": "02 · Rejoindre avec un code (invité)",
+   "is_interactive": true
+  },
+  "Inscription.dc.html": {
+   "x": 940,
+   "y": 1840,
+   "w": 390,
+   "h": 844,
+   "title": "03 · Créer son profil",
+   "is_interactive": true
+  },
+  "Age.dc.html": {
+   "x": 1410,
+   "y": 1840,
+   "w": 390,
+   "h": 844,
+   "title": "04 · Contrôle de l’âge",
+   "is_interactive": true
+  },
+  "Tutoriel.dc.html": {
+   "x": 1880,
+   "y": 1840,
+   "w": 390,
+   "h": 844,
+   "title": "05 · Premier lancement",
+   "is_interactive": true
+  },
+  "Connexion.dc.html": {
+   "x": 2350,
+   "y": 1840,
+   "w": 390,
+   "h": 844,
+   "title": "06 · Connexion & mot de passe oublié",
+   "is_interactive": true
+  },
+  "Accueil.dc.html": {
+   "x": 0,
+   "y": 3024,
+   "w": 390,
+   "h": 844,
+   "title": "07 · Accueil du hub",
+   "is_interactive": true
+  },
+  "Notifications.dc.html": {
+   "x": 470,
+   "y": 3024,
+   "w": 390,
+   "h": 844,
+   "title": "08 · Notifications",
+   "is_interactive": true
+  },
+  "Profil.dc.html": {
+   "x": 940,
+   "y": 3024,
+   "w": 390,
+   "h": 844,
+   "title": "09 · Profil unique",
+   "is_interactive": true
+  },
+  "AvatarStudio.dc.html": {
+   "x": 1410,
+   "y": 3024,
+   "w": 390,
+   "h": 844,
+   "title": "10 · Studio d’avatar",
+   "is_interactive": true
+  },
+  "AvatarBoutique.dc.html": {
+   "x": 1880,
+   "y": 3024,
+   "w": 390,
+   "h": 844,
+   "title": "11 · Boutique d’avatars",
+   "is_interactive": true
+  },
+  "Amis.dc.html": {
+   "x": 2350,
+   "y": 3024,
+   "w": 390,
+   "h": 844,
+   "title": "12 · Amis & invitations",
+   "is_interactive": true
+  },
+  "Parametres.dc.html": {
+   "x": 2820,
+   "y": 3024,
+   "w": 390,
+   "h": 844,
+   "title": "13 · Paramètres, sons & compte",
+   "is_interactive": true
+  },
+  "ModeDames.dc.html": {
+   "x": 0,
+   "y": 4208,
+   "w": 390,
+   "h": 844,
+   "title": "14 · Dames : choisir un mode",
+   "is_interactive": true
+  },
+  "DefiMachine.dc.html": {
+   "x": 470,
+   "y": 4208,
+   "w": 390,
+   "h": 844,
+   "title": "15 · Défi et pari contre la machine",
+   "is_interactive": true
+  },
+  "PartieDames.dc.html": {
+   "x": 940,
+   "y": 4208,
+   "w": 390,
+   "h": 844,
+   "title": "16 · Partie de dames",
+   "is_interactive": true
+  },
+  "PleinSoleil.dc.html": {
+   "x": 1880,
+   "y": 4208,
+   "w": 390,
+   "h": 844,
+   "title": "17 · Mode Plein soleil",
+   "is_interactive": true
+  },
+  "Resultat.dc.html": {
+   "x": 2350,
+   "y": 4208,
+   "w": 390,
+   "h": 844,
+   "title": "18 · Fin de partie (défi / salon)",
+   "is_interactive": true
+  },
+  "Revoir.dc.html": {
+   "x": 2820,
+   "y": 4208,
+   "w": 390,
+   "h": 844,
+   "title": "19 · Revoir une partie",
+   "is_interactive": true
+  },
+  "ModeLudo.dc.html": {
+   "x": 0,
+   "y": 5392,
+   "w": 390,
+   "h": 844,
+   "title": "20 · Ludo : choisir un mode",
+   "is_interactive": true
+  },
+  "PartieLudo.dc.html": {
+   "x": 940,
+   "y": 5392,
+   "w": 390,
+   "h": 844,
+   "title": "21 · Partie de Ludo",
+   "is_interactive": true
+  },
+  "DeHonnete.dc.html": {
+   "x": 2350,
+   "y": 5392,
+   "w": 390,
+   "h": 844,
+   "title": "22 · Dé honnête, vérifiable",
+   "is_interactive": true
+  },
+  "Regles.dc.html": {
+   "x": 2820,
+   "y": 5392,
+   "w": 390,
+   "h": 844,
+   "title": "23 · Règles du jeu",
+   "is_interactive": true
+  },
+  "CreerSalon.dc.html": {
+   "x": 0,
+   "y": 6576,
+   "w": 390,
+   "h": 844,
+   "title": "24 · Créer un salon",
+   "is_interactive": true
+  },
+  "Salon.dc.html": {
+   "x": 470,
+   "y": 6576,
+   "w": 390,
+   "h": 844,
+   "title": "25 · Salon & file d’attente",
+   "is_interactive": true
+  },
+  "Mise.dc.html": {
+   "x": 940,
+   "y": 6576,
+   "w": 390,
+   "h": 844,
+   "title": "26 · Défi avec mise",
+   "is_interactive": true
+  },
+  "Ligues.dc.html": {
+   "x": 0,
+   "y": 7760,
+   "w": 390,
+   "h": 844,
+   "title": "27 · Ligues",
+   "is_interactive": true
+  },
+  "CreerLigue.dc.html": {
+   "x": 470,
+   "y": 7760,
+   "w": 390,
+   "h": 844,
+   "title": "28 · Créer une ligue privée",
+   "is_interactive": true
+  },
+  "Championnat.dc.html": {
+   "x": 1410,
+   "y": 7760,
+   "w": 390,
+   "h": 844,
+   "title": "29 · Championnat (classement)",
+   "is_interactive": true
+  },
+  "Coupe.dc.html": {
+   "x": 1880,
+   "y": 7760,
+   "w": 390,
+   "h": 844,
+   "title": "30 · Coupe : poules & phase finale",
+   "is_interactive": true
+  },
+  "CreerLiguePublique.dc.html": {
+   "x": 2350,
+   "y": 7760,
+   "w": 390,
+   "h": 844,
+   "title": "31 · Créer une ligue publique (caution)",
+   "is_interactive": true
+  },
+  "LiguePublique.dc.html": {
+   "x": 2820,
+   "y": 7760,
+   "w": 390,
+   "h": 844,
+   "title": "32 · Rejoindre une ligue publique",
+   "is_interactive": true
+  },
+  "ValiderLigue.dc.html": {
+   "x": 3290,
+   "y": 7760,
+   "w": 390,
+   "h": 844,
+   "title": "33 · Le créateur valide la ligue",
+   "is_interactive": true
+  },
+  "MatchDuJour.dc.html": {
+   "x": 3760,
+   "y": 7760,
+   "w": 390,
+   "h": 844,
+   "title": "34 · Match du jour & forfait",
+   "is_interactive": true
+  },
+  "Exclusion.dc.html": {
+   "x": 4700,
+   "y": 7760,
+   "w": 390,
+   "h": 844,
+   "title": "35 · Exclusion & calendrier recalculé",
+   "is_interactive": true
+  },
+  "Quartiers.dc.html": {
+   "x": 0,
+   "y": 8944,
+   "w": 390,
+   "h": 844,
+   "title": "36 · Guerre des quartiers",
+   "is_interactive": true
+  },
+  "KwattTV.dc.html": {
+   "x": 470,
+   "y": 8944,
+   "w": 390,
+   "h": 844,
+   "title": "37 · Autour du damier (spectateurs)",
+   "is_interactive": true
+  },
+  "Signaler.dc.html": {
+   "x": 940,
+   "y": 8944,
+   "w": 390,
+   "h": 844,
+   "title": "38 · Signaler ou bloquer",
+   "is_interactive": true
+  },
+  "Cartes.dc.html": {
+   "x": 0,
+   "y": 10128,
+   "w": 390,
+   "h": 844,
+   "title": "39 · Collection de cartes",
+   "is_interactive": true
+  },
+  "Recompenses.dc.html": {
+   "x": 470,
+   "y": 10128,
+   "w": 390,
+   "h": 844,
+   "title": "40 · Médailles & quêtes",
+   "is_interactive": true
+  },
+  "Echelons.dc.html": {
+   "x": 940,
+   "y": 10128,
+   "w": 390,
+   "h": 844,
+   "title": "41 · Échelons & difficulté",
+   "is_interactive": true
+  },
+  "Raisonnement.dc.html": {
+   "x": 0,
+   "y": 11312,
+   "w": 390,
+   "h": 844,
+   "title": "42 · Raisonnement (bientôt)",
+   "is_interactive": true
+  },
+  "TabletteDames.dc.html": {
+   "x": 470,
+   "y": 11312,
+   "w": 1194,
+   "h": 834,
+   "title": "43 · Tablette paysage : partie de dames",
+   "is_interactive": true
+  },
+  "Parcours.dc.html": {
+   "x": 0,
+   "y": 12496,
+   "w": 1520,
+   "h": 900,
+   "title": "Réf · Carte de navigation"
+  },
+  "Systeme.dc.html": {
+   "x": 1600,
+   "y": 12496,
+   "w": 1520,
+   "h": 1240,
+   "title": "Réf · Données, cauris, comptes"
+  },
+  "RegleLigues.dc.html": {
+   "x": 3200,
+   "y": 12496,
+   "w": 1520,
+   "h": 1240,
+   "title": "Réf · Ligue publique : règles & calculs"
+  },
+  "Matrice.dc.html": {
+   "x": 0,
+   "y": 14076,
+   "w": 1520,
+   "h": 1300,
+   "title": "Réf · Matrice complète"
+  },
+  "Audit.dc.html": {
+   "x": 1600,
+   "y": 14076,
+   "w": 1520,
+   "h": 1300,
+   "title": "Réf · Audit UX : couleurs & logique"
+  },
+  "Adaptation.dc.html": {
+   "x": 3200,
+   "y": 14076,
+   "w": 1520,
+   "h": 834,
+   "title": "Réf · Tailles d’écran"
+  },
+  "PartieDames8.dc.html": {
+   "x": 1410,
+   "y": 4208,
+   "w": 390,
+   "h": 844,
+   "title": "16b · Partie de dames 8×8 (anglaises)",
+   "is_interactive": true
+  },
+  "Moteur.dc.html": {
+   "x": 4800,
+   "y": 12496,
+   "w": 1520,
+   "h": 1300,
+   "title": "Réf · Moteur de jeu (IA)"
+  },
+  "LudoVariantes.dc.html": {
+   "x": 470,
+   "y": 5392,
+   "w": 390,
+   "h": 844,
+   "title": "20b · Ludo : plateau & règles",
+   "is_interactive": true
+  },
+  "PartieLudo6.dc.html": {
+   "x": 1410,
+   "y": 5392,
+   "w": 390,
+   "h": 844,
+   "title": "21b · Partie de Ludo à 6 joueurs",
+   "is_interactive": true
+  },
+  "LancerCauris.dc.html": {
+   "x": 1880,
+   "y": 5392,
+   "w": 390,
+   "h": 844,
+   "title": "21c · Pachisi : lancer les cauris",
+   "is_interactive": true
+  },
+  "VariantesLudo.dc.html": {
+   "x": 6400,
+   "y": 12496,
+   "w": 1520,
+   "h": 1240,
+   "title": "Réf · Variantes du Ludo : plateaux, règles, compatibilités"
+  },
+  "ReglesCompetition.dc.html": {
+   "x": 940,
+   "y": 7760,
+   "w": 390,
+   "h": 844,
+   "title": "28b · Plateaux & règles de la compétition",
+   "is_interactive": true
+  },
+  "ChoixPlanche.dc.html": {
+   "x": 4230,
+   "y": 7760,
+   "w": 390,
+   "h": 844,
+   "title": "34b · Choisir la planche du match",
+   "is_interactive": true
+  },
+  "RegleCompet.dc.html": {
+   "x": 8000,
+   "y": 12496,
+   "w": 1520,
+   "h": 1300,
+   "title": "Réf · Compétitions : planches, tables, équipes, attentes des joueurs"
+  },
+  "ProblemeDuJour.dc.html": {
+   "x": 3290,
+   "y": 4208,
+   "w": 390,
+   "h": 844,
+   "title": "19b · Problème de dames du jour",
+   "is_interactive": true
+  }
+ },
+ "order": [
+  "Sommaire.dc.html",
+  "Main.dc.html",
+  "Pourquoi.dc.html",
+  "Bienvenue.dc.html",
+  "RejoindreCode.dc.html",
+  "Inscription.dc.html",
+  "Age.dc.html",
+  "Tutoriel.dc.html",
+  "Connexion.dc.html",
+  "Accueil.dc.html",
+  "Notifications.dc.html",
+  "Profil.dc.html",
+  "AvatarStudio.dc.html",
+  "AvatarBoutique.dc.html",
+  "Amis.dc.html",
+  "Parametres.dc.html",
+  "ModeDames.dc.html",
+  "DefiMachine.dc.html",
+  "PartieDames.dc.html",
+  "PartieDames8.dc.html",
+  "PleinSoleil.dc.html",
+  "Resultat.dc.html",
+  "Revoir.dc.html",
+  "ProblemeDuJour.dc.html",
+  "ModeLudo.dc.html",
+  "LudoVariantes.dc.html",
+  "PartieLudo.dc.html",
+  "PartieLudo6.dc.html",
+  "LancerCauris.dc.html",
+  "DeHonnete.dc.html",
+  "Regles.dc.html",
+  "CreerSalon.dc.html",
+  "Salon.dc.html",
+  "Mise.dc.html",
+  "Ligues.dc.html",
+  "CreerLigue.dc.html",
+  "ReglesCompetition.dc.html",
+  "Championnat.dc.html",
+  "Coupe.dc.html",
+  "CreerLiguePublique.dc.html",
+  "LiguePublique.dc.html",
+  "ValiderLigue.dc.html",
+  "MatchDuJour.dc.html",
+  "ChoixPlanche.dc.html",
+  "Exclusion.dc.html",
+  "Quartiers.dc.html",
+  "KwattTV.dc.html",
+  "Signaler.dc.html",
+  "Cartes.dc.html",
+  "Recompenses.dc.html",
+  "Echelons.dc.html",
+  "Raisonnement.dc.html",
+  "TabletteDames.dc.html",
+  "Parcours.dc.html",
+  "Systeme.dc.html",
+  "RegleLigues.dc.html",
+  "Moteur.dc.html",
+  "VariantesLudo.dc.html",
+  "RegleCompet.dc.html",
+  "Matrice.dc.html",
+  "Audit.dc.html",
+  "Adaptation.dc.html"
+ ],
+ "notes": {
+  "r0": {
+   "x": 0,
+   "y": -260,
+   "text": "Kwatt · sommaire & identité",
+   "kind": "title1",
+   "maxW": 4480
+  },
+  "r1": {
+   "x": 0,
+   "y": 1580,
+   "text": "Entrée dans l’appli",
+   "kind": "title1",
+   "maxW": 2740
+  },
+  "r2": {
+   "x": 0,
+   "y": 2764,
+   "text": "Hub & profil",
+   "kind": "title1",
+   "maxW": 3210
+  },
+  "r3": {
+   "x": 0,
+   "y": 3948,
+   "text": "Jouer · Dames",
+   "kind": "title1",
+   "maxW": 3680
+  },
+  "r4": {
+   "x": 0,
+   "y": 5132,
+   "text": "Jouer · Ludo",
+   "kind": "title1",
+   "maxW": 3210
+  },
+  "r5": {
+   "x": 0,
+   "y": 6316,
+   "text": "Salons & défis",
+   "kind": "title1",
+   "maxW": 1800
+  },
+  "r6": {
+   "x": 0,
+   "y": 7500,
+   "text": "Ligues",
+   "kind": "title1",
+   "maxW": 5090
+  },
+  "r7": {
+   "x": 0,
+   "y": 8684,
+   "text": "Communauté",
+   "kind": "title1",
+   "maxW": 1800
+  },
+  "r8": {
+   "x": 0,
+   "y": 9868,
+   "text": "Progression",
+   "kind": "title1",
+   "maxW": 1800
+  },
+  "r9": {
+   "x": 0,
+   "y": 11052,
+   "text": "Raisonnement & tablette",
+   "kind": "title1",
+   "maxW": 1800
+  },
+  "r10": {
+   "x": 0,
+   "y": 12236,
+   "text": "Référence technique",
+   "kind": "title1",
+   "maxW": 9520
+  },
+  "r11": {
+   "x": 0,
+   "y": 13816,
+   "text": "Référence qualité",
+   "kind": "title1",
+   "maxW": 4720
+  }
+ },
+ "designSystems": []
+}

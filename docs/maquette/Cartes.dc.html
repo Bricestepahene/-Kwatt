@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Cartes</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.ndop{background-color:#1D2B6E;background-image:linear-gradient(135deg,rgba(244,238,223,.13) 25%,transparent 25%),linear-gradient(225deg,rgba(244,238,223,.13) 25%,transparent 25%),linear-gradient(315deg,rgba(244,238,223,.13) 25%,transparent 25%),linear-gradient(45deg,rgba(244,238,223,.13) 25%,transparent 25%);background-size:16px 16px;background-position:-8px 0,-8px 0,0 0,0 0}
+.toghu{background-color:#14110F;background-image:radial-gradient(circle,#F2B705 0 2px,transparent 3px),radial-gradient(circle,#E0442E 0 5px,transparent 6px);background-size:18px 18px,18px 18px;background-position:0 0,9px 9px}
+.kaba{background-image:repeating-linear-gradient(90deg,#E0442E 0 8px,#F2B705 8px 13px,#1F9D6B 13px 21px,#F4EEDF 21px 23px,#3FA7E0 23px 30px)}
+.obom{background-color:#6E4426;background-image:repeating-linear-gradient(8deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px),repeating-linear-gradient(-3deg,rgba(255,220,170,.10) 0 1px,transparent 1px 11px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.tab{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;font-weight:500;color:#A9AECF;padding:6px 0;min-height:44px;text-decoration:none}
+.tab:hover{color:#F4EEDF}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden">
+  <div style="flex:1;overflow:hidden;padding:20px 20px 12px;display:flex;flex-direction:column;gap:14px">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between">
+      <h1 class="d" style="margin:0;font-size:26px;font-weight:800">Cartes</h1>
+      <span style="font-size:13px;color:#A9AECF"><b class="d" style="color:#F4EEDF">14</b> / 48 gagnées</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <sc-for list="{{filters}}" as="f" hint-placeholder-count="5">
+        <button type="button" aria-pressed="{{f.on}}" onClick="{{f.pick}}" style="{{f.st}}">{{f.label}}</button>
+      </sc-for>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+      <sc-for list="{{cards}}" as="c" hint-placeholder-count="4">
+        <div style="{{c.wrap}}">
+          <div class="{{c.cls}}" style="height:118px;border-radius:10px;position:relative">
+            <span class="d" style="position:absolute;left:8px;top:8px;font-size:9px;font-weight:700;letter-spacing:.06em;padding:4px 6px;border-radius:5px;background:{{c.rc}};color:#0F1230">{{c.rarity}}</span>
+            <sc-if value="{{c.locked}}" hint-placeholder-val="{{false}}">
+              <span style="position:absolute;inset:0;border-radius:10px;background:rgba(5,7,22,.62);display:flex;align-items:center;justify-content:center">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F4EEDF" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>
+              </span>
+            </sc-if>
+          </div>
+          <b style="font-size:14px">{{c.name}}</b>
+          <span style="font-size:12px;color:#A9AECF;line-height:1.35">{{c.effect}}</span>
+          <span style="font-size:11px;font-weight:700;color:{{c.gc}}">{{c.game}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <nav aria-label="Navigation principale" style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid #3D4590;background:#0B0E26;padding:8px 6px 22px">
+    <a href="Accueil.dc.html" class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"></path></svg>Accueil</a>
+    <a href="ModeDames.dc.html" class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="6" r="3"></circle><path d="M8.5 20h7l-1.5-9h-4z"></path><path d="M6 20h12"></path></svg>Jouer</a>
+    <a href="Ligues.dc.html" class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"></path><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 21h8"></path></svg>Ligues</a>
+    <a href="Cartes.dc.html" class="tab" style="color:#F2B705" aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="6" width="12" height="15" rx="2"></rect><path d="M8 3h10a2 2 0 0 1 2 2v13"></path></svg>Cartes</a>
+    <a href="Profil.dc.html" class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Profil</a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { f: 'all' }; }
+  renderVals() {
+    const R = { 'COMMUNE': '#F4EEDF', 'RARE': '#3FA7E0', 'ÉPIQUE': '#F2B705', 'LÉGENDAIRE': '#FF8A75' };
+    const all = [
+      { t: 'table', name: 'Table du Wouri', cls: 'obom', rarity: 'RARE', effect: 'Défis jusqu’à 500 cauris', game: 'Dames et Ludo', gc: '#A9AECF' },
+      { t: 'plateau', name: 'Damier Ndop', cls: 'ndop', rarity: 'ÉPIQUE', effect: 'Habille ton damier en indigo', game: 'Dames', gc: '#E8D5A9' },
+      { t: 'pions', name: 'Pions Toghu', cls: 'toghu', rarity: 'ÉPIQUE', effect: 'Pions brodés or et rouge', game: 'Dames', gc: '#E8D5A9' },
+      { t: 'plateau', name: 'Dé Kaba', cls: 'kaba', rarity: 'COMMUNE', effect: 'Dé et pions aux couleurs du kaba', game: 'Ludo', gc: '#3FA7E0' },
+      { t: 'pouvoir', name: 'Revanche immédiate', cls: 'ndop', rarity: 'RARE', effect: 'Rejoue tout de suite, même mise', game: 'Dames et Ludo', gc: '#A9AECF' },
+      { t: 'table', name: 'Table du Mont Cameroun', cls: 'toghu', rarity: 'LÉGENDAIRE', effect: 'Débloquée à l’échelon Chef', game: 'Dames', gc: '#E8D5A9', locked: true }
+    ];
+    const labels = [['all', 'Toutes'], ['table', 'Tables'], ['plateau', 'Plateaux'], ['pions', 'Pions'], ['pouvoir', 'Pouvoirs']];
+    const filters = labels.map(([id, label]) => { const on = this.state.f === id; return { label, on: String(on), pick: () => this.setState({ f: id }),
+      st: 'height:36px;padding:0 12px;border-radius:999px;font-family:DM Sans,sans-serif;font-size:13px;font-weight:700;' + (on ? 'background:#F4EEDF;color:#0F1230;border:0' : 'background:transparent;color:#A9AECF;border:1px solid #3D4590') }; });
+    const cards = all.filter((c) => this.state.f === 'all' || c.t === this.state.f).map((c) => ({ ...c, locked: !!c.locked, rc: R[c.rarity],
+      wrap: 'background:#20265A;border-radius:14px;padding:8px 8px 12px;display:flex;flex-direction:column;gap:5px;box-shadow:inset 0 0 0 2px ' + R[c.rarity] + '33' }));
+    return { filters, cards };
+  }
+}
+</script>
+</body>
+</html>

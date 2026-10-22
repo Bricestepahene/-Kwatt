@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Choisir la planche du match</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.obom{background-color:#6E4426;background-image:repeating-linear-gradient(8deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px),repeating-linear-gradient(-3deg,rgba(255,220,170,.10) 0 1px,transparent 1px 11px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden">
+  <div class="obom" style="padding:16px 20px 18px;display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="MatchDuJour.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#0F1230;color:#F4EEDF">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+      </a>
+      <div style="display:flex;flex-direction:column;gap:1px">
+        <span style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Coupe des Cousins · demi retour</span>
+        <span style="font-size:13px">Toi contre Armand · dimanche 18:00</span>
+      </div>
+    </div>
+    <div style="background:#0F1230;border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.5">
+      Règle de la coupe : <b>la planche est choisie par qui reçoit.</b> À l'aller, Armand a choisi le 10×10. Au retour, c'est à toi.
+    </div>
+  </div>
+
+  <div style="flex:1;padding:14px 20px 24px;display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;justify-content:space-between;align-items:center"><span class="lbl">Ton choix</span><span style="font-size:12px;font-weight:700;color:#F2B705">avant samedi 18:00</span></div>
+    <div role="radiogroup" aria-label="Planche du match" style="display:flex;flex-direction:column;gap:8px">
+      <sc-for list="{{opts}}" as="o" hint-placeholder-count="2">
+        <button type="button" role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}" style="{{o.st}}">
+          <span style="{{o.grid}}"></span>
+          <span style="display:flex;flex-direction:column;gap:4px;flex:1;text-align:left">
+            <b style="font-size:15px">{{o.name}}</b>
+            <span style="font-size:12px;color:#A9AECF">Toi {{o.me}} · Armand {{o.him}}</span>
+            <span style="font-size:12px;font-weight:700;color:{{o.ec}}">{{o.edge}}</span>
+          </span>
+        </button>
+      </sc-for>
+    </div>
+    <div style="font-size:12px;line-height:1.5;color:#A9AECF">Sans choix à temps, le match se joue sur la planche par défaut de la coupe (10×10). Armand voit ton choix dès que tu le confirmes.</div>
+
+    <sc-if value="{{done}}" hint-placeholder-val="{{false}}">
+      <div style="background:#14382E;border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.5"><b style="color:#5FD3A2">Choix envoyé.</b> Retour en {{chosen}}. Égalité sur l'ensemble des deux matchs : manche décisive de 5 minutes sur la planche de l'aller.</div>
+    </sc-if>
+
+    <button type="button" onClick="{{confirm}}" class="d" style="margin-top:auto;height:54px;border:0;border-radius:14px;background:#F2B705;color:#0F1230;font-size:13px;font-weight:700">Jouer le retour en {{chosen}}</button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { v: 8, done: false }; }
+  renderVals() {
+    const s = this.state;
+    const O = [
+      { id: 10, name: '10×10 internationales', me: '1 482', him: '1 620', edge: 'Avantage Armand : environ 31 % de chances pour toi', ec: '#FF8A75' },
+      { id: 8, name: '8×8 anglaises', me: '1 310', him: '1 150', edge: 'Avantage toi : environ 72 % de chances pour toi', ec: '#5FD3A2' }
+    ];
+    const opts = O.map((o) => { const on = s.v === o.id; return { ...o, on: String(on), pick: () => this.setState({ v: o.id, done: false }),
+      st: 'display:flex;align-items:center;gap:14px;min-height:84px;border-radius:14px;background:#20265A;color:#F4EEDF;padding:10px 14px;' + (on ? 'border:2px solid #F4EEDF' : 'border:1px solid #3D4590'),
+      grid: 'width:48px;height:48px;flex-shrink:0;border-radius:6px;background:repeating-conic-gradient(#A8703F 0 25%,#F1E2BF 0 50%);background-size:' + (96 / o.id) + 'px ' + (96 / o.id) + 'px' }; });
+    return { opts, done: s.done, chosen: s.v === 10 ? '10×10' : '8×8', confirm: () => this.setState({ done: true }) };
+  }
+}
+</script>
+</body>
+</html>

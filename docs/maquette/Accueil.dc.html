@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Accueil</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.ndop{background-color:#1D2B6E;background-image:linear-gradient(135deg,rgba(244,238,223,.13) 25%,transparent 25%),linear-gradient(225deg,rgba(244,238,223,.13) 25%,transparent 25%),linear-gradient(315deg,rgba(244,238,223,.13) 25%,transparent 25%),linear-gradient(45deg,rgba(244,238,223,.13) 25%,transparent 25%);background-size:24px 24px;background-position:-12px 0,-12px 0,0 0,0 0}
+.kaba{background-image:repeating-linear-gradient(90deg,#E0442E 0 10px,#F2B705 10px 16px,#1F9D6B 16px 26px,#F4EEDF 26px 29px,#3FA7E0 29px 38px)}
+.obom{background-color:#6E4426;background-image:repeating-linear-gradient(8deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px),repeating-linear-gradient(-3deg,rgba(255,220,170,.10) 0 1px,transparent 1px 11px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.tab{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;font-weight:500;color:#A9AECF;padding:6px 0;min-height:44px;text-decoration:none}
+.tab:hover{color:#F4EEDF}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden">
+
+  <div style="flex:1;overflow:hidden;padding:20px 20px 12px;display:flex;flex-direction:column;gap:16px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="Profil.dc.html" aria-label="Mon profil" class="ndop" style="width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #F4EEDF;text-decoration:none">
+        <span class="d" style="width:36px;height:36px;border-radius:50%;background:#F4EEDF;color:#0F1230;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px">B</span>
+      </a>
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <span style="font-size:13px;color:#A9AECF">On dit quoi,</span>
+        <span class="d" style="font-size:18px;font-weight:700">Brice ?</span>
+      </div>
+      <a href="Notifications.dc.html" aria-label="Notifications, 2 à traiter" style="margin-left:auto;position:relative;width:44px;height:44px;border-radius:12px;background:#20265A;color:#F4EEDF;display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"></path><path d="M10 21h4"></path></svg><span style="position:absolute;top:8px;right:9px;width:9px;height:9px;border-radius:50%;background:#FF8A75"></span></a>
+      <span style="margin-left:8px;display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 12px;border-radius:999px;background:#F4EEDF;color:#0F1230;font-size:14px;font-weight:700">
+        <svg width="14" height="16" viewBox="0 0 14 16" aria-hidden="true"><ellipse cx="7" cy="8" rx="6" ry="7.5" fill="#E8D5A9" stroke="#6E4426" stroke-width="1"></ellipse><path d="M7 2.5 V13.5" stroke="#6E4426" stroke-width="1.6"></path></svg>
+        2 450
+      </span>
+    </div>
+
+    <form style="display:flex;gap:8px;margin:0">
+      <label for="c" style="position:absolute;width:1px;height:1px;overflow:hidden">Code de salon ou de ligue</label>
+      <input id="c" placeholder="Code de salon ou de ligue" style="flex:1;min-width:0;height:48px;box-sizing:border-box;border-radius:12px;border:1px solid #3D4590;background:#20265A;color:#F4EEDF;font-size:15px;padding:0 14px;font-family:inherit">
+      <a href="Salon.dc.html" class="d" style="height:48px;padding:0 16px;border-radius:12px;background:#1D2B6E;color:#F4EEDF;font-size:12px;font-weight:700;display:flex;align-items:center;text-decoration:none">Entrer</a>
+    </form>
+
+    <div style="font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF;margin-top:2px">Tes espaces de jeu</div>
+
+    <a href="ModeDames.dc.html" style="display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:#20265A;color:#F4EEDF;text-decoration:none">
+      <div class="obom" style="height:92px;position:relative;display:flex;align-items:flex-end;padding:12px 16px;box-sizing:border-box">
+        <div aria-hidden="true" style="position:absolute;right:14px;top:14px;display:grid;grid-template-columns:repeat(4,16px);grid-template-rows:repeat(4,16px)">
+          <span style="background:#E8D5A9"></span><span style="background:#3B2213"></span><span style="background:#E8D5A9"></span><span style="background:#3B2213"></span>
+          <span style="background:#3B2213"></span><span style="background:#E8D5A9"></span><span style="background:#3B2213"></span><span style="background:#E8D5A9"></span>
+          <span style="background:#E8D5A9"></span><span style="background:#3B2213"></span><span style="background:#E8D5A9"></span><span style="background:#3B2213"></span>
+          <span style="background:#3B2213"></span><span style="background:#E8D5A9"></span><span style="background:#3B2213"></span><span style="background:#E8D5A9"></span>
+        </div>
+        <span class="d" style="font-size:26px;font-weight:800">Dames</span>
+      </div>
+      <div style="padding:12px 16px;display:flex;align-items:center;gap:12px">
+        <span class="d" style="font-size:10px;font-weight:700;letter-spacing:.06em;background:#F4EEDF;color:#0F1230;padding:5px 8px;border-radius:7px">NOTABLE · NIV 17</span>
+        <div style="flex:1;height:6px;border-radius:3px;background:#3D4590;overflow:hidden"><div style="width:62%;height:100%;background:#F2B705"></div></div>
+        <span style="font-size:12px;color:#A9AECF">2 salons</span>
+      </div>
+    </a>
+
+    <a href="ModeLudo.dc.html" style="display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:#20265A;color:#F4EEDF;text-decoration:none">
+      <div class="kaba" style="height:92px;display:flex;align-items:flex-end;padding:12px 16px;box-sizing:border-box">
+        <span class="d" style="font-size:26px;font-weight:800;background:#0F1230;padding:2px 10px;border-radius:10px">Ludo</span>
+      </div>
+      <div style="padding:12px 16px;display:flex;align-items:center;gap:12px">
+        <span class="d" style="font-size:10px;font-weight:700;letter-spacing:.06em;background:#F4EEDF;color:#0F1230;padding:5px 8px;border-radius:7px">ANCIEN DU KWATT · NIV 11</span>
+        <div style="flex:1;height:6px;border-radius:3px;background:#3D4590;overflow:hidden"><div style="width:35%;height:100%;background:#3FA7E0"></div></div>
+        <span style="font-size:12px;color:#A9AECF">1 salon</span>
+      </div>
+    </a>
+
+    <a href="Raisonnement.dc.html" style="display:flex;align-items:center;gap:14px;border-radius:20px;padding:14px 16px;background:#20265A;border:1px dashed #A9AECF;color:#F4EEDF;text-decoration:none">
+      <div class="ndop" style="width:52px;height:52px;border-radius:14px;flex-shrink:0"></div>
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <span class="d" style="font-size:16px;font-weight:700">Raisonnement</span>
+        <span style="font-size:13px;color:#A9AECF">Logique et calcul mental · bientôt</span>
+      </div>
+      <span style="margin-left:auto;font-size:12px;font-weight:700;color:#F2B705">Bêta</span>
+    </a>
+
+    <div style="display:flex;align-items:center;gap:12px;background:#1D2B6E;border-radius:16px;padding:12px 14px">
+      <span class="d" style="font-size:10px;font-weight:700;background:#0F1230;padding:5px 8px;border-radius:7px">DAMES</span>
+      <div style="display:flex;flex-direction:column;gap:2px;font-size:13px">
+        <b>Coupe des Cousins · demi-finale</b>
+        <span style="color:#A9AECF">Contre Armand · dimanche 18:00</span>
+      </div>
+    </div>
+  </div>
+
+  <nav aria-label="Navigation principale" style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid #3D4590;background:#0B0E26;padding:8px 6px 22px">
+    <a href="Accueil.dc.html" class="tab" style="color:#F2B705" aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"></path></svg>Accueil</a>
+    <a href="ModeDames.dc.html" class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="6" r="3"></circle><path d="M8.5 20h7l-1.5-9h-4z"></path><path d="M6 20h12"></path></svg>Jouer</a>
+    <a href="Ligues.dc.html" class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0z"></path><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 21h8"></path></svg>Ligues</a>
+    <a href="Cartes.dc.html" class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="6" width="12" height="15" rx="2"></rect><path d="M8 3h10a2 2 0 0 1 2 2v13"></path></svg>Cartes</a>
+    <a href="Profil.dc.html" class="tab"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Profil</a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

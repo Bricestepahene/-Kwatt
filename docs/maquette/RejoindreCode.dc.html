@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Rejoindre un salon</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.kaba{background-image:repeating-linear-gradient(90deg,#E0442E 0 10px,#F2B705 10px 16px,#1F9D6B 16px 26px,#F4EEDF 26px 29px,#3FA7E0 29px 38px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;padding:20px 24px 34px;gap:22px">
+
+  <div style="display:flex;align-items:center;gap:8px">
+    <a href="Bienvenue.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#20265A;color:#F4EEDF">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </a>
+    <span style="font-size:13px;color:#A9AECF">Mode invité</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <h1 class="d" style="margin:0;font-size:28px;font-weight:800;letter-spacing:-0.02em;line-height:1.1">Rejoindre un salon</h1>
+    <p style="margin:0;font-size:15px;line-height:1.5;color:#A9AECF">Tape le code que ton ami t'a envoyé. Pas de compte à créer.</p>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <label for="code" style="font-size:13px;font-weight:700">Code du salon</label>
+    <input id="code" value="M4T-K9Q" autocomplete="off" class="d" style="height:72px;box-sizing:border-box;border-radius:16px;border:2px solid #F4EEDF;background:#20265A;color:#F4EEDF;font-size:32px;font-weight:700;letter-spacing:.22em;text-align:center;text-transform:uppercase">
+  </div>
+
+  <div style="background:#20265A;border-radius:18px;overflow:hidden">
+    <div class="kaba" style="height:10px"></div>
+    <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <span style="font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#1F9D6B">Salon trouvé</span>
+        <span class="d" style="font-size:11px;font-weight:700;background:#F4EEDF;color:#0F1230;padding:5px 9px;border-radius:8px">LUDO</span>
+      </div>
+      <div class="d" style="font-size:18px;font-weight:700">Salon Famille Ndjock</div>
+      <div style="font-size:14px;color:#A9AECF">Hôte : Brice · 3/4 à table · 1 en attente · Roi de la table</div>
+      <div style="display:flex">
+        <span style="width:34px;height:34px;border-radius:50%;background:#E0442E;border:2px solid #20265A;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">B</span>
+        <span style="width:34px;height:34px;border-radius:50%;background:#1F9D6B;border:2px solid #20265A;margin-left:-8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">C</span>
+        <span style="width:34px;height:34px;border-radius:50%;background:#3FA7E0;color:#0F1230;border:2px solid #20265A;margin-left:-8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">J</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <label for="pseudo" style="font-size:13px;font-weight:700">Ton nom pour la partie</label>
+    <input id="pseudo" placeholder="Ex. Tonton Paul" style="height:54px;box-sizing:border-box;border-radius:14px;border:1px solid #3D4590;background:#20265A;color:#F4EEDF;font-size:16px;padding:0 16px">
+  </div>
+
+  <div style="margin-top:auto;display:flex;flex-direction:column;gap:12px">
+    <a href="Salon.dc.html" class="d" style="display:flex;align-items:center;justify-content:center;height:56px;border-radius:14px;background:#F2B705;color:#0F1230;font-size:14px;font-weight:700;text-decoration:none">Entrer dans le salon</a>
+    <p style="margin:0;font-size:12px;line-height:1.5;color:#A9AECF;text-align:center">En invité, tu joues sans mise et tes victoires ne sont pas gardées. À la fin, tu pourras créer ton profil pour les récupérer.</p>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

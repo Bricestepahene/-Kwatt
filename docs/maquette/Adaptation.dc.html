@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Tailles d'écran</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.obom{background-color:#6E4426;background-image:repeating-linear-gradient(8deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.dev{border:3px solid #A9AECF;border-radius:18px;background:#20265A;box-sizing:border-box;padding:8px;display:flex;gap:6px}
+.bar{background:#3D4590;border-radius:4px}
+.board{background:#7A4A2A;border-radius:4px;aspect-ratio:1/1}
+.cap{display:flex;flex-direction:column;gap:3px;font-size:13px}
+.cap b{font-family:'Unbounded',sans-serif;font-size:13px}
+.cap span{color:#A9AECF;font-size:12px;line-height:1.45}
+ul{margin:0;padding-left:18px;font-size:14px;line-height:1.6}
+</style>
+</helmet>
+<div style="width:1520px;height:834px;box-sizing:border-box;padding:44px 56px;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;gap:26px">
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <h1 class="d" style="margin:0;font-size:30px;font-weight:800;letter-spacing:-0.02em">Du petit Android à la tablette</h1>
+    <p style="margin:0;font-size:15px;color:#A9AECF">Une seule règle : le plateau prend toujours le plus grand carré possible, le reste s'organise autour.</p>
+  </div>
+
+  <div style="display:flex;align-items:flex-end;gap:40px">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="dev" style="width:126px;height:224px;flex-direction:column">
+        <div class="bar" style="height:14px"></div><div class="bar" style="height:18px"></div>
+        <div class="board"></div>
+        <div class="bar" style="height:18px"></div><div class="bar" style="height:22px;margin-top:auto"></div>
+      </div>
+      <div class="cap"><b>Petit téléphone</b><span>360 × 640 · Android d'entrée de gamme<br>1 colonne, barre du bas, textes 14 px min.</span></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="dev" style="width:150px;height:300px;flex-direction:column">
+        <div class="bar" style="height:14px"></div><div class="bar" style="height:22px"></div>
+        <div class="board"></div>
+        <div class="bar" style="height:22px"></div><div class="bar" style="height:28px;margin-top:auto"></div>
+      </div>
+      <div class="cap"><b>Grand téléphone</b><span>390–430 × 844–932 · maquettes de référence<br>Actions dans la moitié basse, au pouce.</span></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="dev" style="width:240px;height:344px;flex-direction:column">
+        <div class="bar" style="height:16px"></div>
+        <div style="display:flex;gap:6px"><div class="bar" style="flex:1;height:30px"></div><div class="bar" style="flex:1;height:30px"></div></div>
+        <div class="board" style="width:86%;align-self:center"></div>
+        <div class="bar" style="height:30px;margin-top:auto"></div>
+      </div>
+      <div class="cap"><b>Tablette portrait</b><span>768–834 × 1024–1194<br>Grilles en 2 colonnes, joueurs côte à côte.</span></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="dev" style="width:400px;height:280px">
+        <div class="bar" style="width:20px"></div>
+        <div style="flex:1;display:flex;align-items:center;justify-content:center"><div class="board" style="height:100%"></div></div>
+        <div style="width:100px;display:flex;flex-direction:column;gap:6px"><div class="bar" style="height:30px"></div><div class="bar" style="height:30px"></div><div class="bar" style="flex:1"></div><div class="bar" style="height:24px"></div></div>
+      </div>
+      <div class="cap"><b>Tablette paysage</b><span>1024–1366 × 768–1024 · voir écran 43<br>Rail à gauche, plateau au centre, panneau à droite.</span></div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:6px">
+    <div style="background:#20265A;border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;gap:8px">
+      <b class="d" style="font-size:14px">Ergonomie</b>
+      <ul>
+        <li>Zones tactiles de 48 px minimum, cases de damier de 34 px minimum.</li>
+        <li>Toucher un pion, puis la case : jamais de glisser obligatoire.</li>
+        <li>Abandon toujours loin du pouce et confirmé.</li>
+      </ul>
+    </div>
+    <div style="background:#20265A;border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;gap:8px">
+      <b class="d" style="font-size:14px">Petits réseaux, petits téléphones</b>
+      <ul>
+        <li>Moins de 40 Mo installé, motifs de tissu dessinés en code, pas en images.</li>
+        <li>Contre la machine : jouable hors connexion, gains envoyés au retour du réseau.</li>
+        <li>Animations réduites si l'appareil est lent ou la batterie faible.</li>
+      </ul>
+    </div>
+    <div style="background:#20265A;border-radius:16px;padding:18px 20px;display:flex;flex-direction:column;gap:8px">
+      <b class="d" style="font-size:14px">Accessibilité</b>
+      <ul>
+        <li>Couleurs du Ludo doublées d'un motif sur chaque pion.</li>
+        <li>Contraste 4,5:1 sur tous les textes, taille de police du système respectée.</li>
+        <li>Français et anglais partout.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1520,"height":834}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

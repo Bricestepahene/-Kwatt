@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Contrôle de l'âge</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.sp{width:56px;height:56px;border-radius:14px;border:1px solid #3D4590;background:#20265A;color:#F4EEDF;font-family:'Unbounded',sans-serif;font-size:22px;font-weight:700}
+.row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid #3D4590;font-size:14px}
+.row:first-child{border-top:0}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;padding:20px 24px 30px;gap:16px;overflow:hidden">
+  <div style="display:flex;align-items:center;justify-content:space-between">
+    <a href="Inscription.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#20265A;color:#F4EEDF">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </a>
+    <div style="display:flex;gap:6px" aria-label="Étape 2 sur 2">
+      <span style="width:28px;height:6px;border-radius:3px;background:#F2B705"></span>
+      <span style="width:28px;height:6px;border-radius:3px;background:#F2B705"></span>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <h1 class="d" style="margin:0;font-size:24px;font-weight:800">Ton année de naissance</h1>
+    <p style="margin:0;font-size:14px;line-height:1.5;color:#A9AECF">Elle n'est jamais affichée. Elle sert à régler ce que tu peux faire avec tes cauris.</p>
+  </div>
+
+  <div style="display:flex;align-items:center;justify-content:center;gap:16px">
+    <button type="button" class="sp" aria-label="Année précédente" onClick="{{minus}}">−</button>
+    <span class="d" style="font-size:44px;font-weight:800;width:150px;text-align:center">{{year}}</span>
+    <button type="button" class="sp" aria-label="Année suivante" onClick="{{plus}}">+</button>
+  </div>
+
+  <div style="{{box}}">
+    <b class="d" style="font-size:15px">{{title}}</b>
+    <div style="display:flex;flex-direction:column">
+      <sc-for list="{{rows}}" as="r" hint-placeholder-count="5">
+        <div class="row"><span>{{r.k}}</span><b style="color:{{r.c}}">{{r.v}}</b></div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="margin-top:auto;display:flex;flex-direction:column;gap:8px">
+    <a href="{{href}}" class="d" style="{{cta}}">{{ctaLabel}}</a>
+    <span style="font-size:12px;color:#A9AECF;text-align:center;line-height:1.5">Une fausse année peut entraîner la fermeture du compte. Les cauris ne valent jamais d'argent réel.</span>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { y: 2010 }; }
+  renderVals() {
+    const y = this.state.y, age = 2026 - y;
+    const Y = { v: 'oui', c: '#5FD3A2' }, N = { v: 'non', c: '#FF8A75' };
+    let title, rows, ok = true, border = '#3D4590';
+    if (age < 13) {
+      ok = false; border = '#E0442E'; title = 'Moins de 13 ans : pas de compte';
+      rows = [{ k: 'Rejoindre un salon en invité', ...Y }, { k: 'Créer un profil', ...N }, { k: 'Miser des cauris', ...N }];
+    } else if (age < 18) {
+      title = 'Compte jeune · ' + age + ' ans';
+      rows = [{ k: 'Jouer, salons, machine', ...Y }, { k: 'Ligues gratuites', ...Y }, { k: 'Miser contre un joueur', ...N }, { k: 'Ligues payantes, pronostics', ...N }, { k: 'Visible par des inconnus', ...N }];
+    } else {
+      title = 'Compte complet · ' + age + ' ans';
+      rows = [{ k: 'Jouer, salons, machine', ...Y }, { k: 'Ligues gratuites et payantes', ...Y }, { k: 'Miser contre un joueur', ...Y }, { k: 'Pronostics', ...Y }, { k: 'Créer une ligue publique', v: 'dès Ancien du kwatt', c: '#F4EEDF' }];
+    }
+    return { year: y, title, rows,
+      box: 'background:#20265A;border:2px solid ' + border + ';border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:8px',
+      href: ok ? 'Tutoriel.dc.html' : 'RejoindreCode.dc.html', ctaLabel: ok ? 'Terminer mon profil' : 'Jouer en invité avec un code',
+      cta: 'height:56px;border-radius:14px;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;text-decoration:none;' + (ok ? 'background:#F2B705;color:#0F1230' : 'border:1px solid #F4EEDF;color:#F4EEDF'),
+      minus: () => this.setState({ y: Math.max(1930, y - 1) }), plus: () => this.setState({ y: Math.min(2026, y + 1) }) };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "generic": "Quelque chose n'a pas marché. Réessaie.",
+  "network": {
+    "offline": "Pas de réseau : on réessaie dès qu'il revient.",
+    "timeout": "Le serveur met trop de temps à répondre.",
+    "server": "Le serveur a un souci. Réessaie dans un instant.",
+    "bad_response": "Réponse inattendue du serveur."
+  },
+  "auth": {
+    "invalid_credentials": "Pseudo, e-mail ou mot de passe incorrect.",
+    "session_expired": "Ta session a expiré : reconnecte-toi.",
+    "unauthorized": "Connecte-toi pour continuer.",
+    "forbidden": "Tu n'as pas accès à cette action.",
+    "member_required": "Crée ton profil pour faire ça.",
+    "adult_required": "Réservé aux 18 ans et plus.",
+    "email_not_verified": "Vérifie d'abord ton adresse e-mail.",
+    "code_invalid": "Code incorrect.",
+    "code_expired": "Ce code a expiré : demande-en un nouveau.",
+    "too_many_attempts": "Trop d'essais : demande un nouveau code."
+  },
+  "validation": {
+    "invalid": "Vérifie les champs en rouge."
+  },
+  "room": {
+    "not_found": "Code inconnu : vérifie avec ton ami.",
+    "full": "Salon plein : tu peux regarder à la place.",
+    "started": "La partie a déjà commencé."
+  },
+  "rate_limited": "Doucement ! Réessaie dans une minute.",
+  "not_found": "Introuvable."
+}

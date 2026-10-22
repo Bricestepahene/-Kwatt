@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Créer une ligue publique</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.obom{background-color:#6E4426;background-image:repeating-linear-gradient(8deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px),repeating-linear-gradient(-3deg,rgba(255,220,170,.10) 0 1px,transparent 1px 11px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:52px;padding:0 12px;border-bottom:1px solid #3D4590;font-size:14px}
+.row:last-child{border-bottom:0}
+.sp{width:40px;height:40px;border-radius:10px;border:1px solid #3D4590;background:#0F1230;color:#F4EEDF;font-family:'Unbounded',sans-serif;font-size:18px;font-weight:700}
+.in{height:40px;box-sizing:border-box;border-radius:10px;border:1px solid #3D4590;background:#0F1230;color:#F4EEDF;font-size:14px;padding:0 10px;font-family:'DM Sans',sans-serif;width:130px}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden">
+  <div class="obom" style="height:8px"></div>
+  <div style="flex:1;padding:14px 20px 24px;display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="CreerLigue.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#20265A;color:#F4EEDF">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+      </a>
+      <div style="display:flex;flex-direction:column;gap:1px">
+        <span style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#E8D5A9">Dames · ligue publique</span>
+        <h1 class="d" style="margin:0;font-size:18px;font-weight:700">Ligue Littoral — Dames</h1>
+      </div>
+    </div>
+
+    <div class="lbl">Places et entrée</div>
+    <div style="background:#20265A;border-radius:14px">
+      <div class="row"><span>Places max.</span><span style="display:flex;align-items:center;gap:10px"><button type="button" class="sp" aria-label="Moins de places" onClick="{{pMinus}}">−</button><b class="d" style="width:32px;text-align:center">{{places}}</b><button type="button" class="sp" aria-label="Plus de places" onClick="{{pPlus}}">+</button></span></div>
+      <div class="row"><span>Entrée</span><span style="display:flex;align-items:center;gap:10px"><button type="button" class="sp" aria-label="Baisser l'entrée" onClick="{{eMinus}}">−</button><b class="d" style="width:52px;text-align:center;color:#F2B705">{{entry}}</b><button type="button" class="sp" aria-label="Augmenter l'entrée" onClick="{{ePlus}}">+</button></span></div>
+      <div class="row"><span>Minimum pour démarrer</span><b>{{min}} joueurs</b></div>
+      <div class="row"><span>Échelon minimum</span><b>Débrouillard</b></div>
+      <a href="ReglesCompetition.dc.html" class="row" style="color:#F4EEDF;text-decoration:none"><span>Plateau</span><b style="color:#F2B705">10×10 imposé ›</b></a>
+    </div>
+
+    <div class="lbl">Dates</div>
+    <div style="background:#20265A;border-radius:14px">
+      <label class="row"><span>Inscriptions jusqu'au</span><input class="in" value="7 nov. 23:59"></label>
+      <label class="row"><span>Premier match</span><input class="in" value="10 nov."></label>
+      <div class="row"><span>Rythme</span><b>1 match par jour</b></div>
+    </div>
+
+    <div style="background:#1D2B6E;border-radius:14px;padding:12px 14px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">
+      <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:12px;color:#C9CEEA">Ta caution (rendue à la fin)</span><b class="d" style="font-size:18px">{{caution}}</b></div>
+      <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:12px;color:#C9CEEA">Pot si complet, bonus inclus</span><b class="d" style="font-size:18px;color:#F2B705">{{pot}}</b></div>
+      <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:12px;color:#C9CEEA">Au champion</span><b class="d" style="font-size:15px">{{first}}</b></div>
+      <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:12px;color:#C9CEEA">Ta part de créateur</span><b class="d" style="font-size:15px">{{creator}}</b></div>
+    </div>
+    <sc-if value="{{tooMuch}}" hint-placeholder-val="{{false}}">
+      <div style="font-size:12px;color:#FF8A75;font-weight:700">Caution supérieure à ton solde (2 450). Baisse le nombre de places.</div>
+    </sc-if>
+
+    <a href="ValiderLigue.dc.html" class="d" style="margin-top:auto;height:54px;border-radius:14px;background:#F2B705;color:#0F1230;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;text-decoration:none">Déposer {{caution}} et publier</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { places: 16, entry: 200 }; }
+  renderVals() {
+    const { places, entry } = this.state;
+    const fmt = (n) => Math.floor(n).toLocaleString('fr-FR');
+    const caution = 50 * places, pot = places * entry * 1.25;
+    return {
+      places, entry: fmt(entry), min: Math.max(4, Math.ceil(places / 2)),
+      caution: fmt(caution), pot: fmt(pot), first: fmt(pot * 0.35), creator: fmt(pot * 0.05), tooMuch: caution > 2450,
+      pMinus: () => this.setState({ places: Math.max(4, places - 2) }), pPlus: () => this.setState({ places: Math.min(64, places + 2) }),
+      eMinus: () => this.setState({ entry: Math.max(50, entry - 50) }), ePlus: () => this.setState({ entry: Math.min(1000, entry + 50) })
+    };
+  }
+}
+</script>
+</body>
+</html>

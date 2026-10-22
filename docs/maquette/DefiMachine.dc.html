@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Défi contre la machine</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.obom{background-color:#6E4426;background-image:repeating-linear-gradient(8deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px),repeating-linear-gradient(-3deg,rgba(255,220,170,.10) 0 1px,transparent 1px 11px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.lbl{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A9AECF}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden">
+  <div class="obom" style="padding:16px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0">
+    <a href="ModeDames.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#0F1230;color:#F4EEDF">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </a>
+    <div style="display:flex;flex-direction:column;gap:2px">
+      <span style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase">Dames · contre la machine</span>
+      <h1 class="d" style="margin:0;font-size:18px;font-weight:800">Je parie que je la bats</h1>
+    </div>
+  </div>
+
+  <div style="flex:1;padding:14px 20px 26px;display:flex;flex-direction:column;gap:12px">
+    <div class="lbl">Difficulté · cote = 0,9 ÷ ta chance de gagner</div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <sc-for list="{{levels}}" as="l" hint-placeholder-count="5">
+        <button type="button" aria-pressed="{{l.on}}" onClick="{{l.pick}}" style="{{l.st}}">
+          <span style="display:flex;flex-direction:column;gap:1px;text-align:left;flex:1">
+            <b style="font-size:14px">{{l.name}}</b>
+            <span style="font-size:12px;color:#A9AECF">{{l.desc}}</span>
+          </span>
+          <span class="d" style="font-size:15px;font-weight:800;color:{{l.cc}}">×{{l.cote}}</span>
+        </button>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between"><span class="lbl">Ton pari</span><span style="font-size:12px;color:#A9AECF">solde 2 450</span></div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <button type="button" aria-label="Baisser le pari" onClick="{{minus}}" class="d" style="width:48px;height:48px;border-radius:12px;border:1px solid #3D4590;background:#20265A;color:#F4EEDF;font-size:20px;font-weight:700">−</button>
+      <div style="flex:1;height:48px;border-radius:12px;background:#20265A;display:flex;align-items:center;justify-content:center;gap:6px"><b class="d" style="font-size:20px;color:#F2B705">{{bet}}</b><span style="font-size:12px;color:#A9AECF">cauris</span></div>
+      <button type="button" aria-label="Augmenter le pari" onClick="{{plus}}" class="d" style="width:48px;height:48px;border-radius:12px;border:1px solid #3D4590;background:#20265A;color:#F4EEDF;font-size:20px;font-weight:700">+</button>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">
+      <div style="background:#14382E;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px">
+        <span style="font-size:12px;color:#A9F0CF">Si tu gagnes</span>
+        <b class="d" style="font-size:18px;color:#5FD3A2">+{{win}}</b>
+        <span style="font-size:11px;color:#A9F0CF">victoire {{base}} + gain net du pari</span>
+      </div>
+      <div style="background:#2A1820;border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px">
+        <span style="font-size:12px;color:#FFC2B6">Si tu perds</span>
+        <b class="d" style="font-size:18px;color:#FF8A75">{{lose}}</b>
+        <span style="font-size:11px;color:#FFC2B6">pari perdu, +10 de participation</span>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:10px;background:#1D2B6E;border-radius:12px;padding:10px 12px;font-size:12px;line-height:1.45">
+      <span class="d" style="font-size:16px;font-weight:800;color:#F2B705">×1,5</span>
+      <span>Série en cours : 2 victoires. À 3, ton prochain gain est multiplié par 1,5.</span>
+    </div>
+
+    <a href="PartieDames.dc.html" class="d" style="margin-top:auto;height:56px;border-radius:14px;background:#F2B705;color:#0F1230;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;text-decoration:none">{{cta}}</a>
+    <span style="font-size:11px;color:#A9AECF;text-align:center;line-height:1.5">Caisse vide ? Joue sans pari : +25 la victoire, +10 la défaite. 10 parties récompensées par jour.</span>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { lv: 3, bet: 200 }; }
+  renderVals() {
+    const s = this.state;
+    const L = [
+      ['Facile', 'Tu gagnes 9 fois sur 10', 1, 25], ['Moyen', 'Tu gagnes 3 fois sur 4', 1.2, 25],
+      ['Coriace', 'Tu gagnes 6 fois sur 10', 1.5, 40], ['Notable', 'Ton niveau : une chance sur deux', 1.8, 60], ['Fon', 'Débloqué à l’échelon Chef · 1 sur 5', 4.5, 100]
+    ];
+    const levels = L.map(([name, desc, cote, base], i) => {
+      const on = s.lv === i, locked = i === 4;
+      return { name: locked ? name + ' · verrouillé' : name, desc, cote: String(cote).replace('.', ','), on: String(on), cc: cote >= 3 ? '#F2B705' : '#F4EEDF',
+        pick: () => { if (!locked) this.setState({ lv: i }); },
+        st: 'min-height:54px;border-radius:12px;background:#20265A;color:#F4EEDF;display:flex;align-items:center;gap:10px;padding:8px 14px;' + (on ? 'border:2px solid #F4EEDF' : 'border:1px solid #3D4590') + (locked ? ';opacity:.5' : '') };
+    });
+    const [, , cote, base] = L[s.lv];
+    const fmt = (n) => Math.round(n).toLocaleString('fr-FR');
+    return { levels, bet: fmt(s.bet), cote: String(cote).replace('.', ','), base,
+      win: fmt(base + s.bet * (cote - 1)), lose: s.bet ? '−' + fmt(s.bet - 10) : '+10',
+      cta: s.bet ? 'Parier ' + fmt(s.bet) + ' et jouer' : 'Jouer sans pari',
+      minus: () => this.setState({ bet: Math.max(0, s.bet - 50) }),
+      plus: () => this.setState({ bet: Math.min(600, s.bet + 50) }) };
+  }
+}
+</script>
+</body>
+</html>

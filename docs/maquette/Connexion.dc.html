@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Connexion</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+input{font-family:'DM Sans',system-ui,sans-serif}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;position:relative;overflow:hidden">
+
+  <div style="padding:20px 24px;display:flex;flex-direction:column;gap:16px">
+    <a href="Bienvenue.dc.html" aria-label="Retour" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#20265A;color:#F4EEDF">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </a>
+    <h1 class="d" style="margin:0;font-size:26px;font-weight:800;letter-spacing:-0.02em">On se connaît déjà</h1>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <label for="id" style="font-size:13px;font-weight:700">Pseudo, e-mail ou téléphone</label>
+      <input id="id" value="brice_237" style="height:52px;box-sizing:border-box;border-radius:14px;border:1px solid #3D4590;background:#20265A;color:#F4EEDF;font-size:16px;padding:0 16px">
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <label for="pw" style="font-size:13px;font-weight:700">Mot de passe</label>
+      <input id="pw" type="password" value="xxxxxxxx" style="height:52px;box-sizing:border-box;border-radius:14px;border:1px solid #3D4590;background:#20265A;color:#F4EEDF;font-size:16px;padding:0 16px">
+      <a href="#oubli" style="align-self:flex-end;font-size:14px;padding:8px 0">Mot de passe oublié ?</a>
+    </div>
+    <a href="Accueil.dc.html" class="d" style="display:flex;align-items:center;justify-content:center;height:56px;border-radius:14px;background:#F2B705;color:#0F1230;font-size:14px;font-weight:700;text-decoration:none">Me connecter</a>
+  </div>
+
+  <div aria-hidden="true" style="position:absolute;inset:0;background:rgba(5,7,22,.72)"></div>
+
+  <section id="oubli" aria-label="Réinitialiser le mot de passe" style="position:absolute;left:0;right:0;bottom:0;background:#20265A;border-radius:28px 28px 0 0;padding:14px 24px 34px;display:flex;flex-direction:column;gap:16px">
+    <span style="align-self:center;width:44px;height:5px;border-radius:3px;background:#3D4590"></span>
+    <div style="display:flex;gap:8px;font-size:12px;font-weight:700">
+      <span style="flex:1;padding:8px 0;text-align:center;border-radius:8px;background:#1F9D6B;color:#0F1230">1 · Contact</span>
+      <span style="flex:1;padding:8px 0;text-align:center;border-radius:8px;background:#F2B705;color:#0F1230">2 · Code</span>
+      <span style="flex:1;padding:8px 0;text-align:center;border-radius:8px;background:#0F1230;color:#A9AECF">3 · Nouveau</span>
+    </div>
+    <h2 class="d" style="margin:0;font-size:20px;font-weight:700">Entre le code reçu</h2>
+    <p style="margin:0;font-size:14px;line-height:1.5;color:#A9AECF">Envoyé par SMS au +237 6•• •• •• 41. Il expire dans 10 minutes.</p>
+    <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px">
+      <label style="display:contents"><span style="position:absolute;width:1px;height:1px;overflow:hidden">Chiffre 1</span><input value="4" maxlength="1" class="d" style="height:56px;width:100%;box-sizing:border-box;text-align:center;border-radius:12px;border:2px solid #F4EEDF;background:#0F1230;color:#F4EEDF;font-size:22px;font-weight:700"></label>
+      <label style="display:contents"><span style="position:absolute;width:1px;height:1px;overflow:hidden">Chiffre 2</span><input value="8" maxlength="1" class="d" style="height:56px;width:100%;box-sizing:border-box;text-align:center;border-radius:12px;border:2px solid #F4EEDF;background:#0F1230;color:#F4EEDF;font-size:22px;font-weight:700"></label>
+      <label style="display:contents"><span style="position:absolute;width:1px;height:1px;overflow:hidden">Chiffre 3</span><input value="2" maxlength="1" class="d" style="height:56px;width:100%;box-sizing:border-box;text-align:center;border-radius:12px;border:2px solid #F4EEDF;background:#0F1230;color:#F4EEDF;font-size:22px;font-weight:700"></label>
+      <label style="display:contents"><span style="position:absolute;width:1px;height:1px;overflow:hidden">Chiffre 4</span><input maxlength="1" class="d" style="height:56px;width:100%;box-sizing:border-box;text-align:center;border-radius:12px;border:1px solid #3D4590;background:#0F1230;color:#F4EEDF;font-size:22px;font-weight:700"></label>
+      <label style="display:contents"><span style="position:absolute;width:1px;height:1px;overflow:hidden">Chiffre 5</span><input maxlength="1" class="d" style="height:56px;width:100%;box-sizing:border-box;text-align:center;border-radius:12px;border:1px solid #3D4590;background:#0F1230;color:#F4EEDF;font-size:22px;font-weight:700"></label>
+      <label style="display:contents"><span style="position:absolute;width:1px;height:1px;overflow:hidden">Chiffre 6</span><input maxlength="1" class="d" style="height:56px;width:100%;box-sizing:border-box;text-align:center;border-radius:12px;border:1px solid #3D4590;background:#0F1230;color:#F4EEDF;font-size:22px;font-weight:700"></label>
+    </div>
+    <button type="button" class="d" style="height:56px;border:0;border-radius:14px;background:#F2B705;color:#0F1230;font-size:14px;font-weight:700">Valider le code</button>
+    <div style="display:flex;justify-content:space-between;font-size:14px">
+      <span style="color:#A9AECF">Rien reçu ?</span>
+      <a href="#oubli">Renvoyer par e-mail (0:48)</a>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

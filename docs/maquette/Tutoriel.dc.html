@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Kwatt — Premier lancement</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Unbounded:wght@500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0F1230}
+a{color:#F2B705}a:hover{color:#FFD24A}
+.ndop{background-color:#1D2B6E;background-image:linear-gradient(135deg,rgba(244,238,223,.13) 25%,transparent 25%),linear-gradient(225deg,rgba(244,238,223,.13) 25%,transparent 25%),linear-gradient(315deg,rgba(244,238,223,.13) 25%,transparent 25%),linear-gradient(45deg,rgba(244,238,223,.13) 25%,transparent 25%);background-size:24px 24px;background-position:-12px 0,-12px 0,0 0,0 0}
+.toghu{background-color:#14110F;background-image:radial-gradient(circle,#F2B705 0 2px,transparent 3px),radial-gradient(circle,#E0442E 0 5px,transparent 6px);background-size:22px 22px,22px 22px;background-position:0 0,11px 11px}
+.kaba{background-image:repeating-linear-gradient(90deg,#E0442E 0 10px,#F2B705 10px 16px,#1F9D6B 16px 26px,#F4EEDF 26px 29px,#3FA7E0 29px 38px)}
+.obom{background-color:#6E4426;background-image:repeating-linear-gradient(8deg,rgba(0,0,0,.18) 0 2px,transparent 2px 7px),repeating-linear-gradient(-3deg,rgba(255,220,170,.10) 0 1px,transparent 1px 11px)}
+.d{font-family:'Unbounded',system-ui,sans-serif}
+.pick{flex:1;min-height:92px;border-radius:16px;display:flex;flex-direction:column;justify-content:flex-end;padding:10px;box-sizing:border-box;color:#F4EEDF;text-decoration:none;font-family:'Unbounded',sans-serif;font-weight:800;font-size:16px}
+</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#0F1230;color:#F4EEDF;font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column;overflow:hidden">
+  <div class="{{cls}}" style="height:360px;flex-shrink:0;border-radius:0 0 36px 36px;display:flex;align-items:center;justify-content:center">
+    <span class="d" style="font-size:86px;font-weight:800;background:#0F1230;width:150px;height:150px;border-radius:50%;display:flex;align-items:center;justify-content:center">{{n}}</span>
+  </div>
+
+  <div style="flex:1;padding:28px 24px 30px;display:flex;flex-direction:column;gap:14px">
+    <h1 class="d" style="margin:0;font-size:26px;font-weight:800;letter-spacing:-0.02em;line-height:1.15">{{title}}</h1>
+    <p style="margin:0;font-size:16px;line-height:1.55;color:#C9CEEA">{{text}}</p>
+
+    <sc-if value="{{s1}}" hint-placeholder-val="{{false}}">
+      <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700">Ton quartier
+        <input value="Bonamoussadi, Douala" style="height:52px;box-sizing:border-box;border-radius:14px;border:1px solid #3D4590;background:#20265A;color:#F4EEDF;font-size:16px;padding:0 14px;font-family:inherit;font-weight:400">
+      </label>
+    </sc-if>
+    <sc-if value="{{s2}}" hint-placeholder-val="{{false}}">
+      <div style="display:flex;gap:10px">
+        <a href="DefiMachine.dc.html" class="pick obom">Dames</a>
+        <a href="ModeLudo.dc.html" class="pick kaba"><span style="background:#0F1230;padding:2px 8px;border-radius:8px;align-self:flex-start">Ludo</span></a>
+      </div>
+    </sc-if>
+
+    <div style="margin-top:auto;display:flex;align-items:center;gap:12px">
+      <div style="display:flex;gap:6px" aria-label="{{stepLabel}}">
+        <sc-for list="{{dots}}" as="d" hint-placeholder-count="3"><span style="{{d}}"></span></sc-for>
+      </div>
+      <a href="Accueil.dc.html" style="margin-left:auto;font-size:14px;padding:12px">Passer</a>
+      <button type="button" onClick="{{next}}" class="d" style="height:52px;padding:0 22px;border:0;border-radius:14px;background:#F2B705;color:#0F1230;font-size:13px;font-weight:700">{{cta}}</button>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { s: 0 }; }
+  renderVals() {
+    const s = this.state.s;
+    const S = [
+      { cls: 'ndop', title: 'Un profil, tous les jeux', text: 'Dames, Ludo, et bientôt le raisonnement. Chaque jeu a son niveau, mais tes cauris, tes cartes et tes amis te suivent partout.' },
+      { cls: 'toghu', title: 'Ton quartier compte sur toi', text: 'Chaque victoire classée fait monter ton quartier. Choisis le tien : tu pourras en changer une fois par saison.' },
+      { cls: 'kaba', title: 'Première partie ?', text: 'Commence contre la machine : elle s’adapte à toi dès les premiers coups. Tu gagnes tes 500 premiers cauris en jouant.' }
+    ];
+    const dots = [0, 1, 2].map((i) => 'height:8px;border-radius:4px;' + (i === s ? 'width:24px;background:#F2B705' : 'width:8px;background:#3D4590'));
+    return { ...S[s], n: s + 1, dots, s1: s === 1, s2: s === 2, stepLabel: 'Étape ' + (s + 1) + ' sur 3',
+      cta: s < 2 ? 'Suivant' : 'Recommencer', next: () => this.setState({ s: (s + 1) % 3 }) };
+  }
+}
+</script>
+</body>
+</html>

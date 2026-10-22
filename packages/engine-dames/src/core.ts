@@ -401,6 +401,23 @@ export class Position {
     return false;
   }
 
+  /** Le camp au trait a-t-il au moins un coup sans prise ? */
+  hasQuietMove(): boolean {
+    const { b, g, stm } = this;
+    const fwd = g.forward[stm === 1 ? 0 : 1];
+    for (let s = 1; s <= g.n; s++) {
+      const p = b[s]!;
+      if (p * stm <= 0) continue;
+      const rays = g.rays[s]!;
+      const dirs = p === WM || p === BM ? fwd : [0, 1, 2, 3];
+      for (const d of dirs) {
+        const to = rays[d]![0];
+        if (to !== undefined && b[to] === 0) return true;
+      }
+    }
+    return false;
+  }
+
   /** Joue un coup (supposé légal). */
   make(m: EMove): void {
     const { b, g } = this;

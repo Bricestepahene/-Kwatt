@@ -11,6 +11,7 @@
     { "path": "apps/mobile" },
     { "path": "packages/domain" },
     { "path": "packages/domain/tsconfig.test.json" },
-    { "path": "packages/engine-dames" }
+    { "path": "packages/engine-dames" },
+    { "path": "packages/engine-dames/tsconfig.test.json" }
   ]
 }

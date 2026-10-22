@@ -6,7 +6,7 @@
  *   POST register               RegisterRequest → 201 RegisterResponse
  *                               (avec le jeton d'accès d'un invité : conversion, même users.id)
  *   POST login                  LoginRequest → LoginResponse
- *   POST guest                  GuestRequest → 201 AuthSessionResponse
+ *   POST guest                  GuestRequest → 201 GuestResponse (nouvel invité) ou 200 (invité de l'appareil repris)
  *   POST refresh                RefreshRequest → AuthSessionResponse
  *   POST logout                 (jeton d'accès) → OkResponse
  *   POST logout-all             (jeton d'accès) → OkResponse
@@ -96,6 +96,15 @@ export const AuthSessionResponseSchema = z.object({
   me: MeSchema,
 });
 export type AuthSessionResponse = z.infer<typeof AuthSessionResponseSchema>;
+
+/**
+ * L'invité est lié à l'identifiant d'installation : si l'appareil a déjà un compte invité actif
+ * (jetons perdus, renouvellement expiré), il est repris avec ses parties (`created: false`).
+ */
+export const GuestResponseSchema = AuthSessionResponseSchema.extend({
+  created: z.boolean(),
+});
+export type GuestResponse = z.infer<typeof GuestResponseSchema>;
 
 export const RegisterResponseSchema = AuthSessionResponseSchema.extend({
   /** true si un compte invité a été converti (ses parties sont gardées). */

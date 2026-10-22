@@ -3,7 +3,7 @@
  */
 import { WELCOME_BONUS, type JournalEntry } from '@kwatt/protocol';
 import type { Pool, Sql, Transaction } from '../../db/pool.js';
-import { decodeCursor, pageOf } from '../../lib/cursor.js';
+import { cursorAt, decodeCursor, pageOf } from '../../lib/cursor.js';
 import { balanceOf, transfer } from './ledger.js';
 
 /**
@@ -36,6 +36,10 @@ interface JournalRow {
   created_at: Date;
 }
 
+interface JournalPageRow extends JournalRow {
+  cursor_at: string;
+}
+
 function toEntry(r: JournalRow): JournalEntry {
   return {
     txId: r.tx_id,
@@ -56,17 +60,18 @@ export async function journal(
   limit: number,
 ): Promise<{ items: JournalEntry[]; nextCursor: string | null }> {
   const pos = decodeCursor(cursor);
-  const r = await db.query<JournalRow>(
-    `SELECT t.id AS tx_id, t.kind, e.amount, e.balance_after, t.game_id, t.meta, t.created_at
+  const r = await db.query<JournalPageRow>(
+    `SELECT t.id AS tx_id, t.kind, e.amount, e.balance_after, t.game_id, t.meta, t.created_at,
+            ${cursorAt('t.created_at')} AS cursor_at
        FROM wallets w
        JOIN ledger_entries e ON e.wallet_id = w.id
        JOIN ledger_transactions t ON t.id = e.tx_id
-      WHERE w.user_id = $1 AND ($2::timestamptz IS NULL OR (t.created_at, t.id) < ($2, $3::uuid))
+      WHERE w.user_id = $1 AND ($2::timestamptz IS NULL OR (t.created_at, t.id) < ($2::timestamptz, $3::uuid))
       ORDER BY t.created_at DESC, t.id DESC
       LIMIT $4`,
     [userId, pos?.at ?? null, pos?.id ?? null, limit + 1],
   );
-  const page = pageOf(r.rows, limit, (row) => ({ at: row.created_at, id: row.tx_id }));
+  const page = pageOf(r.rows, limit, (row) => ({ at: row.cursor_at, id: row.tx_id }));
   return { items: page.items.map(toEntry), nextCursor: page.nextCursor };
 }
 

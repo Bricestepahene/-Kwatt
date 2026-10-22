@@ -1,7 +1,7 @@
 import { ApiErrorSchema, HealthResponseSchema } from '@kwatt/protocol';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { ConfigError, loadConfig } from './config.js';
-import { buildTestApp, type TestApp } from './test/helpers.js';
+import { buildTestApp, createMember, type TestApp } from './test/helpers.js';
 
 describe('configuration', () => {
   const base = { DATABASE_URL: 'postgres://x@localhost/x' };
@@ -119,5 +119,27 @@ describe('limitation de débit', () => {
     }
     expect(codes.slice(0, 5)).toEqual([401, 401, 401, 401, 401]);
     expect(codes.slice(5)).toEqual([429, 429]);
+  });
+
+  it('5 essais par compte, même en alternant pseudo et e-mail depuis plusieurs adresses IP', async () => {
+    const m = await createMember(t);
+    const attempt = (login: string, password: string, ip: string) =>
+      t.app.inject({
+        method: 'POST',
+        url: '/v1/auth/login',
+        remoteAddress: ip,
+        payload: { login, password, device: m.device },
+      });
+    for (let i = 0; i < 5; i++) {
+      const res = await attempt(i % 2 === 0 ? m.pseudo : m.email, 'mauvais-mot-de-passe', `10.0.0.${i + 1}`);
+      expect(res.statusCode).toBe(401);
+    }
+    const blocked = await attempt(m.email, m.password, '10.0.1.1');
+    expect(blocked.statusCode).toBe(429);
+    expect(blocked.json().error.code).toBe('auth.too_many_attempts');
+    expect(blocked.json().error.params.retryAfterSeconds).toBeGreaterThan(0);
+    // Une minute plus tard, le bon mot de passe passe.
+    t.clock.advance(61_000);
+    expect((await attempt(m.email, m.password, '10.0.1.2')).statusCode).toBe(200);
   });
 });

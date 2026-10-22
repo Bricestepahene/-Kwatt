@@ -20,7 +20,7 @@ import {
 import { afterCommit, type Pool, type Sql } from '../../db/pool.js';
 import { hasKey, t, type I18nParams } from '../../i18n/index.js';
 import type { Clock } from '../../lib/clock.js';
-import { decodeCursor, pageOf } from '../../lib/cursor.js';
+import { cursorAt, decodeCursor, pageOf } from '../../lib/cursor.js';
 import { AppError } from '../../lib/errors.js';
 import type { Logger } from '../../lib/logger.js';
 import type { RealtimeHub } from '../../realtime/hub.js';
@@ -168,13 +168,13 @@ export class NotificationService {
 
   async list(userId: string, cursor: string | undefined, limit: number) {
     const pos = decodeCursor(cursor);
-    const r = await this.deps.db.query<NotificationRow>(
-      `SELECT id, kind, params, created_at, read_at FROM notifications
-        WHERE user_id = $1 AND ($2::timestamptz IS NULL OR (created_at, id) < ($2, $3::uuid))
+    const r = await this.deps.db.query<NotificationRow & { cursor_at: string }>(
+      `SELECT id, kind, params, created_at, read_at, ${cursorAt('created_at')} AS cursor_at FROM notifications
+        WHERE user_id = $1 AND ($2::timestamptz IS NULL OR (created_at, id) < ($2::timestamptz, $3::uuid))
         ORDER BY created_at DESC, id DESC LIMIT $4`,
       [userId, pos?.at ?? null, pos?.id ?? null, limit + 1],
     );
-    const page = pageOf(r.rows, limit, (row) => ({ at: row.created_at, id: row.id }));
+    const page = pageOf(r.rows, limit, (row) => ({ at: row.cursor_at, id: row.id }));
     return { items: page.items.map(toNotification), nextCursor: page.nextCursor, unreadCount: await this.unreadCount(userId) };
   }
 

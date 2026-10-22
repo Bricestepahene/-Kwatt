@@ -272,6 +272,32 @@ describe('invité', () => {
     expect(old.json().error.code).toBe('auth.session_revoked');
   });
 
+  it('le même appareil reprend son invité (jetons perdus) ; un appareil neuf en crée un autre', async () => {
+    const device = testDevice();
+    const first = await t.app.inject({ method: 'POST', url: '/v1/auth/guest', payload: { device } });
+    expect(first.statusCode).toBe(201);
+    expect(first.json().created).toBe(true);
+    const again = await t.app.inject({ method: 'POST', url: '/v1/auth/guest', payload: { device, locale: 'en' } });
+    expect(again.statusCode).toBe(200);
+    expect(again.json()).toMatchObject({ created: false, me: { id: first.json().me.id, locale: 'en' } });
+    const other = await createGuest(t);
+    expect(other.userId).not.toBe(first.json().me.id);
+  });
+
+  it('un invité converti ou en cours de suppression n\'est pas repris', async () => {
+    const g = await createGuest(t);
+    await createMember(t, { fromGuest: g });
+    const afterConversion = await t.app.inject({ method: 'POST', url: '/v1/auth/guest', payload: { device: g.device } });
+    expect(afterConversion.statusCode).toBe(201);
+    expect(afterConversion.json().me.id).not.toBe(g.userId);
+
+    const g2 = await createGuest(t);
+    const del = await t.app.inject({ method: 'POST', url: '/v1/me/delete', headers: g2.headers, payload: {} });
+    expect(del.statusCode).toBe(200);
+    const afterDeletion = await t.app.inject({ method: 'POST', url: '/v1/auth/guest', payload: { device: g2.device } });
+    expect(afterDeletion.json().me.id).not.toBe(g2.userId);
+  });
+
   it('un jeton de profil à l\'inscription crée un nouveau compte (pas de conversion)', async () => {
     const m = await createMember(t);
     const res = await register({}, m.headers);

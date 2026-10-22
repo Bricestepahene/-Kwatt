@@ -148,7 +148,7 @@ function asUser(body: AuthSessionResponse, device: Device): TestUser {
 
 export async function createGuest(t: TestApp, device: Device = testDevice()): Promise<TestUser> {
   const res = await t.app.inject({ method: 'POST', url: '/v1/auth/guest', payload: { device } });
-  if (res.statusCode !== 201) throw new Error(`invité non créé : ${res.statusCode} ${res.body}`);
+  if (res.statusCode !== 201 && res.statusCode !== 200) throw new Error(`invité non créé : ${res.statusCode} ${res.body}`);
   return asUser(res.json<AuthSessionResponse>(), device);
 }
 

@@ -334,6 +334,13 @@ export class RealtimeHub {
     return [...(this.byUser.get(userId) ?? [])];
   }
 
+  /** Sessions qui ont au moins une connexion ouverte. */
+  sessionIds(): string[] {
+    const ids = new Set<string>();
+    for (const set of this.byUser.values()) for (const conn of set) ids.add(conn.sessionId);
+    return [...ids];
+  }
+
   connectionCount(): number {
     let n = 0;
     for (const set of this.byUser.values()) n += set.size;

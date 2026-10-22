@@ -52,7 +52,8 @@ const authRoutes: FastifyPluginAsync = async (app) => {
 
   app.post('/v1/auth/guest', { config: strict }, async (req, reply) => {
     const body = parse(GuestRequestSchema, req.body);
-    return reply.status(201).send(await service.guest(body.device, body.locale));
+    const result = await service.guest(body.device, body.locale);
+    return reply.status(result.created ? 201 : 200).send(result);
   });
 
   app.post('/v1/auth/refresh', { config: relaxed }, async (req) => {

@@ -27,7 +27,7 @@ import { grantWelcomeBonus } from '../economy/service.js';
 import { loadMe } from '../me/me.js';
 import { ageBand, isPlausibleBirthYear } from './age.js';
 import type { AuthContext } from './context.js';
-import { touchDevice, upsertDevice } from './devices.js';
+import { linkUserDevice, touchDevice, upsertDevice } from './devices.js';
 import { checkOtp, issueOtp } from './otp.js';
 import { checkPseudo, isPseudoTaken, suggestPseudos } from './pseudo.js';
 import { openSession, revokeSessions, rotateRefreshToken, type IssuedTokens, type SessionDeps } from './sessions.js';
@@ -190,9 +190,13 @@ export class AuthService {
       [isEmail ? login.trim().toLowerCase() : login.trim()],
     );
     const row = r.rows[0];
+    // Limite aussi par compte : alterner pseudo et e-mail du même compte ne double pas les essais.
+    const accountKey = row ? `login-user:${row.user_id}` : null;
+    if (accountKey) this.loginLimiter.hit(accountKey);
     const ok = row?.password_hash ? await this.app.passwords.verify(row.password_hash, password) : await this.app.passwords.verifyDummy(password);
     if (!row || !ok) throw new AppError('auth.invalid_credentials', 401);
     this.loginLimiter.reset(key);
+    if (accountKey) this.loginLimiter.reset(accountKey);
 
     const now = this.now();
     const result = await transaction(this.app.db, async (tx) => {
@@ -208,21 +212,45 @@ export class AuthService {
     return { ...sessionResponse(result.tokens, me), deletionCancelled: result.deletionCancelled };
   }
 
-  /** Compte invité lié à l'appareil (jouer avec un code, regarder, ligue privée gratuite). */
-  async guest(device: Device, locale: Locale | undefined): Promise<AuthSessionResponse> {
+  /**
+   * Compte invité lié à l'appareil (jouer avec un code, regarder, ligue privée gratuite).
+   * L'invité est attaché à l'identifiant d'installation : si l'appareil a déjà un compte
+   * invité actif (jetons perdus, renouvellement expiré), on le reprend avec ses parties ;
+   * sinon on en crée un. `created` dit lequel des deux.
+   */
+  async guest(device: Device, locale: Locale | undefined): Promise<AuthSessionResponse & { created: boolean }> {
     const now = this.now();
     const result = await transaction(this.app.db, async (tx) => {
-      const u = await tx.query<{ id: string }>(
-        "INSERT INTO users (kind, locale, created_at) VALUES ('guest', $1, $2) RETURNING id",
-        [locale ?? DEFAULT_LOCALE, now],
+      // L'upsert verrouille la ligne de l'appareil jusqu'à la fin de la transaction : deux
+      // demandes simultanées du même appareil ne créent pas deux invités.
+      const deviceId = await upsertDevice(tx, device, now);
+      const existing = await tx.query<{ id: string }>(
+        `SELECT u.id FROM user_devices ud JOIN users u ON u.id = ud.user_id
+          WHERE ud.device_id = $1 AND u.kind = 'guest' AND u.erased_at IS NULL
+            AND u.delete_requested_at IS NULL AND u.merged_into IS NULL
+          ORDER BY ud.last_seen_at DESC LIMIT 1`,
+        [deviceId],
       );
-      const userId = u.rows[0]?.id;
-      if (!userId) throw new Error('invité non créé');
-      const deviceId = await touchDevice(tx, userId, device, now);
+      let userId = existing.rows[0]?.id ?? null;
+      const created = userId === null;
+      if (userId === null) {
+        const u = await tx.query<{ id: string }>(
+          "INSERT INTO users (kind, locale, created_at) VALUES ('guest', $1, $2) RETURNING id",
+          [locale ?? DEFAULT_LOCALE, now],
+        );
+        userId = u.rows[0]?.id ?? null;
+        if (userId === null) throw new Error('invité non créé');
+      } else if (locale !== undefined) {
+        await tx.query('UPDATE users SET locale = $2 WHERE id = $1', [userId, locale]);
+      }
+      await linkUserDevice(tx, userId, deviceId, now);
       const tokens = await openSession(tx, this.sessionDeps, { id: userId, kind: 'guest' }, deviceId);
-      return { userId, tokens };
+      return { userId, tokens, created };
     });
-    return sessionResponse(result.tokens, await loadMe(this.app.db, result.userId, this.app.clock));
+    return {
+      ...sessionResponse(result.tokens, await loadMe(this.app.db, result.userId, this.app.clock)),
+      created: result.created,
+    };
   }
 
   /** Nouveau couple de jetons ; un ancien jeton réutilisé ferme les sessions de l'appareil. */

@@ -57,3 +57,22 @@ export function initialOf(name: string | null | undefined): string {
   const first = [...(name ?? '').trim()].find((ch) => /\p{L}|\p{N}/u.test(ch));
   return first ? first.toLocaleUpperCase('fr') : '?';
 }
+
+/** Échelons (SPEC §7), du plus bas au plus haut. */
+export const RANKS = ['apprenti', 'debrouillard', 'ancien', 'notable', 'chef', 'fon'] as const;
+export type RankId = (typeof RANKS)[number];
+
+/**
+ * Échelon d'un niveau (SPEC §7) : Apprenti 1–4, Débrouillard 5–9, Ancien du kwatt 10–14,
+ * Notable 15–19, Chef 20–24, Fon 25 et plus. Le serveur fait foi : l'appli affiche
+ * l'échelon reçu quand il est là (`@kwatt/domain` à l'intégration).
+ */
+export function rankForLevel(level: number): RankId {
+  const l = Number.isFinite(level) ? Math.max(1, Math.floor(level)) : 1;
+  if (l >= 25) return 'fon';
+  if (l >= 20) return 'chef';
+  if (l >= 15) return 'notable';
+  if (l >= 10) return 'ancien';
+  if (l >= 5) return 'debrouillard';
+  return 'apprenti';
+}

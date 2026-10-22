@@ -4,7 +4,10 @@ import { useFormat } from '../i18n';
 import { COMPACT_FONT_SCALE, textVariants, useTheme } from '../theme';
 import { CauriIcon } from './brand';
 import { Badge } from './Chip';
+import { rankForLevel, type RankId } from './logic';
 import { Text } from './Text';
+
+export type { RankId };
 
 /**
  * Solde de cauris (pastille ivoire, planches Accueil et Identité) :
@@ -43,18 +46,18 @@ export function CauriBadge({
   );
 }
 
-/** Échelons (SPEC §7) : Apprenti 1–4, Débrouillard 5–9, Ancien du kwatt 10–14, Notable 15–19, Chef 20–24, Fon 25+. */
-export type RankId = 'apprenti' | 'debrouillard' | 'ancien' | 'notable' | 'chef' | 'fon';
-
-/** Badge d'échelon et de niveau (« NOTABLE · NIV 17 »), en ivoire (audit : les rangs ne sont plus en or). */
-export function RankBadge({ rank, level, style }: { rank: RankId; level: number; style?: StyleProp<ViewStyle> }) {
+/**
+ * Badge d'échelon et de niveau (« NOTABLE · NIV 17 »), en ivoire (audit : les rangs ne
+ * sont plus en or). `rank` : échelon reçu du serveur ; à défaut, déduit du niveau.
+ */
+export function RankBadge({ rank, level, tone = 'inverse', style }: { rank?: RankId; level: number; tone?: 'inverse' | 'dark'; style?: StyleProp<ViewStyle> }) {
   const { t } = useTranslation('common');
-  const rankLabel = t(`rank.${rank}`);
+  const rankLabel = t(`rank.${rank ?? rankForLevel(level)}`);
   return (
     <Badge
       label={t('rank.badge', { rank: rankLabel, level })}
       accessibilityLabel={t('rank.a11y', { rank: rankLabel, level })}
-      tone="inverse"
+      tone={tone}
       style={style}
     />
   );

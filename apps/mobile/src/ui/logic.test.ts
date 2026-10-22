@@ -6,6 +6,7 @@ import {
   isRoomCodeComplete,
   normalizeDigits,
   normalizeRoomCode,
+  rankForLevel,
   ROOM_CODE_ALPHABET,
   snap,
 } from './logic';
@@ -60,5 +61,21 @@ describe('autres saisies', () => {
     expect(initialOf('_237')).toBe('2');
     expect(initialOf('')).toBe('?');
     expect(initialOf(null)).toBe('?');
+  });
+});
+
+describe('échelons', () => {
+  it('suit les paliers de la SPEC (§7)', () => {
+    const cases: Array<[number, string]> = [
+      [1, 'apprenti'], [4, 'apprenti'], [5, 'debrouillard'], [9, 'debrouillard'], [10, 'ancien'], [14, 'ancien'],
+      [15, 'notable'], [17, 'notable'], [19, 'notable'], [20, 'chef'], [24, 'chef'], [25, 'fon'], [40, 'fon'],
+    ];
+    for (const [level, rank] of cases) expect(rankForLevel(level), `niveau ${level}`).toBe(rank);
+  });
+
+  it('ramène un niveau invalide à Apprenti', () => {
+    expect(rankForLevel(0)).toBe('apprenti');
+    expect(rankForLevel(Number.NaN)).toBe('apprenti');
+    expect(rankForLevel(-3)).toBe('apprenti');
   });
 });

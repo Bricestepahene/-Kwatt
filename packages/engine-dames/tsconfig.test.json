@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "types": ["node"],
+    "tsBuildInfoFile": "./dist/.tsbuildinfo-test"
+  },
+  "include": ["src"],
+  "references": [{ "path": "../rules-dames" }]
+}

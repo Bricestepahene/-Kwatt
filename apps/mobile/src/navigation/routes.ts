@@ -164,7 +164,7 @@ export const ROUTES = defineRoutes([
     key: 'parametres', screens: ['13'], planches: ['Parametres'], file: 'app/parametres/index.tsx',
     pattern: '/parametres', access: 'member', owner: 'comptes', space: 'hub',
     links: ['affichage', 'motDePasseOublie', 'bienvenue'],
-    note: 'Les réglages vivent dans src/preferences (store persistant) ; la langue se change avec setLanguage().',
+    note: 'Les réglages vivent dans src/preferences (store persistant) ; la langue se change avec setAppLanguage() (src/i18n).',
   },
   {
     key: 'affichage', screens: ['17'], planches: ['PleinSoleil'], file: 'app/parametres/affichage.tsx',
@@ -314,6 +314,11 @@ export const ROUTES = defineRoutes([
     key: 'lienSalon', screens: [], planches: [], file: 'app/s/[code].tsx',
     pattern: '/s/[code]', access: 'public', owner: 'fondation-appli', space: 'hub',
     note: 'Lien de partage https://<domaine>/s/CODE : redirige vers /salon/CODE.',
+  },
+  {
+    key: 'kit', screens: [], planches: ['Main'], file: 'app/kit.tsx',
+    pattern: '/kit', access: 'public', owner: 'fondation-appli', space: 'hub',
+    note: 'Catalogue du kit de composants (développement, captures) : visible en développement ou avec EXPO_PUBLIC_SHOW_KIT=1, sinon renvoie à l’accueil.',
   },
 ] as const);
 

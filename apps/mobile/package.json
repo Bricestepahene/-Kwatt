@@ -13,7 +13,8 @@
     "test": "vitest run --root ../.. apps/mobile",
     "assets:icons": "node scripts/generate-icons.mjs",
     "assets:sounds": "node scripts/generate-sounds.mjs",
-    "screenshots": "node scripts/screenshots.mjs"
+    "screenshots": "node scripts/screenshots.mjs",
+    "routes:doc": "UPDATE_ROUTES_DOC=1 vitest run --root ../.. apps/mobile/src/navigation/routes.test.ts"
   },
   "dependencies": {
     "@expo-google-fonts/dm-sans": "^0.4.2",

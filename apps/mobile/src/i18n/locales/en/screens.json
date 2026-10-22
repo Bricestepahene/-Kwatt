@@ -50,5 +50,6 @@
   "echelons": { "title": "Ranks", "lead": "From Apprentice to Fon: how you climb." },
   "raisonnement": { "title": "Reasoning", "lead": "Logic and mental arithmetic, coming soon." },
   "lienSalon": { "title": "Room link", "lead": "Taking you to the room." },
+  "kit": { "title": "Component kit", "lead": "Every component of the app, in the current theme and language." },
   "notFound": { "title": "Page not found", "lead": "This link leads nowhere.", "home": "Back to home" }
 }

@@ -50,5 +50,6 @@
   "echelons": { "title": "Échelons", "lead": "D'Apprenti à Fon : comment on monte." },
   "raisonnement": { "title": "Raisonnement", "lead": "Logique et calcul mental, bientôt." },
   "lienSalon": { "title": "Lien de salon", "lead": "On t'emmène au salon." },
+  "kit": { "title": "Kit de composants", "lead": "Tous les composants de l'appli, dans le thème et la langue du moment." },
   "notFound": { "title": "Page introuvable", "lead": "Ce lien ne mène nulle part.", "home": "Revenir à l'accueil" }
 }

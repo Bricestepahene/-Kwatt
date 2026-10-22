@@ -19,6 +19,7 @@ export interface CardProps {
   onPress?: () => void;
   accessibilityLabel?: string;
   style?: StyleProp<ViewStyle>;
+  testID?: string;
 }
 
 /** Carte des planches : surface #20265A, rayon 14 à 20, bande de tissu facultative. */
@@ -35,6 +36,7 @@ export function Card({
   onPress,
   accessibilityLabel,
   style,
+  testID,
 }: CardProps) {
   const { colors } = useTheme();
   const bg = tone === 'strong' ? colors.surfaceStrong : tone === 'bg' ? colors.bg : colors.surface;
@@ -58,13 +60,18 @@ export function Card({
         accessibilityRole="button"
         accessibilityLabel={accessibilityLabel}
         onPress={onPress}
+        testID={testID}
         style={({ pressed }) => [containerStyle, pressed ? styles.pressed : null]}
       >
         {body}
       </Pressable>
     );
   }
-  return <View style={containerStyle}>{body}</View>;
+  return (
+    <View style={containerStyle} testID={testID}>
+      {body}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

@@ -28,13 +28,15 @@ function withNext(path: string, next: string): string {
  *                 expo-router afficher « introuvable »)
  * @param session  état de la session
  * @param pathname chemin réel (« /salon/M4TK9Q »), gardé dans `next` pour y revenir
- * @param params   paramètres de la route (ex. `code` d'un salon)
+ * @param params   paramètres de la route (ex. `code` d'un salon, `next`)
+ * @param afterSignIn destination déclarée par l'écran d'entrée (voir intent.ts)
  */
 export function decideAccess(
   route: RouteSpec | undefined,
   session: AccessSession,
   pathname: string,
   params: Readonly<Record<string, string | string[] | undefined>> = {},
+  afterSignIn: string | null = null,
 ): AccessDecision {
   if (!route) return ALLOW;
   const { status } = session;
@@ -43,8 +45,11 @@ export function decideAccess(
     case 'public':
       return ALLOW;
 
-    case 'signedOut':
-      return status === 'member' ? { kind: 'redirect', to: '/', reason: 'already_signed_in' } : ALLOW;
+    case 'signedOut': {
+      if (status !== 'member') return ALLOW;
+      const next = typeof params.next === 'string' ? params.next : undefined;
+      return { kind: 'redirect', to: safeNext(afterSignIn ?? next, '/'), reason: 'already_signed_in' };
+    }
 
     case 'guest':
       if (status !== 'signedOut') return ALLOW;

@@ -32,9 +32,18 @@ importers:
       '@kwatt/design':
         specifier: workspace:*
         version: link:../../packages/design
+      '@kwatt/domain':
+        specifier: workspace:*
+        version: link:../../packages/domain
+      '@kwatt/engine-dames':
+        specifier: workspace:*
+        version: link:../../packages/engine-dames
       '@kwatt/protocol':
         specifier: workspace:*
         version: link:../../packages/protocol
+      '@kwatt/rules-dames':
+        specifier: workspace:*
+        version: link:../../packages/rules-dames
       '@react-native-async-storage/async-storage':
         specifier: 2.2.0
         version: 2.2.0(react-native@0.88.0(@babel/core@7.29.7)(@react-native/metro-config@0.88.0(@babel/core@7.29.7))(@types/react@19.3.0)(react@19.3.0))

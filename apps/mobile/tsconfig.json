@@ -16,5 +16,5 @@
     }
   },
   "include": ["app/**/*.ts", "app/**/*.tsx", "src/**/*.ts", "src/**/*.tsx", "src/**/*.json", "app.config.ts", "expo-env.d.ts"],
-  "references": [{ "path": "../../packages/design" }, { "path": "../../packages/protocol" }]
+  "references": [{ "path": "../../packages/design" }, { "path": "../../packages/protocol" }, { "path": "../../packages/domain" }, { "path": "../../packages/rules-dames" }, { "path": "../../packages/engine-dames" }]
 }

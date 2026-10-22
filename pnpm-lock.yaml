@@ -245,6 +245,28 @@ importers:
 
   packages/rules-ludo: {}
 
+  services/ludo-ai:
+    dependencies:
+      '@kwatt/ludo-ai':
+        specifier: workspace:*
+        version: link:../../packages/ludo-ai
+      '@kwatt/rules-ludo':
+        specifier: workspace:*
+        version: link:../../packages/rules-ludo
+      fastify:
+        specifier: 5.12.5
+        version: 5.12.5
+      zod:
+        specifier: 4.6.5
+        version: 4.6.5
+    devDependencies:
+      '@types/node':
+        specifier: ^22.10.0
+        version: 22.20.5
+      tsx:
+        specifier: 4.23.15
+        version: 4.23.15
+
 packages:
 
   2g@1.0.1:

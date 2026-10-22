@@ -1,0 +1,26 @@
+{
+  "name": "@kwatt/ludo-ai-service",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/main.js",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -b",
+    "dev": "tsx watch src/main.ts",
+    "start": "node dist/main.js",
+    "bench": "tsx src/cli/bench.ts",
+    "calibrate": "tsx src/cli/calibrate.ts",
+    "golden": "tsx src/cli/golden.ts"
+  },
+  "dependencies": {
+    "@kwatt/ludo-ai": "workspace:*",
+    "@kwatt/rules-ludo": "workspace:*",
+    "fastify": "5.12.5",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "4.23.15"
+  }
+}

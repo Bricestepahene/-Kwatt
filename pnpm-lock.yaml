@@ -229,6 +229,12 @@ importers:
         specifier: 1.6.1
         version: 1.6.1
 
+  packages/ludo-ai:
+    dependencies:
+      '@kwatt/rules-ludo':
+        specifier: workspace:*
+        version: link:../rules-ludo
+
   packages/protocol:
     dependencies:
       zod:

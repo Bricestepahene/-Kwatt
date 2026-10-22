@@ -18,6 +18,11 @@
  *   invites.*  « Invitations de salon »           (ex. invites.room, invites.challenge)
  *   league.*   « Matchs de ligue »                (ex. league.match_tomorrow, league.match_soon)
  *   autre      toujours envoyée                   (ex. quest.completed, account.password_changed)
+ *
+ * Les réglages coupent le PUSH de leur catégorie ; la notification reste dans la liste.
+ * Pas de push quand le joueur a l'appli ouverte (connexion temps réel) : il reçoit `notify`.
+ * Push Android : canal `turn`, `invites`, `league` ou `default` (canaux à créer par l'appli,
+ * expo-notifications `setNotificationChannelAsync`) ; `data` = { notificationId, kind, params }.
  */
 import { z } from 'zod';
 import { IsoDateSchema, UuidSchema, paginated } from './common.js';

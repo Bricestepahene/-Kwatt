@@ -162,7 +162,9 @@ export default function RejoindreScreen() {
     retry: (count, error) => isApiError(error) && error.isTransient && count < 3,
   });
 
-  const problem = room.isError ? roomLookupProblem(toApiError(room.error)) : complete && offline && !room.data ? 'offline' : null;
+  // Pendant les nouveaux essais (pas de réseau), l'échec précédent s'affiche déjà : le code est gardé.
+  const failure = room.error ?? (room.data ? null : room.failureReason);
+  const problem = failure ? roomLookupProblem(toApiError(failure)) : complete && offline && !room.data ? 'offline' : null;
   const availability = room.data ? roomAvailability(room.data) : null;
   const usable = availability !== null && availability !== 'closed';
   const canPlay = availability === 'found';
@@ -230,7 +232,7 @@ export default function RejoindreScreen() {
 
       <RoomCodeInput value={code} onChange={setCode} autoFocus={!code} error={codeError} />
 
-      {complete && room.isFetching && !room.data ? (
+      {complete && room.isFetching && !room.data && problem === null ? (
         <View style={styles.inline} accessibilityLiveRegion="polite">
           <ActivityIndicator color={colors.textMuted} />
           <Text variant="label" tone="muted">

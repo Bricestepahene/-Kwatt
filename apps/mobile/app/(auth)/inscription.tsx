@@ -16,7 +16,7 @@ import { looksLikeEmail } from '@/features/accounts/logic';
 import { nextParam, withNext } from '@/features/accounts/nav';
 import { signupDraftStore, updateSignupDraft } from '@/features/accounts/signupDraft';
 import { translateError, useDynamicT } from '@/i18n';
-import { Button, Screen, Text, TextField } from '@/ui';
+import { Button, Chip, Screen, Text, TextField } from '@/ui';
 
 export default function InscriptionScreen() {
   const { t } = useTranslation('accounts');
@@ -118,7 +118,7 @@ export default function InscriptionScreen() {
           returnKeyType="done"
           error={passwordError}
         />
-        <PasswordMeter password={password} />
+        {passwordError && password.length === 0 ? null : <PasswordMeter password={password} />}
       </View>
 
       <CheckboxRow checked={consent} onChange={setConsent} accessibilityLabel={t('signup.consentA11y')} error={consentError}>
@@ -131,11 +131,8 @@ export default function InscriptionScreen() {
         </Text>
       </CheckboxRow>
       <View style={styles.links}>
-        <Button variant="ghost" size="sm" label={t('signup.consentRules')} onPress={() => router.push('/legal/regles' as Href)} />
-        <Text variant="small" tone="muted" aria-hidden>
-          ·
-        </Text>
-        <Button variant="ghost" size="sm" label={t('signup.consentPrivacy')} onPress={() => router.push('/legal/confidentialite' as Href)} />
+        <Chip icon="book" label={t('signup.readRules')} onPress={() => router.push('/legal/regles' as Href)} />
+        <Chip icon="lock" label={t('signup.readPrivacy')} onPress={() => router.push('/legal/confidentialite' as Href)} />
       </View>
 
       <Button label={t('signup.submit')} onPress={submit} />
@@ -147,6 +144,6 @@ export default function InscriptionScreen() {
 const styles = StyleSheet.create({
   titles: { gap: 6 },
   block: { gap: 8 },
-  links: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 4, marginTop: -8 },
+  links: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 8, marginTop: -4 },
   center: { alignSelf: 'center' },
 });

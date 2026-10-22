@@ -77,6 +77,8 @@
     "consentPrivacy": "privacy policy",
     "consentAfter": ".",
     "consentA11y": "I accept the neighbourhood rules and the privacy policy",
+    "readRules": "Neighbourhood rules",
+    "readPrivacy": "Privacy",
     "consentRequired": "Accept the neighbourhood rules to continue.",
     "submit": "Create my profile",
     "haveAccount": "I already have an account",

@@ -1,6 +1,6 @@
 import { useId, useState, type ReactNode, type Ref } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, TextInput, View, type StyleProp, type TextInputInstance, type TextInputProps, type ViewStyle } from 'react-native';
+import { Platform, StyleSheet, TextInput, View, type StyleProp, type TextInputInstance, type TextInputProps, type TextStyle, type ViewStyle } from 'react-native';
 import { fontFamilies, useTheme } from '../theme';
 import { IconButton } from './Button';
 import { Text } from './Text';
@@ -101,6 +101,7 @@ export function TextField({
 const styles = StyleSheet.create({
   wrap: { gap: 6 },
   field: { minHeight: 52, borderRadius: 14, flexDirection: 'row', alignItems: 'center', paddingLeft: 16, paddingRight: 4 },
-  input: { flex: 1, fontSize: 16, minHeight: 48, paddingVertical: 10 },
+  // Sur le web, pas de contour du navigateur : la bordure du champ montre déjà le focus.
+  input: { flex: 1, fontSize: 16, minHeight: 48, paddingVertical: 10, ...(Platform.OS === 'web' ? ({ outlineWidth: 0 } as TextStyle) : null) },
   footer: { alignSelf: 'flex-end' },
 });

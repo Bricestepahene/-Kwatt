@@ -233,7 +233,7 @@ export default function ParametresScreen() {
         {account ? (
           <ListItem label={t('account.pseudo')} value={account.pseudo ?? ''} chevron onPress={() => setSheet('pseudo')} />
         ) : (
-          <ListItem label={t('account.pseudo')} right={<Skeleton width={90} height={14} />} />
+          <ListItem label={t('account.pseudo')} right={<Skeleton width={90} height={14} style={{ backgroundColor: colors.border }} />} />
         )}
         {account ? (
           <ListItem
@@ -250,7 +250,7 @@ export default function ParametresScreen() {
             onPress={account.emailVerified ? undefined : () => setSheet('email')}
           />
         ) : (
-          <ListItem label={t('account.email')} right={<Skeleton width={120} height={14} />} />
+          <ListItem label={t('account.email')} right={<Skeleton width={120} height={14} style={{ backgroundColor: colors.border }} />} />
         )}
         <ListItem
           label={t('account.password')}
@@ -334,5 +334,5 @@ const styles = StyleSheet.create({
   slider: { width: 140 },
   language: { width: 176 },
   bottom: { flexDirection: 'row', gap: 10, marginTop: 6 },
-  half: { flex: 1 },
+  half: { flex: 1, paddingHorizontal: 8 },
 });

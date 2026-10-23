@@ -128,6 +128,18 @@ describe('LocalLudoController', () => {
     expect(replayed.tokens).toEqual(c.getState().phase === 'over' && preset === 'rapide' ? replayed.tokens : c.getState().tokens);
   });
 
+  it('règles maison : gardées dans l’historique, la notation se rejoue avec elles (écran 19)', () => {
+    const house = { capture: 'home_bonus20', barriers: 'six_opens' } as const;
+    const h = harness(21);
+    const c = new LocalLudoController(options({ setup: { preset: 'classique', house }, machines: 1 }), h.deps);
+    c.start();
+    playOut(c, h);
+    const game = h.finished[0]!;
+    expect(game.house).toEqual(house);
+    const replayed = replayNotation(gameOptions({ preset: 'classique', house: game.house ?? null }, 1), game.moves);
+    expect(replayed.tokens).toEqual(c.getState().tokens);
+  });
+
   it('la machine joue toute seule, le joueur attend son tour', () => {
     const h = harness(3);
     const c = new LocalLudoController(options(), h.deps);
@@ -200,6 +212,7 @@ describe('LocalLudoController', () => {
     c.roll();
     c.resign();
     expect(c.outcome()).toMatchObject({ reason: 'resign', places: { 0: 3 } });
+    expect(c.moves()[c.moves().length - 1]).toBe('x:0');
     expect(h.finished).toHaveLength(1);
     await Promise.resolve();
     expect(await h.storage.getItem(LOCAL_LUDO_KEY)).toBeNull();

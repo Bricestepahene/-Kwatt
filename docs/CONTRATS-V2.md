@@ -28,7 +28,7 @@ Module serveur `apps/server/src/modules/machine/` :
   { clientGameId: string, family: 'dames'|'ludo', variant, difficulty, mode: 'auto'|'chosen',
     machines?: number,              // Ludo : 1 à 3
     seed: number,                   // graine de la machine (déterminisme)
-    moves: string[],                // Dames : notation officielle ; Ludo : "roll:token" ou "roll:-" (pas de coup)
+    moves: string[],                // Dames : notation officielle ; Ludo : "roll:token", "roll:-" (pas de coup), "x:0" (abandon, en dernier)
     playedAt: string }              // ISO
   → { outcome: 'win'|'loss'|'draw', settlement: { net, base, participation, betNet, streakBonus, counted },
       rating: { before, after, delta, levelBefore, levelAfter } | null, auto: { difficulty, streak }, winStreak }

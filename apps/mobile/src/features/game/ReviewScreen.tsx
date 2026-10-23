@@ -221,8 +221,8 @@ function LudoReview({ view, moves }: { view: ResultView; moves: string[] }) {
     <Screen space="ludo" padded={false} gap={0} testID="screen-revoir">
       <Head view={view} count={moves.length} />
       <View style={styles.body}>
-        {replayFor(view.variant, view.playerCount, moves) ? (
-          <LudoReplay variant={view.variant} players={view.playerCount} moves={moves} />
+        {replayFor(view.variant, view.playerCount, moves, view.house) ? (
+          <LudoReplay variant={view.variant} players={view.playerCount} moves={moves} house={view.house} />
         ) : (
           <Text variant="small" tone="muted">
             {t('review.ludoNoBoard')}

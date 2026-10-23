@@ -24,6 +24,7 @@ import ludoRoutes from './ludo/routes.js';
 import ratingsRoutes from './ratings/routes.js';
 import machineRoutes from './machine/routes.js';
 import puzzlesRoutes from './puzzles/routes.js';
+import leaguesRoutes from './leagues/routes.js';
 
 export interface KwattModule {
   name: string;
@@ -47,4 +48,5 @@ export const modules: KwattModule[] = [
   { name: 'ratings', routes: ratingsRoutes },
   { name: 'machine', routes: machineRoutes },
   { name: 'puzzles', routes: puzzlesRoutes },
+  { name: 'leagues', routes: leaguesRoutes },
 ];

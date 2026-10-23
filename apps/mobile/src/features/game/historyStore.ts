@@ -7,6 +7,7 @@
  * (`GET /v1/games/:id`, contrat C3).
  */
 import type { MachineSettlementView, RatingChangeView } from '@kwatt/protocol';
+import type { HouseRules } from '@kwatt/rules-ludo';
 import { readJson, writeJson, type KeyValueStore } from '../../storage/kv';
 import type { GameFamily, GameOutcome, SeatInfo } from './controller';
 
@@ -28,6 +29,8 @@ export interface LocalGame {
   mySeats?: number[];
   /** Coups au format du contrat C2 (Dames : notation officielle ; Ludo : « lancer:pion »). */
   moves: string[];
+  /** Ludo : règles maison de la partie (sans elles, la notation ne se rejoue pas). */
+  house?: HouseRules;
   outcome: GameOutcome;
   /** Cauris réglés par le serveur (absent tant que le résultat attend le réseau). */
   settlement?: MachineSettlementView;

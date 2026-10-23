@@ -52,11 +52,63 @@
     "league": {
       "match_tomorrow": {
         "title": "League match tomorrow",
-        "body": "Your match against {{opponent}} is tomorrow."
+        "body": "{{leagueName}}: your match is tomorrow."
       },
       "match_soon": {
-        "title": "League match in 1 hour",
-        "body": "Get ready: {{opponent}} is waiting for you in 1 hour."
+        "title": "League match soon",
+        "body": "{{leagueName}}: your match starts in {{minutes}} min."
+      },
+      "match_ready": {
+        "title": "Everyone is here",
+        "body": "{{leagueName}}: the game is starting, your move."
+      },
+      "started": {
+        "title": "League started",
+        "body": "{{leagueName}} has started: your schedule is ready."
+      },
+      "cancelled": {
+        "title": "League cancelled",
+        "body": "{{leagueName}} was cancelled: your cowries are returned."
+      },
+      "validate_due": {
+        "title": "Registration closed",
+        "body": "{{leagueName}}: {{entrants}} players signed up. Confirm the league within 48 h."
+      },
+      "forfeit": {
+        "title": "Forfeit",
+        "body": "{{leagueName}}: a forfeit was recorded in your match."
+      },
+      "excluded": {
+        "title": "Removed from the league",
+        "body": "{{leagueName}}: you were excluded after your forfeits. {{refund}} cowries are returned."
+      },
+      "player_excluded": {
+        "title": "A player was excluded",
+        "body": "{{leagueName}}: {{pseudo}} was excluded. You move from #{{before}} to #{{after}}."
+      },
+      "finished": {
+        "title": "League over",
+        "body": "{{leagueName}} is over: you finish #{{position}}."
+      },
+      "removed": {
+        "title": "Removed from the league",
+        "body": "{{leagueName}}: the organiser removed you. Your entry is returned."
+      },
+      "time_proposed": {
+        "title": "Time proposed",
+        "body": "{{leagueName}}: your opponent proposes {{time}} for your match."
+      },
+      "time_agreed": {
+        "title": "Time set",
+        "body": "{{leagueName}}: your match is set for {{time}}."
+      },
+      "board_chosen": {
+        "title": "Board chosen",
+        "body": "{{leagueName}}: the board for your match is chosen."
+      },
+      "knockout_started": {
+        "title": "Knockout stage",
+        "body": "{{leagueName}}: you're through to the knockout stage!"
       }
     },
     "quest": {

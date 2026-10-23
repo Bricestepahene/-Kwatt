@@ -1,9 +1,9 @@
 /**
  * Plateau de l'écran 19 (revoir) pour le Ludo : la partie est rejouée depuis sa notation
  * (`replayStates` de @kwatt/rules-ludo) et parcourue entrée par entrée (début, recul, avance,
- * fin). Partie illisible (règles maison inconnues de l'historique) : rien n'est affiché.
+ * fin), avec les règles maison gardées par l'historique. Partie illisible : rien n'est affiché.
  */
-import { boardGeometry, replayStates, type LudoState } from '@kwatt/rules-ludo';
+import { boardGeometry, replayStates, type HouseRules, type LudoState } from '@kwatt/rules-ludo';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
@@ -11,10 +11,11 @@ import { IconButton, Text } from '@/ui';
 import { LudoBoard } from './board/LudoBoard';
 import { presetOfVariant } from './setup';
 
-export function replayFor(variant: string, players: number, moves: readonly string[]): LudoState[] | null {
+export function replayFor(variant: string, players: number, moves: readonly string[], house: HouseRules | null = null): LudoState[] | null {
   const preset = presetOfVariant(variant);
   if (!preset) return null;
-  const options = preset === 'pachisi' ? { preset, players: 4, teams: [[0, 2], [1, 3]] } : { preset, players };
+  const base = preset === 'pachisi' ? { preset, players: 4, teams: [[0, 2], [1, 3]] } : { preset, players };
+  const options = { ...base, house };
   try {
     return replayStates(options, moves);
   } catch {
@@ -22,10 +23,10 @@ export function replayFor(variant: string, players: number, moves: readonly stri
   }
 }
 
-export function LudoReplay({ variant, players, moves }: { variant: string; players: number; moves: readonly string[] }) {
+export function LudoReplay({ variant, players, moves, house = null }: { variant: string; players: number; moves: readonly string[]; house?: HouseRules | null }) {
   const { t } = useTranslation('ludo');
   const { width } = useWindowDimensions();
-  const states = useMemo(() => replayFor(variant, players, moves), [variant, players, moves]);
+  const states = useMemo(() => replayFor(variant, players, moves, house), [variant, players, moves, house]);
   const [ply, setPly] = useState(() => (states ? states.length - 1 : 0));
   if (!states) return null;
   const state = states[Math.min(ply, states.length - 1)]!;

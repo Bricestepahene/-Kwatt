@@ -397,6 +397,7 @@ export class LocalLudoController implements GameController<LudoState, LudoMove> 
       seats: this.seats(),
       mySeats: [PLAYER_SEAT],
       moves: [...this.log.moves],
+      ...(o.setup.house ? { house: o.setup.house } : {}),
       outcome,
       machine: { difficulty: o.difficulty, mode: o.mode, bet: 0, offline: true, pending: o.submit },
       playedAt: new Date(o.createdAt).toISOString(),

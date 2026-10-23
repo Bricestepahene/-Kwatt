@@ -21,3 +21,4 @@ export * from './http/games.js';
 export * from './ws/envelope.js';
 export * from './ws/base.js';
 export * from './http/ludo.js';
+export * from './http/leagues.js';

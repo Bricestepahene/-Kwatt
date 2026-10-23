@@ -4,7 +4,7 @@ Points relevés par les équipes lors des fusions, à traiter pendant la vérifi
 
 ## À corriger
 - [x] **Adresse du serveur dans l’export web** : l'export web garde `extra.apiUrl = http://localhost:8080` malgré `EXPO_PUBLIC_API_URL` (app.config.ts / src/config). À corriger avant tout déploiement web ou build EAS. Corrigé : `src/config/env.ts` lit d’abord les variables EXPO_PUBLIC_ (le manifeste `extra` restait en cache de Metro d’un export à l’autre).
-- [ ] **Ludo Rapide, abandon** : une partie Rapide abandonnée est rejouée par le serveur comme « finie au temps », ce qui peut la compter gagnée si le joueur menait. Ajouter une entrée « abandon » à la notation Ludo (rules-ludo `notation.ts`) et la gérer dans `replayLudo`.
+- [x] **Ludo Rapide, abandon** : une partie Rapide abandonnée est rejouée par le serveur comme « finie au temps », ce qui peut la compter gagnée si le joueur menait. Ajouter une entrée « abandon » à la notation Ludo (rules-ludo `notation.ts`) et la gérer dans `replayLudo`. Corrigé : entrée « x:siège » (`recordQuit`), écrite par la partie locale à l'abandon ; `replayLudo` la compte comme un abandon (perdu, dernier). L'équipe Parties en ligne peut l'utiliser pour la sortie après absence.
 - [ ] **IA Ludo, niveau Fon** : pas plus forte que « Ton niveau » (CALIBRATION.md). Renforcer l'agent Fon et recalibrer la table des cotes.
 - [ ] **Historique local Ludo** : les règles maison ne sont pas gardées, l'écran 19 se rabat sur la liste des coups.
 - [ ] **Comptes jeunes visibles des amis** : brancher `registerProfileRelation` (Profil) depuis le module amis (Communauté).

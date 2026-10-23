@@ -12,7 +12,9 @@
  * Ludo : légalité seulement (@kwatt/rules-ludo) ; les lancers hors ligne viennent du
  * téléphone. Format d'un coup : « lancer:pion » (« 6:2 »), « lancer:siège.pion » quand un
  * partenaire joue pour l'autre, « lancer:- » (pas de coup), « b:pion » (coup bonus du
- * Parchís, sans lancer). Le joueur est au siège 0, les machines aux sièges suivants.
+ * Parchís, sans lancer), « x:0 » (le joueur abandonne : dernière entrée seulement). Le joueur
+ * est au siège 0, les machines aux sièges suivants. Une partie Rapide inachevée sans abandon
+ * est finie au temps ; une autre partie inachevée compte comme un abandon.
  */
 import { chooseMoveSync } from '@kwatt/engine-dames';
 import {
@@ -101,8 +103,16 @@ export function replayLudo(variant: string, machines: number, moves: readonly st
   } catch {
     throw new InvalidGameError(0, 'setup');
   }
+  let resigned = false;
   for (const [ply, text] of moves.entries()) {
     if (state.phase === 'over') throw new InvalidGameError(ply, 'after_end');
+    if (text.startsWith('x:')) {
+      // Abandon : seul le joueur quitte (les machines ne partent jamais), et rien ne le suit.
+      if (text !== 'x:0') throw new InvalidGameError(ply, 'quit_seat');
+      if (ply !== moves.length - 1) throw new InvalidGameError(ply, 'after_quit');
+      resigned = true;
+      break;
+    }
     const m = LUDO_MOVE.exec(text);
     if (!m) throw new InvalidGameError(ply, 'format');
     const [, roll, token, tokenOfSeat] = m;
@@ -128,7 +138,7 @@ export function replayLudo(variant: string, machines: number, moves: readonly st
   }
   let reason = 'all_home';
   if (state.phase !== 'over') {
-    if (setup.preset === 'rapide') {
+    if (setup.preset === 'rapide' && !resigned) {
       state = endOnTime(state);
       reason = 'time';
     } else {

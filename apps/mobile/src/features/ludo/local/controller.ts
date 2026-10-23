@@ -21,6 +21,7 @@ import {
   finish as finishProgress,
   legalMoves,
   recordMove,
+  recordQuit,
   recordRoll,
   removeSeat,
   replayNotation,
@@ -187,6 +188,8 @@ export class LocalLudoController implements GameController<LudoState, LudoMove> 
     if (this.finished) return;
     this.clearTimers();
     this.resigned = true;
+    // « x:0 » dans la notation : le serveur compte l'abandon (sinon une partie Rapide serait finie au temps).
+    this.log = recordQuit(this.log, PLAYER_SEAT);
     this.state = endOnTime(removeSeat(this.state, PLAYER_SEAT));
     this.emit({ kind: 'end', params: { reason: 'resign' } });
     this.persist();

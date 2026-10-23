@@ -200,6 +200,7 @@ describe('LocalLudoController', () => {
     c.roll();
     c.resign();
     expect(c.outcome()).toMatchObject({ reason: 'resign', places: { 0: 3 } });
+    expect(c.moves()[c.moves().length - 1]).toBe('x:0');
     expect(h.finished).toHaveLength(1);
     await Promise.resolve();
     expect(await h.storage.getItem(LOCAL_LUDO_KEY)).toBeNull();

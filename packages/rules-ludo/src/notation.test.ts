@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { applyLegalMove, applyRoll, legalMoves, newGame, type LudoState } from './engine.js';
-import { emptyLog, LUDO_NOTATION, recordMove, recordRoll, replayNotation, replayStates, tokenNotation, type NotationLog } from './notation.js';
+import { applyLegalMove, applyRoll, endOnTime, legalMoves, newGame, removeSeat, type LudoState } from './engine.js';
+import { emptyLog, LUDO_NOTATION, quitSeat, recordMove, recordQuit, recordRoll, replayNotation, replayStates, tokenNotation, type NotationLog } from './notation.js';
 import { COWRIE_VALUES, type NewGameOptions } from './variants.js';
 
 /** Générateur pseudo-aléatoire reproductible (tests seulement). */
@@ -86,5 +86,34 @@ describe('notation des parties de Ludo', () => {
   it('pion du partenaire : siège et pion', () => {
     expect(tokenNotation({ current: 0 }, { seat: 0, token: 3 })).toBe('3');
     expect(tokenNotation({ current: 0 }, { seat: 2, token: 1 })).toBe('2.1');
+  });
+
+  it('abandon : « x:siège » retire le siège, annule le lancer en attente et se rejoue', () => {
+    const setup: NewGameOptions = { preset: 'rapide', players: 3 };
+    const { log } = playRandom(setup, 7, 60);
+    const before = replayNotation(setup, log.moves);
+    // Un lancer en attente au moment de l'abandon (s'il y a lieu de lancer).
+    const pending = before.phase === 'roll' ? recordRoll(log, applyRoll(before, 6), 6) : log;
+    const quit = recordQuit(pending, 0);
+    expect(quit.pendingRoll).toBeNull();
+    expect(quit.moves[quit.moves.length - 1]).toBe('x:0');
+    expect(quit.moves[quit.moves.length - 1]).toMatch(LUDO_NOTATION);
+    expect(quitSeat('x:2')).toBe(2);
+    expect(quitSeat('6:2')).toBeNull();
+    const replayed = replayNotation(setup, quit.moves);
+    expect(replayed).toEqual(removeSeat(replayNotation(setup, pending.moves), 0));
+    expect(replayed.seats[0]!.status).toBe('out');
+    // Fin de la partie locale : classement à la progression, le joueur sorti dernier.
+    const end = endOnTime(replayed);
+    expect(end.phase).toBe('over');
+    expect([-1, end.seats.length - 1]).toContain(end.ranking.indexOf(0));
+    expect(replayStates(setup, quit.moves)).toHaveLength(quit.moves.length + 1);
+  });
+
+  it('refuse la sortie d’un siège inconnu ou après la fin', () => {
+    const setup: NewGameOptions = { preset: 'classique', players: 2 };
+    expect(() => replayNotation(setup, ['x:5'])).toThrow('ludo.seat.invalid');
+    const { log } = playRandom(setup, 11);
+    expect(() => replayNotation(setup, [...log.moves, 'x:0'])).toThrow('ludo.move.not_now');
   });
 });

@@ -8,7 +8,7 @@ Points relevés par les équipes lors des fusions, à traiter pendant la vérifi
 - [ ] **IA Ludo, niveau Fon** : pas plus forte que « Ton niveau » (CALIBRATION.md). Renforcer l'agent Fon et recalibrer la table des cotes.
 - [x] **Historique local Ludo** : les règles maison ne sont pas gardées, l'écran 19 se rabat sur la liste des coups. Corrigé : `LocalGame.house`, rejouée par `replayFor` (écran 19). Reste pour Parties en ligne : le résumé `GET /v1/games/:id` (C3) ne porte pas encore les règles maison d'un salon.
 - [ ] **Comptes jeunes visibles des amis** : brancher `registerProfileRelation` (Profil) depuis le module amis (Communauté).
-- [ ] **Raretés et couleurs Plein soleil** non données par les planches (lossSoft, gainSoftText…) : vérifier le contraste.
+- [x] **Raretés et couleurs Plein soleil** non données par les planches (lossSoft, gainSoftText…) : vérifier le contraste. Vérifié par test (`packages/design/src/index.test.ts`) : aplats doux à 4,5:1 ou plus dans les deux thèmes, raretés lisibles la nuit ; en Plein soleil, `useRarityColors` se rabat sur le texte du thème.
 
 ## À vérifier sur un vrai téléphone (Expo Go / EAS)
 - Photo de profil (prise, recadrage, envoi), partage du fichier d'export, jeton push, collage automatique du code.

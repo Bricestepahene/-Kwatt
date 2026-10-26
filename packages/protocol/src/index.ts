@@ -28,3 +28,4 @@ export * from './http/challenges.js';
 export * from './http/friends.js';
 export * from './http/reports.js';
 export * from './http/progression.js';
+export * from './http/home.js';

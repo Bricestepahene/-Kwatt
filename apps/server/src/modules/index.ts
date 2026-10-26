@@ -34,6 +34,7 @@ import quartersRoutes from './quarters/routes.js';
 import cardsRoutes from './cards/routes.js';
 import rewardsRoutes from './rewards/routes.js';
 import reasoningRoutes from './reasoning/routes.js';
+import homeRoutes from './home/routes.js';
 
 export interface KwattModule {
   name: string;
@@ -67,4 +68,5 @@ export const modules: KwattModule[] = [
   { name: 'cards', routes: cardsRoutes },
   { name: 'rewards', routes: rewardsRoutes },
   { name: 'reasoning', routes: reasoningRoutes },
+  { name: 'home', routes: homeRoutes },
 ];

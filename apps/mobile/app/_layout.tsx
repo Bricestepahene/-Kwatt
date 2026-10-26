@@ -9,6 +9,7 @@ import { useBootstrap } from '@/boot/useBootstrap';
 // Envoi des résultats hors connexion contre la machine (C2), enregistré au démarrage.
 import '@/features/game/machineResults';
 import '@/features/dames/puzzleSender';
+import '@/features/online/runtime';
 import { SessionGate } from '@/navigation/SessionGate';
 import { ThemeProvider, useTheme } from '@/theme';
 import { Logo } from '@/ui/brand';

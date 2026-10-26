@@ -50,3 +50,20 @@ export function resolveController(family: GameFamily, id: string, options?: { sp
   controllers.set(id, created);
   return created;
 }
+
+/**
+ * Comme `resolveController`, mais attend le premier état d'une partie distante (`ready()`)
+ * avant de rendre le contrôleur : l'écran ne dessine jamais un plateau provisoire.
+ * Partie introuvable ou refusée : `undefined` (le contrôleur est libéré).
+ */
+export async function resolveControllerReady(family: GameFamily, id: string, options?: { spectate?: boolean }): Promise<AnyController | undefined> {
+  const c = resolveController(family, id, options) as (AnyController & { ready?: () => Promise<void> }) | undefined;
+  if (!c?.ready) return c;
+  try {
+    await c.ready();
+    return c;
+  } catch {
+    unregisterController(id);
+    return undefined;
+  }
+}

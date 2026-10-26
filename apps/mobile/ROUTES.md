@@ -46,6 +46,7 @@ Chaque écran du Sommaire (`docs/maquette/README.md`) a sa route, déjà branch�
 | 24 | `creerSalon` | `app/salon/nouveau.tsx` | `/salon/nouveau` | CreerSalon | Profil | Parties en ligne |  |
 | 25 | `salon` | `app/salon/[code].tsx` | `/salon/[code]` | Salon | Session (invité ou profil) | Parties en ligne | Lien kwatt://salon/CODE ; sans session, renvoi vers 02 avec le code. |
 | 26 | `mise` | `app/defi/[id].tsx` | `/defi/[id]` | Mise | Profil, 18 ans et plus | Parties en ligne |  |
+| 26 | `nouveauDefi` | `app/defi/nouveau.tsx` | `/defi/nouveau` | Mise | Profil | Parties en ligne | Défier un ami ou demander la revanche : ?userId=…&name=…&game=…&rematchOf=… La mise demande 18 ans et plus. |
 | 27 | `ligues` | `app/(tabs)/ligues.tsx` | `/ligues` | Ligues | Profil | Ligues |  |
 | 28 | `creerLigue` | `app/ligue/nouvelle.tsx` | `/ligue/nouvelle` | CreerLigue | Profil | Ligues |  |
 | 28b | `reglesCompetition` | `app/ligue/regles.tsx` | `/ligue/regles` | ReglesCompetition | Profil | Ligues |  |
@@ -59,6 +60,7 @@ Chaque écran du Sommaire (`docs/maquette/README.md`) a sa route, déjà branch�
 | 35 | `exclusion` | `app/ligue/[id]/exclusion.tsx` | `/ligue/[id]/exclusion` | Exclusion | Profil | Ligues |  |
 | 36 | `quartiers` | `app/quartiers.tsx` | `/quartiers` | Quartiers | Profil | Communauté et progression |  |
 | 37 | `regarder` | `app/regarder/[id].tsx` | `/regarder/[id]` | KwattTV | Session (invité ou profil) | Parties en ligne | « Autour du damier » : regarder ne demande pas de profil (session invitée). |
+| 37 | `regarderListe` | `app/regarder/index.tsx` | `/regarder` | KwattTV | Session (invité ou profil) | Parties en ligne | Parties publiques en cours (salons et ligues), les plus regardées d’abord. |
 | 38 | `signaler` | `app/signaler/[userId].tsx` | `/signaler/[userId]` | Signaler | Profil | Communauté et progression |  |
 | 39 | `cartes` | `app/(tabs)/cartes.tsx` | `/cartes` | Cartes | Profil | Communauté et progression |  |
 | 40 | `recompenses` | `app/recompenses.tsx` | `/recompenses` | Recompenses | Profil | Communauté et progression |  |

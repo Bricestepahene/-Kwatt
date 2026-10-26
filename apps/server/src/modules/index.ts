@@ -24,6 +24,17 @@ import ludoRoutes from './ludo/routes.js';
 import ratingsRoutes from './ratings/routes.js';
 import machineRoutes from './machine/routes.js';
 import puzzlesRoutes from './puzzles/routes.js';
+import gamesRoutes from './games/routes.js';
+import leaguesRoutes from './leagues/routes.js';
+import roomsRoutes from './rooms/routes.js';
+import challengesRoutes from './challenges/routes.js';
+import friendsRoutes from './friends/routes.js';
+import reportsRoutes from './reports/routes.js';
+import quartersRoutes from './quarters/routes.js';
+import cardsRoutes from './cards/routes.js';
+import rewardsRoutes from './rewards/routes.js';
+import reasoningRoutes from './reasoning/routes.js';
+import homeRoutes from './home/routes.js';
 
 export interface KwattModule {
   name: string;
@@ -47,4 +58,15 @@ export const modules: KwattModule[] = [
   { name: 'ratings', routes: ratingsRoutes },
   { name: 'machine', routes: machineRoutes },
   { name: 'puzzles', routes: puzzlesRoutes },
+  { name: 'games', routes: gamesRoutes },
+  { name: 'leagues', routes: leaguesRoutes },
+  { name: 'rooms', routes: roomsRoutes },
+  { name: 'challenges', routes: challengesRoutes },
+  { name: 'friends', routes: friendsRoutes },
+  { name: 'reports', routes: reportsRoutes },
+  { name: 'quarters', routes: quartersRoutes },
+  { name: 'cards', routes: cardsRoutes },
+  { name: 'rewards', routes: rewardsRoutes },
+  { name: 'reasoning', routes: reasoningRoutes },
+  { name: 'home', routes: homeRoutes },
 ];

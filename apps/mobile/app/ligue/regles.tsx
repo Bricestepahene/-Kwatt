@@ -1,6 +1,4 @@
-/** Écran provisoire : voir ROUTES.md (clé « reglesCompetition »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 28b · Plateaux et règles de la compétition. */
+import { CompetitionRulesScreen } from '@/features/leagues/screens/CompetitionRulesScreen';
 
-export default function ReglesCompetitionScreen() {
-  return <PlaceholderScreen routeKey="reglesCompetition" />;
-}
+export default CompetitionRulesScreen;

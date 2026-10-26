@@ -1,6 +1,4 @@
-/** Écran provisoire : voir ROUTES.md (clé « notifications »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 08 · Notifications. */
+import { NotificationsScreen } from '@/features/community/screens/NotificationsScreen';
 
-export default function NotificationsScreen() {
-  return <PlaceholderScreen routeKey="notifications" />;
-}
+export default NotificationsScreen;

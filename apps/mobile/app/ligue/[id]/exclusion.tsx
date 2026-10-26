@@ -1,6 +1,4 @@
-/** Écran provisoire : voir ROUTES.md (clé « exclusion »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 35 · Exclusion et calendrier recalculé. */
+import { ExclusionScreen } from '@/features/leagues/screens/ExclusionScreen';
 
-export default function ExclusionScreen() {
-  return <PlaceholderScreen routeKey="exclusion" />;
-}
+export default ExclusionScreen;

@@ -47,22 +47,94 @@
       "challenge": {
         "title": "Défi",
         "body": "{{from}} te lance un défi."
+      },
+      "challenge_countered": {
+        "title": "Contre-proposition",
+        "body": "{{from}} propose une mise de {{stake}} cauris."
+      },
+      "challenge_accepted": {
+        "title": "Défi accepté",
+        "body": "{{from}} relève ton défi : la partie commence."
+      },
+      "challenge_declined": {
+        "title": "Défi refusé",
+        "body": "{{from}} décline ton défi."
+      },
+      "friend_request": {
+        "title": "Demande d'ami",
+        "body": "{{from}} veut t'ajouter en ami."
       }
     },
     "league": {
       "match_tomorrow": {
         "title": "Match de ligue demain",
-        "body": "Ton match contre {{opponent}} a lieu demain."
+        "body": "{{leagueName}} : ton match a lieu demain."
       },
       "match_soon": {
-        "title": "Match de ligue dans 1 h",
-        "body": "Prépare-toi : {{opponent}} t'attend dans 1 heure."
+        "title": "Match de ligue bientôt",
+        "body": "{{leagueName}} : ton match commence dans {{minutes}} min."
+      },
+      "match_ready": {
+        "title": "Tout le monde est là",
+        "body": "{{leagueName}} : la partie commence, à toi de jouer."
+      },
+      "started": {
+        "title": "Ligue lancée",
+        "body": "{{leagueName}} est lancée : ton calendrier est prêt."
+      },
+      "cancelled": {
+        "title": "Ligue annulée",
+        "body": "{{leagueName}} est annulée : tes cauris te sont rendus."
+      },
+      "validate_due": {
+        "title": "Inscriptions closes",
+        "body": "{{leagueName}} : {{entrants}} inscrits. Valide la ligue sous 48 h."
+      },
+      "forfeit": {
+        "title": "Forfait",
+        "body": "{{leagueName}} : un forfait a été enregistré à ton match."
+      },
+      "excluded": {
+        "title": "Exclu de la ligue",
+        "body": "{{leagueName}} : tu es exclu après tes forfaits. {{refund}} cauris te sont rendus."
+      },
+      "player_excluded": {
+        "title": "Un joueur est exclu",
+        "body": "{{leagueName}} : {{pseudo}} est exclu. Ton classement passe de {{before}}e à {{after}}e."
+      },
+      "finished": {
+        "title": "Ligue terminée",
+        "body": "{{leagueName}} est terminée : tu finis {{position}}e."
+      },
+      "removed": {
+        "title": "Retiré de la ligue",
+        "body": "{{leagueName}} : le créateur t'a retiré. Ton entrée t'est rendue."
+      },
+      "time_proposed": {
+        "title": "Heure proposée",
+        "body": "{{leagueName}} : ton adversaire propose {{time}} pour votre match."
+      },
+      "time_agreed": {
+        "title": "Heure fixée",
+        "body": "{{leagueName}} : votre match est fixé à {{time}}."
+      },
+      "board_chosen": {
+        "title": "Planche choisie",
+        "body": "{{leagueName}} : la planche de votre match est choisie."
+      },
+      "knockout_started": {
+        "title": "Phase finale",
+        "body": "{{leagueName}} : tu es qualifié pour la phase finale !"
       }
     },
     "quest": {
       "completed": {
         "title": "Quête terminée",
         "body": "+{{amount}} cauris pour toi."
+      },
+      "completed_card": {
+        "title": "Quête terminée",
+        "body": "Une carte t'attend : va la récupérer."
       }
     },
     "profile": {
@@ -73,6 +145,34 @@
       "photo_rejected": {
         "title": "Photo refusée",
         "body": "Ta photo de profil n'a pas été acceptée : ton avatar reste affiché."
+      }
+    },
+    "friends": {
+      "accepted": {
+        "title": "Nouvel ami",
+        "body": "{{from}} a accepté ta demande."
+      }
+    },
+    "account": {
+      "warning": {
+        "title": "Avertissement",
+        "body": "La modération a reçu des signalements à ton sujet. Merci de respecter les règles du quartier."
+      }
+    },
+    "rewards": {
+      "streak": {
+        "title": "Série de {{days}} jours",
+        "body": "Bravo ! Choisis ta carte rare."
+      },
+      "card": {
+        "title": "Nouvelle carte",
+        "body": "Une carte rejoint ta collection."
+      }
+    },
+    "quarters": {
+      "champion": {
+        "title": "Quartier champion",
+        "body": "Ton quartier gagne la saison : un cadre t'attend."
       }
     }
   },

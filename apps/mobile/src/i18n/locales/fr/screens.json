@@ -1,59 +1,239 @@
 {
-  "bienvenue": { "title": "Bienvenue", "lead": "Rejoindre un salon, créer son profil ou se connecter." },
-  "rejoindre": { "title": "Rejoindre un salon", "lead": "Tape le code que ton ami t'a envoyé. Pas de compte à créer." },
-  "inscription": { "title": "Créer mon profil", "lead": "Pseudo, e-mail, mot de passe : un seul profil pour tout le hub." },
-  "verifierEmail": { "title": "Vérifier ton e-mail", "lead": "Entre le code à 6 chiffres reçu par e-mail." },
-  "age": { "title": "Ton âge", "lead": "Ton année de naissance règle ce que tu peux faire. Elle n'est jamais affichée." },
-  "premierLancement": { "title": "Premier lancement", "lead": "Choisis ton quartier et fais ta première partie." },
-  "connexion": { "title": "On se connaît déjà", "lead": "Connecte-toi avec ton pseudo ou ton e-mail." },
-  "motDePasseOublie": { "title": "Mot de passe oublié", "lead": "On t'envoie un code à 6 chiffres pour choisir un nouveau mot de passe." },
-  "reglesQuartier": { "title": "Règles du quartier", "lead": "Respect, jeu honnête, cauris sans argent réel, âge et mises." },
-  "confidentialite": { "title": "Politique de confidentialité", "lead": "Ce que Kwatt garde, pourquoi, et comment tout effacer." },
-  "accueil": { "title": "Accueil", "lead": "Tes espaces de jeu, tes salons et ton prochain match." },
-  "jouer": { "title": "Jouer", "lead": "On rouvre ton dernier espace de jeu." },
-  "modeDames": { "title": "Comment on joue ?", "lead": "Machine, salon entre proches, défi avec mise, ligues et problème du jour." },
-  "modeLudo": { "title": "Comment on joue ?", "lead": "Machines, salon de 2 à 6 joueurs, plateaux et règles maison." },
-  "ligues": { "title": "Ligues", "lead": "Tes championnats et tes coupes, privés ou publics." },
-  "cartes": { "title": "Cartes", "lead": "Tables, plateaux, pions et pouvoirs gagnés au jeu." },
-  "profil": { "title": "Profil", "lead": "Ton profil unique : cauris, cartes, médailles et niveaux par jeu." },
-  "notifications": { "title": "Notifications", "lead": "Ce qui t'attend maintenant, aujourd'hui et hier." },
-  "avatarStudio": { "title": "Ton visage au kwatt", "lead": "Avatar composé ou photo, avec un cadre de tissu." },
-  "avatarBoutique": { "title": "Avatars du kwatt", "lead": "Des avatars qui s'achètent seulement en cauris gagnés au jeu." },
-  "profilCauris": { "title": "Mes cauris", "lead": "Chaque cauri gagné ou dépensé : qui, combien, pourquoi, partie liée." },
-  "joueur": { "title": "Profil d'un joueur", "lead": "Le profil d'un autre joueur : niveaux, médailles et derniers matchs." },
-  "amis": { "title": "Amis", "lead": "Tes amis, leurs parties en cours et tes invitations." },
-  "ami": { "title": "Invitation d'ami", "lead": "Ajoute ce joueur à tes amis." },
-  "parametres": { "title": "Paramètres", "lead": "Sons, affichage, notifications, langue et compte." },
-  "affichage": { "title": "Affichage", "lead": "Nuit, Plein soleil ou automatique selon la lumière." },
-  "machine": { "title": "Défi contre la machine", "lead": "Cinq difficultés, et un pari si tu veux." },
-  "partieDames": { "title": "Partie de dames", "lead": "Touche un pion, puis la case." },
-  "resultat": { "title": "Fin de partie", "lead": "Le résultat, les cauris gagnés et la suite." },
-  "revoir": { "title": "Revoir la partie", "lead": "Rejoue chaque coup de la partie." },
-  "probleme": { "title": "Problème du jour", "lead": "Un problème de dames par jour, +10 cauris." },
-  "ludoVariantes": { "title": "Plateau et règles", "lead": "Classique, rapide, Parchís, Pachisi, 6 joueurs et règles maison." },
-  "partieLudo": { "title": "Partie de Ludo", "lead": "Lance le dé, puis touche un pion." },
-  "deHonnete": { "title": "Le dé était-il honnête ?", "lead": "Chaque lancer se vérifie après la partie." },
-  "regles": { "title": "Les règles", "lead": "Dames 10×10, dames 8×8 et Ludo, en six points chacun." },
-  "creerSalon": { "title": "Nouveau salon", "lead": "Jeu, variante, joueurs, format et mise." },
-  "salon": { "title": "Salon", "lead": "Partage le code pour remplir la table." },
-  "mise": { "title": "Défi avec mise", "lead": "Chacun met la même mise, le gagnant prend le pot." },
-  "creerLigue": { "title": "Créer une ligue privée", "lead": "Championnat ou coupe, entre amis." },
-  "reglesCompetition": { "title": "Plateaux et règles de la compétition", "lead": "Les variantes et les règles de tous les matchs." },
-  "championnat": { "title": "Championnat", "lead": "Le classement, les matchs aller et retour." },
-  "coupe": { "title": "Coupe", "lead": "Poules, puis tableau final." },
-  "creerLiguePublique": { "title": "Créer une ligue publique", "lead": "Droits d'entrée, caution et calendrier." },
-  "liguePublique": { "title": "Rejoindre une ligue publique", "lead": "Les conditions d'entrée et le pot." },
-  "validerLigue": { "title": "Valider la ligue", "lead": "Vérifie tout avant d'ouvrir les inscriptions." },
-  "matchDuJour": { "title": "Match du jour", "lead": "Ton match de ligue, l'heure et le forfait." },
-  "choixPlanche": { "title": "Choisir la planche", "lead": "Le plateau et les règles du match." },
-  "exclusion": { "title": "Exclusion et recalcul", "lead": "Pourquoi le classement change." },
-  "quartiers": { "title": "Guerre des quartiers", "lead": "Ton quartier contre les autres, tout le mois." },
-  "regarder": { "title": "Autour du damier", "lead": "Regarde une partie en direct et réagis." },
-  "signaler": { "title": "Signaler ou bloquer", "lead": "Dis-nous ce qui s'est passé." },
-  "recompenses": { "title": "Médailles et quêtes", "lead": "Tes médailles, tes quêtes de la semaine et tes séries." },
-  "echelons": { "title": "Échelons", "lead": "D'Apprenti à Fon : comment on monte." },
-  "raisonnement": { "title": "Raisonnement", "lead": "Logique et calcul mental, bientôt." },
-  "lienSalon": { "title": "Lien de salon", "lead": "On t'emmène au salon." },
-  "kit": { "title": "Kit de composants", "lead": "Tous les composants de l'appli, dans le thème et la langue du moment." },
-  "notFound": { "title": "Page introuvable", "lead": "Ce lien ne mène nulle part.", "home": "Revenir à l'accueil" }
+  "bienvenue": {
+    "title": "Bienvenue",
+    "lead": "Rejoindre un salon, créer son profil ou se connecter."
+  },
+  "rejoindre": {
+    "title": "Rejoindre un salon",
+    "lead": "Tape le code que ton ami t'a envoyé. Pas de compte à créer."
+  },
+  "inscription": {
+    "title": "Créer mon profil",
+    "lead": "Pseudo, e-mail, mot de passe : un seul profil pour tout le hub."
+  },
+  "verifierEmail": {
+    "title": "Vérifier ton e-mail",
+    "lead": "Entre le code à 6 chiffres reçu par e-mail."
+  },
+  "age": {
+    "title": "Ton âge",
+    "lead": "Ton année de naissance règle ce que tu peux faire. Elle n'est jamais affichée."
+  },
+  "premierLancement": {
+    "title": "Premier lancement",
+    "lead": "Choisis ton quartier et fais ta première partie."
+  },
+  "connexion": {
+    "title": "On se connaît déjà",
+    "lead": "Connecte-toi avec ton pseudo ou ton e-mail."
+  },
+  "motDePasseOublie": {
+    "title": "Mot de passe oublié",
+    "lead": "On t'envoie un code à 6 chiffres pour choisir un nouveau mot de passe."
+  },
+  "reglesQuartier": {
+    "title": "Règles du quartier",
+    "lead": "Respect, jeu honnête, cauris sans argent réel, âge et mises."
+  },
+  "confidentialite": {
+    "title": "Politique de confidentialité",
+    "lead": "Ce que Kwatt garde, pourquoi, et comment tout effacer."
+  },
+  "accueil": {
+    "title": "Accueil",
+    "lead": "Tes espaces de jeu, tes salons et ton prochain match."
+  },
+  "jouer": {
+    "title": "Jouer",
+    "lead": "On rouvre ton dernier espace de jeu."
+  },
+  "modeDames": {
+    "title": "Comment on joue ?",
+    "lead": "Machine, salon entre proches, défi avec mise, ligues et problème du jour."
+  },
+  "modeLudo": {
+    "title": "Comment on joue ?",
+    "lead": "Machines, salon de 2 à 6 joueurs, plateaux et règles maison."
+  },
+  "ligues": {
+    "title": "Ligues",
+    "lead": "Tes championnats et tes coupes, privés ou publics."
+  },
+  "cartes": {
+    "title": "Cartes",
+    "lead": "Tables, plateaux, pions et pouvoirs gagnés au jeu."
+  },
+  "profil": {
+    "title": "Profil",
+    "lead": "Ton profil unique : cauris, cartes, médailles et niveaux par jeu."
+  },
+  "notifications": {
+    "title": "Notifications",
+    "lead": "Ce qui t'attend maintenant, aujourd'hui et hier."
+  },
+  "avatarStudio": {
+    "title": "Ton visage au kwatt",
+    "lead": "Avatar composé ou photo, avec un cadre de tissu."
+  },
+  "avatarBoutique": {
+    "title": "Avatars du kwatt",
+    "lead": "Des avatars qui s'achètent seulement en cauris gagnés au jeu."
+  },
+  "profilCauris": {
+    "title": "Mes cauris",
+    "lead": "Chaque cauri gagné ou dépensé : qui, combien, pourquoi, partie liée."
+  },
+  "joueur": {
+    "title": "Profil d'un joueur",
+    "lead": "Le profil d'un autre joueur : niveaux, médailles et derniers matchs."
+  },
+  "amis": {
+    "title": "Amis",
+    "lead": "Tes amis, leurs parties en cours et tes invitations."
+  },
+  "ami": {
+    "title": "Invitation d'ami",
+    "lead": "Ajoute ce joueur à tes amis."
+  },
+  "parametres": {
+    "title": "Paramètres",
+    "lead": "Sons, affichage, notifications, langue et compte."
+  },
+  "affichage": {
+    "title": "Affichage",
+    "lead": "Nuit, Plein soleil ou automatique selon la lumière."
+  },
+  "machine": {
+    "title": "Défi contre la machine",
+    "lead": "Cinq difficultés, et un pari si tu veux."
+  },
+  "partieDames": {
+    "title": "Partie de dames",
+    "lead": "Touche un pion, puis la case."
+  },
+  "resultat": {
+    "title": "Fin de partie",
+    "lead": "Le résultat, les cauris gagnés et la suite."
+  },
+  "revoir": {
+    "title": "Revoir la partie",
+    "lead": "Rejoue chaque coup de la partie."
+  },
+  "probleme": {
+    "title": "Problème du jour",
+    "lead": "Un problème de dames par jour, +10 cauris."
+  },
+  "ludoVariantes": {
+    "title": "Plateau et règles",
+    "lead": "Classique, rapide, Parchís, Pachisi, 6 joueurs et règles maison."
+  },
+  "partieLudo": {
+    "title": "Partie de Ludo",
+    "lead": "Lance le dé, puis touche un pion."
+  },
+  "deHonnete": {
+    "title": "Le dé était-il honnête ?",
+    "lead": "Chaque lancer se vérifie après la partie."
+  },
+  "regles": {
+    "title": "Les règles",
+    "lead": "Dames 10×10, dames 8×8 et Ludo, en six points chacun."
+  },
+  "creerSalon": {
+    "title": "Nouveau salon",
+    "lead": "Jeu, variante, joueurs, format et mise."
+  },
+  "salon": {
+    "title": "Salon",
+    "lead": "Partage le code pour remplir la table."
+  },
+  "mise": {
+    "title": "Défi avec mise",
+    "lead": "Chacun met la même mise, le gagnant prend le pot."
+  },
+  "creerLigue": {
+    "title": "Créer une ligue privée",
+    "lead": "Championnat ou coupe, entre amis."
+  },
+  "reglesCompetition": {
+    "title": "Plateaux et règles de la compétition",
+    "lead": "Les variantes et les règles de tous les matchs."
+  },
+  "championnat": {
+    "title": "Championnat",
+    "lead": "Le classement, les matchs aller et retour."
+  },
+  "coupe": {
+    "title": "Coupe",
+    "lead": "Poules, puis tableau final."
+  },
+  "creerLiguePublique": {
+    "title": "Créer une ligue publique",
+    "lead": "Droits d'entrée, caution et calendrier."
+  },
+  "liguePublique": {
+    "title": "Rejoindre une ligue publique",
+    "lead": "Les conditions d'entrée et le pot."
+  },
+  "validerLigue": {
+    "title": "Valider la ligue",
+    "lead": "Vérifie tout avant d'ouvrir les inscriptions."
+  },
+  "matchDuJour": {
+    "title": "Match du jour",
+    "lead": "Ton match de ligue, l'heure et le forfait."
+  },
+  "choixPlanche": {
+    "title": "Choisir la planche",
+    "lead": "Le plateau et les règles du match."
+  },
+  "exclusion": {
+    "title": "Exclusion et recalcul",
+    "lead": "Pourquoi le classement change."
+  },
+  "quartiers": {
+    "title": "Guerre des quartiers",
+    "lead": "Ton quartier contre les autres, tout le mois."
+  },
+  "regarder": {
+    "title": "Autour du damier",
+    "lead": "Regarde une partie en direct et réagis."
+  },
+  "signaler": {
+    "title": "Signaler ou bloquer",
+    "lead": "Dis-nous ce qui s'est passé."
+  },
+  "recompenses": {
+    "title": "Médailles et quêtes",
+    "lead": "Tes médailles, tes quêtes de la semaine et tes séries."
+  },
+  "echelons": {
+    "title": "Échelons",
+    "lead": "D'Apprenti à Fon : comment on monte."
+  },
+  "raisonnement": {
+    "title": "Raisonnement",
+    "lead": "Logique et calcul mental, bientôt."
+  },
+  "lienSalon": {
+    "title": "Lien de salon",
+    "lead": "On t'emmène au salon."
+  },
+  "kit": {
+    "title": "Kit de composants",
+    "lead": "Tous les composants de l'appli, dans le thème et la langue du moment."
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "lead": "Ce lien ne mène nulle part.",
+    "home": "Revenir à l'accueil"
+  },
+  "nouveauDefi": {
+    "title": "Défier un ami",
+    "lead": "Jeu, format et mise, puis le défi part chez ton ami."
+  },
+  "regarderListe": {
+    "title": "Parties en direct",
+    "lead": "Les parties publiques en cours, à regarder sans profil."
+  }
 }

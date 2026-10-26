@@ -7,6 +7,7 @@
  * aller-retour, ligue).
  */
 import type { GameSummary, MachineSettlementView, RatingChangeView } from '@kwatt/protocol';
+import { quitSeat, type HouseRules } from '@kwatt/rules-ludo';
 import type { GameFamily } from './controller';
 import type { LocalGame } from './historyStore';
 
@@ -61,6 +62,8 @@ export interface ResultView {
   difficulty: string | null;
   winStreak: number | null;
   card: string | null;
+  /** Ludo : règles maison de la partie (rejeu de l'écran 19), null sinon ou inconnues. */
+  house: HouseRules | null;
   next: ResultNext;
 }
 
@@ -74,9 +77,9 @@ function verdictOf(myPlace: number, places: number[], draw: boolean): Verdict {
   return myPlace === 1 ? 'win' : 'loss';
 }
 
-/** Coups « complets » aux Dames (46 coups = 92 demi-coups), tours au Ludo. */
+/** Coups « complets » aux Dames (46 coups = 92 demi-coups), tours au Ludo (une sortie « x:0 » n'en est pas un). */
 function countMoves(family: GameFamily, moves: readonly string[]): number {
-  return family === 'dames' ? Math.ceil(moves.length / 2) : moves.length;
+  return family === 'dames' ? Math.ceil(moves.length / 2) : moves.filter((m) => quitSeat(m) === null).length;
 }
 
 export function fromLocalGame(game: LocalGame): ResultView {
@@ -121,6 +124,7 @@ export function fromLocalGame(game: LocalGame): ResultView {
     difficulty: game.machine?.difficulty ?? null,
     winStreak: game.machine?.winStreak ?? null,
     card: game.card ?? null,
+    house: game.house ?? null,
     next: context === 'machine' ? { kind: 'machine', variant: game.variant } : { kind: 'none' },
   };
 }
@@ -194,6 +198,7 @@ export function fromSummary(game: GameSummary, myUserId: string | null): ResultV
     difficulty: players.find((p) => p.machine)?.machine ?? null,
     winStreak: null,
     card: null,
+    house: null,
     next,
   };
 }

@@ -41,6 +41,19 @@ const summary = (over: Partial<GameSummary> = {}): GameSummary => ({
 });
 
 describe('fin de partie (écran 18)', () => {
+  it('Ludo local : règles maison transmises, la sortie « x:0 » ne compte pas comme un tour', () => {
+    const v = fromLocalGame({
+      ...local,
+      family: 'ludo',
+      variant: 'ludo_classique',
+      moves: ['6:0', '3:0', 'x:0'],
+      house: { capture: 'home_bonus20' },
+      outcome: { places: { 0: 2, 1: 1 }, draw: false, reason: 'resign' },
+    });
+    expect(v).toMatchObject({ verdict: 'loss', moveCount: 2, house: { capture: 'home_bonus20' } });
+    expect(fromLocalGame(local).house).toBeNull();
+  });
+
   it('partie locale contre la machine : victoire en attente du réseau', () => {
     const v = fromLocalGame(local);
     expect(v).toMatchObject({ verdict: 'win', myPlace: 1, moveCount: 2, pending: true, myCauris: null, next: { kind: 'machine' } });

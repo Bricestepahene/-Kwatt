@@ -46,7 +46,15 @@
     "not_found": "Unknown code: check with your friend.",
     "full": "The room is full: you can watch instead.",
     "started": "The game has already started.",
-    "closed": "This room is closed."
+    "closed": "This room is closed.",
+    "invalid_settings": "These settings don't go together: check the table.",
+    "not_host": "Only the host can start the game.",
+    "not_member": "You're no longer in this room.",
+    "seat_taken": "That seat was just taken: pick another.",
+    "not_enough_players": "You need {{min}} players at the table to start.",
+    "not_ready": "Not everyone is ready yet.",
+    "playing": "A game is already in progress.",
+    "invite_refused": "You can only invite your friends."
   },
   "rate_limited": "Easy now! Try again in a minute.",
   "not_found": "Not found.",
@@ -147,5 +155,76 @@
   "puzzle": {
     "wrong_day": "The puzzle changed: a new day has started.",
     "not_found": "No puzzle available today."
+  },
+  "league": {
+    "not_found": "League not found: check the code.",
+    "guest": "Create your profile to create a league.",
+    "underage": "Public leagues are for players aged 18 and over.",
+    "rank_too_low": "Your rank is too low for this league.",
+    "places_invalid": "Number of places refused: 4 to 64, in steps of 2.",
+    "entry_invalid": "Entry refused: 50 to 1,000 cowries, in steps of 50.",
+    "caution_above_balance": "Your deposit is more than your balance: lower the number of places.",
+    "settings_invalid": "These settings don't fit together: check the groups, dates and boards.",
+    "full": "The league is full.",
+    "guest_paid": "Create your profile to play a league with an entry fee.",
+    "guest_public": "Create your profile to play a public league.",
+    "underage_paid": "Leagues with an entry fee are for players aged 18 and over.",
+    "insufficient_balance": "You don't have enough cowries for the entry.",
+    "same_device": "Another account on this device already plays this league.",
+    "already_member": "You're already signed up for this league.",
+    "not_member": "You don't play in this league.",
+    "not_creator": "Only the league's creator can do that.",
+    "wrong_status": "Not possible at this stage of the league.",
+    "not_enough_players": "Not enough players to launch the league.",
+    "creator_cannot_leave": "The creator doesn't leave their league: they can cancel it.",
+    "match_not_found": "Match not found.",
+    "not_in_match": "You don't play this match.",
+    "too_late": "Too late to change: the match is too close.",
+    "too_early": "The room isn't open yet: it opens 15 minutes before the match.",
+    "time_invalid": "Pick one of the proposed times.",
+    "board_not_allowed": "This board isn't allowed here, or it's not your turn to pick.",
+    "games_unavailable": "You're in: the game starts as soon as the games service is back."
+  },
+  "competition": {
+    "boards_empty": "Pick at least one board.",
+    "imposed_single_board": "A set board means a single board.",
+    "default_not_allowed": "The default board must be one of the allowed boards.",
+    "board_not_allowed": "This board isn't allowed in this kind of competition."
+  },
+  "game": {
+    "not_found": "This game no longer exists.",
+    "over": "The game is over.",
+    "not_your_turn": "It's not your turn.",
+    "not_a_player": "You're watching this game, not playing it.",
+    "stale": "The game moved on: refreshing the board.",
+    "illegal_move": "That move isn't allowed.",
+    "roll_not_now": "It's not time to roll.",
+    "draw_too_soon": "Too early to offer a draw.",
+    "no_draw_offer": "No draw was offered.",
+    "reaction_unknown": "Unknown reaction.",
+    "machine_invalid": "These settings don't work against the machine."
+  },
+  "stake": {
+    "guest": "Stakes are for profiles only.",
+    "underage": "Stakes are for players 18 and over.",
+    "email_unverified": "Verify your email address to stake.",
+    "invalid": "Invalid stake.",
+    "above_cap": "Stake too high: {{max}} cowries at most.",
+    "same_device": "No stakes between two accounts on the same device.",
+    "insufficient": "Not enough cowries for this stake."
+  },
+  "challenge": {
+    "not_found": "This challenge no longer exists.",
+    "closed": "This challenge is settled or has expired.",
+    "not_yours": "It's the other player's turn to answer.",
+    "self": "You can't challenge yourself.",
+    "blocked": "You can't challenge this player.",
+    "not_friend": "You can only challenge friends, or ask for a rematch."
+  },
+  "prediction": {
+    "closed": "Predictions are closed.",
+    "player": "You're playing this game: no prediction.",
+    "already": "You've already made a prediction.",
+    "invalid_seat": "That player isn't at the table."
   }
 }

@@ -1,6 +1,4 @@
-/** Écran provisoire : voir ROUTES.md (clé « amis »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 12 · Mes amis (`?onglet=demandes`). */
+import { FriendsScreen } from '@/features/community/screens/FriendsScreen';
 
-export default function AmisScreen() {
-  return <PlaceholderScreen routeKey="amis" />;
-}
+export default FriendsScreen;

@@ -1,6 +1,4 @@
-/** Écran provisoire : voir ROUTES.md (clé « championnat »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 29 · Championnat (lien kwatt://ligue/CODE). */
+import { ChampionshipScreen } from '@/features/leagues/screens/ChampionshipScreen';
 
-export default function ChampionnatScreen() {
-  return <PlaceholderScreen routeKey="championnat" />;
-}
+export default ChampionshipScreen;

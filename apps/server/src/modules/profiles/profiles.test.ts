@@ -84,7 +84,7 @@ async function addGame(input: {
 }
 
 describe('profil (écran 09)', () => {
-  it('un nouveau profil : vitrine vide, force de départ, solde, cartes 0/48', async () => {
+  it('un nouveau profil : vitrine vide, force de départ, solde, cartes de départ 3/48', async () => {
     const m = await createMember(t);
     const p = await profileOf(m);
     expect(p).toMatchObject({
@@ -96,7 +96,8 @@ describe('profil (écran 09)', () => {
       quarter: null,
       cauris: WELCOME_BONUS,
       gamesPlayed: 0,
-      cards: { owned: 0, total: 48 },
+      // Les trois cartes de départ (table du village, damier en bois, Ludo classique).
+      cards: { owned: 3, total: 48 },
       medals: { gold: 0, silver: 0, bronze: 0, total: 0 },
     });
     expect(p.games.map((g) => g.family)).toEqual(['dames', 'ludo', 'raisonnement']);
@@ -266,15 +267,14 @@ describe('profil (écran 09)', () => {
     );
   });
 
-  it('compte les cartes possédées et les médailles (si la table existe)', async () => {
+  it('compte les cartes possédées et les médailles', async () => {
     const m = await createMember(t);
     await t.db.pool.query(`INSERT INTO items (code, kind, rarity) VALUES ('test_card_a', 'card', 'rare'), ('test_card_b', 'card', 'commune')`);
     await grantItem(t.db.pool, m.userId, 'test_card_a', 'reward');
     await grantItem(t.db.pool, m.userId, 'test_card_b', 'reward');
-    await t.db.pool.query(`CREATE TABLE IF NOT EXISTS medals (id uuid PRIMARY KEY DEFAULT gen_random_uuid(), user_id uuid, kind text)`);
-    await t.db.pool.query(`INSERT INTO medals (user_id, kind) VALUES ($1, 'or'), ($1, 'bronze'), ($1, 'bronze')`, [m.userId]);
+    await t.db.pool.query(`INSERT INTO medals (user_id, kind, title) VALUES ($1, 'or', 'A'), ($1, 'bronze', 'B'), ($1, 'bronze', 'C')`, [m.userId]);
     const p = await profileOf(m);
-    expect(p.cards).toEqual({ owned: 2, total: 48 });
+    expect(p.cards).toEqual({ owned: 5, total: 48 });
     expect(p.medals).toEqual({ gold: 1, silver: 0, bronze: 2, total: 3 });
   });
 

@@ -1,6 +1,4 @@
-/** Écran provisoire : voir ROUTES.md (clé « liguePublique »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 32 · Rejoindre une ligue publique. */
+import { PublicLeagueScreen } from '@/features/leagues/screens/PublicLeagueScreen';
 
-export default function LiguePubliqueScreen() {
-  return <PlaceholderScreen routeKey="liguePublique" />;
-}
+export default PublicLeagueScreen;

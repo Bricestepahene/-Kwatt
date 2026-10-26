@@ -196,6 +196,14 @@ export const rarity = {
 } as const;
 export type Rarity = keyof typeof rarity;
 
+/** Médailles d'or, d'argent et de bronze (écran 40, Récompenses) : ruban, disque, contour et étoile. */
+export const medals = {
+  gold: { ribbon: '#E0442E', disc: '#F2B705', edge: '#8C6A00' },
+  silver: { ribbon: '#3FA7E0', disc: '#D9DCE6', edge: '#7D8296' },
+  bronze: { ribbon: '#1F9D6B', disc: '#C9864A', edge: '#7A4A2A' },
+} as const;
+export type MedalKind = keyof typeof medals;
+
 /** Petit damier de la carte « Dames » de l'accueil (écran 07). */
 export const miniBoard = { light: '#E8D5A9', dark: '#3B2213' } as const;
 

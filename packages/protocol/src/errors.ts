@@ -22,6 +22,11 @@ import { REALTIME_ERRORS } from './errors/realtime.js';
 import { SHOP_ERRORS } from './errors/shop.js';
 import { ROOM_ERRORS } from './errors/rooms.js';
 import { LUDO_ERRORS } from './errors/ludo.js';
+import { LEAGUE_ERRORS } from './errors/leagues.js';
+import { GAME_ERRORS } from './errors/games.js';
+import { FRIEND_ERRORS } from './errors/friends.js';
+import { REPORT_ERRORS } from './errors/reports.js';
+import { PROGRESSION_ERRORS } from './errors/progression.js';
 
 export const ERROR_CODES = [
   ...COMMON_ERRORS,
@@ -37,6 +42,11 @@ export const ERROR_CODES = [
   ...ROOM_ERRORS,
   ...LUDO_ERRORS,
   ...DAMES_ERRORS,
+  ...LEAGUE_ERRORS,
+  ...GAME_ERRORS,
+  ...FRIEND_ERRORS,
+  ...REPORT_ERRORS,
+  ...PROGRESSION_ERRORS,
 ] as const;
 
 export type ErrorCode = (typeof ERROR_CODES)[number];

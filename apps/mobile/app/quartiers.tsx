@@ -1,6 +1,4 @@
-/** Écran provisoire : voir ROUTES.md (clé « quartiers »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 36 · Guerre des quartiers. */
+import { QuartersScreen } from '@/features/community/screens/QuartersScreen';
 
-export default function QuartiersScreen() {
-  return <PlaceholderScreen routeKey="quartiers" />;
-}
+export default QuartersScreen;

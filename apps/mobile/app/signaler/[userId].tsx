@@ -1,6 +1,8 @@
-/** Écran provisoire : voir ROUTES.md (clé « signaler »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 38 · Signaler un joueur. */
+import { useLocalSearchParams } from 'expo-router';
+import { ReportScreen } from '@/features/community/screens/ReportScreen';
 
 export default function SignalerScreen() {
-  return <PlaceholderScreen routeKey="signaler" />;
+  const { userId } = useLocalSearchParams<{ userId: string }>();
+  return <ReportScreen userId={userId} />;
 }

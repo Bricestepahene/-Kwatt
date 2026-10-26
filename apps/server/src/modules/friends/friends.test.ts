@@ -140,8 +140,11 @@ describe('Amis', () => {
         turnMs: null,
       }),
     );
-    const list = await call<FriendsResponse>(b, 'GET', '/v1/friends');
-    expect(list.items[0]).toMatchObject({ userId: a.userId, online: true, activity: { kind: 'playing', gameId: cfg.id, family: 'dames', progress: 0 } });
+    // La partie démarre après la validation de la transaction : on l'attend.
+    await vi.waitFor(async () => {
+      const list = await call<FriendsResponse>(b, 'GET', '/v1/friends');
+      expect(list.items[0]).toMatchObject({ userId: a.userId, online: true, activity: { kind: 'playing', gameId: cfg.id, family: 'dames', progress: 0 } });
+    });
 
     // Nouveaux amis : la présence arrive tout de suite.
     await call(c, 'POST', '/v1/friends/requests', { userId: b.userId });

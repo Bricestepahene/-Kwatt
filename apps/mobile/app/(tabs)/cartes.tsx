@@ -1,6 +1,4 @@
-/** Écran provisoire : voir ROUTES.md (clé « cartes »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 39 · Cartes. */
+import { CardsScreen } from '@/features/community/screens/CardsScreen';
 
-export default function CartesScreen() {
-  return <PlaceholderScreen routeKey="cartes" />;
-}
+export default CardsScreen;

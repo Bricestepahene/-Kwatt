@@ -1,6 +1,4 @@
-/** Écran provisoire : voir ROUTES.md (clé « recompenses »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 40 · Récompenses (médailles et quêtes). */
+import { RewardsScreen } from '@/features/community/screens/RewardsScreen';
 
-export default function RecompensesScreen() {
-  return <PlaceholderScreen routeKey="recompenses" />;
-}
+export default RewardsScreen;

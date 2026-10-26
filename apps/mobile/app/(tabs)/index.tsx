@@ -1,6 +1,4 @@
-/** Écran provisoire : voir ROUTES.md (clé « accueil »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 07 · Accueil. */
+import { HomeScreen } from '@/features/community/screens/HomeScreen';
 
-export default function AccueilScreen() {
-  return <PlaceholderScreen routeKey="accueil" />;
-}
+export default HomeScreen;

@@ -1,6 +1,8 @@
-/** Écran provisoire : voir ROUTES.md (clé « ami »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Lien d'invitation d'ami (`kwatt://ami/CODE`). */
+import { useLocalSearchParams } from 'expo-router';
+import { FriendLinkScreen } from '@/features/community/screens/FriendLinkScreen';
 
 export default function AmiScreen() {
-  return <PlaceholderScreen routeKey="ami" />;
+  const { code } = useLocalSearchParams<{ code: string }>();
+  return <FriendLinkScreen code={code} />;
 }

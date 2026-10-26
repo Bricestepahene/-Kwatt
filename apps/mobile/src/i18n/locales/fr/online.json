@@ -130,7 +130,7 @@
     "less": "Baisser la mise",
     "more": "Augmenter la mise",
     "pot": "pot total",
-    "ifLose": "ton solde si tu perds",
+    "ifLose": "si tu perds",
     "cap": "plafond",
     "capRule": "Plafond : 25 % du plus petit solde des deux joueurs. Pas de vrai argent : les cauris se gagnent seulement en jouant.",
     "noStake": "Pas de mise possible entre vous : la partie sera amicale.",
@@ -219,7 +219,7 @@
     "predictions": "Pronostics du public",
     "closesAt": "jusqu'au coup {{n}}",
     "closed": "pronostics fermés",
-    "bet": "{{name}} · {{stake}} cauris",
+    "bet": "{{name}}",
     "mine": "Ton pronostic : {{name}}",
     "payout": "Tu gagnes {{amount}} cauris avec ton pronostic.",
     "notEligible": "Pronostiquer demande un profil de 18 ans et plus (et de ne pas jouer la partie).",
@@ -227,7 +227,8 @@
     "reactionSent": "Réaction envoyée : les joueurs la verront à la fin.",
     "note": "Les joueurs ne voient pas les réactions pendant la partie : elles s'affichent à la fin. Regarder ne demande pas de compte.",
     "challengeWinner": "Défier le gagnant · file d'attente",
-    "inQueue": "Tu es n° {{position}} dans la file"
+    "inQueue": "Tu es n° {{position}} dans la file",
+    "betHint": "Un pronostic coûte {{stake}} cauris ; les gagnants se partagent la cagnotte."
   },
   "live": {
     "title": "Parties en direct",

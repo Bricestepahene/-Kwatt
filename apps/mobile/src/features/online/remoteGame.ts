@@ -13,12 +13,23 @@
  *
  * Module pur : le client temps réel, l'horloge et le hasard sont injectés.
  */
-import type { GameEndMessage, GameEventMessage, GameStateMessage } from '@kwatt/protocol';
-import { WS_RECONNECTED, type WsClient } from '../../api/ws';
-import type { GameController, GameEvent, GameFamily, GameOutcome, SeatClock, SeatInfo } from '../game/controller';
+import type {
+  GameEndMessage,
+  GameEventMessage,
+  GameStateMessage,
+} from "@kwatt/protocol";
+import { WS_RECONNECTED, type WsClient } from "../../api/ws";
+import type {
+  GameController,
+  GameEvent,
+  GameFamily,
+  GameOutcome,
+  SeatClock,
+  SeatInfo,
+} from "../game/controller";
 
 export interface RemoteDeps {
-  ws: Pick<WsClient, 'on' | 'send' | 'request'>;
+  ws: Pick<WsClient, "on" | "send" | "request">;
   now: () => number;
   /** `bytes` octets aléatoires en hexadécimal (grain de sel du joueur pour le dé). */
   randomHex: (bytes: number) => string;
@@ -29,10 +40,13 @@ export interface RemoteOptions {
 }
 
 /** Réactions reçues à la fin (spectateurs) : montrées sur l'écran de fin. */
-export type EndReactions = GameEndMessage['reactions'];
+export type EndReactions = GameEndMessage["reactions"];
 
-export abstract class RemoteGameController<State, Move> implements GameController<State, Move> {
-  readonly kind = 'remote' as const;
+export abstract class RemoteGameController<
+  State,
+  Move,
+> implements GameController<State, Move> {
+  readonly kind = "remote" as const;
   abstract readonly family: GameFamily;
 
   protected msg: GameStateMessage | null = null;
@@ -41,7 +55,10 @@ export abstract class RemoteGameController<State, Move> implements GameControlle
   protected receivedAt = 0;
   private readonly listeners = new Set<(s: State, e?: GameEvent) => void>();
   private readonly offs: (() => void)[] = [];
-  private pendingEvent: { seq: number; event: GameEventMessage['event'] } | null = null;
+  private pendingEvent: {
+    seq: number;
+    event: GameEventMessage["event"];
+  } | null = null;
   private reactions: EndReactions = [];
   private disposed = false;
   private readyPromise: Promise<void>;
@@ -62,13 +79,14 @@ export abstract class RemoteGameController<State, Move> implements GameControlle
     this.readyPromise.catch(() => undefined);
     const ws = deps.ws;
     this.offs.push(
-      ws.on<GameStateMessage>('game.state', (m) => {
+      ws.on<GameStateMessage>("game.state", (m) => {
         if (m.gameId === this.id) this.onState(m);
       }),
-      ws.on<GameEventMessage>('game.event', (m) => {
-        if (m.gameId === this.id) this.pendingEvent = { seq: m.seq, event: m.event };
+      ws.on<GameEventMessage>("game.event", (m) => {
+        if (m.gameId === this.id)
+          this.pendingEvent = { seq: m.seq, event: m.event };
       }),
-      ws.on<GameEndMessage>('game.end', (m) => {
+      ws.on<GameEndMessage>("game.end", (m) => {
         if (m.gameId === this.id) this.reactions = m.reactions;
       }),
       ws.on(WS_RECONNECTED, () => this.subscribeRemote()),
@@ -89,9 +107,13 @@ export abstract class RemoteGameController<State, Move> implements GameControlle
   private subscribeRemote(): void {
     if (this.disposed) return;
     this.deps.ws
-      .request<GameStateMessage>({ t: 'game.subscribe', gameId: this.id, ...(this.options.spectate ? { spectate: true } : {}) })
+      .request<GameStateMessage>({
+        t: "game.subscribe",
+        gameId: this.id,
+        ...(this.options.spectate ? { spectate: true } : {}),
+      })
       .then((m) => {
-        if (m.t === 'game.state') this.onState(m);
+        if (m.t === "game.state") this.onState(m);
       })
       .catch((err: unknown) => {
         if (this.msg) return;
@@ -102,7 +124,7 @@ export abstract class RemoteGameController<State, Move> implements GameControlle
 
   /** Redemande l'état (écran revenu au premier plan). */
   sync(): void {
-    this.deps.ws.send({ t: 'game.sync', gameId: this.id });
+    this.deps.ws.send({ t: "game.sync", gameId: this.id });
   }
 
   private onState(m: GameStateMessage): void {
@@ -114,9 +136,15 @@ export abstract class RemoteGameController<State, Move> implements GameControlle
     this.msg = m;
     this.receivedAt = this.deps.now();
     this.state = this.parseState(m);
-    const wire = this.pendingEvent && this.pendingEvent.seq === m.seq ? this.pendingEvent.event : null;
+    const wire =
+      this.pendingEvent && this.pendingEvent.seq === m.seq
+        ? this.pendingEvent.event
+        : null;
     this.pendingEvent = null;
-    const events = previous && prevState ? this.eventsFor(wire, prevState, this.state, previous, m) : [];
+    const events =
+      previous && prevState
+        ? this.eventsFor(wire, prevState, this.state, previous, m)
+        : [];
     if (!previous) this.resolveReady();
     if (events.length === 0) this.emit(undefined);
     for (const e of events) this.emit(e);
@@ -131,12 +159,19 @@ export abstract class RemoteGameController<State, Move> implements GameControlle
   /** État des règles à partir du message du serveur. */
   protected abstract parseState(m: GameStateMessage): State;
   /** Événements d'animation et de son à rendre avec ce nouvel état. */
-  protected abstract eventsFor(wire: GameEventMessage['event'] | null, before: State, after: State, prev: GameStateMessage, next: GameStateMessage): GameEvent[];
+  protected abstract eventsFor(
+    wire: GameEventMessage["event"] | null,
+    before: State,
+    after: State,
+    prev: GameStateMessage,
+    next: GameStateMessage,
+  ): GameEvent[];
   abstract legalMoves(): Move[];
   abstract play(move: Move): void;
 
   getState(): State {
-    if (this.state === null) throw new Error('Partie distante pas encore reçue : attendre ready()');
+    if (this.state === null)
+      throw new Error("Partie distante pas encore reçue : attendre ready()");
     return this.state;
   }
 
@@ -192,10 +227,16 @@ export abstract class RemoteGameController<State, Move> implements GameControlle
     const clocks = this.msg?.clocks;
     if (!clocks) return null;
     const out: Record<number, SeatClock> = {};
-    const finished = this.msg?.status !== 'playing';
+    const finished = this.msg?.status !== "playing";
     for (const [seat, c] of Object.entries(clocks)) {
       const running = c.running && !finished;
-      out[Number(seat)] = { remainingMs: Math.max(0, c.remainingMs - (running ? this.elapsed() : 0)), running };
+      out[Number(seat)] = {
+        remainingMs: Math.max(
+          0,
+          c.remainingMs - (running ? this.elapsed() : 0),
+        ),
+        running,
+      };
     }
     return out;
   }
@@ -203,7 +244,13 @@ export abstract class RemoteGameController<State, Move> implements GameControlle
   outcome(): GameOutcome | null {
     const o = this.msg?.outcome;
     if (!o) return null;
-    return { places: Object.fromEntries(Object.entries(o.places).map(([k, v]) => [Number(k), v])), draw: o.draw, reason: o.reason };
+    return {
+      places: Object.fromEntries(
+        Object.entries(o.places).map(([k, v]) => [Number(k), v]),
+      ),
+      draw: o.draw,
+      reason: o.reason,
+    };
   }
 
   /** Envoie une intention avec le dernier `seq` connu. */
@@ -214,12 +261,16 @@ export abstract class RemoteGameController<State, Move> implements GameControlle
 
   resign(): void {
     if (this.isSpectator()) return;
-    this.deps.ws.send({ t: 'game.resign', gameId: this.id });
+    this.deps.ws.send({ t: "game.resign", gameId: this.id });
   }
 
   react(key: string): void {
     // Clé « reaction.ekie » ou « ekie » : le serveur attend la clé courte.
-    this.deps.ws.send({ t: 'game.react', gameId: this.id, key: key.replace(/^reaction\./, '') });
+    this.deps.ws.send({
+      t: "game.react",
+      gameId: this.id,
+      key: key.replace(/^reaction\./, ""),
+    });
   }
 
   dispose(): void {
@@ -227,6 +278,6 @@ export abstract class RemoteGameController<State, Move> implements GameControlle
     this.disposed = true;
     for (const off of this.offs) off();
     this.listeners.clear();
-    this.deps.ws.send({ t: 'game.unsubscribe', gameId: this.id });
+    this.deps.ws.send({ t: "game.unsubscribe", gameId: this.id });
   }
 }

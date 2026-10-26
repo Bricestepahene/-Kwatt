@@ -130,7 +130,7 @@
     "less": "Lower the stake",
     "more": "Raise the stake",
     "pot": "total pot",
-    "ifLose": "your balance if you lose",
+    "ifLose": "if you lose",
     "cap": "cap",
     "capRule": "Cap: 25% of the smaller balance of the two players. No real money: cowries are only won by playing.",
     "noStake": "No stake possible between you: the game will be friendly.",
@@ -219,7 +219,7 @@
     "predictions": "Crowd predictions",
     "closesAt": "until move {{n}}",
     "closed": "predictions closed",
-    "bet": "{{name}} · {{stake}} cowries",
+    "bet": "{{name}}",
     "mine": "Your prediction: {{name}}",
     "payout": "You win {{amount}} cowries with your prediction.",
     "notEligible": "Predicting needs a profile aged 18 or over (and not playing in the game).",
@@ -227,7 +227,8 @@
     "reactionSent": "Reaction sent: the players will see it at the end.",
     "note": "Players don't see reactions during the game: they show up at the end. Watching doesn't need an account.",
     "challengeWinner": "Challenge the winner · queue",
-    "inQueue": "You're number {{position}} in the queue"
+    "inQueue": "You're number {{position}} in the queue",
+    "betHint": "A prediction costs {{stake}} cowries; the winners share the pot."
   },
   "live": {
     "title": "Live games",

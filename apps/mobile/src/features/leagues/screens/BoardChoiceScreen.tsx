@@ -47,7 +47,10 @@ function BoardChoice({ view }: { view: LeagueMatchView }) {
   const legLabel = view.match.stage === 'decider' ? t('choice.decider') : view.match.leg === 2 ? t('choice.second') : view.match.leg === 1 ? t('choice.first') : t('choice.match');
   const rule =
     view.boardRules.policy === 'home' && view.firstLegBoard && view.match.leg === 2
-      ? t('choice.ruleHomeSecond', { name: opponent?.pseudo ?? '', board: t(`board.${view.firstLegBoard}`) })
+      ? t(view.boardChooser === 'me' ? 'choice.ruleHomeSecond' : 'choice.ruleHomeSecondThem', {
+          name: opponent?.pseudo ?? '',
+          board: t(`board.${view.firstLegBoard}`),
+        })
       : t(`choice.rule.${view.boardRules.policy}`);
   const boardShort = (b: LeagueBoard) => t(`boardShort.${b}`);
 
@@ -119,7 +122,7 @@ function BoardChoice({ view }: { view: LeagueMatchView }) {
           />
         ) : (
           <Text variant="small" tone="muted">
-            {t(`match.chooser.${view.boardChooser}`, { name: opponent?.pseudo ?? '' })}
+            {t('choice.notYours', { who: t(`match.chooser.${view.boardChooser}`, { name: opponent?.pseudo ?? '' }) })}
           </Text>
         )}
       </View>

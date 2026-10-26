@@ -206,9 +206,12 @@ export function ChoiceBox({
   radio = false,
   role = 'button',
   style,
+  fit = false,
   children,
 }: {
   selected: boolean;
+  /** Titre sur une ligne, réduit au besoin (cases étroites côte à côte). */
+  fit?: boolean;
   onPress: () => void;
   title: string;
   sub?: string;
@@ -233,7 +236,9 @@ export function ChoiceBox({
       {radio ? <View style={[styles.dot, selected ? { borderWidth: 6, borderColor: colors.action } : { borderWidth: 2, borderColor: colors.textMuted }]} /> : null}
       {children}
       <View style={styles.choiceTexts}>
-        <Text variant={radio ? 'bodyStrong' : 'subheading'}>{title}</Text>
+        <Text variant={radio ? 'bodyStrong' : 'subheading'} {...(fit ? { numberOfLines: 1, adjustsFontSizeToFit: true, minimumFontScale: 0.7, style: styles.fitTitle } : {})}>
+          {title}
+        </Text>
         {sub ? (
           <Text variant="small" tone="muted">
             {sub}
@@ -314,6 +319,7 @@ const styles = StyleSheet.create({
   stepValue: { minWidth: 48, textAlign: 'center' },
   choice: { borderRadius: 14, padding: 12, gap: 12, flexDirection: 'row', alignItems: 'center' },
   choiceTexts: { flex: 1, gap: 4 },
+  fitTitle: { fontSize: 14, lineHeight: 20 },
   dot: { width: 20, height: 20, borderRadius: 10 },
   tiles: { flexDirection: 'row', gap: 8 },
   tile: { flex: 1, borderRadius: 12, paddingVertical: 10, paddingHorizontal: 8, alignItems: 'center', gap: 2 },

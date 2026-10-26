@@ -442,6 +442,7 @@
       "agreement": "League rule: both propose; without agreement, the default board."
     },
     "ruleHomeSecond": "League rule: the home player picks the board. For the first leg, {{name}} picked {{board}}. For the second leg, it's your turn.",
+    "ruleHomeSecondThem": "League rule: the home player picks the board. For the first leg, you picked {{board}}. For the second leg, it's {{name}}'s turn.",
     "yours": "Your choice",
     "boards": "Allowed boards",
     "before": "before {{when}}",
@@ -451,7 +452,8 @@
     "edgeThem": "{{name}}'s edge: about {{percent}}% chance for you",
     "default": "Without a choice in time, the match is played on the default board ({{board}}). {{name}} sees your choice as soon as you confirm it.",
     "sent": "Choice sent: {{board}}. If both legs end level, a 5-minute decider on the first-leg board ({{first}}).",
-    "submit": "Play the {{leg}} on {{board}}"
+    "submit": "Play the {{leg}} on {{board}}",
+    "notYours": "Board {{who}}: you'll see it here as soon as it's set."
   },
   "exclusion": {
     "kicker": "{{name}} · after MD{{round}}",

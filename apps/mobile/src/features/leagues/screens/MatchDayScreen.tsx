@@ -130,7 +130,7 @@ function MatchDay({ view }: { view: LeagueMatchView }) {
             label={t('match.board')}
             value={boardLine(view, t, me)}
             last
-            {...(view.boardRules.policy !== 'imposed' || view.match.board === null
+            {...(view.boardRules.policy !== 'imposed'
               ? { onPress: () => router.push(`/ligue/${view.league.id}/match/${view.match.id}/planche` as Href) }
               : {})}
           />

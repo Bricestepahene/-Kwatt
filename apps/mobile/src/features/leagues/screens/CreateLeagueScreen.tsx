@@ -74,6 +74,7 @@ export function CreateLeagueScreen() {
             title={t(`format.${format}.label`)}
             sub={t(`format.${format}.desc`)}
             style={styles.format}
+            fit
           />
         ))}
       </View>
@@ -237,5 +238,5 @@ export function CreateLeagueScreen() {
 const styles = StyleSheet.create({
   formats: { flexDirection: 'row', gap: 10 },
   format: { flex: 1, minHeight: 96, alignItems: 'flex-start' },
-  segment: { width: 170 },
+  segment: { width: 210 },
 });

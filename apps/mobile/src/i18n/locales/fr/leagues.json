@@ -440,6 +440,7 @@
       "agreement": "Règle de la ligue : chacun propose ; sans accord, la planche par défaut."
     },
     "ruleHomeSecond": "Règle de la ligue : la planche est choisie par qui reçoit. À l'aller, {{name}} a choisi le {{board}}. Au retour, c'est à toi.",
+    "ruleHomeSecondThem": "Règle de la ligue : la planche est choisie par qui reçoit. À l'aller, tu as choisi le {{board}}. Au retour, c'est à {{name}}.",
     "yours": "Ton choix",
     "boards": "Planches permises",
     "before": "avant {{when}}",
@@ -449,7 +450,8 @@
     "edgeThem": "Avantage {{name}} : environ {{percent}} % de chances pour toi",
     "default": "Sans choix à temps, le match se joue sur la planche par défaut ({{board}}). {{name}} voit ton choix dès que tu le confirmes.",
     "sent": "Choix envoyé : {{board}}. En cas d'égalité sur l'ensemble des deux matchs, manche décisive de 5 minutes sur la planche de l'aller ({{first}}).",
-    "submit": "Jouer le {{leg}} en {{board}}"
+    "submit": "Jouer le {{leg}} en {{board}}",
+    "notYours": "Planche {{who}} : tu la verras ici dès qu'elle est fixée."
   },
   "exclusion": {
     "kicker": "{{name}} · après J{{round}}",

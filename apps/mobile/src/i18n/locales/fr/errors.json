@@ -183,7 +183,15 @@
     "too_early": "La salle n'est pas encore ouverte : elle ouvre 15 minutes avant le match.",
     "time_invalid": "Choisis l'une des heures proposées.",
     "board_not_allowed": "Cette planche n'est pas permise ici, ou ce n'est pas à toi de choisir.",
-    "games_unavailable": "Tu es bien arrivé : la partie démarre dès que le service des parties revient."
+    "games_unavailable": "Tu es bien arrivé : la partie démarre dès que le service des parties revient.",
+    "team_required": "Dans cette ligue, on joue en équipe : crée ton équipe ou rejoins-en une.",
+    "team_not_found": "Équipe introuvable.",
+    "team_full": "Cette équipe est déjà complète.",
+    "team_name_taken": "Une équipe porte déjà ce nom dans la ligue.",
+    "not_captain": "Seul le capitaine de l'équipe peut faire ça.",
+    "lineup_invalid": "Aligne trois joueurs différents de ton équipe.",
+    "not_enough_teams": "Il faut au moins deux équipes complètes pour lancer la ligue.",
+    "team_match_fixed": "Les rencontres d'équipes se jouent à l'heure de la ligue."
   },
   "competition": {
     "boards_empty": "Choisis au moins une planche.",

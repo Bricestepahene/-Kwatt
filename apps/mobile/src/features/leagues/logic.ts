@@ -43,7 +43,9 @@ export function leagueCodeFrom(text: string): string | null {
 /* ------------------------------------------------------------------ */
 /* Brouillon de création (écrans 28, 28b, 31)                           */
 
-export type LeagueDraft = Required<Omit<CreateLeagueRequest, 'registrationClosesAt' | 'groups' | 'qualifiersPerGroup' | 'rounds'>> & {
+export type LeagueDraft = Required<Omit<CreateLeagueRequest, 'registrationClosesAt' | 'groups' | 'qualifiersPerGroup' | 'rounds' | 'teamName'>> & {
+  /** Ligue par équipes : nom de l'équipe du créateur. */
+  teamName: string;
   groups: number;
   qualifiersPerGroup: number;
   rounds: number;
@@ -76,6 +78,8 @@ export function defaultDraft(access: 'private' | 'public', now: number, game: Le
     // Publique : inscriptions ouvertes une semaine, premier match trois jours après.
     closesDay: dayKey(now + 7 * DAY_MS),
     firstDay: dayKey(now + (pub ? 10 : 1) * DAY_MS),
+    teamSize: null,
+    teamName: '',
   };
 }
 
@@ -134,10 +138,11 @@ export function championshipMatches(players: number, doubleRound: boolean): numb
 
 /** Corps de la requête POST /v1/leagues. */
 export function draftRequest(draft: LeagueDraft): CreateLeagueRequest {
-  const { closesDay, groups, qualifiersPerGroup, rounds, ...rest } = draft;
+  const { closesDay, groups, qualifiersPerGroup, rounds, teamName, ...rest } = draft;
   return {
     ...rest,
     name: rest.name.trim(),
+    ...(draft.teamSize !== null ? { teamName: teamName.trim() } : {}),
     ...(draft.format === 'cup' ? { groups, qualifiersPerGroup, doubleRound: false } : {}),
     ...(draft.game === 'ludo' ? { rounds } : {}),
     ...(draft.access === 'public' ? { registrationClosesAt: endOfKwattDay(closesDay) } : {}),

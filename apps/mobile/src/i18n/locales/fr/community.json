@@ -164,6 +164,18 @@
         "knockout_started": {
           "title": "Tu es en phase finale !",
           "body": "{{leagueName}}"
+        },
+        "team_joined": {
+          "title": "{{pseudo}} rejoint {{team}}",
+          "body": "{{leagueName}}"
+        },
+        "team_dropped": {
+          "title": "{{team}} n'était pas complète",
+          "body": "{{leagueName}} · ton entrée t'est rendue."
+        },
+        "lineup_locked": {
+          "title": "Tu joues la planche {{board}}",
+          "body": "{{leagueName}} · l'ordre de ton équipe est figé."
         }
       },
       "quest": {

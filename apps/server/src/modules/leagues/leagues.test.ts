@@ -558,3 +558,166 @@ describe('Ludo', () => {
     expect(d.standings.find((r) => r.player.userId === other.userId)).toMatchObject({ points: 0, forfeits: 1 });
   });
 });
+
+describe('par équipes', () => {
+  function teamLeague(over: Partial<CreateLeagueRequest> = {}): CreateLeagueRequest {
+    return {
+      name: 'Coupe des quartiers',
+      game: 'dames',
+      access: 'private',
+      format: 'championship',
+      maxPlaces: 3,
+      entry: 100,
+      doubleRound: false,
+      boardRules: { policy: 'imposed', allowed: ['dames10'], defaultBoard: 'dames10' },
+      defaultTime: '20:00',
+      rhythm: 'daily',
+      firstDay: '2026-11-03',
+      teamSize: 3,
+      teamName: 'Les Lions',
+      ...over,
+    };
+  }
+
+  it('Dames à 3 : équipes, ordre du capitaine caché puis figé, 3 planches, cagnotte à l’équipe championne', async () => {
+    const creator = await createMember(t);
+    expect((await errorOf(creator, 'POST', '/v1/leagues', teamLeague({ teamSize: 2 }))).code).toBe('league.settings_invalid');
+    expect((await errorOf(creator, 'POST', '/v1/leagues', teamLeague({ boardRules: { policy: 'home', allowed: ['dames10'], defaultBoard: 'dames10' } }))).code).toBe(
+      'league.settings_invalid',
+    );
+    const created = LeagueDetailSchema.parse(await req(creator, 'POST', '/v1/leagues', teamLeague(), 201));
+    const id = created.id;
+    expect(created).toMatchObject({ teamSize: 3, myTeam: { captain: true } });
+    expect(created.teams).toHaveLength(1);
+    const lions = created.teams[0]!.id;
+
+    const ps: TestMember[] = [];
+    for (let i = 0; i < 8; i++) ps.push(await createMember(t));
+    const [l1, l2, a1, a2, a3, solo, stray, late] = ps as [TestMember, TestMember, TestMember, TestMember, TestMember, TestMember, TestMember, TestMember];
+    expect((await errorOf(stray, 'POST', `/v1/leagues/${id}/join`)).code).toBe('league.team_required');
+    await req(l1, 'POST', `/v1/leagues/${id}/teams/${lions}/join`);
+    await req(l2, 'POST', `/v1/leagues/${id}/teams/${lions}/join`);
+    expect((await errorOf(stray, 'POST', `/v1/leagues/${id}/teams/${lions}/join`)).code).toBe('league.team_full');
+    expect((await errorOf(a1, 'POST', `/v1/leagues/${id}/teams`, { name: 'les lions' })).code).toBe('league.team_name_taken');
+    const withEagles = LeagueDetailSchema.parse(await req(a1, 'POST', `/v1/leagues/${id}/teams`, { name: 'Les Aigles' }, 201));
+    const eagles = withEagles.teams.find((x) => x.name === 'Les Aigles')!.id;
+    await req(a2, 'POST', `/v1/leagues/${id}/teams/${eagles}/join`);
+    await req(a3, 'POST', `/v1/leagues/${id}/teams/${eagles}/join`);
+    await req(solo, 'POST', `/v1/leagues/${id}/teams`, { name: 'Seul' }, 201);
+    // Trois équipes sur trois places, aucune place libre dans une équipe… sauf chez « Seul ».
+    expect((await errorOf(late, 'POST', `/v1/leagues/${id}/teams`, { name: 'Retard' })).code).toBe('league.full');
+    expect(await escrowBalance(t.db.pool, potKey(id))).toBe(700);
+
+    // Lancement : « Seul » est incomplète, elle est dissoute et son joueur remboursé.
+    const started = LeagueDetailSchema.parse(await req(creator, 'POST', `/v1/leagues/${id}/start`));
+    expect(started.status).toBe('running');
+    expect(started.teams.map((x) => x.name).sort()).toEqual(['Les Aigles', 'Les Lions']);
+    expect(await balanceOf(t.db.pool, solo.userId)).toBe(500);
+    expect(await escrowBalance(t.db.pool, potKey(id))).toBe(600);
+    expect(started.teamMatches).toHaveLength(1);
+    const tm = started.teamMatches[0]!;
+    expect(tm.boards.map((b) => b.boardNo)).toEqual([1, 2, 3]);
+
+    // Les Aigles déposent leur ordre ; les Lions ne le voient pas avant l'heure limite.
+    const users = new Map<string, TestUser>([creator, ...ps].map((p) => [p.userId, p]));
+    expect((await errorOf(a2, 'POST', `/v1/leagues/${id}/team-matches/${tm.id}/lineup`, { order: [a3.userId, a1.userId, a2.userId] })).code).toBe('league.not_captain');
+    expect((await errorOf(a1, 'POST', `/v1/leagues/${id}/team-matches/${tm.id}/lineup`, { order: [a3.userId, a1.userId, l1.userId] })).code).toBe('league.lineup_invalid');
+    await req(a1, 'POST', `/v1/leagues/${id}/team-matches/${tm.id}/lineup`, { order: [a3.userId, a1.userId, a2.userId] });
+    const side = tm.home.id === eagles ? 'home' : 'away';
+    expect((await detail(a1, id)).myTeam?.nextMatch?.lineups[side]).toEqual([a3.userId, a1.userId, a2.userId]);
+    expect((await detail(creator, id)).teamMatches[0]!.lineups[side]).toBeNull();
+    // Pas d'heure à proposer : la rencontre se joue à l'heure de la ligue.
+    expect((await errorOf(users.get(tm.boards[0]!.players[0]!.userId)!, 'POST', `/v1/leagues/${id}/matches/${tm.boards[0]!.id}/time`, { time: '18:00' })).code).toBe('league.team_match_fixed');
+
+    // 1 h avant : ordres figés et appliqués (Lions sans ordre : l'ordre de l'équipe).
+    t.clock.set(new Date(Date.parse(tm.matchAt) - 59 * 60_000));
+    await tick();
+    expect((await errorOf(a1, 'POST', `/v1/leagues/${id}/team-matches/${tm.id}/lineup`, { order: [a1.userId, a2.userId, a3.userId] })).code).toBe('league.too_late');
+    const locked = (await detail(creator, id)).teamMatches[0]!;
+    expect(locked.lineupLocked).toBe(true);
+    expect(locked.lineups[side]).toEqual([a3.userId, a1.userId, a2.userId]);
+    const eagleOn = (board: number) => locked.boards[board - 1]!.players.map((p) => p.userId).find((u) => [a1, a2, a3].some((a) => a.userId === u));
+    expect([1, 2, 3].map(eagleOn)).toEqual([a3.userId, a1.userId, a2.userId]);
+    // L'équipe qui reçoit a les blancs sur les planches 1 et 3.
+    const homeIds = new Set(started.teams.find((x) => x.id === tm.home.id)!.players.map((p) => p.userId));
+    expect(locked.boards.map((b) => homeIds.has(b.players[0]!.userId))).toEqual([true, false, true]);
+
+    // Les blancs gagnent partout : l'équipe qui reçoit gagne 2 planches sur 3 (4–2).
+    await playRound(id, 1, users, () => 'home');
+    const d = await detail(creator, id);
+    expect(d.status).toBe('finished');
+    expect(d.teamStandings.map((r) => [r.team.id, r.points, r.gamesFor, r.gamesAgainst])).toEqual([
+      [tm.home.id, 3, 4, 2],
+      [tm.away.id, 0, 2, 4],
+    ]);
+    // Cagnotte de 600 : 200 pour chaque joueur de l'équipe championne.
+    const champions = started.teams.find((x) => x.id === tm.home.id)!.players.map((p) => p.userId);
+    const others = started.teams.find((x) => x.id === tm.away.id)!.players.map((p) => p.userId);
+    for (const u of champions) expect(await balanceOf(t.db.pool, u)).toBe(600);
+    for (const u of others) expect(await balanceOf(t.db.pool, u)).toBe(400);
+    expect(await escrowBalance(t.db.pool, potKey(id))).toBe(0);
+    expect(d.medals.filter((m) => m.kind === 'or').map((m) => m.player.userId).sort()).toEqual([...champions].sort());
+    expect(d.medals.filter((m) => m.kind === 'argent')).toHaveLength(3);
+  });
+
+  it('Ludo à 2 : partenaires face à face, somme des places, une seule équipe venue gagne sans jouer', async () => {
+    const creator = await createMember(t);
+    const body = teamLeague({
+      name: 'Ludo des familles',
+      game: 'ludo',
+      entry: 0,
+      maxPlaces: 3,
+      teamSize: 2,
+      teamName: 'Rouges',
+      doubleRound: true,
+      boardRules: { policy: 'imposed', allowed: ['ludo_classique'], defaultBoard: 'ludo_classique' },
+    });
+    expect((await errorOf(creator, 'POST', '/v1/leagues', { ...body, boardRules: { policy: 'imposed', allowed: ['ludo_six'], defaultBoard: 'ludo_six' } })).code).toBe(
+      'league.settings_invalid',
+    );
+    const { id, teams } = LeagueDetailSchema.parse(await req(creator, 'POST', '/v1/leagues', body, 201));
+    const [r2, b1, b2] = [await createMember(t), await createMember(t), await createMember(t)];
+    await req(r2, 'POST', `/v1/leagues/${id}/teams/${teams[0]!.id}/join`);
+    const withBlue = LeagueDetailSchema.parse(await req(b1, 'POST', `/v1/leagues/${id}/teams`, { name: 'Bleus' }, 201));
+    await req(b2, 'POST', `/v1/leagues/${id}/teams/${withBlue.teams.find((x) => x.name === 'Bleus')!.id}/join`);
+    await req(creator, 'POST', `/v1/leagues/${id}/start`);
+    const users = new Map<string, TestUser>([creator, r2, b1, b2].map((p) => [p.userId, p]));
+
+    // Journée 1 : une table de 4, les deux équipes face à face.
+    const [table] = (await allMatches(id)).filter((m) => m.round === 1);
+    expect(table!.players).toHaveLength(4);
+    t.clock.set(table!.match_at);
+    for (const p of table!.players) await req(users.get(p)!, 'POST', `/v1/leagues/${id}/matches/${table!.id}/arrive`);
+    const gameId = (await allMatches(id)).find((m) => m.id === table!.id)!.game_id!;
+    const g = games.get(gameId)!;
+    expect(g.teams).toEqual([
+      [0, 2],
+      [1, 3],
+    ]);
+    // Places : 1, 2, 4, 3 → l'équipe des sièges 0 et 2 fait 5, l'autre 5 : le premier départage.
+    await finished!({
+      gameId,
+      context: 'league',
+      league: { leagueId: id, matchId: table!.id },
+      outcome: { places: { 0: 1, 1: 2, 2: 4, 3: 3 }, draw: false, reason: 'team_home' },
+      seats: g.seats.map((s, seat) => ({ seat, userId: s.userId })),
+      tokensHome: { 0: 4, 1: 3, 2: 1, 3: 2 },
+    });
+    let d = await detail(creator, id);
+    const homeTeam = d.teams.find((x) => x.players.some((p) => p.userId === table!.players[0]))!;
+    expect(d.teamStandings[0]).toMatchObject({ team: { id: homeTeam.id }, points: 3, wins: 1, gamesFor: 5, gamesAgainst: 5 });
+
+    // Journée 2 (retour) : seule l'équipe qui reçoit vient ; elle gagne sans jouer.
+    const [back] = (await allMatches(id)).filter((m) => m.round === 2);
+    t.clock.set(back!.match_at);
+    for (const p of [back!.players[0]!, back!.players[2]!]) await req(users.get(p)!, 'POST', `/v1/leagues/${id}/matches/${back!.id}/arrive`);
+    t.clock.advance(11 * 60_000);
+    await tick();
+    expect((await allMatches(id)).find((m) => m.id === back!.id)!.game_id).toBeNull();
+    d = await detail(creator, id);
+    expect(d.status).toBe('finished');
+    const backHome = d.teams.find((x) => x.players.some((p) => p.userId === back!.players[0]))!;
+    expect(d.teamStandings.find((r) => r.team.id === backHome.id)).toMatchObject({ wins: 1 });
+    expect(d.medals).toHaveLength(4);
+  });
+});

@@ -183,7 +183,15 @@
     "too_early": "The room isn't open yet: it opens 15 minutes before the match.",
     "time_invalid": "Pick one of the proposed times.",
     "board_not_allowed": "This board isn't allowed here, or it's not your turn to pick.",
-    "games_unavailable": "You're in: the game starts as soon as the games service is back."
+    "games_unavailable": "You're in: the game starts as soon as the games service is back.",
+    "team_required": "This league is played in teams: create your team or join one.",
+    "team_not_found": "Team not found.",
+    "team_full": "This team is already full.",
+    "team_name_taken": "A team in this league already has that name.",
+    "not_captain": "Only the team captain can do that.",
+    "lineup_invalid": "Line up three different players from your team.",
+    "not_enough_teams": "You need at least two full teams to launch the league.",
+    "team_match_fixed": "Team matches are played at the league's time."
   },
   "competition": {
     "boards_empty": "Pick at least one board.",

@@ -73,6 +73,15 @@ import {
   type MatchRow,
   type MemberRow,
 } from './model.js';
+import {
+  afterTeamMemberLeft,
+  checkTeamSettings,
+  completeTeamLeague,
+  createCreatorTeam,
+  launchTeams,
+  LUDO_TEAM_SEATS,
+  teamCapacity,
+} from './teams.js';
 import { lockCaution, payBonus, payEntry, payFine, payOut, potOf, refundFromPot, returnCaution, shareCaution, takeBackBonus } from './money.js';
 import {
   asFixtures,
@@ -198,6 +207,7 @@ export async function createLeague(deps: LeagueDeps, actor: Actor, body: CreateL
   if (actor.kind !== 'member') throw new AppError('league.guest', 403);
   checkBoards(body);
   checkFormat(body);
+  checkTeamSettings(body);
   const today = dayKey(now.getTime());
   if (body.firstDay < today) throw settingsInvalid('first_day_past');
   const variant = rankVariant({ game: body.game, board_rules: body.boardRules as LeagueRow['board_rules'] });
@@ -230,8 +240,8 @@ export async function createLeague(deps: LeagueDeps, actor: Actor, body: CreateL
       const r = await tx.query<{ id: string }>(
         `INSERT INTO leagues (code, name, game, access, format, creator_id, max_places, entry, caution, min_rank, double_round,
                               groups, qualifiers_per_group, rounds, relegated, board_rules, default_time, rhythm, first_day,
-                              registration_closes_at, created_at)
-         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21)
+                              registration_closes_at, team_size, created_at)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22)
          ON CONFLICT (code) DO NOTHING RETURNING id`,
         [
           newCode(),
@@ -254,6 +264,7 @@ export async function createLeague(deps: LeagueDeps, actor: Actor, body: CreateL
           body.rhythm,
           body.firstDay,
           closesAt,
+          body.teamSize,
           now,
         ],
       );
@@ -262,12 +273,17 @@ export async function createLeague(deps: LeagueDeps, actor: Actor, body: CreateL
     if (!id) throw new Error('code de ligue introuvable après 8 essais');
     await lockCaution(tx, id, actor.userId, caution);
     // Ligue privée : le créateur joue (il paie son entrée comme les autres).
-    if (body.access === 'private') await addMember(tx, await getLeague(tx, id, true), actor.userId, now);
+    // Ligue par équipes : il crée son équipe et en est le capitaine.
+    if (body.access === 'private') {
+      const league = await getLeague(tx, id, true);
+      if (body.teamSize !== null) await createCreatorTeam(tx, league, body.teamName!, now);
+      else await addMember(tx, league, actor.userId, now);
+    }
     return id;
   });
 }
 
-async function addMember(tx: Transaction, league: LeagueRow, userId: string, now: Date): Promise<void> {
+export async function addMember(tx: Transaction, league: LeagueRow, userId: string, now: Date, teamId: string | null = null): Promise<void> {
   const prev = await tx.query<{ status: string; n: number }>(
     `SELECT status, (SELECT count(*)::int FROM ledger_transactions WHERE idempotency_key LIKE $3) AS n
        FROM league_members WHERE league_id = $1 AND user_id = $2`,
@@ -277,12 +293,18 @@ async function addMember(tx: Transaction, league: LeagueRow, userId: string, now
   if (row && (row.status === 'active' || row.status === 'excluded')) throw new AppError('league.already_member', 409);
   if (row) {
     await tx.query(
-      `UPDATE league_members SET status = 'active', joined_at = $3, entry_paid = $4, refunded = 0, seq = nextval('league_members_seq_seq')
+      `UPDATE league_members SET status = 'active', joined_at = $3, entry_paid = $4, refunded = 0, seq = nextval('league_members_seq_seq'), team_id = $5
         WHERE league_id = $1 AND user_id = $2`,
-      [league.id, userId, now, league.entry],
+      [league.id, userId, now, league.entry, teamId],
     );
   } else {
-    await tx.query(`INSERT INTO league_members (league_id, user_id, joined_at, entry_paid) VALUES ($1, $2, $3, $4)`, [league.id, userId, now, league.entry]);
+    await tx.query(`INSERT INTO league_members (league_id, user_id, joined_at, entry_paid, team_id) VALUES ($1, $2, $3, $4, $5)`, [
+      league.id,
+      userId,
+      now,
+      league.entry,
+      teamId,
+    ]);
   }
   await payEntry(tx, league.id, userId, league.entry, row?.n ?? 0);
 }
@@ -293,6 +315,12 @@ async function addMember(tx: Transaction, league: LeagueRow, userId: string, now
 /** Refus d'inscription (code), ou null si possible. */
 export async function joinRefusal(db: Sql, league: LeagueRow, actor: Actor, entrants: number): Promise<ErrorCode | null> {
   if (league.status !== 'registration') return 'league.wrong_status';
+  // Ligue par équipes : maxPlaces compte les équipes ; complète quand on ne peut plus ni créer ni rejoindre.
+  if (league.team_size) {
+    const cap = await teamCapacity(db, league);
+    if (!cap.canCreate && !cap.canJoin) return 'league.full';
+    entrants = 0;
+  }
   const refusal = leagueJoinRefusal({
     access: league.access,
     entry: league.entry,
@@ -318,6 +346,7 @@ export async function joinLeague(deps: LeagueDeps, actor: Actor, leagueId: strin
   const now = deps.clock.now();
   await transaction(deps.db, async (tx) => {
     const league = await getLeague(tx, leagueId, true);
+    if (league.team_size) throw new AppError('league.team_required', 409);
     const members = await loadMembers(tx, leagueId);
     if (members.some((m) => m.user_id === actor.userId)) throw new AppError('league.already_member', 409);
     const refusal = await joinRefusal(tx, league, actor, members.filter((m) => m.status === 'active').length);
@@ -337,6 +366,7 @@ async function releaseMember(tx: Transaction, league: LeagueRow, userId: string,
   const m = r.rows[0];
   if (!m) throw new AppError('league.not_member', 404);
   await tx.query(`UPDATE league_members SET status = $3, entry_paid = 0 WHERE league_id = $1 AND user_id = $2`, [league.id, userId, status]);
+  await afterTeamMemberLeft(tx, league, userId);
   await refundFromPot(tx, league.id, userId, m.entry_paid, `${userId}:${m.joined_at.getTime()}`, status);
 }
 
@@ -364,6 +394,10 @@ export async function removeMember(deps: LeagueDeps, actor: Actor, leagueId: str
 /* Lancement : tirage, calendrier                                       */
 
 async function launch(tx: Transaction, deps: LeagueDeps, league: LeagueRow, now: Date): Promise<void> {
+  if (league.team_size) {
+    await launchTeams(tx, deps, league, now);
+    return;
+  }
   const members = (await loadMembers(tx, league.id)).filter((m) => m.status === 'active');
   const minimum = minimumPlayers(league);
   if (members.length < minimum) throw new AppError('league.not_enough_players', 409, { minimum });
@@ -520,6 +554,7 @@ export async function setMatchTime(deps: LeagueDeps, actor: Actor, leagueId: str
     const league = await getLeague(tx, leagueId);
     const match = await getMatch(tx, leagueId, matchId, true);
     assertPlayer(match, actor.userId);
+    if (match.team_match_id) throw new AppError('league.team_match_fixed', 409);
     if (time !== league.default_time && !(LEAGUE_TIME_SLOTS as readonly string[]).includes(time)) throw new AppError('league.time_invalid', 400);
     const candidate = matchAtOf(match.day, time);
     if (match.status !== 'scheduled' || match.match_at.getTime() - now.getTime() < TIME_CHANGE_LIMIT_MS || candidate.getTime() - now.getTime() < TIME_CHANGE_LIMIT_MS) {
@@ -608,10 +643,13 @@ async function startMatchGame(tx: Transaction, deps: LeagueDeps, league: LeagueR
   if (!port) return false;
   const board = decideMatchBoard(league, match);
   const seats = match.players.filter((p) => present.includes(p)).map((userId) => ({ userId }));
+  // Ludo par équipes : partenaires face à face quand les quatre sont là.
+  const teams = league.team_size === 2 && seats.length === 4 ? LUDO_TEAM_SEATS : undefined;
   const { gameId } = await port.createGame(tx, {
     context: 'league',
     variant: board,
     seats,
+    ...(teams ? { teams } : {}),
     clock: league.game === 'dames' ? (match.stage === 'decider' ? DECIDER_CLOCK : LEAGUE_CLOCK) : null,
     rated: boardIsRated(board),
     stake: 0,
@@ -714,7 +752,9 @@ async function resolveMatch(tx: Transaction, deps: LeagueDeps, league: LeagueRow
   } else {
     const present = match.players.filter(here);
     const absent = match.players.filter((p) => !present.includes(p));
-    if (present.length >= 2) {
+    // Ludo par équipes (table [h1, a1, h2, a2]) : si une seule équipe est venue, pas de partie.
+    const oneTeam = league.team_size === 2 && present.every((p) => match.players.indexOf(p) % 2 === match.players.indexOf(present[0]!) % 2);
+    if (present.length >= 2 && !oneTeam) {
       // Les absents sont sortis de la table, qui joue sans eux ; ils comptent un forfait.
       if (absent.length > 0) await addFines(tx, league, match.id, absent);
       if (!(await startMatchGame(tx, deps, league, match, present))) return;
@@ -813,8 +853,8 @@ export async function sendReminders(deps: LeagueDeps, now: Date): Promise<void> 
 async function afterResults(tx: Transaction, deps: LeagueDeps, leagueId: string, now: Date): Promise<void> {
   const league = await getLeague(tx, leagueId, true);
   if (league.status !== 'running') return;
-  // Exclusions : 2 forfaits de suite ou 3 au total.
-  for (;;) {
+  // Exclusions : 2 forfaits de suite ou 3 au total (pas en ligue par équipes : l'équipe perd la planche).
+  while (!league.team_size) {
     const members = await loadMembers(tx, leagueId);
     const matches = await loadMatches(tx, leagueId);
     const records = attendanceRecords(matches);
@@ -1185,6 +1225,10 @@ async function cupRanking(tx: Transaction, league: LeagueRow): Promise<string[]>
 
 async function completeLeague(tx: Transaction, deps: LeagueDeps, league: LeagueRow, now: Date): Promise<void> {
   if (league.status !== 'running') return;
+  if (league.team_size) {
+    await completeTeamLeague(tx, deps, league, now);
+    return;
+  }
   const members = await loadMembers(tx, league.id);
   const active = members.filter((m) => m.status === 'active');
   if (active.length === 0) {

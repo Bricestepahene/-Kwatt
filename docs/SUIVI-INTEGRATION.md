@@ -10,7 +10,7 @@ Points relevés par les équipes lors des fusions, à traiter pendant la vérifi
 - [x] **Comptes jeunes visibles des amis** : brancher `registerProfileRelation` (Profil) depuis le module amis (Communauté). Fait : relation « friends » enregistrée par le module amis.
 - [x] **Raretés et couleurs Plein soleil** non données par les planches (lossSoft, gainSoftText…) : vérifier le contraste. Vérifié par test (`packages/design/src/index.test.ts`) : aplats doux à 4,5:1 ou plus dans les deux thèmes, raretés lisibles la nuit ; en Plein soleil, `useRarityColors` se rabat sur le texte du thème.
 
-- [ ] **Compétitions par équipes** (planches RegleCompet et ReglesCompetition) : Dames en équipes de 3 (trois planches en même temps, ordre déposé par le capitaine 1 h avant, couleurs alternées, partie gagnée 2 pts, rencontre gagnée 3 pts) et Ludo en équipes de 2 (partenaires face à face, somme des places). L'écran 28b les affiche « Bientôt ».
+- [x] **Compétitions par équipes** (planches RegleCompet et ReglesCompetition) : Dames en équipes de 3 (trois planches en même temps, ordre déposé par le capitaine 1 h avant, couleurs alternées, partie gagnée 2 pts, rencontre gagnée 3 pts) et Ludo en équipes de 2 (partenaires face à face, somme des places). Fait : migration 0080, serveur (`leagues/teams.ts`), écrans 28, 28b et 29 ; décisions D-15 à D-17 de la SPEC.
 - [ ] **Ludo en ligue, temps par tour** : la planche RegleCompet dit 15 s et une pénalité après 3 tours manqués ; la SPEC (§10) fixe 30 s, c'est elle qui s'applique. Pénalité de ligue non faite.
 
 ## À vérifier sur un vrai téléphone (Expo Go / EAS)

@@ -174,7 +174,22 @@ describe('matchs par équipes', () => {
     });
   });
 
-  it('classement des équipes : points, différence de parties, parties marquées, tirage', () => {
+  it('classement des équipes : la confrontation directe passe avant les victoires et la différence', () => {
+    // A, B et D à 3 points. B a une meilleure différence que A, mais A a battu B.
+    const rows = teamStandings(['A', 'B', 'C', 'D'], [
+      { round: 1, home: 'A', away: 'B', score: damesTeamMatch(['home', 'draw', 'draw']) },
+      { round: 2, home: 'B', away: 'C', score: damesTeamMatch(['home', 'home', 'home']) },
+      { round: 3, home: 'D', away: 'A', score: damesTeamMatch(['home', 'home', 'home']) },
+    ]);
+    expect(rows.map((r) => [r.team, r.points])).toEqual([
+      ['D', 3],
+      ['A', 3],
+      ['B', 3],
+      ['C', 0],
+    ]);
+  });
+
+  it('classement des équipes : points, confrontation, victoires, différence de parties, tirage', () => {
     const rows = teamStandings(
       ['A', 'B', 'C', 'D'],
       [

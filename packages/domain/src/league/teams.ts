@@ -185,20 +185,19 @@ export interface TeamStandingRow {
 }
 
 /**
- * Classement des équipes : points de ligue, puis différence de points de parties, puis points
- * de parties marqués, puis l'ordre du tirage au sort.
+ * Classement des équipes, avec le départage de la planche RegleCompet : 1 · points ;
+ * 2 · confrontation directe (points de ligue entre les équipes à égalité) ; 3 · victoires ;
+ * 4 · différence de points de parties (Dames) ou pions rentrés (Ludo) ; 5 · tirage au sort.
  */
 export function teamStandings(teams: readonly string[], records: readonly TeamMatchRecord[], draw: readonly string[] = []): TeamStandingRow[] {
   const rows = new Map<string, TeamStandingRow>(
     teams.map((team) => [team, { team, position: 0, played: 0, wins: 0, draws: 0, losses: 0, points: 0, gamesFor: 0, gamesAgainst: 0 }]),
   );
   for (const r of records) {
-    const h = rows.get(r.home);
-    const a = rows.get(r.away);
     const s = r.score;
     const sides: [TeamStandingRow | undefined, number, number, number, 'home' | 'away'][] = [
-      [h, s.homeLeaguePoints, s.homeGamePoints, s.awayGamePoints, 'home'],
-      [a, s.awayLeaguePoints, s.awayGamePoints, s.homeGamePoints, 'away'],
+      [rows.get(r.home), s.homeLeaguePoints, s.homeGamePoints, s.awayGamePoints, 'home'],
+      [rows.get(r.away), s.awayLeaguePoints, s.awayGamePoints, s.homeGamePoints, 'away'],
     ];
     for (const [row, points, gf, ga, side] of sides) {
       if (!row) continue;
@@ -215,11 +214,25 @@ export function teamStandings(teams: readonly string[], records: readonly TeamMa
     const i = draw.indexOf(t);
     return i === -1 ? Number.MAX_SAFE_INTEGER : i;
   };
+  // Confrontation directe : points pris dans les rencontres entre équipes à égalité de points.
+  const headToHead = new Map<string, number>();
+  const byPoints = new Map<number, string[]>();
+  for (const row of rows.values()) byPoints.set(row.points, [...(byPoints.get(row.points) ?? []), row.team]);
+  for (const group of byPoints.values()) {
+    if (group.length < 2) continue;
+    for (const r of records) {
+      if (!group.includes(r.home) || !group.includes(r.away)) continue;
+      headToHead.set(r.home, (headToHead.get(r.home) ?? 0) + r.score.homeLeaguePoints);
+      headToHead.set(r.away, (headToHead.get(r.away) ?? 0) + r.score.awayLeaguePoints);
+    }
+  }
+  const h2h = (t: string) => headToHead.get(t) ?? 0;
   const sorted = [...rows.values()].sort(
     (x, y) =>
       y.points - x.points ||
+      h2h(y.team) - h2h(x.team) ||
+      y.wins - x.wins ||
       y.gamesFor - y.gamesAgainst - (x.gamesFor - x.gamesAgainst) ||
-      y.gamesFor - x.gamesFor ||
       drawIndex(x.team) - drawIndex(y.team),
   );
   sorted.forEach((r, i) => (r.position = i + 1));

@@ -7,6 +7,7 @@
  *   const action = useLeagueAction(id);          POST /v1/leagues/:id/{join,leave,start,validate,cancel}
  *   const match = useLeagueMatch(id, matchId);   GET  /v1/leagues/:id/matches/:matchId
  *   const exclusion = useExclusion(id, userId);  GET  /v1/leagues/:id/exclusions/:userId
+ *   const team = useTeamAction(id);              POST /v1/leagues/:id/teams, /teams/:teamId/join, /team-matches/:id/lineup
  */
 import type {
   CreateLeagueRequest,
@@ -120,5 +121,21 @@ export function useExclusion(leagueId: string | undefined, userId: string | unde
     queryKey: leagueKeys.exclusion(leagueId ?? '', userId ?? ''),
     queryFn: () => api.get<LeagueExclusionView>(`/v1/leagues/${leagueId ?? ''}/exclusions/${encodeURIComponent(userId ?? '')}`),
     enabled: Boolean(leagueId && userId),
+  });
+}
+
+type TeamChange = { kind: 'create'; name: string } | { kind: 'join'; teamId: string } | { kind: 'lineup'; teamMatchId: string; order: string[] };
+
+/** Ligue par équipes : créer son équipe, en rejoindre une, déposer l'ordre (capitaine). */
+export function useTeamAction(leagueId: string | undefined) {
+  const client = useQueryClient();
+  return useMutation({
+    mutationFn: (change: TeamChange) => {
+      const base = `/v1/leagues/${leagueId ?? ''}`;
+      if (change.kind === 'create') return api.post<LeagueDetail>(`${base}/teams`, { name: change.name });
+      if (change.kind === 'join') return api.post<LeagueDetail>(`${base}/teams/${encodeURIComponent(change.teamId)}/join`);
+      return api.post<LeagueDetail>(`${base}/team-matches/${encodeURIComponent(change.teamMatchId)}/lineup`, { order: change.order });
+    },
+    onSuccess: (detail) => refresh(client, detail),
   });
 }

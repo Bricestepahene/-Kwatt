@@ -23,7 +23,8 @@
     "preset_reine_ludo": "La Reine du Ludo",
     "preset_notable": "Le Notable",
     "preset_fon": "Le Fon",
-    "preset_prince_wouri": "Le Prince du Wouri"
+    "preset_prince_wouri": "Le Prince du Wouri",
+    "card_trophee_ngondo": "Trophée Ngondo"
   },
   "event": {
     "ngondo_2026": "Ngondo 2026"

@@ -11,6 +11,7 @@ import enCommon from './locales/en/common.json';
 import enDames from './locales/en/dames.json';
 import enErrors from './locales/en/errors.json';
 import enItems from './locales/en/items.json';
+import enLeagues from './locales/en/leagues.json';
 import enLegal from './locales/en/legal.json';
 import enLudo from './locales/en/ludo.json';
 import enPreferences from './locales/en/preferences.json';
@@ -22,6 +23,7 @@ import frCommon from './locales/fr/common.json';
 import frDames from './locales/fr/dames.json';
 import frErrors from './locales/fr/errors.json';
 import frItems from './locales/fr/items.json';
+import frLeagues from './locales/fr/leagues.json';
 import frLegal from './locales/fr/legal.json';
 import frLudo from './locales/fr/ludo.json';
 import frPreferences from './locales/fr/preferences.json';
@@ -42,6 +44,7 @@ export const resources = {
     legal: frLegal,
     ludo: frLudo,
     dames: frDames,
+    leagues: frLeagues,
   },
   en: {
     common: enCommon,
@@ -55,6 +58,7 @@ export const resources = {
     legal: enLegal,
     ludo: enLudo,
     dames: enDames,
+    leagues: enLeagues,
   },
 } as const;
 

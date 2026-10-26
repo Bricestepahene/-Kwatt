@@ -1,6 +1,4 @@
-/** Écran provisoire : voir ROUTES.md (clé « choixPlanche »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 34b · Choisir la planche du match. */
+import { BoardChoiceScreen } from '@/features/leagues/screens/BoardChoiceScreen';
 
-export default function ChoixPlancheScreen() {
-  return <PlaceholderScreen routeKey="choixPlanche" />;
-}
+export default BoardChoiceScreen;

@@ -1,6 +1,4 @@
-/** Écran provisoire : voir ROUTES.md (clé « creerLigue »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 28 · Créer une ligue privée. */
+import { CreateLeagueScreen } from '@/features/leagues/screens/CreateLeagueScreen';
 
-export default function CreerLigueScreen() {
-  return <PlaceholderScreen routeKey="creerLigue" />;
-}
+export default CreateLeagueScreen;

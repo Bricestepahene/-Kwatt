@@ -147,5 +147,40 @@
   "puzzle": {
     "wrong_day": "The puzzle changed: a new day has started.",
     "not_found": "No puzzle available today."
+  },
+  "league": {
+    "not_found": "League not found: check the code.",
+    "guest": "Create your profile to create a league.",
+    "underage": "Public leagues are for players aged 18 and over.",
+    "rank_too_low": "Your rank is too low for this league.",
+    "places_invalid": "Number of places refused: 4 to 64, in steps of 2.",
+    "entry_invalid": "Entry refused: 50 to 1,000 cowries, in steps of 50.",
+    "caution_above_balance": "Your deposit is more than your balance: lower the number of places.",
+    "settings_invalid": "These settings don't fit together: check the groups, dates and boards.",
+    "full": "The league is full.",
+    "guest_paid": "Create your profile to play a league with an entry fee.",
+    "guest_public": "Create your profile to play a public league.",
+    "underage_paid": "Leagues with an entry fee are for players aged 18 and over.",
+    "insufficient_balance": "You don't have enough cowries for the entry.",
+    "same_device": "Another account on this device already plays this league.",
+    "already_member": "You're already signed up for this league.",
+    "not_member": "You don't play in this league.",
+    "not_creator": "Only the league's creator can do that.",
+    "wrong_status": "Not possible at this stage of the league.",
+    "not_enough_players": "Not enough players to launch the league.",
+    "creator_cannot_leave": "The creator doesn't leave their league: they can cancel it.",
+    "match_not_found": "Match not found.",
+    "not_in_match": "You don't play this match.",
+    "too_late": "Too late to change: the match is too close.",
+    "too_early": "The room isn't open yet: it opens 15 minutes before the match.",
+    "time_invalid": "Pick one of the proposed times.",
+    "board_not_allowed": "This board isn't allowed here, or it's not your turn to pick.",
+    "games_unavailable": "You're in: the game starts as soon as the games service is back."
+  },
+  "competition": {
+    "boards_empty": "Pick at least one board.",
+    "imposed_single_board": "A set board means a single board.",
+    "default_not_allowed": "The default board must be one of the allowed boards.",
+    "board_not_allowed": "This board isn't allowed in this kind of competition."
   }
 }

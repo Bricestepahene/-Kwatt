@@ -1,6 +1,4 @@
-/** Écran provisoire : voir ROUTES.md (clé « validerLigue »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 33 · Le créateur valide la ligue. */
+import { ValidateLeagueScreen } from '@/features/leagues/screens/ValidateLeagueScreen';
 
-export default function ValiderLigueScreen() {
-  return <PlaceholderScreen routeKey="validerLigue" />;
-}
+export default ValidateLeagueScreen;

@@ -49,6 +49,8 @@ export const GAME_ERRORS = [
   'challenge.self',
   /** Le joueur t'a bloqué (ou tu l'as bloqué) : pas de défi ni d'invitation. */
   'challenge.blocked',
+  /** On défie un ami (ou l'adversaire d'une partie pour la revanche). */
+  'challenge.not_friend',
   /** Pronostics : fermés après le coup (Dames) ou le tour (Ludo) 10. */
   'prediction.closed',
   /** Pronostics : un joueur de la partie ne pronostique pas sa propre partie. */

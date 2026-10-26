@@ -47,6 +47,18 @@
       "challenge": {
         "title": "Challenge",
         "body": "{{from}} challenges you."
+      },
+      "challenge_countered": {
+        "title": "Counter-offer",
+        "body": "{{from}} suggests a stake of {{stake}} cowries."
+      },
+      "challenge_accepted": {
+        "title": "Challenge accepted",
+        "body": "{{from}} accepts your challenge: the game is starting."
+      },
+      "challenge_declined": {
+        "title": "Challenge declined",
+        "body": "{{from}} declines your challenge."
       }
     },
     "league": {

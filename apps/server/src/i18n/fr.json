@@ -47,6 +47,18 @@
       "challenge": {
         "title": "Défi",
         "body": "{{from}} te lance un défi."
+      },
+      "challenge_countered": {
+        "title": "Contre-proposition",
+        "body": "{{from}} propose une mise de {{stake}} cauris."
+      },
+      "challenge_accepted": {
+        "title": "Défi accepté",
+        "body": "{{from}} relève ton défi : la partie commence."
+      },
+      "challenge_declined": {
+        "title": "Défi refusé",
+        "body": "{{from}} décline ton défi."
       }
     },
     "league": {

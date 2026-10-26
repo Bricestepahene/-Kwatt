@@ -19,6 +19,7 @@ import { modules } from './modules/index.js';
 import { MediaStore } from './modules/media/store.js';
 import { createMachinePlayer } from './modules/games/machine.js';
 import { GamesService } from './modules/games/service.js';
+import { RoomsService } from './modules/rooms/service.js';
 import { AccountRegistry } from './modules/me/registry.js';
 import { ExpoPushSender, type PushSender } from './modules/notifications/push.js';
 import { NotificationService } from './modules/notifications/service.js';
@@ -108,6 +109,10 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
       machine: createMachinePlayer({ ludoAiUrl: config.env === 'test' ? null : config.ludoAiUrl, log: app.log }),
       machineDelayMs: config.env === 'test' ? 0 : 700,
     }),
+  );
+  app.decorate(
+    'rooms',
+    new RoomsService({ db: pool, clock, log: app.log, hub: realtime, games: app.games, media: app.media, notifications: app.notifications }),
   );
 
   await app.register(securityPlugin);

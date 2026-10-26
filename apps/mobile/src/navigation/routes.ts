@@ -254,6 +254,11 @@ export const ROUTES = defineRoutes([
     key: 'mise', screens: ['26'], planches: ['Mise'], file: 'app/defi/[id].tsx',
     pattern: '/defi/[id]', access: 'adult', owner: 'parties-en-ligne', space: 'dames', links: ['partieDames'],
   },
+  {
+    key: 'nouveauDefi', screens: ['26'], planches: ['Mise'], file: 'app/defi/nouveau.tsx',
+    pattern: '/defi/nouveau', access: 'member', owner: 'parties-en-ligne', space: 'dames', links: ['mise'],
+    note: 'Défier un ami ou demander la revanche : ?userId=…&name=…&game=…&rematchOf=… La mise demande 18 ans et plus.',
+  },
 
   // --- Ligues ------------------------------------------------------------------------------
   {
@@ -311,6 +316,11 @@ export const ROUTES = defineRoutes([
     key: 'regarder', screens: ['37'], planches: ['KwattTV'], file: 'app/regarder/[id].tsx',
     pattern: '/regarder/[id]', access: 'guest', owner: 'parties-en-ligne', space: 'dames', links: ['salon'],
     note: '« Autour du damier » : regarder ne demande pas de profil (session invitée).',
+  },
+  {
+    key: 'regarderListe', screens: ['37'], planches: ['KwattTV'], file: 'app/regarder/index.tsx',
+    pattern: '/regarder', access: 'guest', owner: 'parties-en-ligne', space: 'hub', links: ['regarder'],
+    note: 'Parties publiques en cours (salons et ligues), les plus regardées d’abord.',
   },
   {
     key: 'signaler', screens: ['38'], planches: ['Signaler'], file: 'app/signaler/[userId].tsx',

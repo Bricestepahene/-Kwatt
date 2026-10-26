@@ -1,6 +1,8 @@
-/** Écran provisoire : voir ROUTES.md (clé « mise »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 26 · Défi avec mise (planche Mise). */
+import { useLocalSearchParams } from 'expo-router';
+import { ChallengeScreen } from '@/features/online/screens/ChallengeScreen';
 
 export default function MiseScreen() {
-  return <PlaceholderScreen routeKey="mise" />;
+  const { id } = useLocalSearchParams<{ id: string }>();
+  return <ChallengeScreen id={String(id ?? '')} />;
 }

@@ -38,6 +38,9 @@ importers:
       '@kwatt/engine-dames':
         specifier: workspace:*
         version: link:../../packages/engine-dames
+      '@kwatt/fair-dice':
+        specifier: workspace:*
+        version: link:../../packages/fair-dice
       '@kwatt/ludo-ai':
         specifier: workspace:*
         version: link:../../packages/ludo-ai

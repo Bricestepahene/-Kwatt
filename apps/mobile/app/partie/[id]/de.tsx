@@ -1,6 +1,8 @@
-/** Écran provisoire : voir ROUTES.md (clé « deHonnete »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 22 · Le dé était-il honnête ? (planche DeHonnete), vérifié dans l'appli. */
+import { useLocalSearchParams } from 'expo-router';
+import { DiceProofScreen } from '@/features/online/screens/DiceProofScreen';
 
 export default function DeHonneteScreen() {
-  return <PlaceholderScreen routeKey="deHonnete" />;
+  const { id } = useLocalSearchParams<{ id: string }>();
+  return <DiceProofScreen gameId={String(id ?? '')} />;
 }

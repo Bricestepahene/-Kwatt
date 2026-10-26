@@ -25,6 +25,7 @@
     "@kwatt/design": "workspace:*",
     "@kwatt/domain": "workspace:*",
     "@kwatt/engine-dames": "workspace:*",
+    "@kwatt/fair-dice": "workspace:*",
     "@kwatt/rules-dames": "workspace:*",
     "@kwatt/protocol": "workspace:*",
     "@kwatt/ludo-ai": "workspace:*",

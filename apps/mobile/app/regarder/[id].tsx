@@ -1,6 +1,8 @@
-/** Écran provisoire : voir ROUTES.md (clé « regarder »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 37 · Autour du damier (planche KwattTV) : regarder une partie en direct. */
+import { useLocalSearchParams } from 'expo-router';
+import { WatchScreen } from '@/features/online/screens/WatchScreen';
 
 export default function RegarderScreen() {
-  return <PlaceholderScreen routeKey="regarder" />;
+  const { id } = useLocalSearchParams<{ id: string }>();
+  return <WatchScreen gameId={String(id ?? '')} />;
 }

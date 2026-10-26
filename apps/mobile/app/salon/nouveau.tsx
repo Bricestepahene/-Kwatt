@@ -1,6 +1,6 @@
-/** Écran provisoire : voir ROUTES.md (clé « creerSalon »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 24 · Créer un salon (planche CreerSalon). */
+import { CreateRoomScreen } from '@/features/online/screens/CreateRoomScreen';
 
 export default function CreerSalonScreen() {
-  return <PlaceholderScreen routeKey="creerSalon" />;
+  return <CreateRoomScreen />;
 }

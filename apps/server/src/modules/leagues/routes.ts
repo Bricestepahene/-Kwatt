@@ -4,6 +4,8 @@
  */
 import {
   CreateLeagueRequestSchema,
+  CreateTeamRequestSchema,
+  SetLineupRequestSchema,
   LeagueCodeSchema,
   LeagueListQuerySchema,
   SetMatchBoardRequestSchema,
@@ -37,6 +39,7 @@ import {
   type Actor,
   type LeagueDeps,
 } from './service.js';
+import { applyDueLineups, createTeam, joinTeam, setLineup } from './teams.js';
 import { exclusionView, leagueDetail, listLeagues, matchView } from './views.js';
 
 const leaguesRoutes: FastifyPluginAsync = async (app) => {
@@ -45,8 +48,8 @@ const leaguesRoutes: FastifyPluginAsync = async (app) => {
     const a = requireAuth(req);
     return { userId: a.userId, kind: a.kind, ageGroup: a.ageGroup };
   };
-  const params = (req: FastifyRequest) => req.params as { id: string; matchId?: string; userId?: string; code?: string };
-  const detail = (req: FastifyRequest, id: string): Promise<LeagueDetail> => leagueDetail(app.db, app.media, actor(req), id);
+  const params = (req: FastifyRequest) => req.params as { id: string; matchId?: string; userId?: string; code?: string; teamId?: string };
+  const detail = (req: FastifyRequest, id: string): Promise<LeagueDetail> => leagueDetail(app.db, app.media, actor(req), id, app.clock.now());
   const write = { preHandler: app.authenticate, config: { rateLimit: { max: Math.max(30, app.config.rateLimitAuthPerMin * 6), timeWindow: '1 minute' } } };
 
   app.get('/v1/leagues', { preHandler: app.authenticate }, async (req): Promise<LeagueListResponse> => {
@@ -98,6 +101,25 @@ const leaguesRoutes: FastifyPluginAsync = async (app) => {
     return detail(req, params(req).id);
   });
 
+  // Ligues par équipes.
+  app.post('/v1/leagues/:id/teams', write, async (req, reply): Promise<LeagueDetail> => {
+    const { name } = parse(CreateTeamRequestSchema, req.body);
+    await createTeam(deps, actor(req), params(req).id, name);
+    reply.code(201);
+    return detail(req, params(req).id);
+  });
+
+  app.post('/v1/leagues/:id/teams/:teamId/join', write, async (req): Promise<LeagueDetail> => {
+    await joinTeam(deps, actor(req), params(req).id, params(req).teamId ?? '');
+    return detail(req, params(req).id);
+  });
+
+  app.post('/v1/leagues/:id/team-matches/:matchId/lineup', write, async (req): Promise<LeagueDetail> => {
+    const { order } = parse(SetLineupRequestSchema, req.body);
+    await setLineup(deps, actor(req), params(req).id, params(req).matchId ?? '', order);
+    return detail(req, params(req).id);
+  });
+
   const match = (req: FastifyRequest): Promise<LeagueMatchView> => matchView(app.db, app.media, actor(req), params(req).id, params(req).matchId ?? '', app.clock.now());
 
   app.get('/v1/leagues/:id/matches/:matchId', { preHandler: app.authenticate }, match);
@@ -130,9 +152,10 @@ const leaguesRoutes: FastifyPluginAsync = async (app) => {
     }),
   );
 
-  // Toutes les minutes : clôture des inscriptions, validation manquée, rappels, présences et forfaits.
+  // Toutes les minutes : clôture des inscriptions, validation manquée, ordres des équipes, rappels, présences et forfaits.
   app.registerJob('leagues.tick', MINUTE, async ({ now }) => {
     await closeRegistrations(deps, now);
+    await applyDueLineups(deps, now);
     await sendReminders(deps, now);
     await resolveDueMatches(deps, now);
   });

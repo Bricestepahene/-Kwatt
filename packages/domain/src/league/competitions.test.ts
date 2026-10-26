@@ -14,8 +14,11 @@ import {
   homeColorOnBoard,
   lineupEditable,
   lineupVisible,
+  ludoTeamMatch,
   ludoTeamRanking,
+  splitTeamPot,
   teamBoards,
+  teamStandings,
 } from './teams.js';
 import { deciderWhite, gameScore, groupName, groupQualifiers, groupStandings, knockoutPairs, makeGroups, nextRoundPairs, twoLegTie } from './cup.js';
 import { boardAllowed, boardChoiceDeadline, boardIsRated, decideBoard, validateBoardRules, type BoardRules } from './boards.js';
@@ -147,6 +150,69 @@ describe('matchs par équipes', () => {
     const s = ludoTeamRanking({ rouge: ['a', 'c'], bleu: ['b', 'd'] }, { a: 1, b: 2, c: 3, d: 4 });
     expect(s[0]!.team).toBe('rouge');
     expect(() => ludoTeamRanking({ rouge: ['a'] }, {})).toThrow();
+  });
+
+  it('double forfait sur une planche : personne ne marque ; sur les trois, rencontre nulle et vide', () => {
+    expect(damesTeamMatch(['home', 'void', 'away'])).toMatchObject({ homeGamePoints: 2, awayGamePoints: 2, winner: null, homeLeaguePoints: 1 });
+    expect(damesTeamMatch(['void', 'void', 'void'])).toEqual({ homeGamePoints: 0, awayGamePoints: 0, winner: null, homeLeaguePoints: 0, awayLeaguePoints: 0 });
+  });
+
+  it('rencontre de Ludo par équipes : absent compté dernier, équipe absente perdante, table vide sans points', () => {
+    expect(ludoTeamMatch({ home: [1, 4], away: [2, 3], homeTokens: 5, awayTokens: 6, tableSize: 4 })).toMatchObject({
+      winner: 'home',
+      homeLeaguePoints: 3,
+      awayLeaguePoints: 0,
+      homeGamePoints: 5,
+      awayGamePoints: 6,
+    });
+    expect(ludoTeamMatch({ home: [2, null], away: [1, 3], homeTokens: 4, awayTokens: 6, tableSize: 4 }).winner).toBe('away');
+    expect(ludoTeamMatch({ home: [null, null], away: [1, 2], homeTokens: 0, awayTokens: 0, tableSize: 4 }).winner).toBe('away');
+    expect(ludoTeamMatch({ home: [null, null], away: [null, null], homeTokens: 0, awayTokens: 0, tableSize: 4 })).toMatchObject({
+      winner: null,
+      homeLeaguePoints: 0,
+      awayLeaguePoints: 0,
+    });
+  });
+
+  it('classement des équipes : la confrontation directe passe avant les victoires et la différence', () => {
+    // A, B et D à 3 points. B a une meilleure différence que A, mais A a battu B.
+    const rows = teamStandings(['A', 'B', 'C', 'D'], [
+      { round: 1, home: 'A', away: 'B', score: damesTeamMatch(['home', 'draw', 'draw']) },
+      { round: 2, home: 'B', away: 'C', score: damesTeamMatch(['home', 'home', 'home']) },
+      { round: 3, home: 'D', away: 'A', score: damesTeamMatch(['home', 'home', 'home']) },
+    ]);
+    expect(rows.map((r) => [r.team, r.points])).toEqual([
+      ['D', 3],
+      ['A', 3],
+      ['B', 3],
+      ['C', 0],
+    ]);
+  });
+
+  it('classement des équipes : points, confrontation, victoires, différence de parties, tirage', () => {
+    const rows = teamStandings(
+      ['A', 'B', 'C', 'D'],
+      [
+        { round: 1, home: 'A', away: 'B', score: damesTeamMatch(['home', 'home', 'draw']) },
+        { round: 1, home: 'C', away: 'D', score: damesTeamMatch(['home', 'away', 'home']) },
+        { round: 2, home: 'A', away: 'C', score: damesTeamMatch(['draw', 'draw', 'draw']) },
+        { round: 2, home: 'B', away: 'D', score: damesTeamMatch(['void', 'void', 'void']) },
+      ],
+      ['D', 'C', 'B', 'A'],
+    );
+    expect(rows.map((r) => [r.team, r.points, r.gamesFor - r.gamesAgainst])).toEqual([
+      ['A', 4, 4],
+      ['C', 4, 2],
+      ['D', 0, -2],
+      ['B', 0, -4],
+    ]);
+    expect(rows[0]).toMatchObject({ played: 2, wins: 1, draws: 1, losses: 0 });
+    expect(rows.find((r) => r.team === 'B')).toMatchObject({ played: 2, wins: 0, draws: 0, losses: 2 });
+  });
+
+  it('cagnotte d’équipe : parts égales, le reste au capitaine', () => {
+    expect(splitTeamPot(100, ['a', 'b', 'c'], 'b')).toEqual({ a: 33, b: 34, c: 33 });
+    expect(splitTeamPot(0, ['a'], 'a')).toEqual({});
   });
 });
 

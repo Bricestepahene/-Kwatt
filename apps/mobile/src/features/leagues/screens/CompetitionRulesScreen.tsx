@@ -7,11 +7,11 @@
 import type { LeagueGame } from '@kwatt/protocol';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
-import { Button, Chip, Header, Screen, SectionLabel, SegmentedTabs, Text, goBack } from '@/ui';
+import { Button, Chip, Header, Screen, SectionLabel, SegmentedTabs, Text, goBack, showToast } from '@/ui';
 import { useTheme } from '@/theme';
 import { ChoiceBox, Note } from '../components';
 import { setLeagueDraft, useLeagueDraft } from '../draftStore';
-import { boardChoices, policiesOf, toggleBoard, withGame, withPolicy } from '../logic';
+import { boardChoices, policiesOf, toggleBoard, withGame, withPolicy, withTeams } from '../logic';
 
 const LUDO_POINTS = [4, 2, 1, 0] as const;
 
@@ -21,6 +21,11 @@ export function CompetitionRulesScreen() {
   const draft = useLeagueDraft();
   const back = draft.access === 'public' ? '/ligue-publique/nouvelle' : '/ligue/nouvelle';
   const single = draft.boardRules.policy === 'imposed';
+  const teams = draft.teamSize !== null;
+  const pickTeams = () => {
+    if (draft.access === 'public') return showToast(t('teams.privateOnly'));
+    setLeagueDraft((d) => withTeams(d, true));
+  };
   const names = draft.boardRules.allowed.map((b) => t(`board.${b}`)).join(', ');
   const summary = single
     ? t('rules.summaryImposed', { boards: names })
@@ -39,7 +44,7 @@ export function CompetitionRulesScreen() {
       />
       <SectionLabel>{t('rules.who')}</SectionLabel>
       <View accessibilityRole="radiogroup" accessibilityLabel={t('rules.who')} style={styles.stack}>
-        {policiesOf(draft.game).map((p) => (
+        {policiesOf(draft.game, teams).map((p) => (
           <ChoiceBox
             key={p}
             radio
@@ -58,7 +63,7 @@ export function CompetitionRulesScreen() {
           <Chip key={b} label={t(`board.${b}`)} selected={draft.boardRules.allowed.includes(b)} onPress={() => setLeagueDraft((d) => toggleBoard(d, b))} />
         ))}
       </View>
-      {draft.game === 'ludo' ? (
+      {draft.game === 'ludo' && !teams ? (
         <>
           <SectionLabel>{t('rules.pointsTitle')}</SectionLabel>
           <View style={styles.points}>
@@ -77,14 +82,22 @@ export function CompetitionRulesScreen() {
         </>
       ) : null}
       <SectionLabel>{t('rules.formatTitle')}</SectionLabel>
-      <View style={styles.formats}>
-        <ChoiceBox selected onPress={() => undefined} title={t(`rules.solo.${draft.game}.label`)} sub={t(`rules.solo.${draft.game}.desc`)} style={styles.format} />
+      <View accessibilityRole="radiogroup" accessibilityLabel={t('rules.formatTitle')} style={styles.formats}>
         <ChoiceBox
-          selected={false}
-          onPress={() => undefined}
+          role="radio"
+          selected={!teams}
+          onPress={() => setLeagueDraft((d) => withTeams(d, false))}
+          title={t(`rules.solo.${draft.game}.label`)}
+          sub={t(`rules.solo.${draft.game}.desc`)}
+          style={styles.format}
+        />
+        <ChoiceBox
+          role="radio"
+          selected={teams}
+          onPress={pickTeams}
           title={t(`rules.team.${draft.game}.label`)}
-          sub={t('rules.teamSoon')}
-          style={[styles.format, styles.disabled]}
+          sub={t(`rules.team.${draft.game}.desc`)}
+          style={[styles.format, draft.access === 'public' ? styles.disabled : null]}
         />
       </View>
       <Note>{t('rules.summary', { summary })}</Note>

@@ -215,6 +215,7 @@ const gamesRoutes: FastifyPluginAsync = async (app) => {
         clock: input.clock,
         turnMs: input.clock ? null : 30_000,
         league: input.league,
+        ...(input.teams ? { teams: input.teams } : {}),
         ...(input.startAt ? { startAt: input.startAt } : {}),
       });
       return { gameId: cfg.id };

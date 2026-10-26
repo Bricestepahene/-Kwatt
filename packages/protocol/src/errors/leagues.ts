@@ -51,6 +51,22 @@ export const LEAGUE_ERRORS = [
   'league.board_not_allowed',
   /** Le service des parties en ligne ne répond pas : la partie démarrera dès qu'il revient. */
   'league.games_unavailable',
+  /** Ligue par équipes : on s'inscrit en créant une équipe ou en rejoignant une équipe. */
+  'league.team_required',
+  /** Équipe introuvable dans cette ligue. */
+  'league.team_not_found',
+  /** Cette équipe a déjà tous ses joueurs. */
+  'league.team_full',
+  /** Une équipe de cette ligue porte déjà ce nom. */
+  'league.team_name_taken',
+  /** Action réservée au capitaine de l'équipe. */
+  'league.not_captain',
+  /** Ordre des joueurs refusé : 3 joueurs différents de l'équipe. */
+  'league.lineup_invalid',
+  /** Pas assez d'équipes complètes pour lancer (params.minimum). */
+  'league.not_enough_teams',
+  /** Rencontre d'équipes : l'heure est celle de la ligue, elle ne se change pas. */
+  'league.team_match_fixed',
   /** Règles de planche : voir @kwatt/domain validateBoardRules. */
   'competition.boards_empty',
   'competition.imposed_single_board',

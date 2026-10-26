@@ -16,6 +16,9 @@
  *   POST   /v1/leagues/:id/matches/:matchId/board  {board}        → LeagueMatchView
  *   POST   /v1/leagues/:id/matches/:matchId/arrive                → LeagueMatchView (gameId dès que tous sont là)
  *   GET    /v1/leagues/:id/exclusions/:userId                     → LeagueExclusionView (écran 35)
+ *   POST   /v1/leagues/:id/teams                    {name}        → LeagueDetail (201 ; ligue par équipes : tu en deviens capitaine)
+ *   POST   /v1/leagues/:id/teams/:teamId/join                     → LeagueDetail (entrée bloquée tout de suite)
+ *   POST   /v1/leagues/:id/team-matches/:teamMatchId/lineup {order} → LeagueDetail (capitaine, jusqu'à 1 h avant)
  *
  * Le serveur ne renvoie que des données et des codes : le nom de la ligue est saisi par
  * son créateur et n'est jamais traduit.
@@ -93,6 +96,13 @@ export const CreateLeagueRequestSchema = z.object({
   firstDay: DayKeySchema,
   /** Publique : fin des inscriptions (ISO). */
   registrationClosesAt: IsoDateSchema.optional(),
+  /**
+   * Championnat privé par équipes : Dames en équipes de 3, Ludo en équipes de 2 (null : chacun
+   * pour soi). maxPlaces compte alors les équipes (2 à 16).
+   */
+  teamSize: z.union([z.literal(2), z.literal(3)]).nullable().default(null),
+  /** Ligue par équipes : nom de l'équipe du créateur (il en est le capitaine). */
+  teamName: z.string().trim().min(2).max(24).optional(),
 });
 export type CreateLeagueRequest = z.input<typeof CreateLeagueRequestSchema>;
 export type CreateLeagueBody = z.output<typeof CreateLeagueRequestSchema>;
@@ -133,6 +143,9 @@ export const LeagueCardSchema = z.object({
   /** Places restantes (publiques). */
   placesLeft: z.number().int().nonnegative(),
   registrationClosesAt: IsoDateSchema.nullable(),
+  /** Ligue par équipes : joueurs par équipe (null : chacun pour soi) et équipes inscrites. */
+  teamSize: z.number().int().nullable(),
+  teams: z.number().int().nonnegative(),
 });
 export type LeagueCard = z.infer<typeof LeagueCardSchema>;
 export const LeagueListResponseSchema = z.object({ items: z.array(LeagueCardSchema) });
@@ -191,6 +204,9 @@ export const LeagueMatchCardSchema = z.object({
   /** Heure fixée d'un commun accord (sinon l'heure par défaut). */
   timeAgreed: z.boolean(),
   gameId: z.string().nullable(),
+  /** Ligue par équipes : planche (1 à 3, Dames) dans la rencontre d'équipes. */
+  boardNo: z.number().int().nullable(),
+  teamMatchId: UuidSchema.nullable(),
 });
 export type LeagueMatchCard = z.infer<typeof LeagueMatchCardSchema>;
 
@@ -233,6 +249,63 @@ export const LeaguePrizesSchema = z.object({
   participationEach: z.number().int(),
   creator: z.number().int(),
 });
+
+/* ------------------------------------------------------------------ */
+/* Équipes                                                              */
+
+export const TeamNameSchema = z.string().trim().min(2).max(24);
+export const LeagueTeamRefSchema = z.object({ id: UuidSchema, name: z.string() });
+export type LeagueTeamRef = z.infer<typeof LeagueTeamRefSchema>;
+
+export const LeagueTeamSchema = z.object({
+  id: UuidSchema,
+  /** Nom saisi par le capitaine (jamais traduit). */
+  name: z.string(),
+  captain: UuidSchema,
+  /** Joueurs dans l'ordre d'arrivée (le capitaine d'abord). */
+  players: z.array(LeaguePlayerSchema),
+  full: z.boolean(),
+});
+export type LeagueTeam = z.infer<typeof LeagueTeamSchema>;
+
+export const TeamStandingRowSchema = z.object({
+  team: LeagueTeamRefSchema,
+  position: z.number().int().positive(),
+  played: z.number().int().nonnegative(),
+  wins: z.number().int().nonnegative(),
+  draws: z.number().int().nonnegative(),
+  losses: z.number().int().nonnegative(),
+  points: z.number().int(),
+  /** Dames : points de parties (2 la victoire, 1 la nulle) ; Ludo : pions rentrés. */
+  gamesFor: z.number().int(),
+  gamesAgainst: z.number().int(),
+  zone: z.enum(['champion', 'podium', 'relegation', 'none']),
+});
+export type TeamStandingRowView = z.infer<typeof TeamStandingRowSchema>;
+
+/** Rencontre entre deux équipes : 3 planches (Dames) ou une table de 4 (Ludo). */
+export const TeamMatchCardSchema = z.object({
+  id: UuidSchema,
+  round: z.number().int().positive(),
+  matchAt: IsoDateSchema,
+  home: LeagueTeamRefSchema,
+  away: LeagueTeamRefSchema,
+  /** Points de parties (Dames) ou pions rentrés (Ludo) ; null tant que rien n'est joué. */
+  homeScore: z.number().int().nullable(),
+  awayScore: z.number().int().nullable(),
+  winner: z.enum(['home', 'away']).nullable(),
+  status: z.enum(['scheduled', 'playing', 'played', 'cancelled']),
+  /** Dames : dépôt de l'ordre jusqu'à cette heure (1 h avant), puis figé. */
+  lineupDeadline: IsoDateSchema,
+  lineupLocked: z.boolean(),
+  /** Ordres déposés : le tien toujours, celui de l'adversaire seulement après l'heure limite. */
+  lineups: z.object({ home: z.array(UuidSchema).nullable(), away: z.array(UuidSchema).nullable() }),
+  boards: z.array(LeagueMatchCardSchema),
+});
+export type TeamMatchCard = z.infer<typeof TeamMatchCardSchema>;
+
+export const CreateTeamRequestSchema = z.object({ name: TeamNameSchema });
+export const SetLineupRequestSchema = z.object({ order: z.array(UuidSchema).length(3) });
 
 export const LeagueDetailSchema = z.object({
   id: UuidSchema,
@@ -290,6 +363,20 @@ export const LeagueDetailSchema = z.object({
     balance: z.number().int().nullable(),
   }),
   medals: z.array(z.object({ player: LeaguePlayerSchema, kind: z.enum(['or', 'argent', 'bronze']) })),
+  /** Ligue par équipes (null : chacun pour soi). */
+  teamSize: z.number().int().nullable(),
+  teams: z.array(LeagueTeamSchema),
+  teamStandings: z.array(TeamStandingRowSchema),
+  /** Rencontres d'équipes de la journée en cours. */
+  teamMatches: z.array(TeamMatchCardSchema),
+  myTeam: z
+    .object({
+      id: UuidSchema,
+      captain: z.boolean(),
+      /** Prochaine rencontre de ton équipe (ordre à déposer). */
+      nextMatch: TeamMatchCardSchema.nullable(),
+    })
+    .nullable(),
 });
 export type LeagueDetail = z.infer<typeof LeagueDetailSchema>;
 

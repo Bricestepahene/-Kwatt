@@ -27,13 +27,19 @@ function LeagueCardView({ league, scope }: { league: LeagueCard; scope: Scope })
       ? t(`card.kind.${league.status}`)
       : league.access === 'public'
         ? t(`card.kind.public_${league.status}`)
-        : t(`card.kind.private_${league.format}`);
+        : league.teamSize
+          ? t('teams.kind')
+          : t(`card.kind.private_${league.format}`);
   const closesIn = league.registrationClosesAt ? daysHours(Date.parse(league.registrationClosesAt) - Date.now()) : null;
   const meta =
     league.access === 'public' && league.status === 'registration'
       ? t('card.meta.registration', { players: league.players, max: league.maxPlaces, entry: f.caurisAmount(league.entry), days: closesIn?.days ?? 0 })
       : league.status === 'registration'
-        ? t('card.meta.waiting', { count: league.players })
+        ? league.teamSize
+          ? t('teams.cardWaiting', { count: league.teams, size: league.teamSize })
+          : t('card.meta.waiting', { count: league.players })
+        : league.teamSize
+          ? t('teams.cardMeta', { count: league.teams, size: league.teamSize, round: league.currentRound, total: league.totalRounds })
         : league.format === 'cup'
           ? t('card.meta.cup', { count: league.players, groups: league.groups ?? 1 })
           : t(league.game === 'ludo' ? 'card.meta.ludo' : league.doubleRound ? 'card.meta.double' : 'card.meta.single', {

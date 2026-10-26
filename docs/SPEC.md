@@ -251,3 +251,6 @@ interface GameController<State, Move> {
 | D-12 | Pas de règles FMJD « 16 coups » en V1 | Planche Compétitions : seuils à valider avec la fédération. |
 | D-13 | Sons synthétisés par script | Pas de droits à gérer ; poids minimal. |
 | D-14 | Les cartes « pouvoir » sont des commodités (revanche immédiate…), jamais un avantage de jeu | Équité. |
+| D-15 | Compétitions par équipes : championnat privé seulement (2 à 16 équipes), planche imposée ou une par journée, heure de la ligue (pas d'heure proposée) | Une rencontre d'équipes se joue à une heure et sur une planche connues de tous. |
+| D-16 | Équipes incomplètes au lancement dissoutes et remboursées ; ordre non déposé = ordre de l'équipe (capitaine d'abord) ; pas d'exclusion en ligue par équipes (le forfait perd la planche, l'amende reste) | Pas de forfait d'équipe pour un oubli ; l'équipe porte ses absents. |
+| D-17 | Cagnotte d'une ligue par équipes : parts égales entre les joueurs de l'équipe championne, le reste au capitaine ; médailles pour chaque joueur des trois premières équipes | Planche RegleCompet ; aucun choix laissé au capitaine sur l'argent. |

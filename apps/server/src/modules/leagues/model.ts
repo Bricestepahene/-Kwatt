@@ -49,6 +49,8 @@ export interface LeagueRow {
   cancel_reason: string | null;
   draw_seed: string | null;
   bonus: number;
+  /** Ligue par équipes : 3 (Dames) ou 2 (Ludo) ; null : chacun pour soi. */
+  team_size: 2 | 3 | null;
   created_at: Date;
 }
 
@@ -63,6 +65,7 @@ export interface MemberRow {
   draw_order: number | null;
   group_index: number | null;
   excluded_at: Date | null;
+  team_id: string | null;
   pseudo: string;
 }
 
@@ -100,16 +103,18 @@ export interface MatchRow {
   game_id: string | null;
   reminders: string[];
   played_at: Date | null;
+  team_match_id: string | null;
+  board_no: number | null;
 }
 
 const LEAGUE_COLUMNS = `id, code, name, game, access, format, creator_id, status, max_places, entry, caution, min_rank,
   double_round, groups, qualifiers_per_group, rounds, relegated, board_rules, default_time, rhythm,
   to_char(first_day, 'YYYY-MM-DD') AS first_day, registration_closes_at, closed_at, validated_at, started_at,
-  finished_at, cancelled_at, cancel_reason, draw_seed, bonus, created_at`;
+  finished_at, cancelled_at, cancel_reason, draw_seed, bonus, team_size, created_at`;
 
 const MATCH_COLUMNS = `id, league_id, stage, round, group_index, tie_index, leg, level, players::text[] AS players,
   to_char(day, 'YYYY-MM-DD') AS day, match_at, time_agreed, time_proposals, board, board_choices, arrivals, status,
-  outcome, piece_diff, results, game_id, reminders, played_at`;
+  outcome, piece_diff, results, game_id, reminders, played_at, team_match_id, board_no`;
 
 export async function findLeague(db: Sql, id: string, lock = false): Promise<LeagueRow | null> {
   if (!/^[0-9a-f-]{36}$/i.test(id)) return null;
@@ -133,7 +138,7 @@ export async function leagueIdByCode(db: Sql, code: string): Promise<string> {
 /** Membres de la ligue (inscrits encore là, et exclus), dans l'ordre d'inscription. */
 export async function loadMembers(db: Sql, leagueId: string, all = false): Promise<MemberRow[]> {
   const r = await db.query<MemberRow>(
-    `SELECT m.user_id, m.status, m.seq, m.joined_at, m.entry_paid, m.fines_paid, m.refunded, m.draw_order, m.group_index, m.excluded_at,
+    `SELECT m.user_id, m.status, m.seq, m.joined_at, m.entry_paid, m.fines_paid, m.refunded, m.draw_order, m.group_index, m.excluded_at, m.team_id,
             COALESCE(p.pseudo::text, u.display_name, '?') AS pseudo
        FROM league_members m
        JOIN users u ON u.id = m.user_id

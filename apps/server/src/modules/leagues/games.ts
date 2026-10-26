@@ -24,6 +24,8 @@ export interface CreateLeagueGameInput {
   variant: string;
   /** Sièges dans l'ordre : Dames, siège 0 = blancs (celui qui reçoit). */
   seats: { userId: string }[];
+  /** Ludo par équipes : sièges de chaque équipe (partenaires face à face). */
+  teams?: number[][];
   /** Pendule (Dames) ; null pour le Ludo (30 s par tour, règle des parties en ligne). */
   clock: LeagueGameClock | null;
   rated: boolean;

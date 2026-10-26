@@ -24,7 +24,7 @@ export type PlayerSpec =
   | { kind: 'level'; level: Level; label?: string; iters?: number; budgetMs?: number }
   | { kind: 'random'; label?: string }
   | { kind: 'heuristic'; threats: 'exact' | 'fast' | 'none'; temperature?: number; label?: string }
-  | { kind: 'expectimax'; mode: 'maxn' | 'paranoid'; depth: number; label?: string; iters?: number }
+  | { kind: 'expectimax'; mode: 'maxn' | 'paranoid'; depth: number; label?: string; iters?: number; weights?: Record<string, number> }
   | { kind: 'mcts'; iters: number; label?: string; c?: number; rollout?: number };
 
 export function specLabel(s: PlayerSpec): string {
@@ -37,7 +37,7 @@ export function specLabel(s: PlayerSpec): string {
     case 'heuristic':
       return `heuristique-${s.threats}`;
     case 'expectimax':
-      return `expectimax-${s.mode}-d${s.depth}`;
+      return `expectimax-${s.mode}-d${s.depth}` + (s.weights ? `[${Object.entries(s.weights).map(([k, v]) => `${k}=${v}`).join(',')}]` : '');
     case 'mcts':
       return `mcts-${s.iters}`;
   }
@@ -54,7 +54,7 @@ export function toPlayer(s: PlayerSpec): Player {
     case 'heuristic':
       return { label, agent: heuristicAgent({ threats: s.threats, temperature: s.temperature ?? 0 }) };
     case 'expectimax':
-      return { label, agent: expectimaxAgent({ mode: s.mode, depth: s.depth }), maxIterations: s.iters ?? 1_000_000 };
+      return { label, agent: expectimaxAgent({ mode: s.mode, depth: s.depth, ...(s.weights ? { weights: s.weights } : {}) }), maxIterations: s.iters ?? 1_000_000 };
     case 'mcts':
       return { label, agent: mctsAgent({ ...(s.c !== undefined ? { c: s.c } : {}), ...(s.rollout !== undefined ? { rolloutDecisions: s.rollout } : {}) }), maxIterations: s.iters };
   }

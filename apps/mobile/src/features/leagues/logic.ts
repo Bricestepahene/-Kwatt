@@ -11,7 +11,16 @@ import {
   PUBLIC_LEAGUE_ENTRY,
   PUBLIC_LEAGUE_PLACES,
 } from '@kwatt/domain';
-import type { BoardPolicy, CreateLeagueRequest, LeagueBoard, LeagueGame, LeagueMatchCard, StandingRowView } from '@kwatt/protocol';
+import type {
+  BoardPolicy,
+  CreateLeagueRequest,
+  LeagueBoard,
+  LeagueGame,
+  LeagueMatchCard,
+  LeagueTeam,
+  StandingRowView,
+  TeamMatchCard,
+} from '@kwatt/protocol';
 import { extractRoomCode, normalizeRoomCode, ROOM_CODE_LENGTH } from '../../ui/logic';
 
 export const DAMES_LEAGUE_BOARDS = ['dames10', 'dames8'] as const satisfies readonly LeagueBoard[];
@@ -23,10 +32,19 @@ export function boardsOf(game: LeagueGame): readonly LeagueBoard[] {
   return game === 'dames' ? DAMES_LEAGUE_BOARDS : LUDO_LEAGUE_BOARDS;
 }
 
-/** Règles de planche proposées (au Ludo, personne ne « reçoit »). */
-export function policiesOf(game: LeagueGame): readonly BoardPolicy[] {
+/**
+ * Règles de planche proposées (au Ludo, personne ne « reçoit »). Par équipes, une rencontre se
+ * joue sur une planche connue de tous : imposée, ou une par journée.
+ */
+export function policiesOf(game: LeagueGame, teams = false): readonly BoardPolicy[] {
+  if (teams) return ['imposed', 'rotation'];
   return game === 'dames' ? ['imposed', 'home', 'rotation', 'agreement'] : ['imposed', 'rotation', 'agreement'];
 }
+
+/** Joueurs par équipe : 3 aux Dames (trois planches), 2 au Ludo (partenaires face à face). */
+export const TEAM_SIZE = { dames: 3, ludo: 2 } as const satisfies Record<LeagueGame, 2 | 3>;
+/** Équipes par ligue (privée) : de 2 à 16. */
+export const MAX_TEAMS = 16;
 
 export function isUuid(text: string): boolean {
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(text);
@@ -43,7 +61,9 @@ export function leagueCodeFrom(text: string): string | null {
 /* ------------------------------------------------------------------ */
 /* Brouillon de création (écrans 28, 28b, 31)                           */
 
-export type LeagueDraft = Required<Omit<CreateLeagueRequest, 'registrationClosesAt' | 'groups' | 'qualifiersPerGroup' | 'rounds'>> & {
+export type LeagueDraft = Required<Omit<CreateLeagueRequest, 'registrationClosesAt' | 'groups' | 'qualifiersPerGroup' | 'rounds' | 'teamName'>> & {
+  /** Ligue par équipes : nom de l'équipe du créateur. */
+  teamName: string;
   groups: number;
   qualifiersPerGroup: number;
   rounds: number;
@@ -76,6 +96,8 @@ export function defaultDraft(access: 'private' | 'public', now: number, game: Le
     // Publique : inscriptions ouvertes une semaine, premier match trois jours après.
     closesDay: dayKey(now + 7 * DAY_MS),
     firstDay: dayKey(now + (pub ? 10 : 1) * DAY_MS),
+    teamSize: null,
+    teamName: '',
   };
 }
 
@@ -88,6 +110,27 @@ export function withGame(draft: LeagueDraft, game: LeagueGame): LeagueDraft {
     game,
     format: game === 'ludo' ? 'championship' : draft.format,
     boardRules: { policy: 'imposed', allowed: [board], defaultBoard: board },
+    teamSize: draft.teamSize === null ? null : TEAM_SIZE[game],
+  };
+}
+
+/**
+ * Passe en ligue par équipes (ou revient au chacun pour soi). Par équipes : championnat privé,
+ * de 2 à 16 équipes, planche imposée ou une par journée, pas de table de 6 au Ludo.
+ */
+export function withTeams(draft: LeagueDraft, on: boolean): LeagueDraft {
+  if (!on) return draft.teamSize === null ? draft : { ...draft, teamSize: null };
+  const allowed = draft.boardRules.allowed.filter((b) => b !== 'ludo_six');
+  const fallback: LeagueBoard = draft.game === 'dames' ? 'dames10' : 'ludo_classique';
+  const keep: LeagueBoard[] = allowed.length > 0 ? allowed : [fallback];
+  const policy: BoardPolicy = draft.boardRules.policy === 'rotation' && keep.length > 1 ? 'rotation' : 'imposed';
+  const defaultBoard = keep.includes(draft.boardRules.defaultBoard) ? draft.boardRules.defaultBoard : keep[0]!;
+  return {
+    ...draft,
+    teamSize: TEAM_SIZE[draft.game],
+    format: 'championship',
+    maxPlaces: Math.min(MAX_TEAMS, Math.max(2, draft.maxPlaces > MAX_TEAMS ? 4 : draft.maxPlaces)),
+    boardRules: { policy, allowed: policy === 'imposed' ? [defaultBoard] : keep, defaultBoard },
   };
 }
 
@@ -110,8 +153,8 @@ export function toggleBoard(draft: LeagueDraft, board: LeagueBoard): LeagueDraft
 }
 
 /** Planches que le brouillon peut proposer (pas d'amical en ligue publique). */
-export function boardChoices(draft: Pick<LeagueDraft, 'game' | 'access'>): readonly LeagueBoard[] {
-  return boardsOf(draft.game).filter((b) => draft.access === 'private' || !FRIENDLY_BOARDS.includes(b));
+export function boardChoices(draft: Pick<LeagueDraft, 'game' | 'access'> & { teamSize?: number | null }): readonly LeagueBoard[] {
+  return boardsOf(draft.game).filter((b) => (draft.access === 'private' || !FRIENDLY_BOARDS.includes(b)) && !(draft.teamSize && b === 'ludo_six'));
 }
 
 export function clampStep(value: number, min: number, max: number, step: number): number {
@@ -134,10 +177,11 @@ export function championshipMatches(players: number, doubleRound: boolean): numb
 
 /** Corps de la requête POST /v1/leagues. */
 export function draftRequest(draft: LeagueDraft): CreateLeagueRequest {
-  const { closesDay, groups, qualifiersPerGroup, rounds, ...rest } = draft;
+  const { closesDay, groups, qualifiersPerGroup, rounds, teamName, ...rest } = draft;
   return {
     ...rest,
     name: rest.name.trim(),
+    ...(draft.teamSize !== null ? { teamName: teamName.trim() } : {}),
     ...(draft.format === 'cup' ? { groups, qualifiersPerGroup, doubleRound: false } : {}),
     ...(draft.game === 'ludo' ? { rounds } : {}),
     ...(draft.access === 'public' ? { registrationClosesAt: endOfKwattDay(closesDay) } : {}),
@@ -236,4 +280,35 @@ export function fillRatio(taken: number, max: number): number {
 export function leagueHref(league: { id: string; code: string; access: string; status: string; format: string }): string {
   if (league.access === 'public' && (league.status === 'registration' || league.status === 'awaiting_validation')) return `/ligue-publique/${league.id}`;
   return league.format === 'cup' ? `/ligue/${league.code}/coupe` : `/ligue/${league.code}`;
+}
+
+/* ------------------------------------------------------------------ */
+/* Ligues par équipes                                                   */
+
+/** De quel côté joue mon équipe dans une rencontre (null : elle n'y joue pas). */
+export function teamSide(match: Pick<TeamMatchCard, 'home' | 'away'>, teamId: string | null): 'home' | 'away' | null {
+  if (!teamId) return null;
+  return match.home.id === teamId ? 'home' : match.away.id === teamId ? 'away' : null;
+}
+
+/** Ordre de départ de la feuille du capitaine : celui déposé, sinon l'ordre de l'équipe. */
+export function initialLineup(match: Pick<TeamMatchCard, 'home' | 'away' | 'lineups'>, team: Pick<LeagueTeam, 'id' | 'players'>): string[] {
+  const side = teamSide(match, team.id);
+  const saved = side ? match.lineups[side] : null;
+  const roster = team.players.map((p) => p.userId);
+  return saved && saved.every((id) => roster.includes(id)) ? [...saved] : roster.slice(0, 3);
+}
+
+/** Échange deux planches dans l'ordre (toucher un joueur, puis l'autre). */
+export function swapBoards(order: readonly string[], i: number, j: number): string[] {
+  const next = [...order];
+  if (i < 0 || j < 0 || i >= next.length || j >= next.length) return next;
+  [next[i], next[j]] = [next[j]!, next[i]!];
+  return next;
+}
+
+/** Couleur de mon équipe sur une planche : l'équipe qui reçoit a les blancs sur les planches 1 et 3. */
+export function boardColor(side: 'home' | 'away', board: number): 'white' | 'black' {
+  const homeWhite = board % 2 === 1;
+  return (side === 'home') === homeWhite ? 'white' : 'black';
 }

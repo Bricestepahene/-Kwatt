@@ -18,7 +18,7 @@ describe('service ludo-ai', () => {
   it('GET /health', async () => {
     const r = await app.inject({ method: 'GET', url: '/health' });
     expect(r.statusCode).toBe(200);
-    expect(r.json()).toMatchObject({ ok: true, service: 'ludo-ai', maxBudgetMs: 50, levels: { facile: 'facile@1', fon: 'fon@1' } });
+    expect(r.json()).toMatchObject({ ok: true, service: 'ludo-ai', maxBudgetMs: 50, levels: { facile: 'facile@1', fon: 'fon@2' } });
   });
 
   it('POST /v1/choose : un coup légal, expliqué', async () => {

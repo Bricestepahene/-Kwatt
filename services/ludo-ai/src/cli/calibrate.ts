@@ -1,7 +1,7 @@
 /**
  * Calibration des difficultés pour les cotes des paris (SPEC §7, cote = 0,9 ÷ p) :
  *
- *   pnpm --filter @kwatt/ludo-ai-service calibrate -- [--deals 150] [--fon-deals 60] [--fon-iters 1500] [--workers 3] [--seed 11]
+ *   pnpm --filter @kwatt/ludo-ai-service calibrate -- [--deals 150] [--fon-deals 60] [--fon-iters 15000] [--workers 3] [--seed 11]
  *
  * Pour chaque variante classée (classique, rapide, six) et chaque difficulté,
  * le « joueur de référence » (agent Ton niveau, par définition à 50 % contre
@@ -10,7 +10,7 @@
  * (1 contre 3 Coriace, Classique) vérifie le modèle de Luce de calibration.ts.
  *
  * Réécrit la table de packages/ludo-ai/src/calibration.ts et
- * packages/ludo-ai/CALIBRATION.md. Fon est joué avec un plafond d'itérations
+ * packages/ludo-ai/CALIBRATION.md. Fon est joué avec un plafond de nœuds
  * (reproductible) et non au temps : la mesure est donc une borne prudente.
  */
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -76,7 +76,7 @@ function markdown(cal: Calibration, rows: Row[], check: { measured: CalibrationP
     `- Le **joueur de référence** est l'agent « Ton niveau » (\`${cal.reference}\`) : par définition, un joueur de ton niveau gagne une partie sur deux contre lui. Il joue en tête-à-tête contre chaque difficulté.`,
   );
   out.push(`- Places tournées à chaque donne, même suite de lancers pour les deux rotations (nombres aléatoires communs), graine ${opts.seed}.`);
-  out.push(`- ${opts.deals} donnes (${2 * opts.deals} parties) par difficulté ; Fon : ${opts.fonDeals} donnes, plafonné à ${opts.fonIters} simulations par coup (au temps, 400 ms, il en fait environ 5 000 sur un PC et sans doute 1 000 à 2 000 sur un téléphone : l'ordre de grandeur est le même).`);
+  out.push(`- ${opts.deals} donnes (${2 * opts.deals} parties) par difficulté ; Fon : ${opts.fonDeals} donnes, plafonné à ${opts.fonIters} nœuds d'expectimax par coup (au temps, 400 ms, il finit la profondeur 3 dans la grande majorité des coups ; sinon il garde la profondeur 2).`);
   out.push('- p₂ = part de victoires du joueur ; intervalle de Wilson à 95 %. La cote d\'un pari vaut 0,9 ÷ p (SPEC §7).');
   out.push('- À n joueurs (1 contre n − 1 machines du même niveau), `playerWinProbability` passe par un modèle de Luce : pₙ = s ÷ (s + (n − 1)·m) avec p₂ = s ÷ (s + m).');
   out.push('');
@@ -139,7 +139,7 @@ async function main(): Promise<void> {
   const args = parseArgs(process.argv.slice(2));
   const deals = Number(args.deals ?? 150);
   const fonDeals = Number(args['fon-deals'] ?? 60);
-  const fonIters = Number(args['fon-iters'] ?? 1500);
+  const fonIters = Number(args['fon-iters'] ?? 15000);
   const workers = Number(args.workers ?? defaultWorkers());
   const seed = Number(args.seed ?? 11);
   const today = new Date().toISOString().slice(0, 10);

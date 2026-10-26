@@ -2,6 +2,10 @@ import { describe, expect, it } from 'vitest';
 import {
   addDays,
   boardChoices,
+  boardColor,
+  initialLineup,
+  swapBoards,
+  withTeams,
   championshipMatches,
   championshipRounds,
   clampStep,
@@ -118,5 +122,33 @@ describe('lecture', () => {
     expect(addDays('2026-11-28', 3)).toBe('2026-12-01');
     expect(endOfKwattDay('2026-11-07')).toBe('2026-11-07T22:59:00.000Z');
     expect([1, 2, 4, 8].map(knockoutStageKey)).toEqual(['final', 'semi', 'quarter', 'round']);
+  });
+});
+
+describe('ligues par équipes', () => {
+  const now = Date.UTC(2026, 10, 1, 8);
+
+  it('passer en équipes : 3 aux Dames, 2 au Ludo, championnat, planche imposée ou par journée, pas de table de 6', () => {
+    const dames = withTeams(defaultDraft('private', now), true);
+    expect(dames).toMatchObject({ teamSize: 3, format: 'championship', maxPlaces: 10, boardRules: { policy: 'imposed', allowed: ['dames10'] } });
+    expect(policiesOf('dames', true)).toEqual(['imposed', 'rotation']);
+    const ludo = withTeams({ ...withGame(defaultDraft('private', now), 'ludo'), maxPlaces: 30, boardRules: { policy: 'rotation', allowed: ['ludo_six', 'ludo_classique', 'ludo_rapide'], defaultBoard: 'ludo_six' } }, true);
+    expect(ludo).toMatchObject({ teamSize: 2, maxPlaces: 4, boardRules: { policy: 'rotation', allowed: ['ludo_classique', 'ludo_rapide'], defaultBoard: 'ludo_classique' } });
+    expect(boardChoices({ game: 'ludo', access: 'private', teamSize: 2 })).not.toContain('ludo_six');
+    expect(withGame(dames, 'ludo').teamSize).toBe(2);
+    expect(withTeams(dames, false).teamSize).toBeNull();
+    expect(draftRequest({ ...dames, name: ' Coupe ', teamName: ' Lions ' })).toMatchObject({ teamSize: 3, teamName: 'Lions' });
+    expect('teamName' in draftRequest(defaultDraft('private', now))).toBe(false);
+  });
+
+  it('ordre du capitaine : échange de planches, couleurs alternées, ordre déposé repris', () => {
+    expect(swapBoards(['a', 'b', 'c'], 0, 2)).toEqual(['c', 'b', 'a']);
+    expect(swapBoards(['a', 'b', 'c'], 0, 5)).toEqual(['a', 'b', 'c']);
+    expect([1, 2, 3].map((n) => boardColor('home', n))).toEqual(['white', 'black', 'white']);
+    expect([1, 2, 3].map((n) => boardColor('away', n))).toEqual(['black', 'white', 'black']);
+    const team = { id: 't1', players: ['a', 'b', 'c'].map((userId) => ({ userId, pseudo: userId, avatar: null })) };
+    const match = { home: { id: 't0', name: 'X' }, away: { id: 't1', name: 'Y' }, lineups: { home: null, away: null } };
+    expect(initialLineup(match, team)).toEqual(['a', 'b', 'c']);
+    expect(initialLineup({ ...match, lineups: { home: null, away: ['c', 'a', 'b'] } }, team)).toEqual(['c', 'a', 'b']);
   });
 });

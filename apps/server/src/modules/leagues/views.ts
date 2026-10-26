@@ -25,8 +25,12 @@ import {
   type LeagueMatchCard,
   type LeagueMatchView,
   type LeaguePlayer,
+  type LeagueTeam,
   type StandingRowView,
+  type TeamMatchCard,
+  type TeamStandingRowView,
 } from '@kwatt/protocol';
+import { lineupDeadline, lineupVisible } from '@kwatt/domain';
 import type { Pool, Sql } from '../../db/pool.js';
 import { AppError } from '../../lib/errors.js';
 import { balanceOf } from '../economy/ledger.js';
@@ -49,6 +53,7 @@ import {
 } from './model.js';
 import { potOf } from './money.js';
 import { dayOfRound, schedulePreview } from './schedule.js';
+import { loadTeamMatches, loadTeams, rosterOf, teamMatchState, teamRanking, type TeamMatchRow, type TeamRow } from './teams.js';
 import { boardChooser, joinRefusal, minimumPlayers, ROOM_OPENS_BEFORE_MS, tieOutcome, tiesOf, type Actor } from './service.js';
 
 const HOUR = 3_600_000;
@@ -81,6 +86,52 @@ function matchCard(m: MatchRow, map: Map<string, LeaguePlayer>): LeagueMatchCard
     places: m.results ? Object.fromEntries(m.results.map((r) => [r.playerId, r.place])) : null,
     timeAgreed: m.time_agreed,
     gameId: m.game_id,
+    boardNo: m.board_no,
+    teamMatchId: m.team_match_id,
+  };
+}
+
+interface TeamData {
+  teams: TeamRow[];
+  teamMatches: TeamMatchRow[];
+}
+
+async function teamData(db: Sql, league: LeagueRow): Promise<TeamData> {
+  if (!league.team_size) return { teams: [], teamMatches: [] };
+  const [teams, teamMatches] = await Promise.all([loadTeams(db, league.id), loadTeamMatches(db, league.id)]);
+  return { teams, teamMatches };
+}
+
+/** Rencontre d'équipes vue par un joueur : l'ordre de l'adversaire reste caché jusqu'à l'heure limite. */
+function teamMatchCard(
+  league: LeagueRow,
+  tm: TeamMatchRow,
+  data: TeamData,
+  members: readonly MemberRow[],
+  matches: readonly MatchRow[],
+  map: Map<string, LeaguePlayer>,
+  viewerId: string,
+  now: Date,
+): TeamMatchCard {
+  const state = teamMatchState(league, tm, matches);
+  const ref = (id: string) => ({ id, name: data.teams.find((t) => t.id === id)?.name ?? '?' });
+  const myTeam = members.find((m) => m.user_id === viewerId)?.team_id ?? null;
+  const open = tm.lineup_locked || lineupVisible({ now: now.getTime(), matchAt: tm.match_at.getTime() });
+  const lineup = (teamId: string) => (myTeam === teamId || open ? (tm.lineups[teamId] ?? null) : null);
+  return {
+    id: tm.id,
+    round: tm.round,
+    matchAt: tm.match_at.toISOString(),
+    home: ref(tm.home_team),
+    away: ref(tm.away_team),
+    homeScore: state.score?.homeGamePoints ?? null,
+    awayScore: state.score?.awayGamePoints ?? null,
+    winner: state.status === 'played' ? (state.score?.winner ?? null) : null,
+    status: state.status,
+    lineupDeadline: new Date(lineupDeadline(tm.match_at.getTime())).toISOString(),
+    lineupLocked: tm.lineup_locked,
+    lineups: { home: lineup(tm.home_team), away: lineup(tm.away_team) },
+    boards: state.boards.map((b) => matchCard(b, map)),
   };
 }
 
@@ -140,9 +191,10 @@ export async function listLeagues(db: Pool, userId: string, query: LeagueListQue
     const active = members.filter((m) => m.status === 'active');
     const preview = schedulePreview(league, Math.max(active.length, 2));
     const totalRounds = matches.length ? Math.max(...matches.map((m) => m.round)) : preview.rounds;
+    const data = await teamData(db, league);
     let myPosition: number | null = null;
     if (active.some((m) => m.user_id === userId) && matches.length) {
-      myPosition = positionsFor(league, members, matches).get(userId) ?? null;
+      myPosition = positionsFor(league, members, matches, data).get(userId) ?? null;
     }
     out.push({
       id,
@@ -161,15 +213,22 @@ export async function listLeagues(db: Pool, userId: string, query: LeagueListQue
       doubleRound: league.double_round,
       groups: league.groups,
       myPosition,
-      placesLeft: Math.max(0, league.max_places - active.length),
+      placesLeft: Math.max(0, league.max_places - (league.team_size ? data.teams.length : active.length)),
       registrationClosesAt: league.registration_closes_at?.toISOString() ?? null,
+      teamSize: league.team_size,
+      teams: data.teams.length,
     });
   }
   return out;
 }
 
-function positionsFor(league: LeagueRow, members: readonly MemberRow[], matches: readonly MatchRow[]): Map<string, number> {
+function positionsFor(league: LeagueRow, members: readonly MemberRow[], matches: readonly MatchRow[], data: TeamData): Map<string, number> {
   const active = members.filter((m) => m.status === 'active');
+  if (league.team_size) {
+    // Ligue par équipes : chacun a la place de son équipe.
+    const pos = new Map(teamRanking(league, data.teams, data.teamMatches, matches).map((r) => [r.team, r.position]));
+    return new Map(active.filter((m) => m.team_id && pos.has(m.team_id)).map((m) => [m.user_id, pos.get(m.team_id!)!]));
+  }
   if (league.format === 'cup') {
     const out = new Map<string, number>();
     for (let g = 0; g < (league.groups ?? 1); g++) {
@@ -186,13 +245,14 @@ function positionsFor(league: LeagueRow, members: readonly MemberRow[], matches:
 /* ------------------------------------------------------------------ */
 /* Fiche d'une ligue                                                    */
 
-export async function leagueDetail(db: Pool, media: MediaStore, actor: Actor, leagueId: string): Promise<LeagueDetail> {
+export async function leagueDetail(db: Pool, media: MediaStore, actor: Actor, leagueId: string, now: Date = new Date()): Promise<LeagueDetail> {
   const league = await getLeague(db, leagueId);
   const members = await loadMembers(db, leagueId);
   const matches = await loadMatches(db, leagueId);
   const active = members.filter((m) => m.status === 'active');
   const excludedIds = new Set(members.filter((m) => m.status === 'excluded').map((m) => m.user_id));
   const map = await players(db, media, [league.creator_id, ...members.map((m) => m.user_id), ...matches.flatMap((m) => m.players)], actor.userId);
+  const data = await teamData(db, league);
 
   // Classement : les exclus sont retirés (leurs résultats sont traités par la règle d'exclusion).
   let standings: StandingRowView[] = [];
@@ -205,7 +265,7 @@ export async function leagueDetail(db: Pool, media: MediaStore, actor: Actor, le
       const ranking = groupStandings(ids, damesRecords(matches, 'group', g), q, { draw: drawOrder(members), playoffOrder: drawOrder(members) });
       groupTables.push({ index: g, rows: rowsOf(ranking, map, 0), qualifiers: groupQualifiers(ranking, q) });
     }
-  } else if (matches.length > 0) {
+  } else if (matches.length > 0 && !league.team_size) {
     standings = rowsOf(championshipRanking(league, active, matches), map, league.relegated);
     const forfeits = forfeitCounts(matches);
     for (const id of excludedIds) {
@@ -269,6 +329,35 @@ export async function leagueDetail(db: Pool, media: MediaStore, actor: Actor, le
   const next = matches
     .filter((m) => (m.status === 'scheduled' || m.status === 'playing') && m.players.includes(actor.userId))
     .sort((a, b) => a.match_at.getTime() - b.match_at.getTime())[0];
+  // Ligue par équipes : équipes, classement, rencontres de la journée, prochaine rencontre de mon équipe.
+  const teams: LeagueTeam[] = data.teams.map((t) => {
+    const roster = rosterOf(t, members);
+    return { id: t.id, name: t.name, captain: t.captain_id, players: roster.map((id) => playerOf(map, id)), full: roster.length >= (league.team_size ?? 0) };
+  });
+  const teamRows = league.team_size && data.teamMatches.length ? teamRanking(league, data.teams, data.teamMatches, matches) : [];
+  const teamStandings: TeamStandingRowView[] = teamRows.map((r) => ({
+    team: { id: r.team, name: data.teams.find((t) => t.id === r.team)?.name ?? '?' },
+    position: r.position,
+    played: r.played,
+    wins: r.wins,
+    draws: r.draws,
+    losses: r.losses,
+    points: r.points,
+    gamesFor: r.gamesFor,
+    gamesAgainst: r.gamesAgainst,
+    zone: zoneOf(r.position, teamRows.length, league.relegated),
+  }));
+  const tmCard = (tm: TeamMatchRow) => teamMatchCard(league, tm, data, members, matches, map, actor.userId, now);
+  const teamMatches = data.teamMatches.filter((tm) => tm.round === rounds).map(tmCard);
+  const myTeamId = me?.status === 'active' ? me.team_id : null;
+  const myTeamRow = myTeamId ? data.teams.find((t) => t.id === myTeamId) : undefined;
+  const myNext = myTeamId
+    ? data.teamMatches
+        .filter((tm) => (tm.home_team === myTeamId || tm.away_team === myTeamId) && teamMatchState(league, tm, matches).status !== 'played')
+        .filter((tm) => teamMatchState(league, tm, matches).status !== 'cancelled')
+        .sort((a, b) => a.match_at.getTime() - b.match_at.getTime())[0]
+    : undefined;
+
   const exclusions = await db.query<{ user_id: string; created_at: Date }>('SELECT user_id, created_at FROM league_exclusions WHERE league_id = $1 ORDER BY created_at', [
     leagueId,
   ]);
@@ -298,7 +387,7 @@ export async function leagueDetail(db: Pool, media: MediaStore, actor: Actor, le
     entry: league.entry,
     caution: league.caution,
     pot,
-    potIfFull: league.access === 'public' ? leaguePot(league.max_places, league.entry) : league.max_places * league.entry,
+    potIfFull: league.access === 'public' ? leaguePot(league.max_places, league.entry) : league.max_places * (league.team_size ?? 1) * league.entry,
     prizes,
     minRank: league.min_rank,
     boardRules: league.board_rules,
@@ -332,6 +421,11 @@ export async function leagueDetail(db: Pool, media: MediaStore, actor: Actor, le
       balance: actor.kind === 'member' ? await balanceOf(db, actor.userId) : null,
     },
     medals: medals.rows.map((m) => ({ player: playerOf(medalPlayers, m.user_id), kind: m.kind })),
+    teamSize: league.team_size,
+    teams,
+    teamStandings,
+    teamMatches,
+    myTeam: myTeamRow ? { id: myTeamRow.id, captain: myTeamRow.captain_id === actor.userId, nextMatch: myNext ? tmCard(myNext) : null } : null,
   };
 }
 
@@ -345,7 +439,7 @@ export async function matchView(db: Pool, media: MediaStore, actor: Actor, leagu
   const members = await loadMembers(db, leagueId);
   const matches = await loadMatches(db, leagueId);
   const map = await players(db, media, match.players, actor.userId);
-  const pos = positionsFor(league, members, matches);
+  const pos = positionsFor(league, members, matches, await teamData(db, league));
   const forfeits = forfeitCounts(matches);
   const previous = matches.filter((m) => m.round === match.round - 1 && m.status === 'played');
   const forfeitedLast = (id: string) =>

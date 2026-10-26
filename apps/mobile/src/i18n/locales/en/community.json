@@ -164,6 +164,18 @@
         "knockout_started": {
           "title": "You made the knockout stage!",
           "body": "{{leagueName}}"
+        },
+        "team_joined": {
+          "title": "{{pseudo}} joins {{team}}",
+          "body": "{{leagueName}}"
+        },
+        "team_dropped": {
+          "title": "{{team}} wasn't full",
+          "body": "{{leagueName}} · your entry is returned."
+        },
+        "lineup_locked": {
+          "title": "You play board {{board}}",
+          "body": "{{leagueName}} · your team's order is locked."
         }
       },
       "quest": {

@@ -18,6 +18,7 @@ import { Badge, Button, Card, Chip, ConfirmSheet, Screen, SectionLabel, Text, fo
 import { useLeague, useLeagueAction } from '../api';
 import { LeagueBand, Note, QueryBody, WoodChips, useLeagueDates } from '../components';
 import { leagueHref, opponentOf } from '../logic';
+import { MyTeamMatchCard, TeamRegistration, TeamRoundMatches, TeamStandingsTable } from './TeamLeague';
 
 export function zoneColor(zone: StandingRowView['zone']): string | null {
   if (zone === 'champion') return brand.orToghu;
@@ -37,7 +38,11 @@ export function LeagueHeader({ league }: { league: LeagueDetail }) {
   chips.push(t('detail.code', { code: formatRoomCode(league.code) }));
   if (league.entry > 0) chips.push(t('detail.pot', { amount: f.caurisAmount(league.pot) }));
   return (
-    <LeagueBand game={league.game} kicker={t('detail.kicker', { game: t(`game.${league.game}`), kind: t(`detail.kind.${league.access}_${league.format}`) })} title={league.name}>
+    <LeagueBand
+      game={league.game}
+      kicker={t('detail.kicker', { game: t(`game.${league.game}`), kind: league.teamSize ? t('teams.kind') : t(`detail.kind.${league.access}_${league.format}`) })}
+      title={league.name}
+    >
       <WoodChips items={chips} />
     </LeagueBand>
   );
@@ -263,6 +268,27 @@ function Championship({ league }: { league: LeagueDetail }) {
   if (league.format === 'cup') return <Redirect href={`/ligue/${league.code}/coupe` as Href} />;
   if (league.access === 'public' && (league.status === 'registration' || league.status === 'awaiting_validation')) {
     return <Redirect href={leagueHref(league) as Href} />;
+  }
+  if (league.teamSize) {
+    return (
+      <>
+        <LeagueHeader league={league} />
+        <View style={styles.body}>
+          {league.status === 'registration' ? (
+            <TeamRegistration league={league} />
+          ) : (
+            <>
+              {league.status === 'cancelled' ? <Note tone="alert">{t('detail.cancelledBody')}</Note> : null}
+              <Medals league={league} />
+              <MyTeamMatchCard league={league} />
+              <TeamStandingsTable league={league} />
+              <Legend relegated={league.relegated > 0} />
+              <TeamRoundMatches league={league} />
+            </>
+          )}
+        </View>
+      </>
+    );
   }
   return (
     <>

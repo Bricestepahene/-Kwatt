@@ -10,11 +10,23 @@ import { useTranslation } from 'react-i18next';
 import { Share, StyleSheet, View } from 'react-native';
 import { translateError, useFormat } from '@/i18n';
 import { useAccessSession } from '@/session';
-import { Button, Header, Screen, SectionLabel, SegmentedTabs, Text, TextField, formatRoomCode, showToast } from '@/ui';
+import { Button, Header, Screen, SectionLabel, SegmentedTabs, Text, TextField, Toggle, formatRoomCode, showToast } from '@/ui';
 import { useCreateLeague } from '../api';
 import { ChoiceBox, Note, Row, RowGroup, Stepper, useLeagueDates } from '../components';
 import { setLeagueDraft, startDraft, useLeagueDraft } from '../draftStore';
-import { addDays, championshipRounds, clampStep, cupShapes, draftRequest, knockoutLevels, kwattToday, leagueHref, withGame } from '../logic';
+import {
+  addDays,
+  championshipRounds,
+  clampStep,
+  cupShapes,
+  draftRequest,
+  knockoutLevels,
+  kwattToday,
+  leagueHref,
+  MAX_TEAMS,
+  withGame,
+  withTeams,
+} from '../logic';
 
 export function CreateLeagueScreen() {
   const { t } = useTranslation('leagues');
@@ -31,14 +43,15 @@ export function CreateLeagueScreen() {
   const shapeIndex = Math.max(0, shapes.findIndex((s) => s.groups === draft.groups && s.qualifiersPerGroup === draft.qualifiersPerGroup));
   const shape = shapes[shapeIndex] ?? { groups: 1, qualifiersPerGroup: 2 };
   const qualified = shape.groups * shape.qualifiersPerGroup;
-  const rounds = draft.game === 'ludo' ? draft.rounds : championshipRounds(draft.maxPlaces, draft.doubleRound);
+  const teams = draft.teamSize !== null;
+  const rounds = draft.game === 'ludo' && !teams ? draft.rounds : championshipRounds(draft.maxPlaces, draft.doubleRound);
   const nextSlot = LEAGUE_TIME_SLOTS[(LEAGUE_TIME_SLOTS.indexOf(draft.defaultTime as (typeof LEAGUE_TIME_SLOTS)[number]) + 1) % LEAGUE_TIME_SLOTS.length]!;
   const policy = t(`rules.policyShort.${draft.boardRules.policy}`, { board: t(`board.${draft.boardRules.defaultBoard}`) });
   const entryLocked = !session.isAdult;
-  const nameOk = draft.name.trim().length >= 3;
+  const nameOk = draft.name.trim().length >= 3 && (!teams || draft.teamName.trim().length >= 2);
 
   const setPlaces = (n: number) => {
-    const maxPlaces = clampStep(n, 2, 64, 1);
+    const maxPlaces = clampStep(n, 2, teams ? MAX_TEAMS : 64, 1);
     const next = cupShapes(maxPlaces);
     const keep = next.find((s) => s.groups === draft.groups && s.qualifiersPerGroup === draft.qualifiersPerGroup) ?? next[next.length - 1];
     set({ maxPlaces, relegated: Math.min(draft.relegated, Math.max(0, maxPlaces - 3)), ...(keep ? { groups: keep.groups, qualifiersPerGroup: keep.qualifiersPerGroup } : {}) });
@@ -70,7 +83,9 @@ export function CreateLeagueScreen() {
           <ChoiceBox
             key={format}
             selected={draft.format === format}
-            onPress={() => (draft.game === 'ludo' && format === 'cup' ? showToast(t('create.cupDamesOnly')) : set({ format }))}
+            onPress={() =>
+              format === 'cup' && teams ? showToast(t('teams.cupSolo')) : draft.game === 'ludo' && format === 'cup' ? showToast(t('create.cupDamesOnly')) : set({ format })
+            }
             title={t(`format.${format}.label`)}
             sub={t(`format.${format}.desc`)}
             style={styles.format}
@@ -95,6 +110,11 @@ export function CreateLeagueScreen() {
           }
         />
         <Row
+          label={t('teams.toggle')}
+          value={teams ? t(`rules.team.${draft.game}.label`) : undefined}
+          right={<Toggle value={teams} onChange={(on) => setLeagueDraft((d) => withTeams(d, on))} accessibilityLabel={t('teams.toggle')} />}
+        />
+        <Row
           label={t('create.access')}
           value={t('create.private')}
           {...(session.isAdult
@@ -104,22 +124,32 @@ export function CreateLeagueScreen() {
         />
       </RowGroup>
 
+      {teams ? (
+        <TextField
+          label={t('teams.myTeamName')}
+          value={draft.teamName}
+          onChangeText={(teamName) => set({ teamName })}
+          placeholder={t('teams.myTeamPlaceholder')}
+          maxLength={24}
+        />
+      ) : null}
       <SectionLabel>{t('create.settings')}</SectionLabel>
       <RowGroup>
         <Row
-          label={t('create.players')}
+          label={teams ? t('teams.count') : t('create.players')}
           right={
             <Stepper
               value={f.number(draft.maxPlaces)}
               onMinus={() => setPlaces(draft.maxPlaces - 1)}
               onPlus={() => setPlaces(draft.maxPlaces + 1)}
-              minusLabel={t('create.fewerPlayers')}
-              plusLabel={t('create.morePlayers')}
+              minusLabel={teams ? t('teams.fewer') : t('create.fewerPlayers')}
+              plusLabel={teams ? t('teams.more') : t('create.morePlayers')}
               minusDisabled={draft.maxPlaces <= 2}
-              plusDisabled={draft.maxPlaces >= 64}
+              plusDisabled={draft.maxPlaces >= (teams ? MAX_TEAMS : 64)}
             />
           }
         />
+        {teams ? <Row label={t('teams.size')} value={f.number(draft.teamSize ?? 0)} /> : null}
         {isCup ? (
           <>
             <Row
@@ -133,7 +163,7 @@ export function CreateLeagueScreen() {
             <Row label={t('create.qualifiers')} value={t('create.qualifiersValue', { count: shape.qualifiersPerGroup })} />
             <Row label={t('create.knockout')} value={t(`create.knockoutValue.${String(Math.min(knockoutLevels(qualified), 4)) as '1' | '2' | '3' | '4'}`)} />
           </>
-        ) : draft.game === 'ludo' ? (
+        ) : draft.game === 'ludo' && !teams ? (
           <Row
             label={t('create.rounds')}
             right={
@@ -173,7 +203,10 @@ export function CreateLeagueScreen() {
           </>
         )}
         <Row label={t('create.boards')} value={policy} onPress={() => router.push('/ligue/regles' as Href)} />
-        <Row label={t('create.points')} value={t(draft.game === 'ludo' ? 'create.pointsLudo' : 'create.pointsDames')} />
+        <Row
+          label={t('create.points')}
+          value={teams ? t(draft.game === 'ludo' ? 'teams.pointsLudo' : 'teams.pointsDames') : t(draft.game === 'ludo' ? 'create.pointsLudo' : 'create.pointsDames')}
+        />
         <Row
           label={t('create.rhythm')}
           value={t(`rhythm.${draft.rhythm}`)}
@@ -220,7 +253,8 @@ export function CreateLeagueScreen() {
       </RowGroup>
       <Note>
         <Text variant="small">
-          <Text variant="smallStrong">{t('create.rewardsTitle')}</Text> {t(draft.entry > 0 && !entryLocked ? 'create.rewardsPot' : 'create.rewards')}
+          <Text variant="smallStrong">{t('create.rewardsTitle')}</Text>{' '}
+          {teams ? t(draft.entry > 0 && !entryLocked ? 'teams.rewardsPot' : 'teams.rewards') : t(draft.entry > 0 && !entryLocked ? 'create.rewardsPot' : 'create.rewards')}
         </Text>
       </Note>
       <Button
@@ -228,7 +262,7 @@ export function CreateLeagueScreen() {
         icon="share"
         loading={create.isPending}
         disabled={!nameOk || create.isPending}
-        accessibilityHint={nameOk ? undefined : t('create.nameHint')}
+        accessibilityHint={nameOk ? undefined : teams ? t('teams.nameHint') : t('create.nameHint')}
         onPress={submit}
       />
     </Screen>

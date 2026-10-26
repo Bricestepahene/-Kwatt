@@ -131,6 +131,10 @@
       "completed": {
         "title": "Quest completed",
         "body": "+{{amount}} cowries for you."
+      },
+      "completed_card": {
+        "title": "Quest complete",
+        "body": "A card is waiting for you: go and claim it."
       }
     },
     "profile": {
@@ -153,6 +157,22 @@
       "warning": {
         "title": "Warning",
         "body": "Moderators received reports about you. Please follow the community rules."
+      }
+    },
+    "rewards": {
+      "streak": {
+        "title": "{{days}}-day streak",
+        "body": "Well done! Pick your rare card."
+      },
+      "card": {
+        "title": "New card",
+        "body": "A card joins your collection."
+      }
+    },
+    "quarters": {
+      "champion": {
+        "title": "Champion quarter",
+        "body": "Your quarter won the season: a frame awaits you."
       }
     }
   },

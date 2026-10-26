@@ -233,10 +233,11 @@ export class RewardsService {
     const after = await this.questState(this.deps.db, userId, week);
     for (const def of WEEKLY_QUESTS) {
       if (after.get(def.id)?.done && !before.get(def.id)?.done) {
-        await this.deps.notifications.notify(this.deps.db, userId, 'quest.completed', {
-          questId: def.id,
-          ...(def.reward.kind === 'cauris' ? { amount: def.reward.amount } : {}),
-        });
+        if (def.reward.kind === 'cauris') {
+          await this.deps.notifications.notify(this.deps.db, userId, 'quest.completed', { questId: def.id, amount: def.reward.amount });
+        } else {
+          await this.deps.notifications.notify(this.deps.db, userId, 'quest.completed_card', { questId: def.id, rarity: def.reward.rarity });
+        }
       }
     }
   }

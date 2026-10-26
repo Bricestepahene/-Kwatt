@@ -131,6 +131,10 @@
       "completed": {
         "title": "Quête terminée",
         "body": "+{{amount}} cauris pour toi."
+      },
+      "completed_card": {
+        "title": "Quête terminée",
+        "body": "Une carte t'attend : va la récupérer."
       }
     },
     "profile": {
@@ -153,6 +157,22 @@
       "warning": {
         "title": "Avertissement",
         "body": "La modération a reçu des signalements à ton sujet. Merci de respecter les règles du quartier."
+      }
+    },
+    "rewards": {
+      "streak": {
+        "title": "Série de {{days}} jours",
+        "body": "Bravo ! Choisis ta carte rare."
+      },
+      "card": {
+        "title": "Nouvelle carte",
+        "body": "Une carte rejoint ta collection."
+      }
+    },
+    "quarters": {
+      "champion": {
+        "title": "Quartier champion",
+        "body": "Ton quartier gagne la saison : un cadre t'attend."
       }
     }
   },

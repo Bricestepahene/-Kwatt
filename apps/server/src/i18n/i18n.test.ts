@@ -1,3 +1,4 @@
+import { NOTIFICATION_KINDS } from '@kwatt/protocol';
 import { describe, expect, it } from 'vitest';
 import { catalogs, flatten, flattenKeys, formatDate, localeFromAcceptLanguage, placeholders, t } from './index.js';
 
@@ -11,6 +12,17 @@ describe('i18n du serveur', () => {
     const en = flatten(catalogs.en);
     for (const [key, text] of Object.entries(fr)) {
       expect({ key, p: placeholders(en[key] ?? '') }).toEqual({ key, p: placeholders(text) });
+    }
+  });
+
+  it('chaque notification envoyée par le serveur a son push dans les deux langues', () => {
+    const fr = flatten(catalogs.fr);
+    const en = flatten(catalogs.en);
+    for (const kind of NOTIFICATION_KINDS) {
+      for (const part of ['title', 'body']) {
+        expect(fr[`push.${kind}.${part}`], `fr push.${kind}.${part}`).toBeTruthy();
+        expect(en[`push.${kind}.${part}`], `en push.${kind}.${part}`).toBeTruthy();
+      }
     }
   });
 

@@ -9,13 +9,24 @@
  * Chaque code est traduit par l'appli (`apps/mobile/src/i18n/locales/{fr,en}/errors.json`).
  */
 import { z } from 'zod';
+import { ACCOUNT_ERRORS } from './errors/accounts.js';
 import { AUTH_ERRORS } from './errors/auth.js';
 import { COMMON_ERRORS } from './errors/common.js';
+import { DAMES_ERRORS } from './errors/dames.js';
 import { ECONOMY_ERRORS } from './errors/economy.js';
 import { MEDIA_ERRORS } from './errors/media.js';
 import { NOTIFICATION_ERRORS } from './errors/notifications.js';
 import { PROFILE_ERRORS } from './errors/profile.js';
+import { PROFILES_ERRORS } from './errors/profiles.js';
 import { REALTIME_ERRORS } from './errors/realtime.js';
+import { SHOP_ERRORS } from './errors/shop.js';
+import { ROOM_ERRORS } from './errors/rooms.js';
+import { LUDO_ERRORS } from './errors/ludo.js';
+import { LEAGUE_ERRORS } from './errors/leagues.js';
+import { GAME_ERRORS } from './errors/games.js';
+import { FRIEND_ERRORS } from './errors/friends.js';
+import { REPORT_ERRORS } from './errors/reports.js';
+import { PROGRESSION_ERRORS } from './errors/progression.js';
 
 export const ERROR_CODES = [
   ...COMMON_ERRORS,
@@ -25,6 +36,17 @@ export const ERROR_CODES = [
   ...NOTIFICATION_ERRORS,
   ...REALTIME_ERRORS,
   ...MEDIA_ERRORS,
+  ...PROFILES_ERRORS,
+  ...SHOP_ERRORS,
+  ...ACCOUNT_ERRORS,
+  ...ROOM_ERRORS,
+  ...LUDO_ERRORS,
+  ...DAMES_ERRORS,
+  ...LEAGUE_ERRORS,
+  ...GAME_ERRORS,
+  ...FRIEND_ERRORS,
+  ...REPORT_ERRORS,
+  ...PROGRESSION_ERRORS,
 ] as const;
 
 export type ErrorCode = (typeof ERROR_CODES)[number];

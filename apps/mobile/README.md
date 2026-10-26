@@ -12,7 +12,7 @@ pnpm --filter @kwatt/mobile start             # build de développement (expo-de
 pnpm --filter @kwatt/mobile web               # navigateur
 ```
 
-En développement, l’écran Bienvenue propose « Explorer l’appli (démo) » pour parcourir les écrans sans serveur, et `/kit` montre tout le kit de composants.
+Les écrans demandent un serveur (`pnpm --filter @kwatt/server dev`, adresse dans `.env`). En développement, `/kit` montre tout le kit de composants.
 
 ## Vérifier
 
@@ -30,7 +30,7 @@ Les scripts Playwright utilisent le Chromium installé (`PLAYWRIGHT_BROWSERS_PAT
 
 ## Construire (EAS)
 
-`app.config.ts` lit `EXPO_PUBLIC_API_URL`, `EXPO_PUBLIC_WS_URL`, `EAS_PROJECT_ID` et `KWATT_WEB_DOMAIN` (liens `https://<domaine>/s/CODE`). Profils de `eas.json` : `development` (client de développement, APK), `preview` (APK Android + iOS interne), `production` (AAB, numéro de version géré par EAS).
+`app.config.ts` lit `EXPO_PUBLIC_API_URL`, `EXPO_PUBLIC_WS_URL`, `EAS_PROJECT_ID` et `KWATT_WEB_DOMAIN` (liens `https://<domaine>/s/CODE`). L'appli lit d'abord `EXPO_PUBLIC_API_URL` et `EXPO_PUBLIC_WS_URL` (toujours à jour dans le paquet), puis `extra` : le manifeste qui porte `extra` peut rester en cache d'un export à l'autre, donc après un changement de `KWATT_WEB_DOMAIN` ou `EAS_PROJECT_ID`, exporter avec `--clear`. Profils de `eas.json` : `development` (client de développement, APK), `preview` (APK Android + iOS interne), `production` (AAB, numéro de version géré par EAS).
 
 ```sh
 eas init                      # donne EAS_PROJECT_ID

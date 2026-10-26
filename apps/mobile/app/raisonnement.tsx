@@ -1,6 +1,4 @@
-/** Écran provisoire : voir ROUTES.md (clé « raisonnement »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 42 · Raisonnement (bêta). */
+import { ReasoningScreen } from '@/features/community/screens/ReasoningScreen';
 
-export default function RaisonnementScreen() {
-  return <PlaceholderScreen routeKey="raisonnement" />;
-}
+export default ReasoningScreen;

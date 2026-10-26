@@ -1,0 +1,59 @@
+{
+  "updated": "Version du 22 octobre 2026",
+  "rules": {
+    "title": "Règles du quartier",
+    "intro": "Kwatt, c'est le quartier qui joue ensemble. Ces règles valent pour tout le monde, profils et invités. En créant ton profil, tu les acceptes.",
+    "s1": {
+      "title": "Le respect",
+      "body": "On joue, on chambre, on ne blesse pas.\n\n• Pas d'insultes, de menaces, de propos racistes, haineux ou sexuels, ni de harcèlement.\n• Ton pseudo, ton nom de partie et les noms de tes salons et de tes ligues restent corrects : les mots interdits sont refusés.\n• Tu ne te fais pas passer pour quelqu'un d'autre, ni pour l'équipe Kwatt."
+    },
+    "s2": {
+      "title": "Le jeu honnête",
+      "body": "• Pas d'aide extérieure pendant une partie classée : ni logiciel, ni moteur de jeu, ni conseils d'un tiers.\n• Un seul profil par personne. Pas d'entente pour perdre ou pour faire gagner quelqu'un.\n• Le serveur vérifie chaque coup et chaque mise ; le dé du Ludo se vérifie après la partie."
+    },
+    "s3": {
+      "title": "Les cauris",
+      "body": "Les cauris sont une monnaie de jeu, rien d'autre.\n\n• Ils ne s'achètent pas et ne se retirent pas : ils ne valent jamais d'argent réel.\n• Les vendre, les acheter ou les échanger contre de l'argent ou des biens est interdit.\n• Kwatt n'affiche aucune publicité."
+    },
+    "s4": {
+      "title": "L'âge et les mises",
+      "body": "• Moins de 13 ans : pas de profil, seulement le jeu en invité.\n• De 13 à 17 ans : compte jeune, sans mise, sans pronostic, sans ligue payante, invisible des inconnus.\n• Miser et pronostiquer : 18 ans et plus, avec une adresse e-mail vérifiée.\n• Une mise ne dépasse jamais 25 % du plus petit solde des joueurs, ni la limite de la table.\n• Deux comptes vus sur le même appareil ne misent jamais l'un contre l'autre."
+    },
+    "s5": {
+      "title": "Signaler, sanctions",
+      "body": "Si quelqu'un ne respecte pas ces règles, signale-le ou bloque-le. Selon la gravité : avertissement, exclusion d'une ligue, suspension ou fermeture du compte. Une fausse année de naissance peut aussi entraîner la fermeture du compte."
+    }
+  },
+  "privacy": {
+    "title": "Politique de confidentialité",
+    "intro": "Kwatt garde le minimum pour faire tourner le jeu. Pas de publicité, pas de revente de données, pas de pistage.",
+    "s1": {
+      "title": "Ce que Kwatt garde",
+      "body": "• Ton profil : pseudo, adresse e-mail, mot de passe (jamais en clair : seulement une empreinte argon2id), année de naissance (jamais affichée : elle sert aux règles d'âge), langue, cadre, avatar, photo si tu en ajoutes une, quartier et réglages.\n• Ton jeu : parties et coups, niveaux, mises, journal des cauris, cartes, médailles, amis et notifications.\n• Ton appareil : un identifiant d'installation tiré au hasard, le type d'appareil et la version de l'appli. Il sert à la sécurité et à interdire les mises entre comptes d'un même appareil.\n• Le jeton de notification de ton téléphone, si tu acceptes les notifications.\n• En invité : un compte lié à l'appareil, sans e-mail ni pseudo, avec le nom que tu donnes pour la partie."
+    },
+    "s2": {
+      "title": "Pourquoi",
+      "body": "Seulement pour faire marcher Kwatt : jouer, classer, protéger les comptes (limites d'essais, codes à 6 chiffres), lutter contre la triche, t'envoyer les e-mails du service (code de vérification, mot de passe, suppression du compte) et les notifications que tu as choisies."
+    },
+    "s3": {
+      "title": "Qui voit quoi",
+      "body": "• Les autres joueurs voient ton pseudo, ton avatar, ton niveau, ton quartier et tes parties. Ton adresse e-mail et ton année de naissance ne sont jamais montrées.\n• Un compte jeune n'est visible que de ses amis.\n• Kwatt ne vend ni ne loue tes données. Seuls les services nécessaires en traitent une partie : l'envoi des e-mails, et l'acheminement des notifications par Expo, Apple et Google."
+    },
+    "s4": {
+      "title": "Où et combien de temps",
+      "body": "Tes données sont sur le serveur de Kwatt, avec une sauvegarde par jour gardée 14 jours. Elles restent tant que ton compte existe."
+    },
+    "s5": {
+      "title": "Supprimer ton compte",
+      "body": "Paramètres → Supprimer le compte : ton profil est masqué tout de suite, puis effacé définitivement 30 jours plus tard. Reconnecte-toi avant pour annuler.\n\nÀ l'effacement, ton pseudo, ton adresse, tes appareils, tes réglages et tes notifications disparaissent ; dans les parties des autres joueurs, tu deviens « Joueur parti ». Les sauvegardes s'effacent d'elles-mêmes sous 14 jours."
+    },
+    "s6": {
+      "title": "Tes droits",
+      "body": "• Copie de tes données : Paramètres → Exporter mes données (fichier JSON).\n• Correction : ton pseudo se change dans les Paramètres ; pour le reste, écris à l'équipe Kwatt.\n• Suppression : voir ci-dessus.\n\nPour toute question, écris à l'équipe Kwatt à l'adresse indiquée sur la page de l'appli dans le magasin d'applications."
+    },
+    "s7": {
+      "title": "Sécurité",
+      "body": "Connexions chiffrées, mots de passe jamais gardés en clair, jetons de session rangés dans le stockage sûr de ton téléphone et renouvelés régulièrement."
+    }
+  }
+}

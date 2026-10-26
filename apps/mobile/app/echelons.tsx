@@ -1,6 +1,4 @@
-/** Écran provisoire : voir ROUTES.md (clé « echelons »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 41 · Les échelons (`?jeu=ludo`). */
+import { RanksScreen } from '@/features/community/screens/RanksScreen';
 
-export default function EchelonsScreen() {
-  return <PlaceholderScreen routeKey="echelons" />;
-}
+export default RanksScreen;

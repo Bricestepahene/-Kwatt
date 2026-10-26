@@ -1,0 +1,546 @@
+{
+  "home": {
+    "greeting": "On dit quoi,",
+    "name": "{{name}} ?",
+    "profile": "Mon profil",
+    "notifications": "Notifications",
+    "notificationsTodo_one": "Notifications, {{count}} à traiter",
+    "notificationsTodo_other": "Notifications, {{count}} à traiter",
+    "codePlaceholder": "Code de salon ou de ligue",
+    "codeLabel": "Code de salon ou de ligue",
+    "enter": "Entrer",
+    "codeInvalid": "Un code a 6 caractères, lettres et chiffres.",
+    "codeNotFound": "Aucun salon ni ligue avec ce code.",
+    "spaces": "Tes espaces de jeu",
+    "dames": "Dames",
+    "ludo": "Ludo",
+    "rooms_zero": "aucun salon ouvert",
+    "rooms_one": "{{count}} salon",
+    "rooms_other": "{{count}} salons",
+    "unranked": "PAS ENCORE CLASSÉ",
+    "reasoning": "Raisonnement",
+    "reasoningSub": "Logique et calcul mental · bientôt",
+    "beta": "Bêta",
+    "resume": "Reprendre",
+    "resumeYourTurn": "C'est ton tour",
+    "resumeWaiting": "Partie en cours",
+    "resumeAgainst": "Contre {{names}}",
+    "nextMatch": "Prochain match",
+    "matchAgainst": "Contre {{names}} · {{when}}",
+    "matchTable": "Table de {{count}} · {{when}}",
+    "stage": {
+      "league": "journée {{round}}",
+      "group": "poules, journée {{round}}",
+      "final": "finale",
+      "semi": "demi-finale",
+      "quarter": "quart de finale",
+      "round": "phase finale",
+      "decider": "match d'appui"
+    },
+    "publicLeague": "Ligue publique du moment",
+    "publicLeagueMeta": "{{players}} / {{max}} inscrits · entrée {{entry}}",
+    "publicLeagueFree": "{{players}} / {{max}} inscrits · entrée libre",
+    "quarters": "Guerre des quartiers",
+    "quartersSub": "Ton quartier au classement de la saison",
+    "friends": "Mes amis",
+    "friendsSub": "Qui est en ligne, défis, invitations"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "settings": "Régler",
+    "todo": "À faire maintenant",
+    "today": "Aujourd'hui",
+    "yesterday": "Hier",
+    "earlier": "Plus tôt",
+    "markAll": "Tout marquer comme lu",
+    "legend": "La bande de tissu indique le jeu : bois pour les Dames, kaba pour le Ludo, ndop pour le hub.",
+    "emptyTitle": "Rien de neuf",
+    "emptyMessage": "Les invitations, les défis et les nouvelles de tes ligues arriveront ici.",
+    "play": "Jouer",
+    "see": "Voir",
+    "refuse": "Refuser",
+    "understand": "Comprendre",
+    "claim": "Récupérer",
+    "unread": "non lue",
+    "yourTurn": "C'est ton tour · {{where}}",
+    "yourTurnGame": "C'est ton tour",
+    "turnLeft": "{{game}} · il te reste {{time}}",
+    "turnAgainst": "{{game}} · contre {{names}}",
+    "challengeTitle": "{{from}} te défie · {{stake}}",
+    "challengeTitleFree": "{{from}} te défie",
+    "challengeMeta": "{{game}} · expire dans {{time}}",
+    "refused": "Défi refusé.",
+    "unknown": "Nouvelle notification",
+    "kind": {
+      "invites": {
+        "room": {
+          "title": "{{from}} t'invite au salon",
+          "body": "{{roomName}} · {{game}}"
+        },
+        "challenge": {
+          "title": "{{from}} te défie",
+          "body": "{{game}} · mise {{stake}}"
+        },
+        "challenge_countered": {
+          "title": "{{from}} propose une autre mise",
+          "body": "Nouvelle mise : {{stake}}"
+        },
+        "challenge_accepted": {
+          "title": "{{from}} relève ton défi",
+          "body": "La partie commence."
+        },
+        "challenge_declined": {
+          "title": "{{from}} décline ton défi",
+          "body": "Tu peux défier quelqu'un d'autre."
+        },
+        "friend_request": {
+          "title": "{{from}} veut t'ajouter en ami",
+          "body": "Accepte ou refuse dans tes amis."
+        }
+      },
+      "friends": {
+        "accepted": {
+          "title": "{{from}} est ton ami",
+          "body": "Vous pouvez vous défier et vous inviter."
+        }
+      },
+      "league": {
+        "match_tomorrow": {
+          "title": "Match de ligue demain",
+          "body": "{{leagueName}}"
+        },
+        "match_soon": {
+          "title": "Match de ligue dans {{delay}}",
+          "body": "{{leagueName}}"
+        },
+        "match_ready": {
+          "title": "Tout le monde est là",
+          "body": "{{leagueName}} · la partie commence"
+        },
+        "started": {
+          "title": "{{leagueName}} est lancée",
+          "body": "Ton calendrier est prêt."
+        },
+        "cancelled": {
+          "title": "{{leagueName}} est annulée",
+          "body": "Tes cauris te sont rendus."
+        },
+        "validate_due": {
+          "title": "Valide ta ligue sous 48 h",
+          "body": "{{leagueName}} · {{entrants}} inscrits"
+        },
+        "forfeit": {
+          "title": "Forfait enregistré",
+          "body": "{{leagueName}}"
+        },
+        "excluded": {
+          "title": "Tu es exclu de {{leagueName}}",
+          "body": "{{refund}} cauris te sont rendus"
+        },
+        "player_excluded": {
+          "title": "{{pseudo}} est exclu de la ligue",
+          "body": "Ton classement passe de {{before}}e à {{after}}e"
+        },
+        "finished": {
+          "title": "{{leagueName}} est terminée",
+          "body": "Tu finis {{position}}e"
+        },
+        "removed": {
+          "title": "Retiré de {{leagueName}}",
+          "body": "Ton entrée t'est rendue."
+        },
+        "time_proposed": {
+          "title": "Heure proposée : {{time}}",
+          "body": "{{leagueName}}"
+        },
+        "time_agreed": {
+          "title": "Match fixé à {{time}}",
+          "body": "{{leagueName}}"
+        },
+        "board_chosen": {
+          "title": "La planche est choisie",
+          "body": "{{leagueName}}"
+        },
+        "knockout_started": {
+          "title": "Tu es en phase finale !",
+          "body": "{{leagueName}}"
+        }
+      },
+      "quest": {
+        "completed": {
+          "title": "Quête terminée : +{{amount}} cauris",
+          "body": "{{quest}}"
+        },
+        "completed_card": {
+          "title": "Quête terminée : une carte t'attend",
+          "body": "{{quest}}"
+        }
+      },
+      "rewards": {
+        "streak": {
+          "title": "{{days}} jours de suite au kwatt",
+          "body": "Choisis ta carte rare."
+        },
+        "card": {
+          "title": "Nouvelle carte : {{card}}",
+          "body": "Elle rejoint ta collection."
+        }
+      },
+      "quarters": {
+        "champion": {
+          "title": "Ton quartier est champion !",
+          "body": "Un cadre de profil t'attend."
+        }
+      },
+      "profile": {
+        "photo_approved": {
+          "title": "Photo validée",
+          "body": "Elle est visible de tous."
+        },
+        "photo_rejected": {
+          "title": "Photo refusée",
+          "body": "Choisis-en une autre dans le Studio."
+        }
+      },
+      "account": {
+        "warning": {
+          "title": "Avertissement de la modération",
+          "body": "Merci de respecter les règles du quartier."
+        }
+      }
+    }
+  },
+  "friends": {
+    "title": "Mes amis",
+    "search": "Chercher un pseudo",
+    "searchHint": "Au moins 2 lettres.",
+    "invite": "Inviter par lien",
+    "inviteMessage": "Ajoute-moi en ami sur Kwatt : {{link}} (code {{code}})",
+    "tabFriends": "Amis · {{count}}",
+    "tabRequests": "Demandes · {{count}}",
+    "tabs": "Liste",
+    "online": "En ligne · {{count}}",
+    "offline": "Hors ligne",
+    "available": "disponible",
+    "playing": "joue au {{game}} · coup {{move}}",
+    "playingGame": "joue en ce moment",
+    "watching": "regarde une partie",
+    "seen": {
+      "never": "pas encore venu",
+      "minutes": "vu il y a {{count}} min",
+      "hours": "vu il y a {{count}} h",
+      "yesterday": "vu hier",
+      "days": "vu il y a {{count}} jours",
+      "date": "vu il y a {{count}} jours"
+    },
+    "challenge": "Défier",
+    "watch": "Regarder",
+    "inviteRoom": "Inviter au salon",
+    "invited": "Invitation envoyée à {{name}}.",
+    "noRoom": "Ouvre d'abord un salon, puis invite tes amis.",
+    "more": "Plus d'options pour {{name}}",
+    "profile": "Voir le profil",
+    "remove": "Retirer de mes amis",
+    "removeConfirm": "Retirer {{name}} de tes amis ?",
+    "removeText": "Il ne sera pas prévenu. Vous pourrez vous ajouter de nouveau.",
+    "removed": "{{name}} n'est plus dans tes amis.",
+    "report": "Signaler ou bloquer",
+    "accept": "Accepter",
+    "refuse": "Refuser",
+    "cancel": "Annuler",
+    "accepted": "{{name}} est ton ami.",
+    "add": "Ajouter",
+    "sent": "Demande envoyée",
+    "requestSent": "Demande envoyée à {{name}}.",
+    "isFriend": "Ami",
+    "incoming": "Demande reçue",
+    "requestMetaGames_one": "vous avez joué {{count}} fois",
+    "requestMetaGames_other": "vous avez joué {{count}} fois",
+    "outgoingTitle": "Demandes envoyées",
+    "waiting": "en attente",
+    "requestsNote": "Seuls tes amis peuvent t'inviter directement. Les autres passent par un code de salon.",
+    "emptyTitle": "Pas encore d'amis",
+    "emptyMessage": "Cherche un pseudo ou envoie ton lien d'invitation.",
+    "noRequestsTitle": "Aucune demande",
+    "noRequestsMessage": "Les demandes d'amis arriveront ici.",
+    "noResultTitle": "Personne avec ce pseudo",
+    "noResultMessage": "Vérifie l'orthographe. Les comptes jeunes ne sont visibles que de leurs amis.",
+    "results": "Résultats",
+    "myCode": "Ton code d'ami : {{code}}",
+    "linkTitle": "Invitation",
+    "linkLead": "{{name}} t'invite à devenir ami sur Kwatt.",
+    "linkAdd": "Ajouter {{name}}",
+    "linkSelf": "C'est ton propre lien d'invitation. Partage-le à tes proches.",
+    "linkShare": "Partager mon lien",
+    "linkFriend": "{{name}} est déjà ton ami.",
+    "linkPending": "Ta demande attend sa réponse.",
+    "linkIncoming": "{{name}} t'a déjà demandé : accepte !",
+    "linkNotFound": "Ce lien d'invitation ne marche plus.",
+    "linkNotFoundText": "Demande à ton ami de te renvoyer son lien.",
+    "openFriends": "Voir mes amis"
+  },
+  "report": {
+    "title": "Signaler {{name}}",
+    "question": "Que s'est-il passé ?",
+    "reasons": "Motif du signalement",
+    "reason": {
+      "outside_help": {
+        "label": "Aide extérieure",
+        "desc": "Il joue avec un logiciel ou se fait souffler les coups"
+      },
+      "insults": {
+        "label": "Insultes",
+        "desc": "Dans les réactions ou le pseudo"
+      },
+      "photo": {
+        "label": "Photo choquante",
+        "desc": "Photo de profil inappropriée"
+      },
+      "multi_account": {
+        "label": "Deux comptes",
+        "desc": "Il mise contre lui-même pour gagner des cauris"
+      },
+      "other": {
+        "label": "Autre chose",
+        "desc": "Tu pourras écrire un message"
+      }
+    },
+    "message": "Ton message",
+    "messagePlaceholder": "Explique ce qui s'est passé",
+    "messageNeeded": "Écris au moins quelques mots.",
+    "gameAttached": "La partie du {{date}} est jointe automatiquement : la modération revoit chaque coup.",
+    "noGame": "Vous n'avez pas encore joué ensemble : la modération regarde son profil et ses réactions.",
+    "block": "Bloquer aussi : il ne pourra plus m'inviter ni me défier",
+    "cancel": "Annuler",
+    "send": "Envoyer",
+    "sent": "Merci. La modération regarde ton signalement.",
+    "sentBlocked": "Merci. {{name}} est bloqué et la modération regarde ton signalement.",
+    "pending": "Ton signalement précédent attend encore la modération.",
+    "blocked": "Tu as bloqué {{name}}.",
+    "unblock": "Débloquer",
+    "unblocked": "{{name}} est débloqué.",
+    "blockOnly": "Bloquer sans signaler",
+    "blockedDone": "{{name}} est bloqué."
+  },
+  "quarters": {
+    "title": "Guerre des quartiers",
+    "season_one": "Saison {{number}} · dernier jour",
+    "season_other": "Saison {{number}} · encore {{count}} jours",
+    "mineMeta": "à {{city}} · {{players}} joueurs · toi : +{{points}} pts cette saison",
+    "mineMetaCountry": "{{players}} joueurs · toi : +{{points}} pts cette saison",
+    "scale": "Échelle du classement",
+    "tabQuarter": "Quartier",
+    "tabCity": "Ville",
+    "tabCountry": "Pays",
+    "titleQuarter": "Quartiers de {{city}}",
+    "titleQuarterAll": "Quartiers",
+    "titleCity": "Villes · {{country}}",
+    "titleCountry": "Pays · diaspora comprise",
+    "players_one": "{{count}} joueur",
+    "players_other": "{{count}} joueurs",
+    "points": "{{points}}",
+    "pointsA11y": "{{points}} points",
+    "up": "▲ {{count}}",
+    "down": "▼ {{count}}",
+    "same": "=",
+    "trendUp": "monte de {{count}}",
+    "trendDown": "descend de {{count}}",
+    "trendSame": "même place",
+    "wholeCity": "{{city}} (toute la ville)",
+    "diaspora": "{{country}} (diaspora)",
+    "rules": "Victoire classée : +3 pts au quartier. Victoire contre plus fort : +5. Battre un joueur d'un quartier rival : +2 en bonus. Le quartier champion de la saison gagne un cadre de profil pour tous ses joueurs.",
+    "playFor": "Jouer pour {{name}}",
+    "choose": "Choisir mon quartier",
+    "noQuarterTitle": "Tu n'as pas encore de quartier",
+    "noQuarterText": "Choisis ton quartier pour lui faire gagner des points.",
+    "lastChampion": "Champion de la saison passée : {{name}}",
+    "emptyTitle": "Pas encore de points cette saison",
+    "emptyMessage": "Gagne une partie classée pour lancer ton quartier."
+  },
+  "cards": {
+    "title": "Cartes",
+    "count": "{{owned}} / {{total}} gagnées",
+    "countTotal": "/ {{total}} gagnées",
+    "filters": "Type de carte",
+    "filter": {
+      "all": "Toutes",
+      "table": "Tables",
+      "plateau": "Plateaux",
+      "pions": "Pions",
+      "pouvoir": "Pouvoirs"
+    },
+    "locked": "Verrouillée",
+    "game": {
+      "dames": "Dames",
+      "ludo": "Ludo",
+      "both": "Dames et Ludo"
+    },
+    "equip": "Équiper",
+    "equipped": "Équipée",
+    "unequip": "Retirer",
+    "equippedToast": "{{name}} équipée.",
+    "serial": "N° {{serial}} / {{total}}",
+    "edition": "Édition de {{total}}",
+    "emptyTitle": "Aucune carte ici",
+    "emptyMessage": "Change de filtre pour voir les autres cartes.",
+    "rewards": "Médailles et quêtes",
+    "how": {
+      "rank": "Débloquée à l'échelon {{rank}}",
+      "streak": "Carte rare au choix d'une série de 7 jours",
+      "streakDays": "{{days}} jours de suite au kwatt",
+      "quest": "Les trois quêtes d'une semaine",
+      "start": "Carte de départ"
+    },
+    "feat": {
+      "upset_dames": "Bats aux Dames un joueur bien plus fort",
+      "upset_ludo": "Bats au Ludo un joueur bien plus fort",
+      "rafle_4": "Prends 4 pions d'un coup",
+      "rafle_5": "Prends 5 pions d'un coup",
+      "ludo_table_4": "Gagne une table de Ludo à 4",
+      "first_win": "Ta première victoire en ligne",
+      "wins_10": "10 victoires en ligne",
+      "wins_50": "50 victoires en ligne",
+      "wins_100": "100 victoires en ligne",
+      "wins_200": "200 victoires en ligne",
+      "wins_250": "250 victoires en ligne",
+      "wins_500": "500 victoires en ligne",
+      "unknown": "Victoire marquante"
+    },
+    "trophy": {
+      "league_gold": "Champion d'une ligue",
+      "league_silver": "Deuxième d'une ligue",
+      "league_bronze": "Troisième d'une ligue",
+      "quarter_champion": "Quartier champion de la saison",
+      "unknown": "Trophée"
+    },
+    "effect": {
+      "table": "Défis jusqu'à {{limit}} cauris",
+      "instant_rematch": "Rejoue tout de suite, même mise",
+      "seat_kept_longer": "Ta place gardée plus longtemps au salon",
+      "room_colors": "Ton salon aux couleurs de ton tissu",
+      "more_reactions": "Plus de réactions en spectateur",
+      "annotated_replay": "Revoir tes parties avec les flèches",
+      "front_row": "Premier rang quand tu regardes",
+      "custom_room_link": "Un lien de salon à ton nom",
+      "game_album": "L'album de tes plus belles parties",
+      "slot_board": "Habille ton plateau en {{fabric}}",
+      "slot_pieces": "Pions aux couleurs du {{fabric}}",
+      "slot_dice": "Dé aux couleurs du {{fabric}}",
+      "trophy": "Trophée à montrer sur ton profil"
+    },
+    "powerNote": "Les pouvoirs sont des commodités : jamais un avantage dans la partie."
+  },
+  "rewards": {
+    "title": "Récompenses",
+    "gold": "or",
+    "silver": "argent",
+    "bronze": "bronze",
+    "medalsA11y": "{{gold}} or, {{silver}} argent, {{bronze}} bronze",
+    "streak": "jours de suite au kwatt",
+    "streakNext_one": "Encore {{count}} jour : carte rare au choix",
+    "streakNext_other": "Au 7e jour : carte rare au choix",
+    "streakToday": "Joue aujourd'hui pour garder ta série",
+    "choose": "Choisis ta carte rare",
+    "chooseText_one": "Tu as gagné {{count}} carte rare au choix.",
+    "chooseText_other": "Tu as gagné {{count}} cartes rares au choix.",
+    "chosen": "{{name}} rejoint ta collection.",
+    "quests": "Quêtes de la semaine",
+    "questsEnd": "Nouvelles quêtes lundi",
+    "quest": {
+      "win_3_ludo": "Gagne 3 parties de Ludo",
+      "win_two_leg": "Gagne un aller-retour",
+      "rafle_3": "Fais une rafle de 3 pions"
+    },
+    "rewardCauris": "+{{amount}} cauris",
+    "rewardCard": "Carte {{rarity}}",
+    "progress": "{{game}} · {{progress}} / {{target}}",
+    "legWon": "{{game}} · aller gagné, retour à jouer",
+    "done": "Fait",
+    "claimed": "Récupéré",
+    "claimCauris": "Récupérer {{amount}} cauris",
+    "claimCard": "Récupérer la carte",
+    "gotCauris": "+{{amount}} cauris pour toi.",
+    "gotCard": "{{name}} rejoint ta collection.",
+    "gameAny": "Dames ou Ludo",
+    "trophies": "Trophées de ligue",
+    "trophyKind": {
+      "or": "Champion",
+      "argent": "2e",
+      "bronze": "3e"
+    },
+    "trophyMeta": "{{place}} · {{date}}",
+    "noTrophies": "Gagne une ligue pour ton premier trophée."
+  },
+  "ranks": {
+    "title": "Les échelons",
+    "space": "Espace {{game}}",
+    "lead": "Chaque jeu a ses propres échelons. Plus tu montes, plus la machine est coriace et plus les tables sont riches.",
+    "you": "{{rank}} · toi",
+    "levels": "Niv {{min}}–{{max}}",
+    "levelsOpen": "Niv {{min}}+",
+    "position": "Tu es {{rank}}, niveau {{level}}",
+    "notRanked": "Pas encore classé : joue une partie classée.",
+    "done": "atteint",
+    "current": "ton échelon",
+    "next": "à venir",
+    "machine": {
+      "apprenti": "La machine joue vite et laisse des pions en prise.",
+      "debrouillard": "Elle voit 2 coups d'avance.",
+      "ancien": "Elle tend des pièges simples.",
+      "notable": "Elle calcule les rafles et prépare la dame.",
+      "chef": "Elle joue la fin de partie sans erreur.",
+      "fon": "Aucune pitié : 8 coups d'avance."
+    },
+    "machineLudo": {
+      "apprenti": "La machine avance sans calcul et s'expose.",
+      "debrouillard": "Elle évite les prises faciles.",
+      "ancien": "Elle bloque tes pions quand elle peut.",
+      "notable": "Elle compte les cases sûres.",
+      "chef": "Elle joue chaque dé au mieux.",
+      "fon": "Aucune pitié : elle prévoit tous les dés."
+    },
+    "unlock": {
+      "basic_board": "Damier de base",
+      "bets_100": "Défis jusqu'à 100 cauris",
+      "public_league_creation": "Création de ligues publiques",
+      "table_wouri": "Table du Wouri · 500 cauris",
+      "table_mont_cameroun": "Table du Mont Cameroun",
+      "machine_fon": "La machine du Fon",
+      "trone_du_fon": "Trône du Fon",
+      "legendary_frame": "cadre légendaire"
+    },
+    "note": "Une défaite contre plus fort coûte peu ; une victoire contre plus fort rapporte gros. Après 3 défaites de suite, la machine baisse d'un cran pour te laisser respirer."
+  },
+  "reasoning": {
+    "space": "Espace Raisonnement · bêta",
+    "title": "La tête aussi,\nça se muscle.",
+    "tags": {
+      "sequences": "Suites logiques",
+      "mental": "Calcul mental",
+      "timed": "Problèmes chronométrés"
+    },
+    "preview": "Aperçu · question {{n}} / {{total}}",
+    "question": "Quel nombre complète la suite ?",
+    "questionMental": "Combien font… ?",
+    "right": "Juste !",
+    "wrong": "Pas tout à fait.",
+    "explain": {
+      "pronic": "1×2, 2×3, 3×4, 4×5, 5×6… donc 6×7 = 42.",
+      "double": "Chaque nombre double : 24 × 2 = 48.",
+      "squares": "Les carrés : 1², 2², 3², 4²… donc 5² = 25.",
+      "mental": "17 × 6 = 10 × 6 + 7 × 6 = 60 + 42 = 102.",
+      "fibo": "Chaque nombre est la somme des deux d'avant : 5 + 8 = 13."
+    },
+    "next": "Question suivante",
+    "again": "Recommencer l'aperçu",
+    "timeUp": "Temps écoulé !",
+    "notify": "Me prévenir à l'ouverture",
+    "notified": "On te prévient à l'ouverture",
+    "unnotify": "Ne plus me prévenir",
+    "notifyToast": "C'est noté : tu seras prévenu à l'ouverture.",
+    "footer": "Même profil, nouveaux échelons. Duels en salon et ligues hebdo prévus.",
+    "waiting_one": "{{count}} joueur attend l'ouverture",
+    "waiting_other": "{{count}} joueurs attendent l'ouverture",
+    "timer": "Temps restant"
+  }
+}

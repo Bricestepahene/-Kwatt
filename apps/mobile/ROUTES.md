@@ -24,6 +24,8 @@ Chaque écran du Sommaire (`docs/maquette/README.md`) a sa route, déjà branch�
 | 07 | `accueil` | `app/(tabs)/index.tsx` | `/` | Accueil | Profil | Communauté et progression |  |
 | 08 | `notifications` | `app/notifications.tsx` | `/notifications` | Notifications | Profil | Communauté et progression |  |
 | 09 | `profil` | `app/(tabs)/profil.tsx` | `/profil` | Profil | Profil | Profil |  |
+| 09 | `profilCauris` | `app/profil/cauris.tsx` | `/profil/cauris` | Profil, Systeme | Profil | Profil | Journal des cauris (« Mouvement » de la planche Système : qui, combien, pourquoi, partie liée), sur GET /v1/wallet/journal. |
+| 09 | `joueur` | `app/joueur/[id].tsx` | `/joueur/[id]` | Profil | Session (invité ou profil) | Profil | Profil public d’un autre joueur (écran 09 en lecture, GET /v1/profiles/:userId) ; un compte jeune est invisible des inconnus. |
 | 10 | `avatarStudio` | `app/avatar/index.tsx` | `/avatar` | AvatarStudio | Profil | Profil |  |
 | 11 | `avatarBoutique` | `app/avatar/boutique.tsx` | `/avatar/boutique` | AvatarBoutique | Profil | Profil |  |
 | 12 | `amis` | `app/amis.tsx` | `/amis` | Amis | Profil | Communauté et progression |  |
@@ -44,6 +46,7 @@ Chaque écran du Sommaire (`docs/maquette/README.md`) a sa route, déjà branch�
 | 24 | `creerSalon` | `app/salon/nouveau.tsx` | `/salon/nouveau` | CreerSalon | Profil | Parties en ligne |  |
 | 25 | `salon` | `app/salon/[code].tsx` | `/salon/[code]` | Salon | Session (invité ou profil) | Parties en ligne | Lien kwatt://salon/CODE ; sans session, renvoi vers 02 avec le code. |
 | 26 | `mise` | `app/defi/[id].tsx` | `/defi/[id]` | Mise | Profil, 18 ans et plus | Parties en ligne |  |
+| 26 | `nouveauDefi` | `app/defi/nouveau.tsx` | `/defi/nouveau` | Mise | Profil | Parties en ligne | Défier un ami ou demander la revanche : ?userId=…&name=…&game=…&rematchOf=… La mise demande 18 ans et plus. |
 | 27 | `ligues` | `app/(tabs)/ligues.tsx` | `/ligues` | Ligues | Profil | Ligues |  |
 | 28 | `creerLigue` | `app/ligue/nouvelle.tsx` | `/ligue/nouvelle` | CreerLigue | Profil | Ligues |  |
 | 28b | `reglesCompetition` | `app/ligue/regles.tsx` | `/ligue/regles` | ReglesCompetition | Profil | Ligues |  |
@@ -57,11 +60,14 @@ Chaque écran du Sommaire (`docs/maquette/README.md`) a sa route, déjà branch�
 | 35 | `exclusion` | `app/ligue/[id]/exclusion.tsx` | `/ligue/[id]/exclusion` | Exclusion | Profil | Ligues |  |
 | 36 | `quartiers` | `app/quartiers.tsx` | `/quartiers` | Quartiers | Profil | Communauté et progression |  |
 | 37 | `regarder` | `app/regarder/[id].tsx` | `/regarder/[id]` | KwattTV | Session (invité ou profil) | Parties en ligne | « Autour du damier » : regarder ne demande pas de profil (session invitée). |
+| 37 | `regarderListe` | `app/regarder/index.tsx` | `/regarder` | KwattTV | Session (invité ou profil) | Parties en ligne | Parties publiques en cours (salons et ligues), les plus regardées d’abord. |
 | 38 | `signaler` | `app/signaler/[userId].tsx` | `/signaler/[userId]` | Signaler | Profil | Communauté et progression |  |
 | 39 | `cartes` | `app/(tabs)/cartes.tsx` | `/cartes` | Cartes | Profil | Communauté et progression |  |
 | 40 | `recompenses` | `app/recompenses.tsx` | `/recompenses` | Recompenses | Profil | Communauté et progression |  |
 | 41 | `echelons` | `app/echelons.tsx` | `/echelons` | Echelons | Profil | Communauté et progression |  |
 | 42 | `raisonnement` | `app/raisonnement.tsx` | `/raisonnement` | Raisonnement | Profil | Communauté et progression |  |
+| — | `reglesQuartier` | `app/legal/regles.tsx` | `/legal/regles` | Inscription | Tout le monde | Comptes | Règles du quartier, acceptées à l’inscription (03) et lisibles depuis les Paramètres (13). Texte : locales/<langue>/legal.json. |
+| — | `confidentialite` | `app/legal/confidentialite.tsx` | `/legal/confidentialite` | Inscription | Tout le monde | Comptes | Politique de confidentialité (données gardées, pas de publicité ni d’argent réel, export, suppression à J+30). |
 | — | `jouer` | `app/(tabs)/jouer/index.tsx` | `/jouer` | — | Profil | Fondation appli | Rouvre le dernier espace utilisé (Dames par défaut) : redirection, pas d’écran. |
 | — | `lienSalon` | `app/s/[code].tsx` | `/s/[code]` | — | Tout le monde | Fondation appli | Lien de partage https://<domaine>/s/CODE : redirige vers /salon/CODE. |
 | — | `kit` | `app/kit.tsx` | `/kit` | Main | Tout le monde | Fondation appli | Catalogue du kit de composants (développement, captures) : visible en développement ou avec EXPO_PUBLIC_SHOW_KIT=1, sinon renvoie à l’accueil. |

@@ -27,8 +27,7 @@
     "increase": "Increase",
     "showPassword": "Show password",
     "hidePassword": "Hide password",
-    "goHome": "Back to home",
-    "demoSession": "Explore the app (demo)"
+    "goHome": "Back to home"
   },
   "tabs": {
     "navigation": "Main navigation",

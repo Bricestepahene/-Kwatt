@@ -1,0 +1,546 @@
+{
+  "home": {
+    "greeting": "What's up,",
+    "name": "{{name}}?",
+    "profile": "My profile",
+    "notifications": "Notifications",
+    "notificationsTodo_one": "Notifications, {{count}} to handle",
+    "notificationsTodo_other": "Notifications, {{count}} to handle",
+    "codePlaceholder": "Room or league code",
+    "codeLabel": "Room or league code",
+    "enter": "Enter",
+    "codeInvalid": "A code has 6 characters, letters and digits.",
+    "codeNotFound": "No room or league with this code.",
+    "spaces": "Your game spaces",
+    "dames": "Checkers",
+    "ludo": "Ludo",
+    "rooms_zero": "no open room",
+    "rooms_one": "{{count}} room",
+    "rooms_other": "{{count}} rooms",
+    "unranked": "NOT RANKED YET",
+    "reasoning": "Reasoning",
+    "reasoningSub": "Logic and mental arithmetic · coming soon",
+    "beta": "Beta",
+    "resume": "Resume",
+    "resumeYourTurn": "Your turn",
+    "resumeWaiting": "Game in progress",
+    "resumeAgainst": "Against {{names}}",
+    "nextMatch": "Next match",
+    "matchAgainst": "Against {{names}} · {{when}}",
+    "matchTable": "Table of {{count}} · {{when}}",
+    "stage": {
+      "league": "round {{round}}",
+      "group": "groups, round {{round}}",
+      "final": "final",
+      "semi": "semi-final",
+      "quarter": "quarter-final",
+      "round": "knockout stage",
+      "decider": "decider"
+    },
+    "publicLeague": "Public league of the moment",
+    "publicLeagueMeta": "{{players}} / {{max}} signed up · entry {{entry}}",
+    "publicLeagueFree": "{{players}} / {{max}} signed up · free entry",
+    "quarters": "Quarter wars",
+    "quartersSub": "Your quarter in this season's standings",
+    "friends": "My friends",
+    "friendsSub": "Who's online, challenges, invitations"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "settings": "Settings",
+    "todo": "To do now",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "earlier": "Earlier",
+    "markAll": "Mark all as read",
+    "legend": "The fabric strip shows the game: wood for Checkers, kaba for Ludo, ndop for the hub.",
+    "emptyTitle": "Nothing new",
+    "emptyMessage": "Invitations, challenges and news from your leagues will show up here.",
+    "play": "Play",
+    "see": "View",
+    "refuse": "Decline",
+    "understand": "Understand",
+    "claim": "Claim",
+    "unread": "unread",
+    "yourTurn": "Your turn · {{where}}",
+    "yourTurnGame": "Your turn",
+    "turnLeft": "{{game}} · {{time}} left",
+    "turnAgainst": "{{game}} · against {{names}}",
+    "challengeTitle": "{{from}} challenges you · {{stake}}",
+    "challengeTitleFree": "{{from}} challenges you",
+    "challengeMeta": "{{game}} · expires in {{time}}",
+    "refused": "Challenge declined.",
+    "unknown": "New notification",
+    "kind": {
+      "invites": {
+        "room": {
+          "title": "{{from}} invites you to a room",
+          "body": "{{roomName}} · {{game}}"
+        },
+        "challenge": {
+          "title": "{{from}} challenges you",
+          "body": "{{game}} · stake {{stake}}"
+        },
+        "challenge_countered": {
+          "title": "{{from}} suggests another stake",
+          "body": "New stake: {{stake}}"
+        },
+        "challenge_accepted": {
+          "title": "{{from}} takes up your challenge",
+          "body": "The game is starting."
+        },
+        "challenge_declined": {
+          "title": "{{from}} declines your challenge",
+          "body": "You can challenge someone else."
+        },
+        "friend_request": {
+          "title": "{{from}} wants to be your friend",
+          "body": "Accept or decline in your friends."
+        }
+      },
+      "friends": {
+        "accepted": {
+          "title": "{{from}} is your friend",
+          "body": "You can now challenge and invite each other."
+        }
+      },
+      "league": {
+        "match_tomorrow": {
+          "title": "League match tomorrow",
+          "body": "{{leagueName}}"
+        },
+        "match_soon": {
+          "title": "League match in {{delay}}",
+          "body": "{{leagueName}}"
+        },
+        "match_ready": {
+          "title": "Everyone is here",
+          "body": "{{leagueName}} · the game is starting"
+        },
+        "started": {
+          "title": "{{leagueName}} has started",
+          "body": "Your schedule is ready."
+        },
+        "cancelled": {
+          "title": "{{leagueName}} is cancelled",
+          "body": "Your cowries are refunded."
+        },
+        "validate_due": {
+          "title": "Validate your league within 48 h",
+          "body": "{{leagueName}} · {{entrants}} signed up"
+        },
+        "forfeit": {
+          "title": "Forfeit recorded",
+          "body": "{{leagueName}}"
+        },
+        "excluded": {
+          "title": "You are excluded from {{leagueName}}",
+          "body": "{{refund}} cowries refunded"
+        },
+        "player_excluded": {
+          "title": "{{pseudo}} is excluded from the league",
+          "body": "Your position goes from {{before}} to {{after}}"
+        },
+        "finished": {
+          "title": "{{leagueName}} is over",
+          "body": "You finish {{position}}"
+        },
+        "removed": {
+          "title": "Removed from {{leagueName}}",
+          "body": "Your entry fee is refunded."
+        },
+        "time_proposed": {
+          "title": "Time proposed: {{time}}",
+          "body": "{{leagueName}}"
+        },
+        "time_agreed": {
+          "title": "Match set for {{time}}",
+          "body": "{{leagueName}}"
+        },
+        "board_chosen": {
+          "title": "The board is chosen",
+          "body": "{{leagueName}}"
+        },
+        "knockout_started": {
+          "title": "You made the knockout stage!",
+          "body": "{{leagueName}}"
+        }
+      },
+      "quest": {
+        "completed": {
+          "title": "Quest complete: +{{amount}} cowries",
+          "body": "{{quest}}"
+        },
+        "completed_card": {
+          "title": "Quest complete: a card awaits you",
+          "body": "{{quest}}"
+        }
+      },
+      "rewards": {
+        "streak": {
+          "title": "{{days}} days in a row at the kwatt",
+          "body": "Pick your rare card."
+        },
+        "card": {
+          "title": "New card: {{card}}",
+          "body": "It joins your collection."
+        }
+      },
+      "quarters": {
+        "champion": {
+          "title": "Your quarter is champion!",
+          "body": "A profile frame awaits you."
+        }
+      },
+      "profile": {
+        "photo_approved": {
+          "title": "Photo approved",
+          "body": "Everyone can see it now."
+        },
+        "photo_rejected": {
+          "title": "Photo rejected",
+          "body": "Pick another one in the Studio."
+        }
+      },
+      "account": {
+        "warning": {
+          "title": "Warning from moderators",
+          "body": "Please follow the community rules."
+        }
+      }
+    }
+  },
+  "friends": {
+    "title": "My friends",
+    "search": "Search a username",
+    "searchHint": "At least 2 letters.",
+    "invite": "Invite by link",
+    "inviteMessage": "Add me as a friend on Kwatt: {{link}} (code {{code}})",
+    "tabFriends": "Friends · {{count}}",
+    "tabRequests": "Requests · {{count}}",
+    "tabs": "List",
+    "online": "Online · {{count}}",
+    "offline": "Offline",
+    "available": "available",
+    "playing": "playing {{game}} · move {{move}}",
+    "playingGame": "playing right now",
+    "watching": "watching a game",
+    "seen": {
+      "never": "not been here yet",
+      "minutes": "seen {{count}} min ago",
+      "hours": "seen {{count}} h ago",
+      "yesterday": "seen yesterday",
+      "days": "seen {{count}} days ago",
+      "date": "seen {{count}} days ago"
+    },
+    "challenge": "Challenge",
+    "watch": "Watch",
+    "inviteRoom": "Invite to room",
+    "invited": "Invitation sent to {{name}}.",
+    "noRoom": "Open a room first, then invite your friends.",
+    "more": "More options for {{name}}",
+    "profile": "View profile",
+    "remove": "Remove from my friends",
+    "removeConfirm": "Remove {{name}} from your friends?",
+    "removeText": "They won't be told. You can add each other again.",
+    "removed": "{{name}} is no longer in your friends.",
+    "report": "Report or block",
+    "accept": "Accept",
+    "refuse": "Decline",
+    "cancel": "Cancel",
+    "accepted": "{{name}} is your friend.",
+    "add": "Add",
+    "sent": "Request sent",
+    "requestSent": "Request sent to {{name}}.",
+    "isFriend": "Friend",
+    "incoming": "Request received",
+    "requestMetaGames_one": "you played {{count}} time",
+    "requestMetaGames_other": "you played {{count}} times",
+    "outgoingTitle": "Sent requests",
+    "waiting": "pending",
+    "requestsNote": "Only your friends can invite you directly. Others go through a room code.",
+    "emptyTitle": "No friends yet",
+    "emptyMessage": "Search a username or send your invitation link.",
+    "noRequestsTitle": "No requests",
+    "noRequestsMessage": "Friend requests will show up here.",
+    "noResultTitle": "No one with this username",
+    "noResultMessage": "Check the spelling. Young accounts are only visible to their friends.",
+    "results": "Results",
+    "myCode": "Your friend code: {{code}}",
+    "linkTitle": "Invitation",
+    "linkLead": "{{name}} invites you to be friends on Kwatt.",
+    "linkAdd": "Add {{name}}",
+    "linkSelf": "This is your own invitation link. Share it with people you know.",
+    "linkShare": "Share my link",
+    "linkFriend": "{{name}} is already your friend.",
+    "linkPending": "Your request is waiting for an answer.",
+    "linkIncoming": "{{name}} already asked you: accept!",
+    "linkNotFound": "This invitation link no longer works.",
+    "linkNotFoundText": "Ask your friend to send you their link again.",
+    "openFriends": "See my friends"
+  },
+  "report": {
+    "title": "Report {{name}}",
+    "question": "What happened?",
+    "reasons": "Reason for the report",
+    "reason": {
+      "outside_help": {
+        "label": "Outside help",
+        "desc": "They play with software or get moves whispered"
+      },
+      "insults": {
+        "label": "Insults",
+        "desc": "In reactions or the username"
+      },
+      "photo": {
+        "label": "Offensive photo",
+        "desc": "Inappropriate profile photo"
+      },
+      "multi_account": {
+        "label": "Two accounts",
+        "desc": "They bet against themselves to win cowries"
+      },
+      "other": {
+        "label": "Something else",
+        "desc": "You can write a message"
+      }
+    },
+    "message": "Your message",
+    "messagePlaceholder": "Explain what happened",
+    "messageNeeded": "Write at least a few words.",
+    "gameAttached": "The game of {{date}} is attached automatically: moderators review every move.",
+    "noGame": "You haven't played together yet: moderators look at their profile and reactions.",
+    "block": "Block too: they won't be able to invite or challenge me",
+    "cancel": "Cancel",
+    "send": "Send",
+    "sent": "Thank you. Moderators are looking at your report.",
+    "sentBlocked": "Thank you. {{name}} is blocked and moderators are looking at your report.",
+    "pending": "Your previous report is still waiting for moderators.",
+    "blocked": "You blocked {{name}}.",
+    "unblock": "Unblock",
+    "unblocked": "{{name}} is unblocked.",
+    "blockOnly": "Block without reporting",
+    "blockedDone": "{{name}} is blocked."
+  },
+  "quarters": {
+    "title": "Quarter wars",
+    "season_one": "Season {{number}} · last day",
+    "season_other": "Season {{number}} · {{count}} days left",
+    "mineMeta": "in {{city}} · {{players}} players · you: +{{points}} pts this season",
+    "mineMetaCountry": "{{players}} players · you: +{{points}} pts this season",
+    "scale": "Standings scale",
+    "tabQuarter": "Quarter",
+    "tabCity": "City",
+    "tabCountry": "Country",
+    "titleQuarter": "Quarters of {{city}}",
+    "titleQuarterAll": "Quarters",
+    "titleCity": "Cities · {{country}}",
+    "titleCountry": "Countries · diaspora included",
+    "players_one": "{{count}} player",
+    "players_other": "{{count}} players",
+    "points": "{{points}}",
+    "pointsA11y": "{{points}} points",
+    "up": "▲ {{count}}",
+    "down": "▼ {{count}}",
+    "same": "=",
+    "trendUp": "up {{count}}",
+    "trendDown": "down {{count}}",
+    "trendSame": "same place",
+    "wholeCity": "{{city}} (whole city)",
+    "diaspora": "{{country}} (diaspora)",
+    "rules": "Ranked win: +3 pts for your quarter. Win against a stronger player: +5. Beat a player from a rival quarter: +2 bonus. The season's champion quarter wins a profile frame for all its players.",
+    "playFor": "Play for {{name}}",
+    "choose": "Choose my quarter",
+    "noQuarterTitle": "You don't have a quarter yet",
+    "noQuarterText": "Choose your quarter to win points for it.",
+    "lastChampion": "Last season's champion: {{name}}",
+    "emptyTitle": "No points yet this season",
+    "emptyMessage": "Win a ranked game to get your quarter going."
+  },
+  "cards": {
+    "title": "Cards",
+    "count": "{{owned}} / {{total}} earned",
+    "countTotal": "/ {{total}} earned",
+    "filters": "Card type",
+    "filter": {
+      "all": "All",
+      "table": "Tables",
+      "plateau": "Boards",
+      "pions": "Pieces",
+      "pouvoir": "Powers"
+    },
+    "locked": "Locked",
+    "game": {
+      "dames": "Checkers",
+      "ludo": "Ludo",
+      "both": "Checkers and Ludo"
+    },
+    "equip": "Equip",
+    "equipped": "Equipped",
+    "unequip": "Remove",
+    "equippedToast": "{{name}} equipped.",
+    "serial": "No. {{serial}} / {{total}}",
+    "edition": "Edition of {{total}}",
+    "emptyTitle": "No cards here",
+    "emptyMessage": "Change the filter to see the other cards.",
+    "rewards": "Medals and quests",
+    "how": {
+      "rank": "Unlocked at rank {{rank}}",
+      "streak": "Rare card of your choice from a 7-day streak",
+      "streakDays": "{{days}} days in a row at the kwatt",
+      "quest": "All three quests of a week",
+      "start": "Starter card"
+    },
+    "feat": {
+      "upset_dames": "Beat a much stronger player at Checkers",
+      "upset_ludo": "Beat a much stronger player at Ludo",
+      "rafle_4": "Take 4 pieces in one move",
+      "rafle_5": "Take 5 pieces in one move",
+      "ludo_table_4": "Win a 4-player Ludo table",
+      "first_win": "Your first online win",
+      "wins_10": "10 online wins",
+      "wins_50": "50 online wins",
+      "wins_100": "100 online wins",
+      "wins_200": "200 online wins",
+      "wins_250": "250 online wins",
+      "wins_500": "500 online wins",
+      "unknown": "Remarkable win"
+    },
+    "trophy": {
+      "league_gold": "League champion",
+      "league_silver": "League runner-up",
+      "league_bronze": "Third in a league",
+      "quarter_champion": "Champion quarter of the season",
+      "unknown": "Trophy"
+    },
+    "effect": {
+      "table": "Challenges up to {{limit}} cowries",
+      "instant_rematch": "Play again right away, same stake",
+      "seat_kept_longer": "Your room seat kept for longer",
+      "room_colors": "Your room in your fabric's colours",
+      "more_reactions": "More reactions as a spectator",
+      "annotated_replay": "Replay your games with arrows",
+      "front_row": "Front row when you watch",
+      "custom_room_link": "A room link in your name",
+      "game_album": "An album of your finest games",
+      "slot_board": "Dress your board in {{fabric}}",
+      "slot_pieces": "Pieces in {{fabric}} colours",
+      "slot_dice": "Die in {{fabric}} colours",
+      "trophy": "A trophy to show on your profile"
+    },
+    "powerNote": "Powers are conveniences: never an advantage in the game."
+  },
+  "rewards": {
+    "title": "Rewards",
+    "gold": "gold",
+    "silver": "silver",
+    "bronze": "bronze",
+    "medalsA11y": "{{gold}} gold, {{silver}} silver, {{bronze}} bronze",
+    "streak": "days in a row at the kwatt",
+    "streakNext_one": "{{count}} more day: rare card of your choice",
+    "streakNext_other": "On day 7: rare card of your choice",
+    "streakToday": "Play today to keep your streak",
+    "choose": "Pick your rare card",
+    "chooseText_one": "You earned {{count}} rare card of your choice.",
+    "chooseText_other": "You earned {{count}} rare cards of your choice.",
+    "chosen": "{{name}} joins your collection.",
+    "quests": "This week's quests",
+    "questsEnd": "New quests on Monday",
+    "quest": {
+      "win_3_ludo": "Win 3 Ludo games",
+      "win_two_leg": "Win a home-and-away",
+      "rafle_3": "Take 3 pieces in one move"
+    },
+    "rewardCauris": "+{{amount}} cowries",
+    "rewardCard": "{{rarity}} card",
+    "progress": "{{game}} · {{progress}} / {{target}}",
+    "legWon": "{{game}} · first leg won, return to play",
+    "done": "Done",
+    "claimed": "Claimed",
+    "claimCauris": "Claim {{amount}} cowries",
+    "claimCard": "Claim the card",
+    "gotCauris": "+{{amount}} cowries for you.",
+    "gotCard": "{{name}} joins your collection.",
+    "gameAny": "Checkers or Ludo",
+    "trophies": "League trophies",
+    "trophyKind": {
+      "or": "Champion",
+      "argent": "2nd",
+      "bronze": "3rd"
+    },
+    "trophyMeta": "{{place}} · {{date}}",
+    "noTrophies": "Win a league for your first trophy."
+  },
+  "ranks": {
+    "title": "Ranks",
+    "space": "{{game}} space",
+    "lead": "Each game has its own ranks. The higher you climb, the tougher the machine and the richer the tables.",
+    "you": "{{rank}} · you",
+    "levels": "Lv {{min}}–{{max}}",
+    "levelsOpen": "Lv {{min}}+",
+    "position": "You are {{rank}}, level {{level}}",
+    "notRanked": "Not ranked yet: play a ranked game.",
+    "done": "reached",
+    "current": "your rank",
+    "next": "to come",
+    "machine": {
+      "apprenti": "The machine plays fast and leaves pieces hanging.",
+      "debrouillard": "It sees 2 moves ahead.",
+      "ancien": "It sets simple traps.",
+      "notable": "It calculates multi-captures and prepares a king.",
+      "chef": "It plays the endgame without mistakes.",
+      "fon": "No mercy: 8 moves ahead."
+    },
+    "machineLudo": {
+      "apprenti": "The machine moves without thinking and exposes itself.",
+      "debrouillard": "It avoids easy captures.",
+      "ancien": "It blocks your tokens when it can.",
+      "notable": "It counts the safe squares.",
+      "chef": "It plays every roll as well as it can.",
+      "fon": "No mercy: it plans for every roll."
+    },
+    "unlock": {
+      "basic_board": "Basic board",
+      "bets_100": "Challenges up to 100 cowries",
+      "public_league_creation": "Creating public leagues",
+      "table_wouri": "Wouri table · 500 cowries",
+      "table_mont_cameroun": "Mount Cameroon table",
+      "machine_fon": "The Fon's machine",
+      "trone_du_fon": "Throne of the Fon",
+      "legendary_frame": "legendary frame"
+    },
+    "note": "A loss against a stronger player costs little; a win against a stronger player pays off big. After 3 losses in a row, the machine eases off a notch to let you breathe."
+  },
+  "reasoning": {
+    "space": "Reasoning space · beta",
+    "title": "Your mind needs\na workout too.",
+    "tags": {
+      "sequences": "Number sequences",
+      "mental": "Mental arithmetic",
+      "timed": "Timed puzzles"
+    },
+    "preview": "Preview · question {{n}} / {{total}}",
+    "question": "Which number completes the sequence?",
+    "questionMental": "What is…?",
+    "right": "Correct!",
+    "wrong": "Not quite.",
+    "explain": {
+      "pronic": "1×2, 2×3, 3×4, 4×5, 5×6… so 6×7 = 42.",
+      "double": "Each number doubles: 24 × 2 = 48.",
+      "squares": "The squares: 1², 2², 3², 4²… so 5² = 25.",
+      "mental": "17 × 6 = 10 × 6 + 7 × 6 = 60 + 42 = 102.",
+      "fibo": "Each number is the sum of the two before: 5 + 8 = 13."
+    },
+    "next": "Next question",
+    "again": "Restart the preview",
+    "timeUp": "Time's up!",
+    "notify": "Notify me when it opens",
+    "notified": "We'll let you know when it opens",
+    "unnotify": "Stop notifying me",
+    "notifyToast": "Got it: you'll be notified when it opens.",
+    "footer": "Same profile, new ranks. Room duels and weekly leagues planned.",
+    "waiting_one": "{{count}} player is waiting for the opening",
+    "waiting_other": "{{count}} players are waiting for the opening",
+    "timer": "Time left"
+  }
+}

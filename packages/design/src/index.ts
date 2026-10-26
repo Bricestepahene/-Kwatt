@@ -40,6 +40,12 @@ export interface Theme {
   /** Gains, aplats. */
   gainBg: string;
   gainSoft: string;
+  /** Pertes, aplats (carte « Si tu perds » de l'écran 15). */
+  lossSoft: string;
+  /** Pertes, texte posé sur `lossSoft`. */
+  lossSoftText: string;
+  /** Gains, texte posé sur `gainSoft`. */
+  gainSoftText: string;
   board: { light: string; dark: string; frame: string };
   /** Barre de navigation du bas (planches Accueil, Profil, Cartes…). */
   tabBar: string;
@@ -68,6 +74,10 @@ export const night: Theme = {
   gain: '#5FD3A2',
   gainBg: '#1F9D6B',
   gainSoft: '#14382E',
+  // Écran 15 (planche DefiMachine) : « Si tu perds » sur #2A1820, textes clairs teintés.
+  lossSoft: '#2A1820',
+  lossSoftText: '#FFC2B6',
+  gainSoftText: '#A9F0CF',
   board: { light: '#F1E2BF', dark: '#A8703F', frame: '#6E4426' },
   tabBar: '#0B0E26',
   scrim: 'rgba(5,7,22,0.72)',
@@ -96,6 +106,10 @@ export const pleinSoleil: Theme = {
   gain: '#0E6B47',
   gainBg: '#1F9D6B',
   gainSoft: '#D6EFE3',
+  // Absents des planches (Plein soleil) : aplat corail très clair, textes de l'encre du thème.
+  lossSoft: '#F6DCD5',
+  lossSoftText: '#4A4F73',
+  gainSoftText: '#4A4F73',
   board: { light: '#FFF8E6', dark: '#9A6233', frame: '#6E4426' },
   // Compléments (fondation appli) : uniquement des valeurs déjà présentes dans la palette.
   tabBar: '#E9E1CC',
@@ -182,6 +196,14 @@ export const rarity = {
 } as const;
 export type Rarity = keyof typeof rarity;
 
+/** Médailles d'or, d'argent et de bronze (écran 40, Récompenses) : ruban, disque, contour et étoile. */
+export const medals = {
+  gold: { ribbon: '#E0442E', disc: '#F2B705', edge: '#8C6A00' },
+  silver: { ribbon: '#3FA7E0', disc: '#D9DCE6', edge: '#7D8296' },
+  bronze: { ribbon: '#1F9D6B', disc: '#C9864A', edge: '#7A4A2A' },
+} as const;
+export type MedalKind = keyof typeof medals;
+
 /** Petit damier de la carte « Dames » de l'accueil (écran 07). */
 export const miniBoard = { light: '#E8D5A9', dark: '#3B2213' } as const;
 
@@ -239,3 +261,38 @@ export function contrastRatio(a: string, b: string): number {
   const [hi, lo] = la >= lb ? [la, lb] : [lb, la];
   return (hi + 0.05) / (lo + 0.05);
 }
+
+// ---------------------------------------------------------------------------
+// Compléments de l'équipe Ludo (planches 21, 21b, 21c) : valeurs relevées sur les planches.
+// ---------------------------------------------------------------------------
+
+/**
+ * Plateau du Ludo (planches PartieLudo, PartieLudo6) : cases en raphia, filet des cases,
+ * étoiles, fond de l'étoile à 6 branches, dé (pastilles rouges, ombre) et contour des pions
+ * (raphia, ou nuit sur le jaune pour rester lisible). Identique de nuit et en Plein soleil.
+ */
+export const ludoBoard = {
+  cell: '#F4EEDF',
+  line: '#B9B09A',
+  star: '#8C7B55',
+  starBoard: '#14173A',
+  die: '#F4EEDF',
+  dieShadow: '#C9B98F',
+  pip: '#E0442E',
+  tokenRing: '#F4EEDF',
+  tokenRingOnLight: '#0F1230',
+  tokenShadow: 'rgba(0,0,0,0.35)',
+  /** Anneau des pions jouables (« Touche le pion à jouer »). */
+  playable: '#0F1230',
+} as const;
+
+/** Cauris du Pachisi (planche LancerCauris) : ouverture vers le ciel (raphia, fente) ou dos bombé. */
+export const cowrie = {
+  up: '#F4EEDF',
+  slit: '#6E4426',
+  slitEdge: '#C9B98F',
+  backLight: '#E2C9A0',
+  backDark: '#A07A4E',
+  backMark: 'rgba(110,68,38,0.35)',
+  shadow: 'rgba(0,0,0,0.35)',
+} as const;

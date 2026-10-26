@@ -20,7 +20,10 @@ interface Harness {
 }
 
 /** Faux serveur : `handler` reçoit l'URL, l'appel et le jeton présenté. */
-function setup(handler: (url: string, init: RequestInit, auth: string | null) => Response | Promise<Response>) {
+function setup(
+  handler: (url: string, init: RequestInit, auth: string | null) => Response | Promise<Response>,
+  extra: { refreshBody?: (refreshToken: string) => unknown } = {},
+) {
   const h: Harness = {
     tokens: { accessToken: 'acc-1', refreshToken: 'ref-1', accessExpiresAt: NOW + 10 * 60_000 },
     expired: 0,
@@ -45,6 +48,7 @@ function setup(handler: (url: string, init: RequestInit, auth: string | null) =>
     },
     getHeaders: () => ({ 'Accept-Language': 'fr', 'X-Install-Id': 'install-1' }),
     now: () => NOW,
+    ...extra,
   });
   return { h, client, fetchMock };
 }
@@ -71,6 +75,17 @@ describe('client REST', () => {
       'Accept-Language': 'fr',
       'X-Install-Id': 'install-1',
     });
+  });
+
+  it('envoie un FormData tel quel, sans en-tête JSON (photo de profil)', async () => {
+    const { h, client } = setup(() => json(200, { ok: true }));
+    const form = new FormData();
+    form.append('photo', new Blob(['x'], { type: 'image/jpeg' }), 'photo.jpg');
+    await client.post('/v1/me/photo', form);
+    const call = h.calls[0];
+    expect(call?.init.body).toBe(form);
+    expect((call?.init.headers as Record<string, string>)['Content-Type']).toBeUndefined();
+    expect((call?.init.headers as Record<string, string>).Authorization).toBe('Bearer acc-1');
   });
 
   it('renvoie undefined pour 204', async () => {
@@ -125,6 +140,19 @@ describe('client REST', () => {
     const refreshCall = h.calls[1]!;
     expect(refreshCall.init.body).toBe('{"refreshToken":"ref-1"}');
     expect((refreshCall.init.headers as Record<string, string>).Authorization).toBeUndefined();
+  });
+
+  it('joint l’appareil au renouvellement quand on le demande (@kwatt/protocol)', async () => {
+    const device = { installId: 'install-1', platform: 'web' };
+    const { client, h } = setup(
+      (url, _init, auth) => {
+        if (url.endsWith('/v1/auth/refresh')) return json(200, { accessToken: 'acc-2', refreshToken: 'ref-2', accessTokenExpiresAt: '2027-01-15T08:15:00.000Z' });
+        return auth === 'Bearer acc-2' ? json(200, { ok: true }) : json(401, { error: { code: 'auth.token_expired' } });
+      },
+      { refreshBody: async (refreshToken) => ({ refreshToken, device }) },
+    );
+    await expect(client.get('/v1/me')).resolves.toEqual({ ok: true });
+    expect(h.calls[1]?.init.body).toBe(JSON.stringify({ refreshToken: 'ref-1', device }));
   });
 
   it('ne lance qu’un seul renouvellement pour des requêtes simultanées', async () => {

@@ -1,6 +1,4 @@
-/** Écran provisoire : voir ROUTES.md (clé « matchDuJour »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 34 · Match du jour et forfait. */
+import { MatchDayScreen } from '@/features/leagues/screens/MatchDayScreen';
 
-export default function MatchDuJourScreen() {
-  return <PlaceholderScreen routeKey="matchDuJour" />;
-}
+export default MatchDayScreen;

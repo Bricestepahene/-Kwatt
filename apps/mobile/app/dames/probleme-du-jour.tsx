@@ -1,6 +1,6 @@
-/** Écran provisoire : voir ROUTES.md (clé « probleme »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 19b · Problème du jour (planche ProblemeDuJour). */
+import { PuzzleScreen } from '@/features/dames/screens/PuzzleScreen';
 
 export default function ProblemeScreen() {
-  return <PlaceholderScreen routeKey="probleme" />;
+  return <PuzzleScreen />;
 }

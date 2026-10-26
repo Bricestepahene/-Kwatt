@@ -1,6 +1,4 @@
-/** Écran provisoire : voir ROUTES.md (clé « ligues »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 27 · Ligues. */
+import { LeaguesScreen } from '@/features/leagues/screens/LeaguesScreen';
 
-export default function LiguesScreen() {
-  return <PlaceholderScreen routeKey="ligues" />;
-}
+export default LeaguesScreen;

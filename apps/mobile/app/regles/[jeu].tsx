@@ -1,6 +1,6 @@
-/** Écran provisoire : voir ROUTES.md (clé « regles »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 23 · Règles du jeu (src/features/ludo/RulesScreen.tsx). */
+import { RulesScreen } from '@/features/ludo/RulesScreen';
 
 export default function ReglesScreen() {
-  return <PlaceholderScreen routeKey="regles" />;
+  return <RulesScreen />;
 }

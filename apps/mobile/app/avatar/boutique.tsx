@@ -1,6 +1,6 @@
-/** Écran provisoire : voir ROUTES.md (clé « avatarBoutique »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 11 · Boutique d'avatars (planche AvatarBoutique). */
+import { ShopScreen } from '@/features/profile/ShopScreen';
 
 export default function AvatarBoutiqueScreen() {
-  return <PlaceholderScreen routeKey="avatarBoutique" />;
+  return <ShopScreen />;
 }

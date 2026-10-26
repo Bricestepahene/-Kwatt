@@ -51,3 +51,17 @@ describe('@kwatt/design · compléments', () => {
     expect(Object.keys(rarity)).toEqual(['commune', 'rare', 'epique', 'legendaire']);
   });
 });
+
+describe('@kwatt/design · aplats doux (absents des planches Plein soleil)', () => {
+  it.each([['Nuit', night], ['Plein soleil', pleinSoleil]] as const)('%s : textes des aplats gains et pertes à 4,5:1 au moins', (_, theme) => {
+    expect(contrastRatio(theme.gainSoftText, theme.gainSoft)).toBeGreaterThanOrEqual(4.5);
+    expect(contrastRatio(theme.lossSoftText, theme.lossSoft)).toBeGreaterThanOrEqual(4.5);
+    expect(contrastRatio(theme.text, theme.gainSoft)).toBeGreaterThanOrEqual(4.5);
+    expect(contrastRatio(theme.text, theme.lossSoft)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it('raretés : lisibles sur le fond Nuit (en Plein soleil, ShopParts écrit le nom dans le texte du thème)', () => {
+    for (const c of Object.values(rarity)) expect(contrastRatio(c, night.bg)).toBeGreaterThanOrEqual(4.5);
+  });
+});
+

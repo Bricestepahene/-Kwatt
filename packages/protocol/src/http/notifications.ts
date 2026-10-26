@@ -36,6 +36,44 @@ export function notificationCategory(kind: string): NotificationCategory {
   return prefix === 'turn' || prefix === 'invites' || prefix === 'league' ? prefix : 'general';
 }
 
+/**
+ * Toutes les notifications envoyées par le serveur, avec leurs paramètres (l'appli traduit
+ * chacune ; le serveur rend le push avec `push.<kind>` : tests de parité des deux côtés).
+ */
+export const NOTIFICATION_KINDS = [
+  'invites.room', //                 { from, fromUserId, code, game, variant, roomName }
+  'invites.challenge', //            { from, fromUserId, challengeId, game, variant, stake }
+  'invites.challenge_countered', //  { from, fromUserId, challengeId, stake }
+  'invites.challenge_accepted', //   { from, fromUserId, challengeId, gameId? }
+  'invites.challenge_declined', //   { from, fromUserId, challengeId }
+  'invites.friend_request', //       { from, userId }
+  'friends.accepted', //             { from, userId }
+  'league.match_tomorrow', //        { leagueId, leagueName, code, matchId, … }
+  'league.match_soon', //            { leagueId, leagueName, code, matchId, minutes }
+  'league.match_ready', //           { leagueId, leagueName, code, matchId, gameId }
+  'league.started', //               { leagueId, leagueName, code }
+  'league.cancelled', //             { leagueId, leagueName, code }
+  'league.validate_due', //          { leagueId, leagueName, code, entrants }
+  'league.forfeit', //               { leagueId, leagueName, code, matchId, absent, fine }
+  'league.excluded', //              { leagueId, leagueName, code, refund }
+  'league.player_excluded', //       { leagueId, leagueName, code, excluded, pseudo, before, after }
+  'league.finished', //              { leagueId, leagueName, code, position }
+  'league.removed', //               { leagueId, leagueName, code }
+  'league.time_proposed', //         { leagueId, leagueName, code, matchId, time }
+  'league.time_agreed', //           { leagueId, leagueName, code, matchId, time }
+  'league.board_chosen', //          { leagueId, leagueName, code, matchId, board }
+  'league.knockout_started', //      { leagueId, leagueName, code }
+  'quest.completed', //              { questId, amount }
+  'quest.completed_card', //         { questId, rarity }
+  'rewards.streak', //               { days }
+  'rewards.card', //                 { code }
+  'quarters.champion', //            { quarterId, season }
+  'profile.photo_approved', //       {}
+  'profile.photo_rejected', //       {}
+  'account.warning', //              { reason }
+] as const;
+export type NotificationKind = (typeof NOTIFICATION_KINDS)[number];
+
 export const NotificationKindSchema = z
   .string()
   .min(3)

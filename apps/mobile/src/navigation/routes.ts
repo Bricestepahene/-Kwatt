@@ -100,6 +100,16 @@ export const ROUTES = defineRoutes([
     pattern: '/mot-de-passe-oublie', access: 'public', owner: 'comptes', space: 'hub', links: ['connexion'],
     note: 'Feuille « mot de passe oublié » (contact → code → nouveau mot de passe), présentée en feuille.',
   },
+  {
+    key: 'reglesQuartier', screens: [], planches: ['Inscription'], file: 'app/legal/regles.tsx',
+    pattern: '/legal/regles', access: 'public', owner: 'comptes', space: 'hub', links: ['inscription', 'confidentialite'],
+    note: 'Règles du quartier, acceptées à l’inscription (03) et lisibles depuis les Paramètres (13). Texte : locales/<langue>/legal.json.',
+  },
+  {
+    key: 'confidentialite', screens: [], planches: ['Inscription'], file: 'app/legal/confidentialite.tsx',
+    pattern: '/legal/confidentialite', access: 'public', owner: 'comptes', space: 'hub', links: ['inscription', 'reglesQuartier'],
+    note: 'Politique de confidentialité (données gardées, pas de publicité ni d’argent réel, export, suppression à J+30).',
+  },
 
   // --- Onglets · groupe (tabs) -------------------------------------------------
   {
@@ -134,7 +144,7 @@ export const ROUTES = defineRoutes([
   {
     key: 'profil', screens: ['09'], planches: ['Profil'], file: 'app/(tabs)/profil.tsx',
     pattern: '/profil', access: 'member', owner: 'profil', space: 'hub', tab: 'profile',
-    links: ['amis', 'parametres', 'avatarStudio', 'quartiers', 'recompenses', 'echelons'],
+    links: ['amis', 'parametres', 'avatarStudio', 'quartiers', 'recompenses', 'echelons', 'cartes', 'profilCauris'],
   },
 
   // --- Hub et profil -------------------------------------------------------------
@@ -149,7 +159,17 @@ export const ROUTES = defineRoutes([
   },
   {
     key: 'avatarBoutique', screens: ['11'], planches: ['AvatarBoutique'], file: 'app/avatar/boutique.tsx',
-    pattern: '/avatar/boutique', access: 'member', owner: 'profil', space: 'hub',
+    pattern: '/avatar/boutique', access: 'member', owner: 'profil', space: 'hub', links: ['avatarStudio'],
+  },
+  {
+    key: 'profilCauris', screens: ['09'], planches: ['Profil', 'Systeme'], file: 'app/profil/cauris.tsx',
+    pattern: '/profil/cauris', access: 'member', owner: 'profil', space: 'hub', links: ['revoir'],
+    note: 'Journal des cauris (« Mouvement » de la planche Système : qui, combien, pourquoi, partie liée), sur GET /v1/wallet/journal.',
+  },
+  {
+    key: 'joueur', screens: ['09'], planches: ['Profil'], file: 'app/joueur/[id].tsx',
+    pattern: '/joueur/[id]', access: 'guest', owner: 'profil', space: 'hub', links: ['signaler', 'echelons'],
+    note: 'Profil public d’un autre joueur (écran 09 en lecture, GET /v1/profiles/:userId) ; un compte jeune est invisible des inconnus.',
   },
   {
     key: 'amis', screens: ['12'], planches: ['Amis'], file: 'app/amis.tsx',
@@ -234,6 +254,11 @@ export const ROUTES = defineRoutes([
     key: 'mise', screens: ['26'], planches: ['Mise'], file: 'app/defi/[id].tsx',
     pattern: '/defi/[id]', access: 'adult', owner: 'parties-en-ligne', space: 'dames', links: ['partieDames'],
   },
+  {
+    key: 'nouveauDefi', screens: ['26'], planches: ['Mise'], file: 'app/defi/nouveau.tsx',
+    pattern: '/defi/nouveau', access: 'member', owner: 'parties-en-ligne', space: 'dames', links: ['mise'],
+    note: 'Défier un ami ou demander la revanche : ?userId=…&name=…&game=…&rematchOf=… La mise demande 18 ans et plus.',
+  },
 
   // --- Ligues ------------------------------------------------------------------------------
   {
@@ -291,6 +316,11 @@ export const ROUTES = defineRoutes([
     key: 'regarder', screens: ['37'], planches: ['KwattTV'], file: 'app/regarder/[id].tsx',
     pattern: '/regarder/[id]', access: 'guest', owner: 'parties-en-ligne', space: 'dames', links: ['salon'],
     note: '« Autour du damier » : regarder ne demande pas de profil (session invitée).',
+  },
+  {
+    key: 'regarderListe', screens: ['37'], planches: ['KwattTV'], file: 'app/regarder/index.tsx',
+    pattern: '/regarder', access: 'guest', owner: 'parties-en-ligne', space: 'hub', links: ['regarder'],
+    note: 'Parties publiques en cours (salons et ligues), les plus regardées d’abord.',
   },
   {
     key: 'signaler', screens: ['38'], planches: ['Signaler'], file: 'app/signaler/[userId].tsx',

@@ -1,6 +1,4 @@
-/** Écran provisoire : voir ROUTES.md (clé « coupe »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 30 · Coupe. */
+import { CupScreen } from '@/features/leagues/screens/CupScreen';
 
-export default function CoupeScreen() {
-  return <PlaceholderScreen routeKey="coupe" />;
-}
+export default CupScreen;

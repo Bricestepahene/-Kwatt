@@ -19,6 +19,8 @@ import type { AuthContext } from './modules/auth/context.js';
 import type { PasswordHasher } from './modules/auth/passwords.js';
 import type { TokenService } from './modules/auth/tokens.js';
 import type { AccountRegistry } from './modules/me/registry.js';
+import type { RoomsService } from './modules/rooms/service.js';
+import type { GamesService } from './modules/games/service.js';
 import type { MediaStore } from './modules/media/store.js';
 import type { NotificationService } from './modules/notifications/service.js';
 import type { RealtimeHub } from './realtime/hub.js';
@@ -41,6 +43,10 @@ declare module 'fastify' {
     registerJob: JobRunner['register'];
     accounts: AccountRegistry;
     media: MediaStore;
+    /** Parties en ligne (contrat C3) : création, acteurs, fin de partie. */
+    games: GamesService;
+    /** Salons (écrans 24 et 25) : défis et autres modules y démarrent des parties. */
+    rooms: RoomsService;
     /** Invité ou profil (jeton d'accès valide, session ouverte). */
     authenticate: PreHandler;
     /** Profil (pas un invité). */

@@ -1,16 +1,35 @@
 import { describe, expect, it, vi } from 'vitest';
 import { memoryStore, STORAGE_KEYS } from '../storage/kv';
+import type { Me } from '@kwatt/protocol';
 import type { AuthResponse } from '../api/types';
 import { createInstallIdProvider } from './installId';
-import { accessSessionOf, createSessionStore, jwtExpiry, tokensFrom } from './session';
+import { accessSessionOf, createSessionStore, jwtExpiry, tokensFrom, userFromMe } from './session';
 
 const NOW = 1_800_000_000_000;
 
+const me: Me = {
+  id: '00000000-0000-4000-8000-000000000001',
+  kind: 'member',
+  pseudo: 'brice_237',
+  email: 'brice@example.com',
+  emailVerified: true,
+  locale: 'fr',
+  ageGroup: 'adult',
+  permissions: { canStake: true, canPredict: true, canJoinPaidLeagues: true, canCreate: true, visibleToStrangers: true },
+  pseudoChangeAvailableAt: null,
+  deletionRequestedAt: null,
+  deletionScheduledFor: null,
+  settings: {},
+  createdAt: '2027-01-15T08:00:00.000Z',
+};
+
+/** Réponse de connexion du serveur (AuthSessionResponse de @kwatt/protocol). */
 const member: AuthResponse = {
   accessToken: 'acc-1',
+  accessTokenExpiresAt: new Date(NOW + 900_000).toISOString(),
   refreshToken: 'ref-1',
-  expiresIn: 900,
-  user: { id: 'u1', kind: 'member', pseudo: 'brice_237', ageBand: 'adult', emailVerified: true },
+  refreshTokenExpiresAt: new Date(NOW + 30 * 86_400_000).toISOString(),
+  me,
 };
 
 function jwt(payload: object): string {
@@ -41,7 +60,7 @@ describe('session', () => {
 
   it('distingue invité et profil, et l’âge pour la garde', async () => {
     const store = createSessionStore(memoryStore(), () => NOW);
-    await store.getState().signIn({ ...member, user: { ...member.user, kind: 'guest', ageBand: null } });
+    await store.getState().signIn({ ...member, me: { ...me, kind: 'guest', pseudo: null, email: null, ageGroup: null } });
     expect(store.getState().status).toBe('guest');
     expect(accessSessionOf(store.getState())).toEqual({ status: 'guest', isAdult: false });
     await store.getState().updateUser({ kind: 'member', ageBand: 'teen' });
@@ -55,6 +74,19 @@ describe('session', () => {
     now += 60_000;
     await store.getState().setTokens({ accessToken: 'acc-2', refreshToken: 'ref-2', expiresIn: 900 });
     expect(store.getState().data?.tokens).toEqual({ accessToken: 'acc-2', refreshToken: 'ref-2', accessExpiresAt: now + 900_000 });
+  });
+
+  it('garde le profil joint par le serveur (renouvellement, GET /v1/me)', async () => {
+    const store = createSessionStore(memoryStore(), () => NOW);
+    await store.getState().signIn({ ...member, me: { ...me, emailVerified: false } });
+    expect(store.getState().data?.user).toEqual({ ...userFromMe(me), emailVerified: false });
+    await store.getState().setTokens({ accessToken: 'acc-2', refreshToken: 'ref-2', me });
+    expect(store.getState().data?.user.emailVerified).toBe(true);
+    await store.getState().applyMe({ ...me, pseudo: 'brice_cm' });
+    expect(store.getState().data?.user.pseudo).toBe('brice_cm');
+    // Le profil d'un autre compte n'écrase jamais la session.
+    await store.getState().applyMe({ ...me, id: '00000000-0000-4000-8000-000000000002', pseudo: 'autre' });
+    expect(store.getState().data?.user.pseudo).toBe('brice_cm');
   });
 
   it('se ferme et efface le stockage', async () => {
@@ -78,6 +110,9 @@ describe('session', () => {
     expect(jwtExpiry('opaque')).toBeNull();
     expect(tokensFrom({ accessToken: token, refreshToken: 'r' }, NOW).accessExpiresAt).toBe(1_900_000_000_000);
     expect(tokensFrom({ accessToken: 'opaque', refreshToken: 'r' }, NOW).accessExpiresAt).toBe(NOW + 900_000);
+    expect(tokensFrom({ accessToken: token, refreshToken: 'r', accessTokenExpiresAt: '2027-01-15T08:15:00.000Z' }, NOW).accessExpiresAt).toBe(
+      Date.parse('2027-01-15T08:15:00.000Z'),
+    );
   });
 });
 

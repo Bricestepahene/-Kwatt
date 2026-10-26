@@ -6,6 +6,7 @@
 import { createStore, type StoreApi } from 'zustand/vanilla';
 import type { AccessSession } from '../navigation/access';
 import { readJson, STORAGE_KEYS, writeJson, type KeyValueStore } from '../storage/kv';
+import type { Me } from '@kwatt/protocol';
 import type { AuthResponse, AuthTokens, SessionUser } from '../api/types';
 
 export interface Tokens {
@@ -26,11 +27,13 @@ export interface SessionState {
   status: SessionStatus;
   data: SessionData | null;
   hydrate(): Promise<void>;
-  /** Nouvelle session (connexion, inscription, invité). */
+  /** Nouvelle session (connexion, inscription, invité, mot de passe réinitialisé). */
   signIn(response: AuthResponse): Promise<void>;
-  /** Jetons renouvelés. */
+  /** Jetons renouvelés (avec le profil à jour quand le serveur le joint). */
   setTokens(tokens: AuthTokens): Promise<void>;
   updateUser(patch: Partial<SessionUser>): Promise<void>;
+  /** Profil relu sur le serveur (GET /v1/me, vérification de l'e-mail…). */
+  applyMe(me: Me): Promise<void>;
   signOut(): Promise<void>;
 }
 
@@ -55,11 +58,25 @@ export function jwtExpiry(token: string): number | null {
 }
 
 export function tokensFrom(response: AuthTokens, now: number): Tokens {
-  const fromServer = typeof response.expiresIn === 'number' ? now + response.expiresIn * 1000 : null;
+  const fromTtl = typeof response.expiresIn === 'number' ? now + response.expiresIn * 1000 : null;
+  const at = typeof response.accessTokenExpiresAt === 'string' ? Date.parse(response.accessTokenExpiresAt) : NaN;
+  const fromDate = Number.isFinite(at) ? at : null;
   return {
     accessToken: response.accessToken,
     refreshToken: response.refreshToken,
-    accessExpiresAt: fromServer ?? jwtExpiry(response.accessToken) ?? now + DEFAULT_ACCESS_TTL_S * 1000,
+    accessExpiresAt: fromTtl ?? fromDate ?? jwtExpiry(response.accessToken) ?? now + DEFAULT_ACCESS_TTL_S * 1000,
+  };
+}
+
+/** Joueur gardé sur l'appareil, tiré du profil du serveur (`Me` de @kwatt/protocol). */
+export function userFromMe(me: Me): SessionUser {
+  return {
+    id: me.id,
+    kind: me.kind,
+    pseudo: me.pseudo,
+    ageBand: me.ageGroup,
+    emailVerified: me.emailVerified,
+    locale: me.locale,
   };
 }
 
@@ -103,15 +120,24 @@ export function createSessionStore(storage: KeyValueStore, now: () => number = D
         set({ data, status: statusOf(data) });
       },
       async signIn(response) {
-        const data: SessionData = { tokens: tokensFrom(response, now()), user: response.user };
+        const data: SessionData = { tokens: tokensFrom(response, now()), user: userFromMe(response.me) };
         set({ data, status: statusOf(data) });
         await save(data);
       },
       async setTokens(tokens) {
         const current = get().data;
         if (!current) return;
-        const data: SessionData = { ...current, tokens: tokensFrom(tokens, now()) };
-        set({ data });
+        // Le renouvellement joint le profil : il suit (vérification de l'e-mail faite ailleurs…).
+        const user = tokens.me && tokens.me.id === current.user.id ? userFromMe(tokens.me) : current.user;
+        const data: SessionData = { tokens: tokensFrom(tokens, now()), user };
+        set({ data, status: statusOf(data) });
+        await save(data);
+      },
+      async applyMe(me) {
+        const current = get().data;
+        if (!current || current.user.id !== me.id) return;
+        const data: SessionData = { ...current, user: userFromMe(me) };
+        set({ data, status: statusOf(data) });
         await save(data);
       },
       async updateUser(patch) {

@@ -1,6 +1,6 @@
-/** Écran provisoire : voir ROUTES.md (clé « avatarStudio »). */
-import { PlaceholderScreen } from '@/navigation/PlaceholderScreen';
+/** Écran 10 · Studio d'avatar (planche AvatarStudio). */
+import { StudioScreen } from '@/features/profile/StudioScreen';
 
 export default function AvatarStudioScreen() {
-  return <PlaceholderScreen routeKey="avatarStudio" />;
+  return <StudioScreen />;
 }

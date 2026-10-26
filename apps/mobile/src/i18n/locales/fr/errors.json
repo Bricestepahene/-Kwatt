@@ -16,7 +16,28 @@
     "email_not_verified": "Vérifie d'abord ton adresse e-mail.",
     "code_invalid": "Code incorrect.",
     "code_expired": "Ce code a expiré : demande-en un nouveau.",
-    "too_many_attempts": "Trop d'essais : demande un nouveau code."
+    "too_many_attempts": "Trop d'essais : demande un nouveau code.",
+    "required": "Connecte-toi pour continuer.",
+    "token_invalid": "Ta session n'est plus valable : reconnecte-toi.",
+    "token_expired": "Ta session a expiré : reconnecte-toi.",
+    "session_revoked": "Tu as été déconnecté : reconnecte-toi.",
+    "email_taken": "Cette adresse a déjà un profil. Connecte-toi, ou utilise une autre adresse.",
+    "pseudo_taken": "Ce pseudo est déjà pris.",
+    "pseudo_invalid": "Pseudo : 3 à 20 caractères, lettres, chiffres, « _ » et « . ».",
+    "pseudo_banned": "Ce pseudo n'est pas permis.",
+    "password_too_short": "Le mot de passe doit faire {{min}} caractères au moins.",
+    "too_young": "Moins de 13 ans : pas de profil. Tu peux jouer en invité avec un code.",
+    "birth_year_invalid": "Cette année de naissance n'est pas possible.",
+    "consent_required": "Accepte les règles du quartier et la politique de confidentialité.",
+    "code_resend_too_soon": "Attends une minute avant de redemander un code.",
+    "already_verified": "Ton adresse est déjà vérifiée.",
+    "refresh_invalid": "Ta session n'est plus valable : reconnecte-toi.",
+    "refresh_expired": "Ta session a expiré : reconnecte-toi.",
+    "refresh_reused": "Par sécurité, tes sessions sur cet appareil ont été fermées : reconnecte-toi.",
+    "reset_token_invalid": "Cette réinitialisation a expiré : recommence.",
+    "wrong_password": "Mot de passe incorrect.",
+    "verification_required": "Vérifie d'abord ton adresse e-mail.",
+    "device_required": "Cet appareil n'a pas pu être identifié. Relance l'appli."
   },
   "validation": {
     "invalid": "Vérifie les champs en rouge."
@@ -24,8 +45,186 @@
   "room": {
     "not_found": "Code inconnu : vérifie avec ton ami.",
     "full": "Salon plein : tu peux regarder à la place.",
-    "started": "La partie a déjà commencé."
+    "started": "La partie a déjà commencé.",
+    "closed": "Ce salon est fermé.",
+    "invalid_settings": "Ces réglages ne vont pas ensemble : vérifie la table.",
+    "not_host": "Seul l'hôte lance la partie.",
+    "not_member": "Tu n'es plus dans ce salon.",
+    "seat_taken": "Cette place vient d'être prise : choisis-en une autre.",
+    "not_enough_players": "Il faut {{min}} joueurs à table pour lancer.",
+    "not_ready": "Tout le monde n'est pas encore prêt.",
+    "playing": "Une partie est déjà en cours.",
+    "invite_refused": "Tu ne peux inviter que tes amis."
   },
   "rate_limited": "Doucement ! Réessaie dans une minute.",
-  "not_found": "Introuvable."
+  "not_found": "Introuvable.",
+  "shop": {
+    "item_not_found": "Cet objet n'existe plus dans la boutique.",
+    "not_for_sale": "Cet objet ne s'achète pas : il se gagne.",
+    "already_owned": "Cet objet est déjà à toi.",
+    "rank_too_low": "Ton échelon est encore trop bas pour cet objet.",
+    "sold_out": "Épuisé : cette édition limitée ne reviendra pas.",
+    "insufficient_funds": "Il te manque {{missing}} cauris."
+  },
+  "profiles": {
+    "not_found": "Ce profil n'est pas visible."
+  },
+  "avatar": {
+    "not_owned": "Certaines pièces ne sont pas encore à toi : achète-les d'abord.",
+    "invalid_item": "Cette pièce ne va pas à cette place."
+  },
+  "photo": {
+    "missing": "Ajoute d'abord une photo.",
+    "invalid_image": "Image illisible ou trop petite : choisis-en une autre.",
+    "not_found": "Aucune photo à vérifier."
+  },
+  "media": {
+    "too_large": "Fichier trop lourd : choisis une image plus légère.",
+    "unsupported_type": "Format non accepté : choisis une photo.",
+    "missing_file": "Aucune image reçue : réessaie."
+  },
+  "common": {
+    "internal": "Le serveur a un souci. Réessaie dans un instant.",
+    "not_found": "Introuvable.",
+    "validation": "Vérifie les champs en rouge.",
+    "bad_request": "Demande mal formée. Réessaie.",
+    "rate_limited": "Doucement ! Réessaie dans un instant.",
+    "forbidden": "Tu n'as pas accès à cette action.",
+    "payload_too_large": "C'est trop lourd à envoyer.",
+    "unsupported_media_type": "Format non accepté.",
+    "unavailable": "Le service est momentanément indisponible. Réessaie dans un instant."
+  },
+  "profile": {
+    "pseudo_change_too_soon": "Tu as changé de pseudo il y a moins de 30 jours.",
+    "settings_invalid": "Ces réglages n'ont pas pu être enregistrés.",
+    "deletion_already_requested": "La suppression de ton compte est déjà demandée."
+  },
+  "quarter": {
+    "not_found": "Ce quartier n'est plus dans la liste.",
+    "change_too_soon": "Tu as déjà changé de quartier cette saison."
+  },
+  "account": {
+    "display_name_invalid": "Nom : 2 à 20 caractères, lettres, chiffres, espaces.",
+    "display_name_banned": "Ce nom n'est pas permis."
+  },
+  "push": {
+    "token_invalid": "Les notifications n'ont pas pu être activées sur cet appareil."
+  },
+  "ludo": {
+    "setup": {
+      "unknown_preset": "Cette variante du Ludo n'existe pas.",
+      "players": "Nombre de joueurs impossible pour cette variante.",
+      "board_incompatible": "Ce plateau ne va pas avec cette variante : leurs parcours sont pensés pour 4.",
+      "throw_incompatible": "Le Pachisi se joue aux cauris, les autres variantes au dé : ce réglage est bloqué.",
+      "pachisi_players": "Le Pachisi se joue à 4, en deux équipes.",
+      "pachisi_teams": "Le Pachisi se joue toujours en équipes de 2.",
+      "teams_not_allowed": "Pas d'équipes dans cette variante.",
+      "teams_odd": "Pas d'équipes avec un nombre de joueurs impair.",
+      "teams_size": "Taille d'équipe impossible pour cette variante.",
+      "teams_partition": "Chaque joueur doit être dans une seule équipe.",
+      "teams_facing": "Les partenaires se font face sur le plateau.",
+      "house_option": "Ce réglage n'existe pas sur ce plateau.",
+      "barrier_lock": "Barrières avec « sortie au 6 » sans « un 6 ouvre la barrière » : la partie pourrait se bloquer à vie."
+    },
+    "roll": {
+      "not_now": "Ce n'est pas le moment de lancer.",
+      "invalid_value": "Lancer impossible."
+    },
+    "move": {
+      "not_now": "Ce n'est pas le moment de jouer.",
+      "illegal": "Ce pion ne peut pas jouer ce coup."
+    },
+    "seat": {
+      "invalid": "Cette place n'existe pas."
+    },
+    "house_rules": {
+      "not_found": "Ces règles maison n'existent plus.",
+      "name_taken": "Tu as déjà des règles de ce nom.",
+      "limit": "Tu as déjà {{max}} jeux de règles : supprimes-en un d'abord.",
+      "empty": "Ces réglages sont ceux de la variante : rien à enregistrer."
+    }
+  },
+  "machine": {
+    "invalid_game": "Partie refusée : le serveur ne retrouve pas les mêmes coups.",
+    "invalid_variant": "Cette variante ne se joue pas ici.",
+    "difficulty_locked": "Difficulté verrouillée : elle s'ouvre à l'échelon Chef.",
+    "rating_mismatch": "Ta force a changé depuis la partie : elle n'a pas pu être validée.",
+    "result_conflict": "Ce résultat a déjà été envoyé autrement.",
+    "invalid_bet": "Pari refusé : vérifie le montant."
+  },
+  "puzzle": {
+    "wrong_day": "Le problème a changé : un nouveau jour a commencé.",
+    "not_found": "Pas de problème disponible aujourd'hui."
+  },
+  "league": {
+    "not_found": "Ligue introuvable : vérifie le code.",
+    "guest": "Crée ton profil pour créer une ligue.",
+    "underage": "Les ligues publiques sont réservées aux 18 ans et plus.",
+    "rank_too_low": "Ton échelon est trop bas pour cette ligue.",
+    "places_invalid": "Nombre de places refusé : de 4 à 64, de 2 en 2.",
+    "entry_invalid": "Entrée refusée : de 50 à 1 000 cauris, de 50 en 50.",
+    "caution_above_balance": "Ta caution dépasse ton solde : baisse le nombre de places.",
+    "settings_invalid": "Ces réglages ne vont pas ensemble : vérifie les poules, les dates et les planches.",
+    "full": "La ligue est complète.",
+    "guest_paid": "Crée ton profil pour jouer une ligue avec entrée.",
+    "guest_public": "Crée ton profil pour jouer une ligue publique.",
+    "underage_paid": "Les ligues avec entrée sont réservées aux 18 ans et plus.",
+    "insufficient_balance": "Tu n'as pas assez de cauris pour l'entrée.",
+    "same_device": "Un autre compte de cet appareil joue déjà cette ligue.",
+    "already_member": "Tu es déjà inscrit à cette ligue.",
+    "not_member": "Tu ne joues pas dans cette ligue.",
+    "not_creator": "Seul le créateur de la ligue peut faire ça.",
+    "wrong_status": "Pas possible à cette étape de la ligue.",
+    "not_enough_players": "Pas assez d'inscrits pour lancer la ligue.",
+    "creator_cannot_leave": "Le créateur ne quitte pas sa ligue : il peut l'annuler.",
+    "match_not_found": "Match introuvable.",
+    "not_in_match": "Tu ne joues pas ce match.",
+    "too_late": "Trop tard pour changer : le match est trop proche.",
+    "too_early": "La salle n'est pas encore ouverte : elle ouvre 15 minutes avant le match.",
+    "time_invalid": "Choisis l'une des heures proposées.",
+    "board_not_allowed": "Cette planche n'est pas permise ici, ou ce n'est pas à toi de choisir.",
+    "games_unavailable": "Tu es bien arrivé : la partie démarre dès que le service des parties revient."
+  },
+  "competition": {
+    "boards_empty": "Choisis au moins une planche.",
+    "imposed_single_board": "Une planche imposée : une seule planche.",
+    "default_not_allowed": "La planche par défaut doit faire partie des planches permises.",
+    "board_not_allowed": "Cette planche n'est pas permise dans ce type de compétition."
+  },
+  "game": {
+    "not_found": "Cette partie n'existe plus.",
+    "over": "La partie est terminée.",
+    "not_your_turn": "Ce n'est pas ton tour.",
+    "not_a_player": "Tu regardes cette partie : tu n'y joues pas.",
+    "stale": "La partie a avancé : on remet le plateau à jour.",
+    "illegal_move": "Ce coup n'est pas permis.",
+    "roll_not_now": "Ce n'est pas le moment de lancer.",
+    "draw_too_soon": "Trop tôt pour proposer la nulle.",
+    "no_draw_offer": "Aucune nulle proposée.",
+    "reaction_unknown": "Réaction inconnue.",
+    "machine_invalid": "Ces réglages ne vont pas contre la machine."
+  },
+  "stake": {
+    "guest": "Les mises sont réservées aux profils.",
+    "underage": "Les mises sont réservées aux 18 ans et plus.",
+    "email_unverified": "Vérifie ton adresse e-mail pour miser.",
+    "invalid": "Mise invalide.",
+    "above_cap": "Mise trop haute : {{max}} cauris au plus.",
+    "same_device": "Pas de mise entre deux comptes du même appareil.",
+    "insufficient": "Pas assez de cauris pour cette mise."
+  },
+  "challenge": {
+    "not_found": "Ce défi n'existe plus.",
+    "closed": "Ce défi est déjà réglé ou a expiré.",
+    "not_yours": "C'est à l'autre joueur de répondre.",
+    "self": "Tu ne peux pas te défier toi-même.",
+    "blocked": "Défi impossible avec ce joueur.",
+    "not_friend": "Tu ne peux défier que tes amis, ou demander la revanche."
+  },
+  "prediction": {
+    "closed": "Les pronostics sont fermés.",
+    "player": "Tu joues cette partie : pas de pronostic.",
+    "already": "Tu as déjà pronostiqué.",
+    "invalid_seat": "Ce joueur n'est pas à la table."
+  }
 }

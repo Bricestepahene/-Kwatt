@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { DamesGameScreen } from '@/features/dames/GameScreen';
 import { restoreLocalDames } from '@/features/dames/machineGame';
 import type { DamesController } from '@/features/dames/useDamesGame';
-import { getController, resolveController } from '@/features/game/registry';
+import { getController, resolveControllerReady, unregisterController } from '@/features/game/registry';
 import { EmptyState, LoadingState, Screen } from '@/ui';
 
 export default function PartieDamesScreen() {
@@ -21,16 +21,22 @@ export default function PartieDamesScreen() {
   useEffect(() => {
     if (controller || !id) return;
     let alive = true;
-    void restoreLocalDames(id).then((local) => {
+    void (async () => {
+      const local = (await restoreLocalDames(id)) as DamesController | null;
+      const c = local ?? ((await resolveControllerReady('dames', id, { spectate: spectate === '1' })) as DamesController | undefined) ?? null;
       if (!alive) return;
-      const c = (local as DamesController | null) ?? (resolveController('dames', id, { spectate: spectate === '1' }) as DamesController | undefined) ?? null;
       if (c) setController(c);
       else setMissing(true);
-    });
+    })();
     return () => {
       alive = false;
     };
   }, [id, controller, spectate]);
+
+  // Partie distante : on se désabonne en quittant l'écran (la partie continue sur le serveur).
+  useEffect(() => () => {
+    if (id && getController(id)?.kind === 'remote') unregisterController(id);
+  }, [id]);
 
   if (controller) return <DamesGameScreen controller={controller} />;
   return (

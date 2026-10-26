@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { useTheme } from '@/theme';
 import { EmptyState, GameBand, LoadingState } from '@/ui';
-import { getController, resolveController, unregisterController } from '../game/registry';
+import { getController, resolveControllerReady, unregisterController } from '../game/registry';
 import { LudoGameScreen, type LudoController } from './GameScreen';
 import { resumeLocalLudo } from './local/runtime';
 
@@ -26,7 +26,7 @@ export function LudoGameRoute() {
     if (!controller) {
       void (async () => {
         const local = await resumeLocalLudo(id);
-        const c = (local as LudoController | undefined) ?? (resolveController('ludo', id, params.spectate === '1' ? { spectate: true } : undefined) as LudoController | undefined);
+        const c = (local as LudoController | undefined) ?? ((await resolveControllerReady('ludo', id, params.spectate === '1' ? { spectate: true } : undefined)) as LudoController | undefined);
         if (alive) setController(c ?? null);
       })();
     }

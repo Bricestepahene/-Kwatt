@@ -12,9 +12,12 @@ import {
 import type { FastifyPluginAsync } from 'fastify';
 import { parse } from '../../lib/validate.js';
 import { requireAuth } from '../auth/plugin.js';
+import { RewardsService } from '../rewards/service.js';
 import { dailyFor, solveDaily } from './service.js';
 
 const puzzlesRoutes: FastifyPluginAsync = async (app) => {
+  const rewards = new RewardsService({ db: app.db, clock: app.clock, log: app.log, notifications: app.notifications });
+
   app.get('/v1/puzzles/daily', { preHandler: app.requireMember }, async (req): Promise<DailyPuzzleResponse> => {
     const { variant } = parse(DailyPuzzleQuerySchema, req.query);
     return dailyFor(app.db, requireAuth(req).userId, variant, app.clock.now());
@@ -25,7 +28,11 @@ const puzzlesRoutes: FastifyPluginAsync = async (app) => {
     { preHandler: app.requireMember, config: { rateLimit: { max: 30, timeWindow: '1 minute' } } },
     async (req): Promise<DailyPuzzleSolveResponse> => {
       const body = parse(DailyPuzzleSolveRequestSchema, req.body);
-      return solveDaily(app.db, requireAuth(req).userId, body, app.clock.now());
+      const userId = requireAuth(req).userId;
+      const res = await solveDaily(app.db, userId, body, app.clock.now());
+      // Un problème du jour tenté compte pour la série de jours (écran 40).
+      await rewards.recordActivity(userId).catch((err: unknown) => app.log.error({ err, userId }, 'série de jours non notée'));
+      return res;
     },
   );
 

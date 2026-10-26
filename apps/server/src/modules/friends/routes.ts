@@ -36,6 +36,11 @@ const friendsRoutes: FastifyPluginAsync = async (app) => {
   app.realtime.setPresenceAudience(friendsAudience(app.db));
   registerProfileRelation('friends', (db, viewerId, targetId) => areFriends(db, viewerId, targetId));
 
+  app.accounts.onErase('friends', async (tx, userId) => {
+    await tx.query('DELETE FROM friendships WHERE user_a = $1 OR user_b = $1', [userId]);
+    await tx.query('DELETE FROM friend_codes WHERE user_id = $1', [userId]);
+  });
+
   const member = { preHandler: app.requireMember };
   const me = (req: FastifyRequest) => {
     const auth = requireAuth(req);

@@ -26,6 +26,7 @@ import { LEAGUE_ERRORS } from './errors/leagues.js';
 import { GAME_ERRORS } from './errors/games.js';
 import { FRIEND_ERRORS } from './errors/friends.js';
 import { REPORT_ERRORS } from './errors/reports.js';
+import { PROGRESSION_ERRORS } from './errors/progression.js';
 
 export const ERROR_CODES = [
   ...COMMON_ERRORS,
@@ -45,6 +46,7 @@ export const ERROR_CODES = [
   ...GAME_ERRORS,
   ...FRIEND_ERRORS,
   ...REPORT_ERRORS,
+  ...PROGRESSION_ERRORS,
 ] as const;
 
 export type ErrorCode = (typeof ERROR_CODES)[number];

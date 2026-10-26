@@ -19,7 +19,7 @@ import type { Sql } from '../../db/pool.js';
 import { AppError } from '../../lib/errors.js';
 import { ageBand } from '../auth/age.js';
 import { balanceOf } from '../economy/ledger.js';
-import { countOwned } from '../shop/catalog.js';
+import { countCards } from '../cards/service.js';
 import { medalsOf, quarterOf } from './links.js';
 import { lookFromRow, lookRow } from './look.js';
 import { canViewProfile } from './visibility.js';
@@ -200,7 +200,7 @@ export async function loadProfile(app: FastifyInstance, viewerId: string, target
   const [quarter, medals, cards, cauris, stats] = await Promise.all([
     quarterOf(db, targetId),
     medalsOf(db, targetId),
-    countOwned(db, targetId, 'card'),
+    countCards(db, targetId),
     self ? balanceOf(db, targetId) : Promise.resolve(null),
     familyProfiles(db, targetId),
   ]);

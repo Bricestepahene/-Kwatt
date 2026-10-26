@@ -17,6 +17,8 @@ import { authPlugin } from './modules/auth/plugin.js';
 import { TokenService } from './modules/auth/tokens.js';
 import { modules } from './modules/index.js';
 import { MediaStore } from './modules/media/store.js';
+import { createMachinePlayer } from './modules/games/machine.js';
+import { GamesService } from './modules/games/service.js';
 import { AccountRegistry } from './modules/me/registry.js';
 import { ExpoPushSender, type PushSender } from './modules/notifications/push.js';
 import { NotificationService } from './modules/notifications/service.js';
@@ -95,6 +97,18 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   app.decorate('registerJob', jobs.register.bind(jobs));
   app.decorate('accounts', new AccountRegistry());
   app.decorate('media', new MediaStore(config.mediaDir, config.publicBaseUrl, config.mediaMaxBytes));
+  // Parties en ligne (C3) : partagées par les salons, les défis, les ligues et la communauté.
+  app.decorate(
+    'games',
+    new GamesService({
+      db: pool,
+      clock,
+      log: app.log,
+      hub: realtime,
+      machine: createMachinePlayer({ ludoAiUrl: config.env === 'test' ? null : config.ludoAiUrl, log: app.log }),
+      machineDelayMs: config.env === 'test' ? 0 : 700,
+    }),
+  );
 
   await app.register(securityPlugin);
   await app.register(websocket, { options: { maxPayload: WS_MAX_PAYLOAD_BYTES } });

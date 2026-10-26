@@ -23,6 +23,7 @@ import { SHOP_ERRORS } from './errors/shop.js';
 import { ROOM_ERRORS } from './errors/rooms.js';
 import { LUDO_ERRORS } from './errors/ludo.js';
 import { LEAGUE_ERRORS } from './errors/leagues.js';
+import { GAME_ERRORS } from './errors/games.js';
 
 export const ERROR_CODES = [
   ...COMMON_ERRORS,
@@ -39,6 +40,7 @@ export const ERROR_CODES = [
   ...LUDO_ERRORS,
   ...DAMES_ERRORS,
   ...LEAGUE_ERRORS,
+  ...GAME_ERRORS,
 ] as const;
 
 export type ErrorCode = (typeof ERROR_CODES)[number];

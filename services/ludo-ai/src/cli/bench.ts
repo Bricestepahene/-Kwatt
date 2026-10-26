@@ -7,7 +7,7 @@
  * Le joueur A est au siège 0, B aux autres ; les places tournent à chaque donne
  * et chaque donne garde la même suite de lancers (nombres aléatoires communs).
  * Joueurs : level:<niveau>[:itérations] · random · heuristic:<exact|fast|none> ·
- * emx:<maxn|paranoid>:<profondeur> · mcts:<itérations>.
+ * emx:<maxn|paranoid>:<profondeur>[:poids=valeur,…] · mcts:<itérations>.
  * Avec --sprt p0,p1 : test séquentiel sur les victoires de A (un seul fil).
  */
 import { eloFromScore, LEVELS, runMatch, type Level, type MatchResult } from '@kwatt/ludo-ai';
@@ -15,7 +15,7 @@ import { PRESET_IDS, type NewGameOptions, type Preset } from '@kwatt/rules-ludo'
 import { defaultWorkers, isMain, runPooled, specLabel, toPlayer, type PlayerSpec } from './pool.js';
 
 export function parseSpec(text: string): PlayerSpec {
-  const [kind, a, b] = text.split(':');
+  const [kind, a, b, c] = text.split(':');
   switch (kind) {
     case 'level':
       if (!LEVELS.includes(a as Level)) throw new Error(`niveau inconnu : ${a}`);
@@ -25,7 +25,12 @@ export function parseSpec(text: string): PlayerSpec {
     case 'heuristic':
       return { kind: 'heuristic', threats: (a ?? 'exact') as 'exact' | 'fast' | 'none' };
     case 'emx':
-      return { kind: 'expectimax', mode: (a ?? 'paranoid') as 'maxn' | 'paranoid', depth: Number(b ?? 2) };
+      return {
+        kind: 'expectimax',
+        mode: (a ?? 'paranoid') as 'maxn' | 'paranoid',
+        depth: Number(b ?? 2),
+        ...(c ? { weights: Object.fromEntries(c.split(',').map((kv) => [kv.split('=')[0]!, Number(kv.split('=')[1])])) } : {}),
+      };
     case 'mcts':
       return { kind: 'mcts', iters: Number(a ?? 400) };
     default:

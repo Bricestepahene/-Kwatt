@@ -7,11 +7,14 @@
  * - Moyen : un joueur du dimanche. Il voit les menaces à peu près, se trompe parfois.
  * - Coriace : l'heuristique complète, avec la probabilité exacte d'être pris.
  * - Ton niveau : expectimax (lancers suivants pesés exactement).
- * - Fon : MCTS sous budget de temps, le plus fort mesuré.
+ * - Fon : expectimax à trois coups (deux au moins), sous budget de temps.
+ *   Au banc d'essai, ni la profondeur 3, ni le mode maxn, ni le réglage des
+ *   poids ne battent nettement « Ton niveau » en Classique à 2 (50 % sur
+ *   600 parties) : au Ludo, le dé plafonne vite l'avantage de la réflexion.
+ *   Fon reste au moins aussi fort partout, sans l'écart du MCTS en Six.
  */
 import { expectimaxAgent } from './agents/expectimax.js';
 import { heuristicAgent } from './agents/heuristic.js';
-import { mctsAgent } from './agents/mcts.js';
 import type { Agent, Level } from './types.js';
 
 export interface LevelSpec {
@@ -42,7 +45,7 @@ export const LEVEL_SPECS: Record<Level, LevelSpec> = {
     budgetMs: 150,
   },
   fon: {
-    agent: mctsAgent({}, 'fon@1'),
+    agent: expectimaxAgent({ depth: 3, minDepth: 2, mode: 'paranoid' }, 'fon@2'),
     budgetMs: 400,
   },
 };

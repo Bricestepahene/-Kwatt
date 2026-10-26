@@ -59,6 +59,10 @@
       "challenge_declined": {
         "title": "Défi refusé",
         "body": "{{from}} décline ton défi."
+      },
+      "friend_request": {
+        "title": "Demande d'ami",
+        "body": "{{from}} veut t'ajouter en ami."
       }
     },
     "league": {
@@ -137,6 +141,18 @@
       "photo_rejected": {
         "title": "Photo refusée",
         "body": "Ta photo de profil n'a pas été acceptée : ton avatar reste affiché."
+      }
+    },
+    "friends": {
+      "accepted": {
+        "title": "Nouvel ami",
+        "body": "{{from}} a accepté ta demande."
+      }
+    },
+    "account": {
+      "warning": {
+        "title": "Avertissement",
+        "body": "La modération a reçu des signalements à ton sujet. Merci de respecter les règles du quartier."
       }
     }
   },

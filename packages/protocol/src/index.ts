@@ -25,3 +25,5 @@ export * from './http/leagues.js';
 export * from './ws/games.js';
 export * from './ws/rooms.js';
 export * from './http/challenges.js';
+export * from './http/friends.js';
+export * from './http/reports.js';

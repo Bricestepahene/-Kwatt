@@ -59,6 +59,10 @@
       "challenge_declined": {
         "title": "Challenge declined",
         "body": "{{from}} declines your challenge."
+      },
+      "friend_request": {
+        "title": "Friend request",
+        "body": "{{from}} wants to add you as a friend."
       }
     },
     "league": {
@@ -137,6 +141,18 @@
       "photo_rejected": {
         "title": "Photo declined",
         "body": "Your profile photo was not accepted: your avatar is still shown."
+      }
+    },
+    "friends": {
+      "accepted": {
+        "title": "New friend",
+        "body": "{{from}} accepted your request."
+      }
+    },
+    "account": {
+      "warning": {
+        "title": "Warning",
+        "body": "Moderators received reports about you. Please follow the community rules."
       }
     }
   },
